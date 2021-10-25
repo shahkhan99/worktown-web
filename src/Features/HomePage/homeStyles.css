@@ -1,0 +1,264 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@700&display=swap");
+.header {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+h1 {
+  font-size: 40px;
+  font-family: "Poppins", sans-serif;
+
+  /* font-weight: bold; */
+}
+.top {
+  margin-top: 10px;
+  height: 20%;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header-logo {
+  height: 100px;
+  width: 100px;
+}
+.center {
+  height: 15%;
+  width: 42%;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.center h1 {
+  color: #fff;
+  font-size: 44px !important;
+  display: inline;
+}
+.bottom {
+  height: 65%;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.header-vector {
+  width: 50%;
+  margin-bottom: 10px;
+}
+.wait-btn {
+  height: 50px;
+  width: 150px;
+  background-color: #ffcb05;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  border-width: 0;
+  font-size: 14px;
+}
+.wait-btn:focus {
+  outline: 0 !important;
+}
+.wait-btn:hover {
+  background-color: #ffe26f;
+}
+.italic {
+  font-size: 44px !important;
+  color: #fff;
+  font-weight: 700 !important;
+  font-style: italic;
+}
+
+.even-section {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.odd-section {
+  display: flex;
+  flex-direction: row-reverse;
+  height: 100%;
+}
+
+.transparent-bg {
+  width: 47%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+.text-div {
+  width: 50%;
+  height: 80%;
+}
+.text-div p {
+  color: #868686;
+  font-size: 26px;
+  line-height: 31px;
+  font-family: "Lato";
+  letter-spacing: 2px;
+  font-weight: 300;
+}
+.text-div h1 {
+  line-height: 60px;
+}
+.color-bg {
+  width: 53%;
+}
+.vector-img {
+  height: 52%;
+  width: 70%;
+}
+.vector-div {
+  display: flex;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  justify-content: flex-end;
+}
+.animated-div {
+  width: 70%;
+}
+.animated-text {
+  font-weight: 700 !important;
+  font-family: "Poppins", sans-serif;
+}
+.last-section {
+  height: 100%;
+  width: 100%;
+  background: #772ada;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.last-vector {
+  width: 95%;
+  height: 80%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.last-vector-image {
+  margin-top: 20px;
+  width: 80%;
+}
+.last-line {
+  height: 20%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80%;
+  align-items: center;
+}
+.logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.last-text {
+  font-size: 17px;
+  font-weight: 700;
+  font-family: "Poppins";
+  margin-left: 20px;
+  color: #fff;
+}
+.simple-logo {
+  height: 80px;
+  width: 80px;
+}
+@media only screen and (max-width: 1366px) {
+  .center {
+    width: 60%;
+  }
+  .text-div {
+    width: 75%;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .top {
+    height: 20%;
+  }
+  .header-logo {
+    height: 50px;
+    width: 50px;
+  }
+  .wait-btn {
+    height: 30px;
+    width: 80px;
+    font-size: 8px;
+  }
+  .center {
+    width: 80%;
+    height: 40%;
+    display: flex;
+    justify-content: center;
+  }
+  .center h1 {
+    font-size: 24px !important;
+  }
+  .header-vector {
+    width: 80%;
+  }
+  .even-section {
+    flex-direction: column;
+  }
+  .odd-section {
+    flex-direction: column;
+  }
+  .transparent-bg {
+    width: 100%;
+    height: 60%;
+  }
+  .color-bg {
+    width: 100%;
+    height: 40%;
+  }
+  .text-div {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .text-div h1 {
+    font-size: 24px;
+    line-height: 25px;
+  }
+  .animated-div h1 {
+    font-size: 24px;
+    line-height: 25px;
+  }
+  .animated-div {
+    width: 100%;
+  }
+  .text-div p {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .vector-img {
+    width: 90%;
+  }
+  .last-line {
+    width: 90% !important;
+  }
+  .last-text {
+    font-size: 6px;
+    margin-left: 10px;
+  }
+  .simple-logo {
+    height: 30px;
+    width: 30px;
+  }
+  .last-vector {
+    align-items: center;
+    justify-content: center;
+  }
+  .last-vector-image {
+    width: 95%;
+  }
+}
