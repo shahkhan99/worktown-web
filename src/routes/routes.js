@@ -24,7 +24,7 @@ let Routes = () => {
         <Route path="/cfo" component={CFOPage} /> */}
 
         <Route path="/" exact component={HomePage} />
-        <Route path="/waitList" component={AppSignUp} />
+        <Route path="/waitList" exact component={AppSignUp} />
 
         {/* <ProtectedRoute path="/@dm!n" component={IndividualDashboard} /> */}
       </Switch>

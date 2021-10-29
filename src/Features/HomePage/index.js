@@ -7,6 +7,7 @@ import Logo from "../../assets/Logo/logo.png";
 import simpleLogo from "../../assets/Logo/simpleLogo.png";
 import Vector1 from "../../assets/Vectors/vector1.png";
 import Vector9 from "../../assets/Vectors/vector9.png";
+import ArrowIcon from "../../assets/icons/top.png";
 
 import TextTransition, { presets } from "react-text-transition";
 
@@ -35,12 +36,12 @@ class HomePage extends React.Component {
         tittle: "Community-first from the ground up",
         body: "We’re creating a super community of storytellers, founders, dreamers, forward-thinkers, misfits, rebels, entrepreneurs, graduates, employees, investors, polyworkers, problem solvers, yay-sayers, coders, designers, freelancers, stargazers and storm-chasers",
         vector: Vector1,
-        colorCode: "#FFCB08",
+        colorCode: "#F0BD3A",
       },
       {
         id: 3,
         tittle: "A not-so-professional network",
-        body: "Professional networks are decades old and feel out-of-place - Worktown wants to make them exciting and relevant. And we think everyone’s smart enough to get their voice heard",
+        body: "Professional networks are decades old and feel out-of-place. Worktown wants to make it exciting and relevant. And we think everyone’s smart enough to know what works for them.",
         vector: Vector1,
         colorCode: "#128779",
       },
@@ -49,7 +50,7 @@ class HomePage extends React.Component {
         tittle: "Where you’re not defined by your job title",
         body: "That is a super-narrow expression of who you are. Let the world know how much more you can bring to the table than a piece of paper",
         vector: Vector1,
-        colorCode: "#CC2F42",
+        colorCode: "#F15925",
       },
       {
         id: 5,
@@ -61,16 +62,16 @@ class HomePage extends React.Component {
       {
         id: 6,
         tittle: "Showcase the real ‘you’",
-        body: "We stay true to who we are. We live on our own terms and are not destined for a single-track identity. Ever stopped to wonder that you do more than one type of work? With Worktown, you don’t have to worry about job titles and descriptions that don't fit your work - add projects, highlights, list your wins (even failures), humble beginnings that reveal your truly authentic self",
+        body: "Stay true to who you are. Be authentic. Live on your own terms because we’re not destined for a single-track identity. Ever stopped to wonder that you do more than one type of work?",
         vector: Vector1,
-        colorCode: "#F15925",
+        colorCode: "#CC2F42",
       },
       {
         id: 4,
         tittle: "Fall in love with work all over again",
-        body: "The work we do is an extension of ourselves and the people around us. We want to work and live on our own terms, and are not destined for a single-track identity.",
+        body: "The work we do is an extension of ourselves and the people around us. Let us help you make a difference because the world needs to know who you are and what you can do.",
         vector: Vector1,
-        colorCode: "#73203E",
+        colorCode: "#204751",
       },
     ],
   };
@@ -92,12 +93,6 @@ class HomePage extends React.Component {
       );
     }
   }
-  // componentDidMount() {
-  //   this.intervalId = setInterval(
-  //     this.setState({ index: this.state.index + 1 }),
-  //     3000 // every 3 seconds
-  //   );
-  // }
 
   render() {
     return (
@@ -116,12 +111,9 @@ class HomePage extends React.Component {
                       <img src={Logo} className="header-logo" />
                     </div>
                     <div className="wait-button">
-                      <button
-                        className="wait-btn"
-                        onClick={() => window.open(`/waitList`, "_self")}
-                      >
+                      <a href="/waitList" className="wait-btn">
                         Join the waitlist
-                      </button>
+                      </a>
                     </div>
                   </div>
                   <div className="center">
@@ -218,7 +210,17 @@ class HomePage extends React.Component {
               <div className="section">
                 <div className="last-section">
                   <div className="last-vector">
+                    <h1>It takes a town to make great things happen</h1>
                     <img src={Vector9} className="last-vector-image" />
+                    <div
+                      onClick={() => fullpageApi.moveTo(1, 0)}
+                      className="top-btn up "
+                    >
+                      <img
+                        src={ArrowIcon}
+                        style={{ height: "60px", width: "60px" }}
+                      />
+                    </div>
                   </div>
                   <div className="last-line">
                     <div className="logo">
@@ -228,18 +230,12 @@ class HomePage extends React.Component {
                       </p>
                     </div>
                     <div className="wait-button">
-                      <button
-                        className="wait-btn"
-                        onClick={() => window.open(`/waitList`, "_self")}
-                      >
+                      <a href="/waitList" className="wait-btn">
                         Join the waitlist
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </div>
-                {/* <button onClick={() => fullpageApi.moveTo(2, 0)}>
-                  Move top
-                </button> */}
               </div>
             </div>
           );

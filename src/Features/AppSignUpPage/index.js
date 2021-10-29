@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import swal from "sweetalert";
-import signUpImg from '../../assets/images/signup.png';
-import img1 from '../../assets/images/img1.png';
-import img2 from '../../assets/images/img2.png';
-import img3 from '../../assets/images/img3.png';
+import signUpImg from "../../assets/images/signup.png";
+import img1 from "../../assets/images/img1.png";
+import img2 from "../../assets/images/img2.png";
+import img3 from "../../assets/images/img3.png";
+import Vector1 from "../../assets/Vectors/vector1.png";
+
 import { emailCheck, nameCheck, phoneCheck, desCheck } from "./validation";
 // CSS
 import "./style.css";
@@ -38,43 +40,34 @@ class AppSignUp extends Component {
     },
     count: 0,
   };
-  counterFn=()=>{
-    const counter = document.querySelector('.value');
+  counterFn = () => {
+    const counter = document.querySelector(".value");
     const speed = 500;
 
-
-   const animate = () => {
+    const animate = () => {
       const value = 100;
-      const data = +counter.innerText ;
-      
+      const data = +counter.innerText;
+
       const time = value / speed;
-    
-     if(data < value) {
-        counter.innerText  = Math.ceil(data + time);
-          if(!this.state.count){
+
+      if (data < value) {
+        counter.innerText = Math.ceil(data + time);
+        if (!this.state.count) {
           setTimeout(animate, 50);
-          }
         }
-       
-      
-      
-     
-   }
-   
-   animate();
+      }
+    };
 
-
-  }
+    animate();
+  };
   submitHandler = () => {
     const { nameValid, occupationValid, emailValid, phoneValid } =
       this.state.errorMessage;
     const { name, occupation, email, phone } = this.state;
     const formIsValid =
       nameValid && occupationValid && emailValid && phoneValid;
-    
 
     if (!formIsValid) {
-      
       return;
     }
 
@@ -89,7 +82,6 @@ class AppSignUp extends Component {
         icon: "success",
       }).then(() => this.clearForm());
     });
-   
   };
   toUpperCase = (phrase) => {
     return phrase
@@ -105,7 +97,7 @@ class AppSignUp extends Component {
     if (isValid) {
       if (stateKey === "name") {
         let result = this.toUpperCase(value);
-       
+
         this.setState({
           [stateKey]: result,
           errorMessage: {
@@ -166,15 +158,11 @@ class AppSignUp extends Component {
       await doc.loadInfo();
 
       const sheet = doc.sheetsById[SHEET_ID];
-      const rows = (await sheet.getRows()).length+1;
-    
-     
+      const rows = (await sheet.getRows()).length + 1;
 
-
-  
-  this.setState({ count: rows },()=>{ document.querySelector('.value').innerText=this.state.count});
-
-  
+      this.setState({ count: rows }, () => {
+        document.querySelector(".value").innerText = this.state.count;
+      });
     } catch (e) {
       console.error("Error: ", e);
     }
@@ -183,12 +171,8 @@ class AppSignUp extends Component {
   componentDidMount() {
     this.readRows();
     this.counterFn();
-      
-    
   }
-  componentDidUpdate(){
-   
-  }
+  componentDidUpdate() {}
 
   render() {
     let { name, occupation, email, phone, error } = this.state;
@@ -210,7 +194,7 @@ class AppSignUp extends Component {
           <form className="a-reg-form">
             <div class="a-upper-input">
               <div className="a-c-reg-text">
-                <h1>Sign up</h1>
+                <h1>Waitlist</h1>
               </div>
               <div className="a-input-field">
                 <input
@@ -305,7 +289,7 @@ class AppSignUp extends Component {
 
         {/* rightpanel */}
         <div className="a-side-panel">
-          <img className="a-reg-img" src={signUpImg} />
+          {/* <img className="a-reg-img" src={signUpImg} /> */}
           <div className="a-side-text">
             <h1> Welcome to our community</h1>
             <br />
@@ -319,21 +303,14 @@ class AppSignUp extends Component {
 
             <div className="a-side-image-panel">
               <div className="a-side-images">
-                <img
-                  className="a-side-image"
-                  src={img1}
-                ></img>
-                <img
-                  className="a-side-image"
-                  src={img2}
-                ></img>
-                <img
-                  className="a-side-image"
-                  src={img3}
-                ></img>
+                <img className="a-side-image" src={img1}></img>
+                <img className="a-side-image" src={img2}></img>
+                <img className="a-side-image" src={img3}></img>
               </div>
 
-              <p><span className="value">0</span> members have joined.</p>
+              <p>
+                <span className="value">0</span> members have joined.
+              </p>
             </div>
           </div>
         </div>
@@ -341,6 +318,10 @@ class AppSignUp extends Component {
         {/* <div className="a-reg-frame">
           <img className="a-reg-frame-img" src={require("./pic.png")} />
         </div> */}
+
+        <div className="w-vector-div">
+          <img src={Vector1} className="w-vector-img" />
+        </div>
       </div>
     );
   }

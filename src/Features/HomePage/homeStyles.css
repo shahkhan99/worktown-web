@@ -22,7 +22,7 @@ h1 {
   align-items: center;
 }
 .header-logo {
-  height: 100px;
+  height: 115px;
   width: 100px;
 }
 .center {
@@ -49,6 +49,7 @@ h1 {
   margin-bottom: 10px;
 }
 .wait-btn {
+  padding: 15px 20px;
   height: 50px;
   width: 150px;
   background-color: #ffcb05;
@@ -58,6 +59,7 @@ h1 {
   cursor: pointer;
   border-width: 0;
   font-size: 14px;
+  text-decoration: none;
 }
 .wait-btn:focus {
   outline: 0 !important;
@@ -92,7 +94,7 @@ h1 {
   flex-direction: column;
 }
 .text-div {
-  width: 50%;
+  width: 60%;
   height: 80%;
 }
 .text-div p {
@@ -121,7 +123,7 @@ h1 {
   justify-content: flex-end;
 }
 .animated-div {
-  width: 70%;
+  width: 60%;
 }
 .animated-text {
   font-weight: 700 !important;
@@ -130,25 +132,31 @@ h1 {
 .last-section {
   height: 100%;
   width: 100%;
-  background: #772ada;
+  background: #f09222;
   justify-content: center;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .last-vector {
-  width: 95%;
-  height: 80%;
+  width: 100%;
+  height: 85%;
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.last-vector h1 {
+  color: #fff;
+  width: 30%;
+  text-align: center;
 }
 .last-vector-image {
   margin-top: 20px;
-  width: 80%;
+  width: 55%;
 }
 .last-line {
-  height: 20%;
+  height: 15%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -178,6 +186,13 @@ h1 {
   .text-div {
     width: 75%;
   }
+  .animated-div {
+    width: 80%;
+  }
+  .last-vector h1 {
+    font-size: 38px !important;
+    width: 40%;
+  }
 }
 
 @media only screen and (max-width: 420px) {
@@ -186,16 +201,18 @@ h1 {
   }
   .header-logo {
     height: 50px;
-    width: 50px;
+    width: 40px;
   }
   .wait-btn {
     height: 30px;
     width: 80px;
+    padding: 10px 15px;
+
     font-size: 8px;
   }
   .center {
     width: 80%;
-    height: 40%;
+    height: 60%;
     display: flex;
     justify-content: center;
   }
@@ -213,12 +230,16 @@ h1 {
   }
   .transparent-bg {
     width: 100%;
-    height: 60%;
+    height: 50%;
   }
   .color-bg {
     width: 100%;
-    height: 40%;
+    height: 50%;
   }
+  .bottom {
+    height: 40% !important;
+  }
+
   .text-div {
     width: 90%;
     display: flex;
@@ -234,7 +255,7 @@ h1 {
     line-height: 25px;
   }
   .animated-div {
-    width: 100%;
+    width: 60%;
   }
   .text-div p {
     font-size: 14px;
@@ -256,9 +277,13 @@ h1 {
   }
   .last-vector {
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
   }
   .last-vector-image {
     width: 95%;
+  }
+  .last-vector h1 {
+    font-size: 24px !important;
+    width: 80%;
   }
 }
