@@ -58,8 +58,9 @@ h1 {
   font-weight: 700;
   cursor: pointer;
   border-width: 0;
-  font-size: 14px;
+  font-size: 15px;
   text-decoration: none;
+  font-family: Poppins !important;
 }
 .wait-btn:focus {
   outline: 0 !important;
@@ -72,6 +73,7 @@ h1 {
   color: #fff;
   font-weight: 700 !important;
   font-style: italic;
+  margin-right: 5px;
 }
 
 .even-section {
@@ -171,13 +173,23 @@ h1 {
 .last-text {
   font-size: 17px;
   font-weight: 700;
-  font-family: "Poppins";
+  font-family: "Lato";
   margin-left: 20px;
   color: #fff;
 }
 .simple-logo {
-  height: 80px;
-  width: 80px;
+  height: 115px;
+  width: 100px;
+}
+.welcome-div {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 @media only screen and (max-width: 1366px) {
   .center {
@@ -212,15 +224,16 @@ h1 {
   }
   .center {
     width: 80%;
-    height: 60%;
+    height: 50%;
     display: flex;
     justify-content: center;
   }
   .center h1 {
-    font-size: 24px !important;
+    font-size: 26px !important;
   }
   .header-vector {
-    width: 80%;
+    width: 100%;
+    margin-bottom: 20%;
   }
   .even-section {
     flex-direction: column;
@@ -230,16 +243,18 @@ h1 {
   }
   .transparent-bg {
     width: 100%;
-    height: 50%;
+    height: 70%;
   }
   .color-bg {
     width: 100%;
     height: 50%;
   }
   .bottom {
-    height: 40% !important;
+    height: 50% !important;
   }
-
+  .vector-div {
+    top: 52%;
+  }
   .text-div {
     width: 90%;
     display: flex;
@@ -247,22 +262,23 @@ h1 {
     justify-content: center;
   }
   .text-div h1 {
-    font-size: 24px;
+    font-size: 26px;
     line-height: 25px;
   }
   .animated-div h1 {
-    font-size: 24px;
+    font-size: 26px;
     line-height: 25px;
   }
   .animated-div {
     width: 60%;
   }
   .text-div p {
-    font-size: 14px;
+    font-size: 15px;
     line-height: 24px;
   }
   .vector-img {
-    width: 90%;
+    width: 100%;
+    height: 75%;
   }
   .last-line {
     width: 90% !important;

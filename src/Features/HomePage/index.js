@@ -7,7 +7,7 @@ import Logo from "../../assets/Logo/logo.png";
 import simpleLogo from "../../assets/Logo/simpleLogo.png";
 import Vector1 from "../../assets/Vectors/vector1.png";
 import Vector9 from "../../assets/Vectors/vector9.png";
-import ArrowIcon from "../../assets/icons/top.png";
+import ArrowIcon from "../../assets/icons/up-arrow.png";
 
 import TextTransition, { presets } from "react-text-transition";
 
@@ -27,14 +27,15 @@ class HomePage extends React.Component {
       {
         id: 1,
         tittle: "Land your first",
-        body: "We can’t promise that you will immediately, but if you stick around, you’ll see and meet remarkable people who aren’t any different from you",
+        body: "We can’t promise that you will immediately, but if you stick around, you’ll see and meet remarkable people who aren’t any different from you.",
         vector: Vector1,
         colorCode: "#3D459D",
       },
       {
         id: 2,
-        tittle: "Community-first from the ground up",
-        body: "We’re creating a super community of storytellers, founders, dreamers, forward-thinkers, misfits, rebels, entrepreneurs, graduates, employees, investors, polyworkers, problem solvers, yay-sayers, coders, designers, freelancers, stargazers and storm-chasers",
+        tittle: "Community-first ",
+        unstyled: " from the ground up",
+        body: "We’re creating a super community of storytellers, founders, dreamers, forward-thinkers, misfits, rebels, entrepreneurs, graduates, employees, investors, polyworkers, problem solvers, yay-sayers, coders, designers, freelancers, stargazers and storm-chasers.",
         vector: Vector1,
         colorCode: "#F0BD3A",
       },
@@ -48,14 +49,14 @@ class HomePage extends React.Component {
       {
         id: 4,
         tittle: "Where you’re not defined by your job title",
-        body: "That is a super-narrow expression of who you are. Let the world know how much more you can bring to the table than a piece of paper",
+        body: "That is a super-narrow expression of who you are. With Worktown, let the world know how much more you bring to the table than the arbitrary job titles and descriptions that don't fit your work.",
         vector: Vector1,
         colorCode: "#F15925",
       },
       {
         id: 5,
         tittle: "Why limit the way people see you?",
-        body: "Resumes are two-dimensional – they don’t talk much about who you are and how you’ve had to work your socks off to get to where you are. Worktown helps you show them what makes you ‘you’",
+        body: "Resumes are two-dimensional – they don’t talk much about who you are and how you’ve had to work your socks off to get to where you are. Worktown helps you show them what makes you ‘you’.",
         vector: Vector1,
         colorCode: "#81B541",
       },
@@ -88,8 +89,8 @@ class HomePage extends React.Component {
         () => {
           this.setState({ index: this.state.index + 1 });
         },
-        2000
-        // every 3 seconds
+        1300
+        // every 1.5 seconds
       );
     }
   }
@@ -174,7 +175,28 @@ class HomePage extends React.Component {
                               </h1>
                             </div>
                           ) : (
-                            <h1>{item.tittle}</h1>
+                            <h1
+                              style={
+                                i === 1
+                                  ? {
+                                      fontStyle: "italic",
+                                      fontWeight: "bolder",
+                                    }
+                                  : { fontStyle: "normal" }
+                              }
+                            >
+                              {item.tittle}
+
+                              <span
+                                style={{
+                                  fontStyle: "normal",
+                                  color: "black",
+                                  marginLeft: "5px",
+                                }}
+                              >
+                                {item.unstyled}
+                              </span>
+                            </h1>
                           )}
                           <br />
                           <p
@@ -218,15 +240,15 @@ class HomePage extends React.Component {
                     >
                       <img
                         src={ArrowIcon}
-                        style={{ height: "60px", width: "60px" }}
+                        style={{ height: "55px", width: "60px" }}
                       />
                     </div>
                   </div>
                   <div className="last-line">
                     <div className="logo">
-                      <img src={simpleLogo} className="simple-logo" />
+                      <img src={Logo} className="simple-logo" />
                       <p className="last-text">
-                        Worktown is a registered trademark. All Rights reserved
+                        Copyright © 2022. All rights reserved.
                       </p>
                     </div>
                     <div className="wait-button">
@@ -248,3 +270,22 @@ class HomePage extends React.Component {
 // ReactDOM.render(<HomePage />, document.getElementById("react-root"));
 
 export default HomePage;
+
+// setTimeout(() => {
+//   this.setState({ timePassed: true });
+// }, 3700);
+// if (this.state.timePassed){
+
+// }
+// else {
+//   return (
+//     <div className="welcome-div">
+//       <img
+//         src={GifLogo}
+//         width="600px"
+//         height="500px"
+//         className="welcome-img"
+//       />
+//     </div>
+//   );
+// }

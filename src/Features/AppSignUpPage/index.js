@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import swal from "sweetalert";
+import Swal from "sweetalert2";
 import signUpImg from "../../assets/images/signup.png";
 import img1 from "../../assets/images/img1.png";
 import img2 from "../../assets/images/img2.png";
@@ -77,10 +78,13 @@ class AppSignUp extends Component {
       Email: this.state.email,
       Phone: this.state.phone,
     }).then(() => {
-      swal({
-        title: "Your from has been submitted",
+      Swal.fire({
+        position: "center",
         icon: "success",
-      }).then(() => this.clearForm());
+        title: "Awesome, you have been added!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     });
   };
   toUpperCase = (phrase) => {
@@ -210,6 +214,7 @@ class AppSignUp extends Component {
                   }}
                   type="text"
                   placeholder="We need your full name"
+                  style={{ fontFamily: "Lato", fontSize: 15, color: "#868686" }}
                   className="a-r-input-box a-r-input-box-first"
                 />
                 {!(!name && !nameError) && (
@@ -220,6 +225,7 @@ class AppSignUp extends Component {
                 <input
                   id="occupation"
                   name="occupation"
+                  style={{ fontFamily: "Lato", fontSize: 15, color: "#868686" }}
                   onChange={(occ) => {
                     this._handleChange(
                       desCheck,
@@ -240,6 +246,7 @@ class AppSignUp extends Component {
                 <input
                   id="phone"
                   name="phone"
+                  style={{ fontFamily: "Lato", fontSize: 15, color: "#868686" }}
                   onChange={(phone) => {
                     this._handleChange(
                       phoneCheck,
@@ -269,6 +276,7 @@ class AppSignUp extends Component {
                     );
                   }}
                   type="email"
+                  style={{ fontFamily: "Lato", fontSize: 15, color: "#868686" }}
                   placeholder="Your email (No, we won't spam you 😅)"
                   className="a-r-input-box"
                 />
