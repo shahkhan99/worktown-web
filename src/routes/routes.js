@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // import {createBrowserHistory, CreateBrowserHistory} from 'history';
 // import ProtectedRoute from "./protectedRoute";
 
-import { AppSignUp, HomePage } from "./index";
+import { AppSignUp, HomePage, Introduction, JobCategory } from "./index";
 
 let Routes = () => {
   return (
@@ -25,6 +25,8 @@ let Routes = () => {
 
         <Route path="/" exact component={HomePage} />
         <Route path="/waitList" exact component={AppSignUp} />
+        <Route path="/intro" exact component={Introduction} />
+        <Route path="/jobcategory" exact component={JobCategory} />
 
         {/* <ProtectedRoute path="/@dm!n" component={IndividualDashboard} /> */}
       </Switch>
