@@ -27,7 +27,44 @@ h5 {
 body {
   font-family: "Lato" !important;
 }
-
+.css-1f43avz-a11yText-A11yText,
+.css-319lph-ValueContainer {
+  padding-left: 21px !important;
+  padding-bottom: 3px !important;
+}
+.css-1insrsq-control {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+.css-b62m3t-container,
+.css-3iigni-container {
+  width: 100% !important;
+  background-color: transparent !important;
+}
+.css-1s2u09g-control,
+.css-1s2u09g-control:default {
+  border-style: none !important;
+  background-color: transparent !important;
+}
+.css-1pahdxg-control:hover {
+  border-color: transparent !important;
+  box-shadow: transparent !important;
+  background-color: transparent !important;
+}
+.css-1pahdxg-control {
+  border-style: none !important;
+  background-color: transparent !important;
+  box-shadow: 0px 0px 0px white !important;
+}
+.css-1pahdxg-control:hover,
+.css-1pahdxg-control:active {
+  border-style: none !important;
+  border-color: transparent;
+  background-color: transparent !important;
+}
+.css-tlfecz-indicatorContainer {
+  padding: 13px !important;
+}
 .svg-j,
 .svg-l {
   top: 11px !important;
@@ -92,6 +129,20 @@ body {
   z-index: 99;
   /* animation: text-appear_y 1s ease-out forwards; */
 }
+.salary-div {
+  width: 70%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.salary-div-time {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .work-exp_off {
   display: none;
 }
@@ -100,7 +151,10 @@ body {
   height: 80%;
   z-index: 99;
   position: relative;
-  top: 6%;
+  top: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .last-int h1 {
   text-align: center;
@@ -200,15 +254,18 @@ body {
 ::-webkit-input-placeholder {
   /* Edge */
   font-size: 18px !important;
+  color: #868686 !important;
 }
 
 :-ms-input-placeholder {
   /* Internet Explorer */
   font-size: 18px !important;
+  color: #868686 !important;
 }
 
 ::placeholder {
   font-size: 18px !important;
+  color: #868686 !important;
 }
 .a-r-input-box {
   /* background: #f3f4f8 !important; */
@@ -384,13 +441,15 @@ body {
   margin-bottom: 25px;
   display: flex;
 }
+.css-tlfecz-indicatorContainer {
+  color: #000 !important;
+}
 .div-check select {
   text-align: center;
   width: 100%;
   height: 100%;
   border-width: 0px;
   border-radius: 16px;
-  color: #000 !important;
   font-size: 18px;
   background-color: transparent !important;
   /* margin-left: 7px; */
@@ -398,6 +457,9 @@ body {
 }
 .div-check select option {
   text-align: left !important;
+}
+.div-check select::placeholder {
+  color: #d8000c !important;
 }
 select:hover {
   cursor: pointer;
@@ -414,9 +476,23 @@ select:hover {
   font-size: 24px;
   z-index: 99;
 }
+.div-cb-salary {
+  position: relative;
+  /* left: 5%; */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: #868686;
+  flex-wrap: wrap;
+  font-size: 24px;
+  z-index: 99;
+}
 input[type="checkbox"] {
   transform: scale(1.5);
   margin-right: 5px;
+}
+.current-salary-main-div {
+  width: 100%;
 }
 .div-range {
   display: flex;
@@ -450,8 +526,8 @@ input[type="checkbox"] {
   position: relative;
   display: flex;
   justify-content: space-between;
-  top: 5%;
-  left: 20%;
+  top: 7%;
+  /* left: 20%; */
 }
 .div-btn-2 {
   display: flex;
@@ -491,6 +567,112 @@ input[type="range"]:focus {
 }
 .input-label0 {
   width: 37%;
+}
+.multiple-value-text-input-item-container {
+  position: relative;
+  left: 25px;
+}
+.div-skills-inp {
+  height: 130px;
+  padding-top: 15px;
+  flex-direction: column;
+}
+.react-tagsinput-tag {
+  color: #ad7d01 !important;
+  border-color: #f0bd3a !important;
+  background-color: #ffe26f61 !important;
+  border-radius: 7px;
+  margin-bottom: 5px;
+  font-size: 17px;
+}
+.react-tagsinput-input {
+  width: 80%;
+}
+.a-input-field-nxt1 {
+  width: 100%;
+}
+.nxt2 {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+.defSkill-main {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  overflow: scroll;
+}
+.skill-set {
+  margin-left: 10px;
+  position: relative;
+  bottom: 6px;
+  width: 85%;
+  border-bottom: 1px solid #e9e9e9;
+  padding-bottom: 0px;
+  border-radius: 0px;
+}
+.defAch-map {
+  width: auto;
+  display: flex;
+  height: auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: #c5c2c24d;
+  margin: 5px;
+  color: #868686;
+  text-align: center;
+  padding: 10px;
+  /* font-weight: bold; */
+}
+.defSkill-map {
+  width: 17%;
+  display: flex;
+  height: 35px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: #c5c2c24d;
+  margin: 5px;
+  color: #868686;
+  text-align: center;
+  /* font-weight: bold; */
+}
+.defSkill-map:hover,
+.defSkill-map-selected:hover {
+  cursor: pointer;
+}
+.defSkill-map-selected {
+  background-color: rgba(240, 189, 58, 0.45);
+  width: 17%;
+  display: flex;
+  height: 35px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  margin: 5px;
+  color: #868686;
+  font-weight: bold;
+  text-align: center;
+}
+.expected-salary-input {
+  position: relative;
+  top: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.expected-salary-input input {
+  background: #f3f4f8;
+  border: 0;
+  border-radius: 16px;
+  width: 30%;
+  height: 45px;
+  text-align: center;
+  color: #172331 !important;
+  font-weight: 700;
+  font-size: 18px;
+  padding-left: 25px;
 }
 @media only screen and (max-width: 1050px) {
   .intro {
@@ -547,6 +729,14 @@ input[type="range"]:focus {
 }
 
 @media (min-width: 1051px) and (max-width: 1420px) {
+  .defSkill-map-selected,
+  .defSkill-map {
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .a-input-field-nxt1 {
+    width: 100% !important;
+  }
   .a-error-message-radio {
     width: 220px !important;
   }
@@ -636,6 +826,20 @@ input[type="range"]:focus {
   }
 }
 @media (min-width: 320px) and (max-width: 767px) {
+  .div-skills-inp {
+    padding: 0;
+  }
+  .react-tagsinput-tag {
+    padding: 3px !important;
+    margin-bottom: 0px;
+    font-size: 12px;
+  }
+  .skill-set {
+    padding: 5px 10px !important;
+  }
+  .css-qc6sy-singleValue {
+    font-size: 13px !important;
+  }
   .svg-u,
   .svg-p,
   .svg-l {
@@ -964,4 +1168,43 @@ input[type="range"]:focus {
     right: 5%;
     font-size: 13px;
   }
+}
+.defSkill-main::-webkit-scrollbar-thumb {
+  background-color: #fff;
+  background-image: -webkit-linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 25%,
+    transparent 100%,
+    rgba(0, 0, 0, 1) 75%,
+    transparent
+  );
+} /* width */
+.defSkill-main::-webkit-scrollbar {
+  width: 10px;
+  background-color: #f5f5f5;
+}
+
+/* Track */
+.defSkill-main::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6);
+  background-color: #cccccc;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #fff;
+  background-image: -webkit-linear-gradient(90deg, #fff transparent);
+} /* width */
+::-webkit-scrollbar {
+  width: 0px;
+  background-color: #fff;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #fff;
+  background-color: #fff;
+}
+
+.defSkill-main {
+  overflow-x: hidden;
 }

@@ -53,7 +53,7 @@ h1 {
   margin-bottom: 20px;
 }
 .center h1 {
-  color: #fff;
+  color: #000;
   font-size: 44px !important;
   display: inline;
 }
@@ -67,6 +67,11 @@ h1 {
 .header-vector {
   width: 50%;
   margin-bottom: 10px;
+}
+.wait-btn-main-div {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
 }
 .wait-btn {
   padding: 20px 30px;
@@ -128,6 +133,7 @@ h1 {
   width: 60%;
   height: 80%;
   margin-top: 10%;
+  display: none;
 }
 .text-div0 h1 {
   font-size: 32px !important;
@@ -161,7 +167,7 @@ h1 {
   line-height: 60px;
 }
 .color-bg {
-  width: 53%;
+  width: 54%;
 }
 .vector-img {
   height: 52%;
@@ -198,6 +204,16 @@ h1 {
   bottom: 0px;
   width: 50%;
   left: 0%;
+  height: 100%;
+
+  /* justify-content: flex-end; */
+}
+.vector-div2 {
+  display: flex;
+  position: absolute;
+  bottom: 0px;
+  width: 53.5%;
+  left: 46.6%;
   height: 100%;
 
   /* justify-content: flex-end; */
@@ -312,6 +328,15 @@ h1 {
   /* .job t-btn {
     left: 2% !important;
   } */
+  .vector-div2 {
+    width: 60%;
+    left: 40%;
+  }
+  .transparent-bg {
+    width: 40%;
+    height: 100%;
+    justify-content: flex-start;
+  }
   .form1 h1 {
     font-size: 32px !important;
   }
@@ -396,14 +421,16 @@ h1 {
   body {
     height: 100%;
   }
-  .vector-div1 {
+  .vector-div1,
+  .vector-div2 {
     display: flex;
     position: absolute;
     bottom: 0%;
     width: 100%;
     left: 0%;
-    height: 40%;
+    height: 51%;
   }
+
   .vector-div0 {
     display: flex;
     position: absolute;

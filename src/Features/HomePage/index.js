@@ -7,7 +7,13 @@ import { getDatabase } from "firebase/database";
 import { set, ref } from "@firebase/database";
 import firebase from "../../config/firebase";
 import ReactFullpage from "@fullpage/react-fullpage";
-import { emailCheck, nameCheck, phoneCheck, cityCheck } from "./validation";
+import {
+  emailCheck,
+  nameCheck,
+  phoneCheck,
+  cityCheck,
+  companyCheck,
+} from "./validation";
 import Swal from "sweetalert2";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import "./homeStyles.css";
@@ -24,18 +30,32 @@ import TextTransition, { presets } from "react-text-transition";
 import male from "../../assets/icons/male-student.png";
 import female from "../../assets/icons/woman.png";
 import Lottie from "react-lottie";
+import lottie from "lottie-web";
 import cafe from "../../assets/Vectors/cafe.gif";
+import room from "../../assets/Vectors/room2.gif";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { FiSmartphone } from "react-icons/fi";
 import { HiOutlineMail } from "react-icons/hi";
+import { MdCancel } from "react-icons/md";
+import { MdOutlineBusinessCenter } from "react-icons/md";
 import { MdWorkOutline } from "react-icons/md";
 import { BiStar } from "react-icons/bi";
 import { FiBookOpen } from "react-icons/fi";
+import { BsBookmarkStar } from "react-icons/bs";
+import { GiAchievement } from "react-icons/gi";
 import { TiSortAlphabeticallyOutline } from "react-icons/ti";
+import SelectSearch from "react-select-search";
+import Select from "react-select";
+import officeData from "../../assets/Vectors/office.json";
+import roomData from "../../assets/Vectors/room.json";
+import roadData from "../../assets/Vectors/ROAD.json";
+import TagsInput from "react-tagsinput";
+import "react-tagsinput/react-tagsinput.css"; // If using WebPack and style-loader.
 
 const db = getDatabase();
 const SPREADSHEET_ID = "1tJUmkVph10mUleXZmVAlwIta2DwBeCJClYaGagUpxzA";
+const EMPLOYER_SPREADSHEET_ID = "1and-JbqoUr_L1vAX720OLx4P851w_rpIBCxuTqlspEw";
 const SHEET_ID = "0";
 const CLIENT_EMAIL =
   "work-hall@academy-registra-1605173971230.iam.gserviceaccount.com";
@@ -43,14 +63,19 @@ const PRIVATE_KEY =
   "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDEHOlVYVGJOeB+\ntTj0W505Wntj4CxLpFxEWgBPhjZLL5y+qmcSbvzotqTm+U7Gsdbwb6VdtfO9lVVI\n1YdBkL8DfWOJfkGoOiyrKJH4Td7xgJ441cLF2dQ7VtxRSAlJjqwJ4+oeOakpxET0\nHhEu0KkrozOX73QOD65ycyQAnxGOMOgh6XQpayfYzh5svBiAfDmLa5+sLMSscgiw\nfGAiAOehRtF7zTpXbOp474NWIZKfkM081gS+/D0znj50XSkKFHmtC9o7bK5YXlfI\ntjy3vt41BQsyHiSoZ8HEp/nVUbHVTUA+yUAmqnNRrHFETZYSrMD67aal2Ivk4LHM\nKzN5TmUJAgMBAAECggEACOPiTFF3qQUeO8LlhKb04Gaikn3qfCOvXsDcDpQquMCn\n4M59ktdvBcdRKpBRhXkxNsqU4EPmkKj+Sf7gsrSdWCA9HNHup4c67ae5QEdFbJoU\nR3F3SCajs+ya2wttMlqySqt8j5IKbLSInK69QCug3kkicQg08Qs9xlNDu0x6twDv\ntSL1eAYRGtGHSHulELh5ZRsNzlsWwCiKTuU8/5XeT9K9vJXNu7J02KA5W46VDWOF\nUTK9GdbukE7g5xiCvi2jHpCWC9ZxqdCzd46/DJ5pwY4slJra1IFfhozmzQl6Lcso\noRF94XV93zJgK3QVwSzfjk2ugxXGnDG3B+wrb4a/NQKBgQDvTJnebjWYWm3ejb24\nImblIkpr0YzB8pvWSTWZDUaRWqUIt04dhC6tRa+b6MEeaI/jFiBBkO1MhG22HXDm\n/gnQJ8kU+ppk14kubSzFkLtoVe9069LfcLn1kp/pP7KoHSTO0OToZWT2vbuqb4Ra\njVP5noJ1VOxZ7pv26Dd7H32+NQKBgQDRzLrc7f7TPUOYyftdEZzFD+nh9zLypC7s\nv655+aWADvK0srMAdhQTyf7l+VztDflK4qr3LuN0cb3ufNDbHAPFkpW79fLouHzf\nLDnxrnlUFOcWWPSC4/LQ63VcbOWc8adXHv5+APYKEKQl+A6wJjoiD1PZgj5noiAe\nH5XD8CC2BQKBgQDLLwFfCbjcGbw8QaGbHSq813bVQWIAs9x6AENQJyOJ+6sxUWM0\nUK3JVegbu29uQF4b9QeCZGn4lGELRsg8eesfIQjtlTNO+Gt0TiK7xX46wuzFHA86\nxV5AEzVQOVOaxtQf/uK+KImnr8YOmw2ITYPF6T7gHTFp0t3+sYGaO0zrGQKBgFHy\n1T6829+pO4EvzDaTTZgP2jyAcW8jwIyLZtyQLhwyOo1oi9DvTnJYYW91Et4pqimd\nFkjNEN2IHDdOm8oqTDLdSg2MSWCrx2LpBI0pqIy2SXmKL5/85/jBMCt1Ac9m+QVn\nvuJ6/5/41hVaqmoV1Hk/YXJBlJyoUEFT9wz8+9n9AoGBAKlkyHx+WACxWOMr97fN\na+Ls03kugkvJb+PUVu0rMsNKB/i3dTPpz1mqqU7LntMShsd0h+ZoGnBwf6sk2agG\nxs02uEnWkRlmvlWBFOFtahH6bJqG3Kh9pzwN16Rzr/qIgd9bfXlETx6D3SGO3SMR\n84+jm0xK/gLtdy+jE9ViDy8O\n-----END PRIVATE KEY-----\n";
 
 const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
+const emp_doc = new GoogleSpreadsheet(EMPLOYER_SPREADSHEET_ID);
 
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      skillTag: [],
+      employee: true,
+      employer: false,
       index: 0,
       sw: false,
       csr: false,
+      noCategory: null,
       male: false,
       female: false,
       value: "0",
@@ -58,6 +83,9 @@ class HomePage extends React.Component {
       range_cond: 0,
       part1: true,
       part2: true,
+      from: "",
+      to: "",
+      company: "",
       name: "",
       city: "",
       email: "",
@@ -74,7 +102,10 @@ class HomePage extends React.Component {
       engTErr: false,
       radTErr: false,
       intTErr: false,
+      SaltimeTErr: false,
       valTErr: false,
+      skillTErr: false,
+      achievementTErr: false,
       isSubmit: false,
       errorMessage: {
         name: "",
@@ -86,6 +117,19 @@ class HomePage extends React.Component {
         phone: "",
         phoneValid: false,
       },
+      defSkills: [
+        "Python",
+        "Java",
+        "Javascript",
+        "C#",
+        "Html/Css",
+        "React Js",
+        "Aws",
+        "Php",
+        "Android",
+        "Objective C",
+      ],
+      Saltimings: ["Hourly", "Monthly", "Fixed"],
       timings: [
         "Full Time",
         "Part Time",
@@ -94,14 +138,19 @@ class HomePage extends React.Component {
         "Remote",
         "Night Shift",
       ],
+      skills: [],
+      achievement: [],
       count: 0,
       experience: "Work Experience",
       eng_lvl: "English Level",
       education: "Education",
       interestedIn: [],
       JobCategory: "",
+      selectedJobOption: "",
       selected: [],
+      selectedSal: [],
       active: null,
+      activeSal: null,
       selectingActive: true,
       animatedStrings: [
         " client ",
@@ -112,13 +161,64 @@ class HomePage extends React.Component {
         " investor ",
         " colleague ",
       ],
+      job_options: [
+        { value: "Applications Engineer", label: "Applications Engineer" },
+        { value: "Back-end Engineer", label: "Back-end Engineer" },
+        { value: "Cloud Systems Engineer", label: "Cloud Systems Engineer" },
+        { value: "Computer  scientist", label: "Computer  scientist" },
+        {
+          value: "Computer Systems Analyst",
+          label: "Computer Systems Analyst",
+        },
+        { value: "CRM project manager ", label: "CRM project manager " },
+        { value: "Data Analyst", label: "Data Analyst" },
+        { value: "Data scientist", label: "Data scientist" },
+        { value: "DevOps Engineer", label: "DevOps Engineer" },
+        { value: "Database Administrator", label: "Database Administrator" },
+        { value: "Data Quality Manager", label: "Data Quality Manager" },
+        { value: "Front-end Engineer", label: "Front-end Engineer" },
+        { value: "Full-stack Engineer", label: "Full-stack Engineer" },
+        { value: "Game Developer", label: "Game Developer" },
+        { value: "Hardware", label: "Hardware" },
+        { value: "Help Desk Technician", label: "Help Desk Technician" },
+        { value: "IT Coordinator", label: "IT Coordinator" },
+        { value: "IT Consultant", label: "IT Consultant" },
+        { value: "IT Security", label: "IT Security" },
+        {
+          value: "Management Information Systems Director",
+          label: "Management Information Systems Director",
+        },
+        { value: "Mobile App Developer", label: "Mobile App Developer" },
+        { value: "Network Engineer", label: "Network Engineer" },
+        {
+          value: "Quality Assurance Engineer",
+          label: "Quality Assurance Engineer",
+        },
+        { value: "Security Engineer", label: "Security Engineer" },
+        { value: "Software Analyst", label: "Software Analyst" },
+        { value: "Software Engineer", label: "Software Engineer" },
+        {
+          value: "Software integration Engineer",
+          label: "Software integration Engineer",
+        },
+        { value: "Technical Support", label: "Technical Support" },
+        {
+          value: "User Interface/User Experience Designer",
+          label: "User Interface/User Experience Designer",
+        },
+        { value: "Video Game Developer", label: "Video Game Developer" },
+        { value: "Web Administrator", label: "Web Administrator" },
+        { value: "Web Developer", label: "Web Developer" },
+        { value: "3D Graphics Developer", label: "3D Graphics Developer" },
+      ],
       content: [
         {
           id: 1,
           tittle: "Land your first",
           body: "We can’t promise that you will immediately, but if you stick around, you’ll see and meet remarkable people who aren’t any different from you.",
           vector: Vector1,
-          colorCode: "#3D459D",
+          // colorCode: "#3D459D",
+          colorCode: "#fff",
         },
         {
           id: 2,
@@ -134,21 +234,22 @@ class HomePage extends React.Component {
           tittle: "A not-so-professional network",
           body: "Professional networks are decades old and feel out-of-place. Worktown wants to make it exciting and relevant. And we think everyone’s smart enough to know what works for them.",
           vector: Vector1,
-          colorCode: "#128779",
+          colorCode: "#fff",
         },
         {
           id: 4,
           tittle: "Where you’re not defined by your job title",
           body: "That is a super-narrow expression of who you are. With Worktown, let the world know how much more you bring to the table than the arbitrary job titles and descriptions that don't fit your work.",
           vector: Vector1,
-          colorCode: "#F15925",
+          // colorCode: "#F15925",
+          colorCode: "#fff",
         },
         {
           id: 5,
-          tittle: "Why limit the way people see you?",
-          body: "Resumes are two-dimensional – they don’t talk much about who you are and how you’ve had to work your socks off to get to where you are. Worktown helps you show them what makes you ‘you’.",
+          // tittle: "Why limit the way people see you?",
+          // body: "Resumes are two-dimensional – they don’t talk much about who you are and how you’ve had to work your socks off to get to where you are. Worktown helps you show them what makes you ‘you’.",
           vector: Vector1,
-          colorCode: "#81B541",
+          colorCode: "#fff",
         },
         {
           id: 6,
@@ -179,134 +280,16 @@ class HomePage extends React.Component {
       ],
       isStopped: false,
       isPaused: false,
+      isOpen: false,
+      select_value: undefined,
     };
   }
-  // state = {
-  //   index: 0,
-  //   sw: false,
-  //   csr: false,
-  //   male: false,
-  //   female: false,
-  //   value: "0 - 5000",
-  //   value_px: 27,
-  //   range_cond: 5000,
-  //   part1: true,
-  //   part2: true,
-  //   name: "",
-  //   city: "",
-  //   email: "",
-  //   phone: "",
-  //   sheetLoaded: false,
-  //   courses: [],
-  //   errorMessage: {
-  //     name: "",
-  //     nameValid: false,
-  //     city: "",
-  //     cityValid: false,
-  //     email: "",
-  //     emailValid: false,
-  //     phone: "",
-  //     phoneValid: false,
-  //   },
-  //   count: 0,
-  //   experience: "",
-  //   eng_lvl: "",
-  //   education: "",
-  //   interestedIn: [],
-  //   JobCategory: "",
-  //   fulltime: false,
-  //   parttime: false,
-  //   freelance: false,
-  //   workFromHome: false,
-  //   nightShift: false,
-  //   remote: false,
-  //   animatedStrings: [
-  //     " client ",
-  //     " job ",
-  //     " cofounder ",
-  //     " employee ",
-  //     " employer ",
-  //     " investor ",
-  //     " colleague ",
-  //   ],
-  //   content: [
-  //     {
-  //       id: 1,
-  //       tittle: "Land your first",
-  //       body: "We can’t promise that you will immediately, but if you stick around, you’ll see and meet remarkable people who aren’t any different from you.",
-  //       vector: Vector1,
-  //       colorCode: "#3D459D",
-  //     },
-  //     {
-  //       id: 2,
-  //       tittle: "Community-first ",
-  //       unstyled: " from the ground up",
-  //       body: "We’re creating a super community of storytellers, founders, dreamers, forward-thinkers, misfits, rebels, entrepreneurs, graduates, employees, investors, polyworkers, problem solvers, yay-sayers, coders, designers, freelancers, stargazers and storm-chasers.",
-  //       vector: Cafe,
-  //       // colorCode: "#F0BD3A",
-  //       colorCode: "#fff",
-  //     },
-  //     {
-  //       id: 3,
-  //       tittle: "A not-so-professional network",
-  //       body: "Professional networks are decades old and feel out-of-place. Worktown wants to make it exciting and relevant. And we think everyone’s smart enough to know what works for them.",
-  //       vector: Vector1,
-  //       colorCode: "#128779",
-  //     },
-  //     {
-  //       id: 4,
-  //       tittle: "Where you’re not defined by your job title",
-  //       body: "That is a super-narrow expression of who you are. With Worktown, let the world know how much more you bring to the table than the arbitrary job titles and descriptions that don't fit your work.",
-  //       vector: Vector1,
-  //       colorCode: "#F15925",
-  //     },
-  //     {
-  //       id: 5,
-  //       tittle: "Why limit the way people see you?",
-  //       body: "Resumes are two-dimensional – they don’t talk much about who you are and how you’ve had to work your socks off to get to where you are. Worktown helps you show them what makes you ‘you’.",
-  //       vector: Vector1,
-  //       colorCode: "#81B541",
-  //     },
-  //     {
-  //       id: 6,
-  //       tittle: "Showcase the real ‘you’",
-  //       body: "Stay true to who you are. Be authentic. Live on your own terms because we’re not destined for a single-track identity. Ever stopped to wonder that you do more than one type of work?",
-  //       vector: Vector1,
-  //       colorCode: "#CC2F42",
-  //     },
-  //     {
-  //       id: 4,
-  //       tittle: "Fall in love with work all over again",
-  //       body: "The work we do is an extension of ourselves and the people around us. Let us help you make a difference because the world needs to know who you are and what you can do.",
-  //       vector: Vector1,
-  //       colorCode: "#204751",
-  //     },
-  //   ],
-  //   card: [
-  //     {
-  //       id: 0,
-  //       img: programmer,
-  //       name: "Software & IT Jobs",
-  //     },
-  //     {
-  //       id: 1,
-  //       img: operator,
-  //       name: "Telecaller, CSR, Call Center Jobs",
-  //     },
-  //   ],
-  //   isStopped: false,
-  //   isPaused: false,
-  // };
-  // formatPhoneNumber(phoneNumberString) {
-  //   var cleaned = ("" + phoneNumberString).replace(/\D/g, "");
-  //   var match = cleaned.match(/^(92|)?(\d{3})$/);
-  //   if (match) {
-  //     var intlCode = match[1] ? "+92" : "";
-  //     return [intlCode, match[2], "-", match[3], match[4]].join("");
-  //   }
-  //   return null;
-  // }
-  // => "+1 (234) 567-8900" formatPhoneNumber('2345678900')
+  handleModeChange(mode, fullpage) {
+    mode === "Employer"
+      ? this.setState({ employee: false, employer: true })
+      : this.setState({ employer: false, employee: true });
+    fullpage.moveTo(2, 0);
+  }
   onLeave(origin, destination, direction) {
     console.log("Leaving section " + origin.index);
     if (origin.index == 1) {
@@ -330,35 +313,36 @@ class HomePage extends React.Component {
     name === "experience" && this.setState({ expTErr: false });
     name === "education" && this.setState({ eduTErr: false });
     name === "eng_lvl" && this.setState({ engTErr: false });
-    console.log(this.state);
   };
   handleCard = (fullpageApi, val) => {
-    // console.log("btn running ... ");
     if (val.name === "Software & IT Jobs") {
       this.handleSW();
+      this.setState({ noCategory: false });
     } else {
       this.handleCSR();
     }
     this.setState({ JobCategory: val.name });
     fullpageApi.moveTo(3, 0);
   };
+
   handleNext1 = (fullpageApi) => {
     if (
       this.state.name === "" ||
       (!this.state.female && !this.state.male) ||
       (!this.state.csr && !this.state.sw) ||
       this.state.phone === "" ||
+      this.state.selectedJobOption === "" ||
       this.state.phoneTErr ||
       !this.state.errorMessage.phoneValid
     ) {
       this.state.name === "" && this.setState({ nameTErr: true });
       this.state.phone === "" && this.setState({ phoneTErr: true });
       !this.state.csr && !this.state.sw && this.setState({ jobErr: true });
+      this.state.selectedJobOption === "" && this.setState({ jobErr: true });
       !this.state.male &&
         !this.state.female &&
         this.setState({ radTErr: true });
     } else {
-      // console.log(this.state);
       fullpageApi.moveTo(4, 0);
     }
   };
@@ -366,12 +350,14 @@ class HomePage extends React.Component {
   handleNext2 = (fullpageApi) => {
     if (
       this.state.name === "" ||
+      this.state.selectedJobOption === "" ||
       (!this.state.female && !this.state.male) ||
       (!this.state.csr && !this.state.sw) ||
       this.state.phone === ""
     ) {
       this.state.name === "" && this.setState({ nameTErr: true });
       this.state.phone === "" && this.setState({ phoneTErr: true });
+      this.state.selectedJobOption === "" && this.setState({ jobErr: true });
       !this.state.csr && !this.state.sw && this.setState({ jobErr: true });
       !this.state.male &&
         !this.state.female &&
@@ -396,25 +382,69 @@ class HomePage extends React.Component {
       fullpageApi.moveTo(5, 0);
     }
   };
+  handleNext4 = (fullpageApi) => {
+    if (!this.state.skills.length || !this.state.achievement.length) {
+      !this.state.skills.length && this.setState({ skillTErr: true });
+      !this.state.achievement.length &&
+        this.setState({ achievementTErr: true });
+    }
+    if (
+      this.state.name === "" ||
+      this.state.selectedJobOption === "" ||
+      (!this.state.female && !this.state.male) ||
+      (!this.state.csr && !this.state.sw) ||
+      this.state.phone === ""
+    ) {
+      this.state.name === "" && this.setState({ nameTErr: true });
+      this.state.phone === "" && this.setState({ phoneTErr: true });
+      this.state.selectedJobOption === "" && this.setState({ jobErr: true });
+      !this.state.csr && !this.state.sw && this.setState({ jobErr: true });
+      !this.state.male &&
+        !this.state.female &&
+        this.setState({ radTErr: true });
+      fullpageApi.moveTo(3, 0);
+    } else if (
+      this.state.email === "" ||
+      this.state.experience === "Work Experience" ||
+      this.state.education === "Education" ||
+      this.state.eng_lvl === "English Level" ||
+      this.state.city === ""
+    ) {
+      this.state.email === "" && this.setState({ emailTErr: true });
+      this.state.city === "" && this.setState({ cityTErr: true });
+      this.state.experience === "Work Experience" &&
+        this.setState({ expTErr: true });
+      this.state.education === "Education" && this.setState({ eduTErr: true });
+      this.state.eng_lvl === "English Level" &&
+        this.setState({ engTErr: true });
+      fullpageApi.moveTo(4, 0);
+    } else {
+      fullpageApi.moveTo(5, 0);
+    }
+  };
   handleNext3 = async (fullpageApi, selectedCategories) => {
     let interest = selectedCategories.toString() || "";
     if (
       (this.state.name === "" ||
+        this.state.selectedJobOption === "" ||
         (!this.state.female && !this.state.male) ||
         (!this.state.csr && !this.state.sw) ||
         this.state.phone === "") &&
       (this.state.email === "" ||
         this.state.experience === "Work Experience" ||
+        !this.state.skills.length ||
         this.state.education === "Education" ||
         this.state.eng_lvl === "English Level" ||
         this.state.city === "")
     ) {
       this.state.name === "" && this.setState({ nameTErr: true });
       this.state.phone === "" && this.setState({ phoneTErr: true });
+      this.state.selectedJobOption === "" && this.setState({ jobErr: true });
       !this.state.csr && !this.state.sw && this.setState({ jobErr: true });
       !this.state.male &&
         !this.state.female &&
         this.setState({ radTErr: true });
+      !this.state.skills.length && this.setState({ skillTErr: true });
       this.state.email === "" && this.setState({ emailTErr: true });
       this.state.city === "" && this.setState({ cityTErr: true });
       this.state.experience === "Work Experience" &&
@@ -446,6 +476,14 @@ class HomePage extends React.Component {
       this.state.value === "0" && this.setState({ valTErr: true });
 
       fullpageApi.moveTo(4, 0);
+    } else if (
+      this.state.skills.length === 0 ||
+      this.state.achievement.length === 0
+    ) {
+      this.state.skills.length === 0 && this.setState({ skillTErr: true });
+      this.state.achievement.length === 0 &&
+        this.setState({ achievementTErr: true });
+      fullpageApi.moveTo(5, 0);
     } else {
       this.submitHandler(fullpageApi, selectedCategories);
     }
@@ -461,7 +499,6 @@ class HomePage extends React.Component {
     //   const sheet = doc.sheetsById[SHEET_ID];
     //   const rows = await sheet.getRows();
 
-    //   console.log(rows);
     //   // this.setState({ count: rows }, () => {
     //   //   document.querySelector(".value").innerText = this.state.count;
     //   // });
@@ -469,13 +506,30 @@ class HomePage extends React.Component {
     //   console.error("Error: ", e);
     // }
   };
+  handleSalaryChange(target, value) {
+    this.setState({ [target]: value });
+  }
+  handleNoCategory(e) {
+    e.moveTo(2, 0);
+    this.setState({ noCategory: true });
+  }
+  selectChange(e) {
+    this.setState({
+      selectedJobOption: e,
+      jobErr: false,
+    });
+  }
   back = (fullpageApi) => {
     // this.setState({ part1: true, part2: false });
     fullpageApi.moveTo(3, 0);
   };
   back1 = (fullpageApi) => {
     // this.setState({ part1: true, part2: false });
-    fullpageApi.moveTo(4, 0);
+    fullpageApi.moveTo(5, 0);
+  };
+  back2 = (fullpageApi) => {
+    // this.setState({ part1: true, part2: false });
+    fullpageApi.moveTo(5, 0);
   };
   handleCheck = (val) => {
     if (val === "Part-time") {
@@ -583,10 +637,13 @@ class HomePage extends React.Component {
   submitHandler = (fullpageApi, selectedCategories) => {
     const { nameValid, cityValid, emailValid, phoneValid } =
       this.state.errorMessage;
-    const { name, city, email, phone } = this.state;
+    const { skills, achievement, from, to } = this.state;
     const formIsValid = nameValid && cityValid && emailValid && phoneValid;
     let gender = this.state.male ? "Male" : "Female";
     let interest = selectedCategories.toString() || "";
+    let skillSet = skills.toString() || "";
+    let achievementStr = achievement.toString() || "";
+    var exp_sal = this.state.employer && from + "-" + to;
     if (!formIsValid) {
       Swal.fire({
         position: "center",
@@ -602,25 +659,21 @@ class HomePage extends React.Component {
       this.state.phone === "" ||
       this.state.city === "" ||
       this.state.email === "" ||
+      skillSet === "" ||
+      achievementStr === "" ||
       this.state.JobCategory === "" ||
       this.state.experience === "" ||
       this.state.education === "" ||
       this.state.value === "0" ||
       this.state.eng_lvl === "" ||
+      this.state.selectedJobOption === "" ||
       gender === "" ||
       interest === ""
     ) {
       interest === "" && this.setState({ intTErr: true });
       this.state.value === "0" && this.setState({ valTErr: true });
-      // Swal.fire({
-      //   position: "center",
-      //   icon: "error",
-      //   title: "All fields are mandatory",
-      //   showConfirmButton: true,
-      //   // timer: 1500,
-      // });
     } else {
-      if (this.state.value === "290000 - 310000") {
+      if (this.state.value === "490000 - 530000") {
         this.setState({ value: "300000+" });
       }
       if (this.state.value === "0") {
@@ -640,42 +693,67 @@ class HomePage extends React.Component {
         if (this.state.isSubmit) {
           showLoading();
         }
-        this.appendSpreadsheet({
-          Name: this.state.name,
-          Phone: this.state.phone,
-          City: this.state.city,
-          Email: this.state.email,
-          JobCategory: this.state.JobCategory,
-          Experience: this.state.experience,
-          Education: this.state.education,
-          InterestedIn: interest,
-          CurrentSalary: this.state.value,
-          Gender: gender,
-          EnglishLevel: this.state.eng_lvl,
-        }).then(() => {
-          set(ref(db, "users/jobs_users/" + this.state.phone), {
+        if (this.state.employer) {
+          this.emp_appendSpreadsheet({
+            BusinessName: this.state.company,
             Name: this.state.name,
             Phone: this.state.phone,
             City: this.state.city,
             Email: this.state.email,
             JobCategory: this.state.JobCategory,
+            JobType: this.state.selectedJobOption,
             Experience: this.state.experience,
+            Skills: skillSet,
+            Education: this.state.education,
+            InterestedIn: interest,
+            ExpectedSalary: exp_sal,
+            EnglishLevel: this.state.eng_lvl,
+            JobTime: achievementStr,
+          });
+        } else {
+          this.appendSpreadsheet({
+            Name: this.state.name,
+            Phone: this.state.phone,
+            City: this.state.city,
+            Email: this.state.email,
+            JobCategory: this.state.JobCategory,
+            JobType: this.state.selectedJobOption,
+            Experience: this.state.experience,
+            Skills: skillSet,
             Education: this.state.education,
             InterestedIn: interest,
             CurrentSalary: this.state.value,
             Gender: gender,
             EnglishLevel: this.state.eng_lvl,
+            Achievement: achievementStr,
+          }).then(() => {
+            set(ref(db, "users/jobs_users/" + this.state.phone), {
+              Name: this.state.name,
+              Phone: this.state.phone,
+              City: this.state.city,
+              Email: this.state.email,
+              JobCategory: this.state.JobCategory,
+              Experience: this.state.experience,
+              Skills: skillSet,
+              Education: this.state.education,
+              InterestedIn: interest,
+              CurrentSalary: this.state.value,
+              Gender: gender,
+              EnglishLevel: this.state.eng_lvl,
+              JobType: this.state.selectedJobOption,
+              Achievement: achievementStr,
+            });
+            this.setState({ isSubmit: false });
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Awesome, you have been added!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            this.clearForm(selectedCategories);
           });
-          this.setState({ isSubmit: false });
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Awesome, you have been added!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          this.clearForm(selectedCategories);
-        });
+        }
       }, 100);
     }
   };
@@ -686,14 +764,51 @@ class HomePage extends React.Component {
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
   };
+  handleSkillAdd = (item) => {
+    let { defSkills } = this.state;
+    if (this.state.skills.length === 5) {
+      alert("You can add max 5 skills");
+    } else {
+      let strItem = item.toString();
+      let strItemUp = strItem.charAt(0).toUpperCase() + strItem.slice(1);
+      if (defSkills.includes(strItemUp)) {
+        this.state.skills.push(strItemUp);
+        this.setState({ defSkills: this.state.defSkills });
+      } else {
+        this.state.skills.push(strItemUp);
+        this.state.defSkills.push(strItemUp);
+        this.setState({ defSkills: this.state.defSkills });
+        this.state.skills.length && this.setState({ skillTErr: false });
+      }
+    }
+  };
+  handleSkillDefault = (e) => {
+    const index = this.state.skills.indexOf(e);
+    index > -1
+      ? this.state.skills.splice(index, 1)
+      : this.state.skills.length === 5
+      ? alert("You can add max 5 skills")
+      : this.state.skills.push(e);
 
+    this.state.skills.length && this.setState({ skillTErr: false });
+    this.setState({ defSkills: this.state.defSkills });
+  };
+  handleAchievementAdd = (item) => {
+    let { achievement } = this.state;
+    if (achievement.length === 1) {
+      alert("You can add only 1 achievement");
+    } else {
+      achievement.push(item);
+      this.setState({ achievement: achievement });
+      achievement.length && this.setState({ achievementTErr: false });
+    }
+  };
   _handleChange = (checkValidation, validationCheck, stateKey, value) => {
     const { error, isValid } = checkValidation(value);
     if (stateKey === "phone") {
       // let formatted = value.replace(/(\d{4,4})/, "$1-");
       // let formatted = `${value.slice(0, 4)} ${value.slice(4, 10)}`;
       // const formatted = this.formatPhoneNumber(value);
-      // console.log("number === ", formatted);
       this.setState({
         [stateKey]: value,
         errorMessage: {
@@ -706,8 +821,6 @@ class HomePage extends React.Component {
         () => this.state.phone !== " " && this.setState({ phoneTErr: false }),
         10
       );
-
-      // console.log(this.state.name);
     }
     if (isValid) {
       if (stateKey === "name") {
@@ -724,8 +837,6 @@ class HomePage extends React.Component {
           () => this.state.name !== "" && this.setState({ nameTErr: false }),
           10
         );
-
-        console.log(this.state.name);
       } else {
         setTimeout(() => {
           this.setState({
@@ -750,8 +861,6 @@ class HomePage extends React.Component {
           [validationCheck]: false,
         },
       });
-      // console.log(this.state.errorMessage.phone);
-      // console.log(this.state.phone);
 
       this.state.errorMessage.email === "Please enter a valid Email" &&
         this.setState({ emailTErr: true });
@@ -763,6 +872,7 @@ class HomePage extends React.Component {
     document.getElementById("name").value = "";
     document.getElementById("email").value = "";
     document.getElementById("city").value = "";
+    document.getElementById("select").value = "";
     this.setState({
       name: "",
       phone: "",
@@ -778,6 +888,9 @@ class HomePage extends React.Component {
       male: false,
       female: false,
       selected: [],
+      achievement: [],
+      skills: [],
+      selectedJobOption: "",
     });
   };
 
@@ -791,6 +904,21 @@ class HomePage extends React.Component {
       await doc.loadInfo();
 
       const sheet = doc.sheetsById[SHEET_ID];
+      const result = await sheet.addRow(row);
+    } catch (e) {
+      console.error("Error: ", e);
+    }
+  };
+  emp_appendSpreadsheet = async (row) => {
+    try {
+      await emp_doc.useServiceAccountAuth({
+        client_email: CLIENT_EMAIL,
+        private_key: PRIVATE_KEY,
+      });
+      // loads document properties and worksheets
+      await emp_doc.loadInfo();
+
+      const sheet = emp_doc.sheetsById[SHEET_ID];
       const result = await sheet.addRow(row);
     } catch (e) {
       console.error("Error: ", e);
@@ -811,12 +939,29 @@ class HomePage extends React.Component {
       // this.setState({ count: rows }, () => {
       //   document.querySelector(".value").innerText = this.state.count;
       // });
-    } catch (e) {
-      console.error("Error: ", e);
-    }
+    } catch (e) {}
+  };
+  emp_readRows = async () => {
+    try {
+      await emp_doc.useServiceAccountAuth({
+        client_email: CLIENT_EMAIL,
+        private_key: PRIVATE_KEY,
+      });
+      // loads document properties and worksheets
+      await emp_doc.loadInfo();
+
+      const sheet = emp_doc.sheetsById[SHEET_ID];
+      const rows = (await sheet.getRows()).length + 1;
+
+      // this.setState({ count: rows }, () => {
+      //   document.querySelector(".value").innerText = this.state.count;
+      // });
+    } catch (e) {}
   };
   componentDidMount() {
     this.readRows();
+    this.emp_readRows();
+
     // this.counterFn();
   }
   onLongPress = (item) => {
@@ -827,7 +972,9 @@ class HomePage extends React.Component {
     const { selected } = this.state;
     let index = selected.indexOf(item);
     let newList = [...selected];
-    if (index > -1) {
+    if (item === 0 && selected.includes(1)) {
+    } else if (item === 1 && selected.includes(0)) {
+    } else if (index > -1) {
       newList.splice(index, 1);
     } else {
       newList.push(item);
@@ -836,6 +983,21 @@ class HomePage extends React.Component {
     this.setState({
       selected: newList,
       active: item,
+    });
+  };
+  onSelectSalary = (item) => {
+    const { selectedSal } = this.state;
+    let index = selectedSal.indexOf(item);
+    let newList = [];
+    if (index > -1) {
+      newList.splice(index, 1);
+    } else {
+      newList.push(item);
+      this.setState({ SaltimeTErr: false });
+    }
+    this.setState({
+      selectedSal: newList,
+      activeSal: item,
     });
   };
   handleChange = (e) => {
@@ -849,16 +1011,16 @@ class HomePage extends React.Component {
     //   let val = "300000+";
     //   this.setState({ value: val });
     // }
-    else {
+    else if (this.state.range_cond < 310000) {
       let val = `${e - 20000} - ${e}`;
+      this.setState({ value: val });
+    } else {
+      let val = `${e - 40000} - ${e}`;
       this.setState({ value: val });
     }
     // let fort = e.toString();
     // let formatted = fort.replace(/,/g, "-");
     // this.setState({ range_cond: e, value: formatted });
-
-    // console.log("val === ", this.state.value);
-    console.log("rc === ", e);
   };
   handleSW = () => {
     if (this.state.csr) {
@@ -867,8 +1029,39 @@ class HomePage extends React.Component {
     this.state.sw ? this.setState({ sw: false }) : this.setState({ sw: true });
     this.setState({ jobErr: false });
   };
+  toggleOpen = () => {
+    this.setState((state) => ({ isOpen: !state.isOpen }));
+  };
+  onSelectChange = (value) => {
+    this.toggleOpen();
+    this.setState({ select_value: value });
+  };
 
   render() {
+    const officeOptions = {
+      loop: true,
+      autoplay: true,
+      animationData: officeData,
+      rendererSettings: {
+        preserveAspectRatio: "xMidYMid slice",
+      },
+    };
+    const roomOptions = {
+      loop: true,
+      autoplay: true,
+      animationData: roomData,
+      rendererSettings: {
+        preserveAspectRatio: "xMidYMid slice",
+      },
+    };
+    const roadOptions = {
+      loop: true,
+      autoplay: true,
+      animationData: roadData,
+      rendererSettings: {
+        preserveAspectRatio: "xMidYMid slice",
+      },
+    };
     let {
       name,
       city,
@@ -876,8 +1069,11 @@ class HomePage extends React.Component {
       phone,
       error,
       selected,
-      selectingActive,
+      selectedSal,
       timings,
+      Saltimings,
+      job_options,
+      defSkills,
     } = this.state;
     let {
       name: nameError,
@@ -885,31 +1081,38 @@ class HomePage extends React.Component {
       email: emailError,
       phone: phoneError,
     } = this.state.errorMessage;
+    let selectedSalary = [];
+    selectedSal.forEach((e) => {
+      selectedSalary.push(Saltimings[e]);
+    });
     let selectedCategories = [];
     selected.forEach((e) => {
       selectedCategories.push(timings[e]);
-      // console.log("selectedCategories =>", this.state.range_cond.toString());
     });
     let n_val = this.state.range_cond;
     let step_val = 10000;
     if (n_val <= 100000) {
       step_val = 10000;
-    } else {
+    } else if (n_val >= 100000 && n_val <= 310000) {
       step_val = 20000;
+    } else {
+      step_val = 40000;
     }
+
+    console.log("value === ", selectedSalary, selectedCategories);
+    defSkills.sort(function (a, b) {
+      return a.localeCompare(b); //using String.prototype.localCompare()
+    });
     let v1 = this.state.value.split("-");
-    // console.log(
-    //   "value === ",
-    //   this.state.phoneTErr,
-    //   this.state.errorMessage.phoneValid
-    // );
+
     return (
       <ReactFullpage
         scrollOverflow={true}
-        sectionsColor={["#FF9772"]}
+        sectionsColor={["#fff"]}
+        // sectionsColor={["#FF9772"]}
         onLeave={this.onLeave.bind(this)}
         afterLoad={this.afterLoad.bind(this)}
-        responsiveWidth={767}
+        responsiveWidth={2500}
         render={({ state, fullpageApi }) => {
           return (
             <div id="fullpage">
@@ -919,23 +1122,32 @@ class HomePage extends React.Component {
                     <div className="logo">
                       <img src={Logo} className="header-logo" />
                     </div>
-                    <div className="wait-button">
-                      <a
-                        onClick={() => fullpageApi.moveTo(2, 0)}
-                        className="wait-btn"
-                      >
-                        I want a job
-                      </a>
+                    <div className="wait-btn-main-div">
+                      <div className="wait-button">
+                        <a
+                          onClick={() =>
+                            this.handleModeChange("Employee", fullpageApi)
+                          }
+                          className="wait-btn"
+                        >
+                          I want a job
+                        </a>
+                      </div>
+                      <div className="wait-button">
+                        <a
+                          onClick={() =>
+                            this.handleModeChange("Employer", fullpageApi)
+                          }
+                          className="wait-btn"
+                        >
+                          I want to hire
+                        </a>
+                      </div>
                       {/* <a href="/waitList" className="wait-btn">
                         Join the waitlist
                       </a> */}
                     </div>
                   </div>
-                  {/* <div className="jobcat-btn">
-                      <a href="/jobcategory" className="wait-btn">
-                        Want a Job ?
-                      </a>
-                    </div> */}
                   <div className="center">
                     <h1>
                       Building Pakistan’s{" "}
@@ -958,16 +1170,6 @@ class HomePage extends React.Component {
                       <div
                         className={i < 4 ? "transparent-bg0" : "transparent-bg"}
                       >
-                        {/* <div
-                          className="logo"
-                          style={{
-                            position: "absolute",
-                            left: "10px",
-                            top: "10px",
-                          }}
-                        >
-                          <img src={simpleLogo} className="simple-logo" />
-                        </div> */}
                         {i > 3 ? (
                           <div
                             className="text-div"
@@ -1020,7 +1222,27 @@ class HomePage extends React.Component {
                             {this.state.card.map((v, i) => (
                               <div
                                 className="card"
-                                onClick={() => this.handleCard(fullpageApi, v)}
+                                onClick={
+                                  v.name === "Software & IT Jobs"
+                                    ? () => this.handleCard(fullpageApi, v)
+                                    : () =>
+                                        alert(
+                                          "Telecaller & Call Center Jobs are coming soon..."
+                                        )
+                                }
+                                style={
+                                  v.name === "Telecaller & Call Center Jobs"
+                                    ? { opacity: 0.5 }
+                                    : v.name === "Software & IT Jobs" &&
+                                      this.state.sw
+                                    ? {
+                                        backgroundColor:
+                                          "rgba(240, 189, 58, 0.45)",
+                                      }
+                                    : this.state.noCategory
+                                    ? { border: "1px solid red" }
+                                    : { backgroundColor: "#fff" }
+                                }
                               >
                                 <img
                                   src={v.img}
@@ -1047,7 +1269,12 @@ class HomePage extends React.Component {
                             className={this.state.part1 ? "intro" : "intro_off"}
                           >
                             <h1>Your Introduction</h1>
-                            <div className="radio-div">
+                            <div
+                              className="radio-div"
+                              style={
+                                this.state.employer ? { display: "none" } : {}
+                              }
+                            >
                               <div
                                 className={
                                   this.state.male ? "radio-male" : "radio-in"
@@ -1093,12 +1320,74 @@ class HomePage extends React.Component {
                                 Female
                               </div>
                             </div>
-                            {/* {this.state.radTErr && (
-                              <p className="a-error-message a-error-message-radio">
-                                Gender must not be left unselect
-                              </p>
-                            )} */}
-                            <div class="a-upper-input">
+
+                            <div
+                              class="a-upper-input"
+                              style={
+                                this.state.employee ? {} : { marginTop: 20 }
+                              }
+                            >
+                              <div
+                                style={
+                                  this.state.employee ? { display: "none" } : {}
+                                }
+                                className="a-input-field"
+                              >
+                                <label className="input-label">
+                                  Business Name
+                                  <span
+                                    style={{
+                                      color: "red",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    *
+                                  </span>
+                                </label>
+                                <div
+                                  className="div-input-icon"
+                                  style={
+                                    this.state.nameTErr
+                                      ? { border: "1px solid red" }
+                                      : !(!name || !nameError)
+                                      ? { border: "1px solid red" }
+                                      : { borderWidth: 0 }
+                                  }
+                                >
+                                  <MdOutlineBusinessCenter
+                                    color="#3D459D"
+                                    size={21}
+                                    className="svg-u"
+                                    style={{
+                                      position: "relative",
+                                      top: 13,
+                                      left: 10,
+                                    }}
+                                  />
+                                  <input
+                                    placeholder="WorkHall"
+                                    id="company"
+                                    name="company"
+                                    onChange={(name) => {
+                                      this._handleChange(
+                                        companyCheck,
+                                        "companyValid",
+                                        "company",
+                                        name.target.value
+                                      );
+                                    }}
+                                    type="text"
+                                    // placeholder="We need your full name"
+                                    style={{
+                                      fontFamily: "Lato",
+                                      fontSize: 17,
+                                      color: "#868686",
+                                    }}
+                                    // value={this.state.name}
+                                    className="a-r-input-box"
+                                  />
+                                </div>
+                              </div>
                               <div className="a-input-field">
                                 <label className="input-label">
                                   Name
@@ -1154,17 +1443,6 @@ class HomePage extends React.Component {
                                     className="a-r-input-box"
                                   />
                                 </div>
-                                {/* {this.state.nameTErr ? (
-                                  <p className="a-error-message">
-                                    Name must not be left empty
-                                  </p>
-                                ) : (
-                                  !(!name && !nameError) && (
-                                    <p className="a-error-message">
-                                      {nameError}
-                                    </p>
-                                  )
-                                )} */}
                               </div>
 
                               <div className="div-input-inner">
@@ -1222,129 +1500,14 @@ class HomePage extends React.Component {
                                       value={this.state.phone}
                                     />
                                   </div>
-                                  {/* {this.state.phoneTErr ? (
-                                    <p className="a-error-message">
-                                      Phone Number must not be left empty
-                                    </p>
-                                  ) : (
-                                    !(!phone && !phoneError) && (
-                                      <p className="a-error-message">
-                                        {phoneError}
-                                      </p>
-                                    )
-                                  )}   */}
                                 </div>
-
-                                {/* <div className="a-input-field">
-                                  <label
-                                    className="input-label input-label1"
-                                    style={{ paddingLeft: 5 }}
-                                  >
-                                    City
-                                    <span
-                                      style={{
-                                        color: "red",
-                                        fontWeight: "bold",
-                                      }}
-                                    >
-                                      *
-                                    </span>
-                                  </label>
-                                  <div className="div-input-icon">
-                                    <IoLocationOutline
-                                      color="#3D459D"
-                                      size={22}
-                                      style={{
-                                        position: "relative",
-                                        top: 10,
-                                        left: 10,
-                                      }}
-                                    />
-                                    <input
-                                      placeholder="Karachi"
-                                      id="city"
-                                      name="city"
-                                      onChange={(city) => {
-                                        this._handleChange(
-                                          cityCheck,
-                                          "cityValid",
-                                          "city",
-                                          city.target.value
-                                        );
-                                      }}
-                                      type="text"
-                                      // placeholder="We need your full name"
-                                      style={{
-                                        fontFamily: "Lato",
-                                        fontSize: 15,
-                                        color: "#868686",
-                                      }}
-                                      className="a-r-input-box a-r-input-box-first"
-                                    />
-                                  </div>
-                                  {!(!city && !occError) && (
-                                    <p className="a-error-message">
-                                      {occError}
-                                    </p>
-                                  )}
-                                </div> */}
                               </div>
-                              {/* <div className="a-input-field">
-                                <label className="input-label">
-                                  Email
-                                  <span
-                                    style={{
-                                      color: "red",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    *
-                                  </span>{" "}
-                                </label>
-                                <div className="div-input-icon">
-                                  <HiOutlineMail
-                                    color="#3D459D"
-                                    size={22}
-                                    style={{
-                                      position: "relative",
-                                      top: 10,
-                                      left: 10,
-                                    }}
-                                  />
-                                  <input
-                                    placeholder="abc@gmail.com"
-                                    id="email"
-                                    name="email"
-                                    onChange={(email) => {
-                                      this._handleChange(
-                                        emailCheck,
-                                        "emailValid",
-                                        "email",
-                                        email.target.value
-                                      );
-                                    }}
-                                    type="email"
-                                    // placeholder="We need your full name"
-                                    style={{
-                                      fontFamily: "Lato",
-                                      fontSize: 15,
-                                      color: "#868686",
-                                    }}
-                                    className="a-r-input-box a-r-input-box-first"
-                                  />
-                                </div>
-                                {!(!email && !emailError) && (
-                                  <p className="a-error-message">
-                                    {emailError}
-                                  </p>
-                                )}
-                              </div> */}
                               <div className="a-input-field">
                                 <label
                                   className="input-label"
                                   style={{ fontSize: 22, marginTop: -11 }}
                                 >
-                                  Job category
+                                  Job type
                                   <span
                                     style={{
                                       color: "red",
@@ -1354,52 +1517,50 @@ class HomePage extends React.Component {
                                     *
                                   </span>
                                 </label>
-                                <div
-                                  className="div-input-icon"
-                                  style={
-                                    this.state.jobErr
-                                      ? { border: "1px solid red" }
-                                      : { borderWidth: 0 }
+                                <a
+                                  // className="change-a"
+                                  onClick={
+                                    this.state.csr
+                                      ? () => {}
+                                      : this.state.sw
+                                      ? () => {}
+                                      : () => {
+                                          this.handleNoCategory(fullpageApi);
+                                        }
                                   }
                                 >
-                                  <MdWorkOutline
-                                    color="#3D459D"
-                                    size={22}
-                                    className="svg-j"
-                                    style={{
-                                      position: "relative",
-                                      left: 10,
-                                    }}
-                                  />
-                                  <input
-                                    value={
-                                      this.state.sw
-                                        ? "Software & IT"
-                                        : this.state.csr
-                                        ? "Telecaller & Call Center"
-                                        : "Please select job category"
+                                  <div
+                                    className="div-input-icon"
+                                    style={
+                                      this.state.jobErr
+                                        ? { border: "1px solid red" }
+                                        : { borderWidth: 0 }
                                     }
-                                    disabled
-                                    type="text"
-                                    // placeholder="We need your full name"
-                                    style={{
-                                      fontFamily: "Lato",
-                                      fontSize: 17,
-                                      backgroundColor: "#F3F4F8 !important",
-                                    }}
-                                    className="a-r-input-box0 a-r-input-box-first"
-                                  />
-                                  <a
-                                    className="change-a"
-                                    onClick={() => fullpageApi.moveTo(2, 0)}
                                   >
-                                    {this.state.csr
-                                      ? "Change?"
-                                      : this.state.sw
-                                      ? "Change?"
-                                      : "Select"}
-                                  </a>
-                                </div>
+                                    <MdWorkOutline
+                                      color="#3D459D"
+                                      size={22}
+                                      className="svg-j"
+                                      style={{
+                                        position: "relative",
+                                        left: 10,
+                                      }}
+                                    />
+                                    <Select
+                                      options={job_options}
+                                      isDisabled={this.state.sw ? false : true}
+                                      onChange={(e) =>
+                                        this.selectChange(e.value)
+                                      }
+                                      id="select"
+                                      placeholder={
+                                        this.state.sw
+                                          ? "select job type"
+                                          : "first select job category above"
+                                      }
+                                    />
+                                  </div>
+                                </a>
                                 {/* {this.state.jobErr && (
                                   <p className="a-error-message a-error-message-j">
                                     Select job category first.
@@ -1431,6 +1592,7 @@ class HomePage extends React.Component {
                             }
                           >
                             <h1>Let's build your CV!</h1>
+
                             <div className="a-input-field-nxt">
                               <label className="input-label">
                                 Email
@@ -1486,17 +1648,6 @@ class HomePage extends React.Component {
                                   className="a-r-input-box"
                                 />
                               </div>
-                              {/* {this.state.emailTErr ? (
-                                <p className="a-error-message">
-                                  Email must not be left empty
-                                </p>
-                              ) : (
-                                !(!email && !emailError) && (
-                                  <p className="a-error-message">
-                                    {emailError}
-                                  </p>
-                                )
-                              )} */}
                             </div>
                             <div className="a-input-field-nxt">
                               <label
@@ -1556,15 +1707,6 @@ class HomePage extends React.Component {
                                   className="a-r-input-box"
                                 />
                               </div>
-                              {/* {this.state.cityTErr ? (
-                                <p className="a-error-message">
-                                  City must not be left empty
-                                </p>
-                              ) : (
-                                !(!city && !occError) && (
-                                  <p className="a-error-message">{occError}</p>
-                                )
-                              )} */}
                             </div>
 
                             <label
@@ -1604,10 +1746,10 @@ class HomePage extends React.Component {
                                     this.handleSelect("experience", e)
                                   }
                                   value={this.state.experience}
+                                  // className={this.sta}
+                                  placeholder="Work Exp"
                                 >
-                                  <option selected disabled>
-                                    Work Experience
-                                  </option>
+                                  <option disabled>Work Experience</option>
                                   <option>Fresher</option>
                                   <option>0-1 years</option>
                                   <option>2 years</option>
@@ -1702,7 +1844,204 @@ class HomePage extends React.Component {
                           </div>
                         ) : i === 3 ? (
                           <div className="last-int">
+                            <h1>Let's build your CV!</h1>
+                            <div className="a-input-field-nxt a-input-field-nxt1">
+                              <label className="input-label">
+                                Skills
+                                <span
+                                  style={{
+                                    color: "red",
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  *
+                                </span>{" "}
+                              </label>
+                              <div
+                                className="div-input-icon div-skills-inp"
+                                style={
+                                  this.state.skillTErr
+                                    ? { border: "1px solid red" }
+                                    : { borderWidth: 0 }
+                                }
+                              >
+                                <BsBookmarkStar
+                                  color="#3D459D"
+                                  size={20}
+                                  className="svg-m"
+                                  style={{
+                                    position: "relative",
+                                    top: 14,
+                                    left: 10,
+                                  }}
+                                />
+                                <TagsInput
+                                  className="a-r-input-box skill-set"
+                                  value={this.state.skillTag}
+                                  onChange={(e) => this.handleSkillAdd(e)}
+                                  maxTags={5}
+                                  inputProps={{
+                                    placeholder: " + Add another skill",
+                                  }}
+                                />
+                                <div className="defSkill-main">
+                                  {this.state.defSkills.map((v) => (
+                                    <div
+                                      className={
+                                        this.state.skills.includes(v)
+                                          ? "defSkill-map-selected"
+                                          : "defSkill-map"
+                                      }
+                                      onClick={() => {
+                                        this.handleSkillDefault(v);
+                                      }}
+                                    >
+                                      {v}
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              className="a-input-field-nxt a-input-field-nxt1 nxt2"
+                              style={
+                                this.state.employer ? { display: "none" } : {}
+                              }
+                            >
+                              <label className="input-label">
+                                Your biggest Achievement
+                                <span
+                                  style={{
+                                    color: "red",
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  *
+                                </span>{" "}
+                              </label>
+                              <div
+                                className="div-input-icon div-skills-inp"
+                                style={
+                                  this.state.achievementTErr
+                                    ? { border: "1px solid red" }
+                                    : { borderWidth: 0 }
+                                }
+                              >
+                                <GiAchievement
+                                  color="#3D459D"
+                                  size={22}
+                                  className="svg-m"
+                                  style={{
+                                    position: "relative",
+                                    top: 14,
+                                    left: 10,
+                                  }}
+                                />
+                                <input
+                                  className="a-r-input-box skill-set"
+                                  onKeyDown={(e) => {
+                                    if (e.key === "Enter") {
+                                      this.handleAchievementAdd(e.target.value);
+                                      e.target.value = "";
+                                    }
+                                  }}
+                                  maxLength={280}
+                                  placeholder=" + Add Achievement"
+                                />
+                                <div className="defSkill-main">
+                                  {this.state.achievement.map((v) => (
+                                    <div className="defAch-map">
+                                      {v}
+                                      <MdCancel
+                                        color="#2e2f40"
+                                        size={20}
+                                        className="svg-m"
+                                        style={{
+                                          position: "relative",
+                                          top: 0,
+                                          left: 10,
+                                          marginRight: 5,
+                                          cursor: "pointer",
+                                          width: 50,
+                                        }}
+                                        onClick={() =>
+                                          this.setState({ achievement: [] })
+                                        }
+                                      />
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              className="salary-div-time"
+                              style={
+                                this.state.employee ? { display: "none" } : {}
+                              }
+                            >
+                              {" "}
+                              <label className="input-label">
+                                Job Timings
+                                <span
+                                  style={{
+                                    color: "red",
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  *
+                                </span>{" "}
+                              </label>
+                              <div className="div-cb-salary">
+                                {Saltimings.map((v, i) => (
+                                  <button
+                                    className={
+                                      selectedSal.includes(i)
+                                        ? "tickContainer"
+                                        : "timeBtn"
+                                    }
+                                    style={
+                                      this.state.intTErr
+                                        ? { border: "0.3px solid red" }
+                                        : { borderWidth: 0 }
+                                    }
+                                    onClick={() => this.onSelectSalary(i)}
+                                  >
+                                    {v}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                            <div className="exp-btn1">
+                              <button
+                                type="button"
+                                class="a-reg-btn"
+                                onClick={() => this.back2(fullpageApi)}
+                              >
+                                Back
+                              </button>
+                              <button
+                                type="button"
+                                class={"a-reg-btn"}
+                                onClick={() => this.handleNext4(fullpageApi)}
+                              >
+                                Next
+                              </button>
+                            </div>
+                          </div>
+                        ) : i === 4 ? (
+                          <div className="salary-div">
                             <h1>Job Timings</h1>
+                            <label className="input-label">
+                              Job Timings
+                              <span
+                                style={{
+                                  color: "red",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                *
+                              </span>{" "}
+                            </label>
                             <div className="div-cb">
                               {timings.map((v, i) => (
                                 <button
@@ -1723,79 +2062,124 @@ class HomePage extends React.Component {
                               ))}
                             </div>
                             <h1>Current Salary</h1>
-                            <div className="div-range">
-                              <div class="slidecontainer">
-                                <div
-                                  className="div-value"
-                                  style={{ left: this.state.value_px + "%" }}
-                                ></div>
-                                {/* <input
-                                  type="range"
-                                  min={5000}
-                                  max={450000}
-                                  step={
-                                    this.state.range_cond <= 100000
-                                      ? 5000
-                                      : 20000
+                            <div
+                              className="current-salary-main-div"
+                              style={
+                                this.state.employer ? { display: "none" } : {}
+                              }
+                            >
+                              <label className="input-label">
+                                Current Salary
+                                <span
+                                  style={{
+                                    color: "red",
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  *
+                                </span>{" "}
+                              </label>
+                              <div className="div-range">
+                                <div class="slidecontainer">
+                                  <div
+                                    className="div-value"
+                                    style={{ left: this.state.value_px + "%" }}
+                                  ></div>
+
+                                  <Slider
+                                    min={10000}
+                                    max={this.state.sw ? 530000 : 90000}
+                                    defaultValue={60000}
+                                    trackStyle={
+                                      this.state.value === "0"
+                                        ? { backgroundColor: "transparent" }
+                                        : { backgroundColor: "#f0bd3a" }
+                                    }
+                                    step={step_val}
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </div>
+                                <h3
+                                  style={
+                                    this.state.valTErr
+                                      ? {
+                                          border: "0.3px solid red",
+                                          backgroundColor: "white",
+                                          fontSize: 20,
+                                        }
+                                      : {
+                                          borderWidth: 0,
+                                          backgroundColor: "white",
+                                          fontSize: 20,
+                                        }
                                   }
-                                  value={this.state.range_cond}
-                                  // defaultValue={this.state.range_cond}
-                                  class="slider"
-                                  // id="myRange"
-                                  onChange={(e) => this.handleChange(e)}
-                                /> */}
-                                <Slider
-                                  min={10000}
-                                  max={this.state.sw ? 310000 : 90000}
-                                  defaultValue={60000}
-                                  trackStyle={
-                                    this.state.value === "0"
-                                      ? { backgroundColor: "transparent" }
-                                      : { backgroundColor: "#f0bd3a" }
-                                  }
-                                  step={step_val}
-                                  onChange={(e) => this.handleChange(e)}
-                                />
-                              </div>
-                              <h3
-                                style={
-                                  this.state.valTErr
-                                    ? {
-                                        border: "0.3px solid red",
-                                        backgroundColor: "white",
-                                        fontSize: 20,
-                                      }
-                                    : {
-                                        borderWidth: 0,
-                                        backgroundColor: "white",
-                                        fontSize: 20,
-                                      }
-                                }
-                              >
-                                <NumberFormat
-                                  thousandsGroupStyle="thousand"
-                                  value={
-                                    this.state.sw
-                                      ? n_val === 310000
-                                        ? "300000+"
+                                >
+                                  <NumberFormat
+                                    thousandsGroupStyle="thousand"
+                                    value={
+                                      this.state.sw
+                                        ? n_val === 530000
+                                          ? "500000+"
+                                          : n_val === 0
+                                          ? "0"
+                                          : `${v1[0]} -- ${v1[1]}`
+                                        : n_val === 90000
+                                        ? "80000+"
                                         : n_val === 0
                                         ? "0"
                                         : `${v1[0]} -- ${v1[1]}`
-                                      : n_val === 90000
-                                      ? "80000+"
-                                      : n_val === 0
-                                      ? "0"
-                                      : `${v1[0]} -- ${v1[1]}`
+                                    }
+                                    prefix="Rs. "
+                                    decimalSeparator="--"
+                                    displayType="text"
+                                    type="text"
+                                    thousandSeparator={true}
+                                    allowNegative={false}
+                                    isNumericString={true}
+                                  />
+                                </h3>
+                              </div>
+                            </div>
+                            <div
+                              className="current-salary-main-div"
+                              style={
+                                this.state.employee ? { display: "none" } : {}
+                              }
+                            >
+                              <label className="input-label">
+                                Expected Salary
+                                <span
+                                  style={{
+                                    color: "red",
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  *
+                                </span>{" "}
+                              </label>
+                              <div className="expected-salary-input">
+                                <input
+                                  type="number"
+                                  placeholder="from"
+                                  onChange={(e) =>
+                                    this.handleSalaryChange(
+                                      "from",
+                                      e.target.value
+                                    )
                                   }
-                                  prefix="Rs. "
-                                  decimalSeparator="--"
-                                  displayType="text"
-                                  type="text"
-                                  thousandSeparator={true}
-                                  allowNegative={false}
-                                  isNumericString={true}
                                 />
-                              </h3>
+                                &nbsp; - &nbsp;
+                                <input
+                                  type="number"
+                                  placeholder="to"
+                                  onChange={(e) =>
+                                    this.handleSalaryChange(
+                                      "to",
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              </div>
                             </div>
                             <div className="exp-btn1">
                               <button
@@ -1860,9 +2244,9 @@ class HomePage extends React.Component {
                         className="color-bg"
                         style={{ background: item.colorCode }}
                       >
-                        {i < 3 ? (
+                        {i < 5 ? (
                           <div
-                            className={i < 3 ? "text-div0" : "text-div"}
+                            className={i < 5 ? "text-div0" : "text-div"}
                             style={
                               i % 2 == 0
                                 ? { textAlign: "left" }
@@ -1932,6 +2316,14 @@ class HomePage extends React.Component {
                         className={
                           i === 1
                             ? "vector-div1"
+                            : i === 3
+                            ? "vector-div1"
+                            : i === 2
+                            ? "vector-div2"
+                            : i === 4
+                            ? "vector-div2"
+                            : i === 0
+                            ? "vector-div2"
                             : i < 4
                             ? "vector-div0"
                             : "vector-div"
@@ -1943,33 +2335,40 @@ class HomePage extends React.Component {
                         }
                       >
                         {i === 1 ? (
-                          // <video autoPlay loop muted className="video">
-                          //   <source src={Cafe} type="video/mp4"></source>
-                          // </video>
-                          // <Lottie
-                          //   options={{
-                          //     loop: true,
-                          //     autoplay: true,
-                          //     animationData: cafe,
-                          //     rendererSettings: {
-                          //       preserveAspectRatio: "xMidYMid slice",
-                          //     },
-                          //   }}
-                          //   style={{ width: "100%", height: "100%" }}
-                          //   // isStopped={this.state.isStopped}
-                          //   // isPaused={this.state.isPaused}
-                          // />
                           <img
                             src={cafe}
                             style={{ width: "100%", height: "100%" }}
+                          />
+                        ) : i === 2 ? (
+                          <Lottie
+                            options={roadOptions}
+                            height={"100%"}
+                            width={"100%"}
+                          />
+                        ) : i === 3 ? (
+                          <img
+                            src={cafe}
+                            style={{ width: "100%", height: "100%" }}
+                          />
+                        ) : i === 4 ? (
+                          <Lottie
+                            options={roomOptions}
+                            height={"100%"}
+                            width={"100%"}
+                          />
+                        ) : i === 0 ? (
+                          <Lottie
+                            options={officeOptions}
+                            height={"100%"}
+                            width={"100%"}
                           />
                         ) : (
                           <img
                             src={item.vector}
                             className={
-                              i === 1
+                              i === 1 && i === 3
                                 ? "vector-img1"
-                                : i < 4
+                                : i < 4 && i === 0
                                 ? "vector-img0"
                                 : "vector-img"
                             }
@@ -2028,22 +2427,3 @@ class HomePage extends React.Component {
 // ReactDOM.render(<HomePage />, document.getElementById("react-root"));
 
 export default HomePage;
-
-// setTimeout(() => {
-//   this.setState({ timePassed: true });
-// }, 3700);
-// if (this.state.timePassed){
-
-// }
-// else {
-//   return (
-//     <div className="welcome-div">
-//       <img
-//         src={GifLogo}
-//         width="600px"
-//         height="500px"
-//         className="welcome-img"
-//       />
-//     </div>
-//   );
-// }
