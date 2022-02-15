@@ -97,10 +97,10 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  top: 6%;
+  top: 5%;
   width: 100%;
   position: relative;
-  z-index: 99;
+  z-index: 88;
   /* margin-top: 15px; */
 }
 .intro_off {
@@ -126,7 +126,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 99;
+  z-index: 88;
   /* animation: text-appear_y 1s ease-out forwards; */
 }
 .salary-div {
@@ -142,14 +142,15 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 20px;
 }
 .work-exp_off {
   display: none;
 }
 .last-int {
   width: 70%;
-  height: 80%;
-  z-index: 99;
+  height: 0%;
+  z-index: 88;
   position: relative;
   top: 5%;
   display: flex;
@@ -307,6 +308,9 @@ body {
   border-radius: 16px;
   height: 45px;
 }
+.div-skills-inp {
+  background: #f3f4f869 !important;
+}
 .input-label {
   width: 100%;
   padding-left: 5px;
@@ -450,7 +454,7 @@ body {
   height: 100%;
   border-width: 0px;
   border-radius: 16px;
-  font-size: 18px;
+  font-size: 17px;
   background-color: transparent !important;
   /* margin-left: 7px; */
   padding-left: 15px;
@@ -458,12 +462,14 @@ body {
 .div-check select option {
   text-align: left !important;
 }
-.div-check select::placeholder {
-  color: #d8000c !important;
-}
+
 select:hover {
   cursor: pointer;
 }
+select:required:invalid {
+  color: #868686;
+}
+
 .div-cb {
   position: relative;
   /* left: 5%; */
@@ -474,7 +480,8 @@ select:hover {
   color: #868686;
   flex-wrap: wrap;
   font-size: 24px;
-  z-index: 99;
+  z-index: 88;
+  bottom: 7px;
 }
 .div-cb-salary {
   position: relative;
@@ -485,7 +492,7 @@ select:hover {
   color: #868686;
   flex-wrap: wrap;
   font-size: 24px;
-  z-index: 99;
+  z-index: 88;
 }
 input[type="checkbox"] {
   transform: scale(1.5);
@@ -502,31 +509,33 @@ input[type="checkbox"] {
   width: 40%;
   text-align: center;
   border: 0px solid #868686;
-  border-radius: 5px;
+  border-radius: 16px;
   padding: 10px;
   /* font-size: 30px; */
   color: #868686;
   height: 30px;
-  /* font-size: 30px; */
   position: relative;
-  box-shadow: 0px 0px 3px #868686;
   top: 15%;
   font-family: "Lato" !important;
   font-weight: normal;
+  background-color: #f3f4f8;
+}
+.div-range h3 span {
+  font-size: 17px;
 }
 .exp-btn {
   width: 42%;
   position: relative;
   display: flex;
   justify-content: space-between;
-  bottom: 6%;
+  bottom: 6.5%;
 }
 .exp-btn1 {
-  width: 62%;
+  width: 60%;
   position: relative;
   display: flex;
   justify-content: space-between;
-  top: 7%;
+  top: 5.5%;
   /* left: 20%; */
 }
 .div-btn-2 {
@@ -573,7 +582,7 @@ input[type="range"]:focus {
   left: 25px;
 }
 .div-skills-inp {
-  height: 130px;
+  height: 150px;
   padding-top: 15px;
   flex-direction: column;
 }
@@ -593,12 +602,12 @@ input[type="range"]:focus {
 }
 .nxt2 {
   margin-top: 10px;
-  margin-bottom: 0;
+  margin-bottom: 20px;
 }
 .defSkill-main {
   display: flex;
   width: 100%;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   overflow: scroll;
 }
@@ -610,6 +619,14 @@ input[type="range"]:focus {
   border-bottom: 1px solid #e9e9e9;
   padding-bottom: 0px;
   border-radius: 0px;
+  background: transparent !important;
+  color: #172331 !important;
+  border: 0;
+  font-size: 17px;
+  padding-left: 25px;
+}
+.skill-set ::placeholder {
+  font-size: 15px !important;
 }
 .defAch-map {
   width: auto;
@@ -626,16 +643,18 @@ input[type="range"]:focus {
   /* font-weight: bold; */
 }
 .defSkill-map {
-  width: 17%;
+  width: 30%;
   display: flex;
   height: 35px;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  background-color: #c5c2c24d;
+  background-color: #f3f4f8;
+  /* box-shadow: 0px 0px 1px #868686; */
   margin: 5px;
   color: #868686;
   text-align: center;
+  font-size: 17px;
   /* font-weight: bold; */
 }
 .defSkill-map:hover,
@@ -644,7 +663,7 @@ input[type="range"]:focus {
 }
 .defSkill-map-selected {
   background-color: rgba(240, 189, 58, 0.45);
-  width: 17%;
+  width: 30%;
   display: flex;
   height: 35px;
   align-items: center;
@@ -652,14 +671,15 @@ input[type="range"]:focus {
   border-radius: 10px;
   margin: 5px;
   color: #868686;
-  font-weight: bold;
+  /* font-weight: bold; */
   text-align: center;
+  font-size: 17px;
 }
 .expected-salary-input {
   position: relative;
   top: 15px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 .expected-salary-input input {
@@ -667,12 +687,13 @@ input[type="range"]:focus {
   border: 0;
   border-radius: 16px;
   width: 30%;
-  height: 45px;
+  height: 27px;
   text-align: center;
   color: #172331 !important;
-  font-weight: 700;
-  font-size: 18px;
-  padding-left: 25px;
+  /* font-weight: 700; */
+  font-size: 15px;
+  /* padding-left: 25px; */
+  margin-bottom: 0;
 }
 @media only screen and (max-width: 1050px) {
   .intro {
@@ -729,6 +750,11 @@ input[type="range"]:focus {
 }
 
 @media (min-width: 1051px) and (max-width: 1420px) {
+  .salary-div {
+    width: 90%;
+    position: relative;
+    top: 5%;
+  }
   .defSkill-map-selected,
   .defSkill-map {
     font-size: 15px;
@@ -744,9 +770,9 @@ input[type="range"]:focus {
     width: 90%;
   }
   .div-range {
-    width: 96%;
+    width: 100%;
     position: relative;
-    left: 4%;
+    /* left: 4%; */
   }
   .div-cb {
     width: 100%;
@@ -759,7 +785,7 @@ input[type="range"]:focus {
     font-size: 17px;
   }
   .input-label {
-    width: 50%;
+    width: 100%;
     /* padding-left: 20px; */
   }
   .input-label0 {
@@ -771,7 +797,6 @@ input[type="range"]:focus {
   }
   .exp-btn1 {
     width: 250px;
-    left: 115px;
   }
   .div-range h3 {
     font-size: 15px !important;
@@ -818,6 +843,9 @@ input[type="range"]:focus {
   .svg-l {
     top: 13px !important;
   }
+  ::placeholder {
+    font-size: 15px !important;
+  }
 }
 @media (min-width: 768px) and (max-width: 1049px) {
   .change-a {
@@ -826,8 +854,51 @@ input[type="range"]:focus {
   }
 }
 @media (min-width: 320px) and (max-width: 767px) {
+  .react-tagsinput-input {
+    margin-bottom: -6px;
+  }
+  .a-input-field-nxt1 {
+    flex-direction: column !important;
+    margin-top: 9px;
+  }
+  .lbl1 {
+    width: 90% !important;
+  }
+  .lbl2 {
+    width: 100% !important;
+  }
+  .a-input-field a {
+    width: 100%;
+  }
+  .nxt2 {
+    margin: 0 !important;
+    width: 100% !important;
+  }
+  .current-salary-main-div {
+    height: 40%;
+  }
+  .expected-salary-input input {
+    padding: 0;
+    width: 40%;
+  }
+  .salary-div-time {
+    align-items: flex-start;
+  }
+  .salary-div {
+    width: 90%;
+  }
   .div-skills-inp {
     padding: 0;
+    height: 100px;
+  }
+  .defSkill-map,
+  .defSkill-map-selected {
+    width: 29%;
+    font-size: 12px;
+  }
+  .expected-salary-input input {
+    font-size: 14px;
+    font-weight: 500;
   }
   .react-tagsinput-tag {
     padding: 3px !important;
@@ -835,7 +906,10 @@ input[type="range"]:focus {
     font-size: 12px;
   }
   .skill-set {
-    padding: 5px 10px !important;
+    padding: 3px 25px !important;
+    font-size: 13px !important;
+    width: 75% !important;
+    margin-bottom: 0;
   }
   .css-qc6sy-singleValue {
     font-size: 13px !important;
@@ -1080,11 +1154,11 @@ input[type="range"]:focus {
     font-size: 12px !important;
   }
   .video {
-    z-index: 99;
+    z-index: 88;
     width: 100%;
   }
   .div-range {
-    width: 80% !important;
+    width: 100% !important;
     padding: 0px !important;
     flex-direction: column !important;
     align-items: center;
@@ -1137,6 +1211,9 @@ input[type="range"]:focus {
     padding: 5px;
     margin-left: 16px;
   }
+  .div-range h3 span {
+    font-size: 13.5px;
+  }
   .exp-btn {
     width: 250px !important;
     margin-bottom: 0px !important;
@@ -1170,39 +1247,40 @@ input[type="range"]:focus {
   }
 }
 .defSkill-main::-webkit-scrollbar-thumb {
-  background-color: #fff;
-  background-image: -webkit-linear-gradient(
+  background-color: #f0bd3a;
+  /* background-image: ; */
+  /* background-image: -webkit-linear-gradient(
     90deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 1) 25%,
+    rgb(189, 148, 15) 0%,
+    rgb(172, 190, 8) 25%,
     transparent 100%,
-    rgba(0, 0, 0, 1) 75%,
+    rgb(113, 136, 9) 75%,
     transparent
-  );
+  ); */
 } /* width */
 .defSkill-main::-webkit-scrollbar {
   width: 10px;
-  background-color: #f5f5f5;
+  background-color: #f0bc3a;
 }
 
 /* Track */
 .defSkill-main::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6);
-  background-color: #cccccc;
+  -webkit-box-shadow: inset 0 0 6px #f0bc3a;
+  background-color: #f3f4f8;
 }
 ::-webkit-scrollbar-thumb {
   background-color: #fff;
-  background-image: -webkit-linear-gradient(90deg, #fff transparent);
+  background-image: -webkit-linear-gradient(90deg, #f0bc3a transparent);
 } /* width */
 ::-webkit-scrollbar {
   width: 0px;
-  background-color: #fff;
+  background-color: #f0bc3a;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px #fff;
-  background-color: #fff;
+  -webkit-box-shadow: inset 0 0 6px #f0bc3a;
+  background-color: #f0bc3a;
 }
 
 .defSkill-main {

@@ -61,6 +61,6 @@ export const emailCheck = (val) => {
 };
 
 export const companyCheck = (val) => {
-  const nameReg = /^[a-zA-Z0-9!@#\s\$%\^\&*\)\(+=._-]+$/g;
-  return isCheck(val, nameReg, "company");
+  const comReg = /^[a-zA-Z0-9!@#\s\$%\^\&*\)\(+=._-]+$/g;
+  return isCheck(val, comReg, "company");
 };

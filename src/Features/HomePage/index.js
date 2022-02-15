@@ -1,62 +1,40 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import Slider, { Range } from "rc-slider";
 import "rc-slider/assets/index.css";
-import NumberFormat from "react-number-format";
 import { getDatabase } from "firebase/database";
 import { set, ref } from "@firebase/database";
-import firebase from "../../config/firebase";
 import ReactFullpage from "@fullpage/react-fullpage";
-import {
-  emailCheck,
-  nameCheck,
-  phoneCheck,
-  cityCheck,
-  companyCheck,
-} from "./validation";
+import Form1 from "./form1";
+import Form2 from "./form2";
+import Form3 from "./form3";
+import Form4 from "./form4";
+import Form5 from "./form5";
 import Swal from "sweetalert2";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import "./homeStyles.css";
 import Logo from "../../assets/Logo/logo.png";
-import simpleLogo from "../../assets/Logo/simpleLogo.png";
 import Vector1 from "../../assets/Vectors/vector1.png";
 import Vector9 from "../../assets/Vectors/vector9.png";
 import Cafe from "../../assets/Vectors/Cafe.mp4";
 import ArrowIcon from "../../assets/icons/up-arrow.png";
 import programmer from "../../assets/icons/sd.png";
 import operator from "../../assets/icons/cc.png";
-import right from "../../assets/images/right.png";
 import TextTransition, { presets } from "react-text-transition";
-import male from "../../assets/icons/male-student.png";
-import female from "../../assets/icons/woman.png";
 import Lottie from "react-lottie";
-import lottie from "lottie-web";
-import cafe from "../../assets/Vectors/cafe.gif";
-import room from "../../assets/Vectors/room2.gif";
-import { FaRegUser } from "react-icons/fa";
-import { MdOutlineLocationOn } from "react-icons/md";
-import { FiSmartphone } from "react-icons/fi";
-import { HiOutlineMail } from "react-icons/hi";
-import { MdCancel } from "react-icons/md";
-import { MdOutlineBusinessCenter } from "react-icons/md";
-import { MdWorkOutline } from "react-icons/md";
-import { BiStar } from "react-icons/bi";
-import { FiBookOpen } from "react-icons/fi";
-import { BsBookmarkStar } from "react-icons/bs";
-import { GiAchievement } from "react-icons/gi";
-import { TiSortAlphabeticallyOutline } from "react-icons/ti";
-import SelectSearch from "react-select-search";
-import Select from "react-select";
-import officeData from "../../assets/Vectors/office.json";
-import roomData from "../../assets/Vectors/room.json";
-import roadData from "../../assets/Vectors/ROAD.json";
-import TagsInput from "react-tagsinput";
 import "react-tagsinput/react-tagsinput.css"; // If using WebPack and style-loader.
-
+import $ from "jquery";
+import {
+  dhabaOptions,
+  cafeOptions,
+  roadOptions,
+  roomOptions,
+  officeOptions,
+} from "./animationOptions";
 const db = getDatabase();
 const SPREADSHEET_ID = "1tJUmkVph10mUleXZmVAlwIta2DwBeCJClYaGagUpxzA";
-const EMPLOYER_SPREADSHEET_ID = "1and-JbqoUr_L1vAX720OLx4P851w_rpIBCxuTqlspEw";
+const EMPLOYER_SPREADSHEET_ID = "1tJUmkVph10mUleXZmVAlwIta2DwBeCJClYaGagUpxzA";
+// const EMPLOYER_SPREADSHEET_ID = "1and-JbqoUr_L1vAX720OLx4P851w_rpIBCxuTqlspEw";
 const SHEET_ID = "0";
+const SHEET_ID_EMP = "645772619";
 const CLIENT_EMAIL =
   "work-hall@academy-registra-1605173971230.iam.gserviceaccount.com";
 const PRIVATE_KEY =
@@ -87,12 +65,13 @@ class HomePage extends React.Component {
       to: "",
       company: "",
       name: "",
-      city: "",
+      city: "Karachi",
       email: "",
       phone: "",
       sheetLoaded: false,
       courses: [],
       jobErr: false,
+      companyTErr: false,
       nameTErr: false,
       phoneTErr: false,
       emailTErr: false,
@@ -102,7 +81,6 @@ class HomePage extends React.Component {
       engTErr: false,
       radTErr: false,
       intTErr: false,
-      SaltimeTErr: false,
       valTErr: false,
       skillTErr: false,
       achievementTErr: false,
@@ -116,6 +94,8 @@ class HomePage extends React.Component {
         emailValid: false,
         phone: "",
         phoneValid: false,
+        company: "",
+        companyValid: false,
       },
       defSkills: [
         "Python",
@@ -141,9 +121,9 @@ class HomePage extends React.Component {
       skills: [],
       achievement: [],
       count: 0,
-      experience: "Work Experience",
-      eng_lvl: "English Level",
-      education: "Education",
+      experience: "",
+      eng_lvl: "",
+      education: "",
       interestedIn: [],
       JobCategory: "",
       selectedJobOption: "",
@@ -219,6 +199,7 @@ class HomePage extends React.Component {
           vector: Vector1,
           // colorCode: "#3D459D",
           colorCode: "#fff",
+          lottieAnimation: officeOptions,
         },
         {
           id: 2,
@@ -228,6 +209,7 @@ class HomePage extends React.Component {
           vector: Cafe,
           // colorCode: "#F0BD3A",
           colorCode: "#fff",
+          lottieAnimation: cafeOptions,
         },
         {
           id: 3,
@@ -235,6 +217,7 @@ class HomePage extends React.Component {
           body: "Professional networks are decades old and feel out-of-place. Worktown wants to make it exciting and relevant. And we think everyone’s smart enough to know what works for them.",
           vector: Vector1,
           colorCode: "#fff",
+          lottieAnimation: roadOptions,
         },
         {
           id: 4,
@@ -243,6 +226,7 @@ class HomePage extends React.Component {
           vector: Vector1,
           // colorCode: "#F15925",
           colorCode: "#fff",
+          lottieAnimation: dhabaOptions,
         },
         {
           id: 5,
@@ -250,6 +234,7 @@ class HomePage extends React.Component {
           // body: "Resumes are two-dimensional – they don’t talk much about who you are and how you’ve had to work your socks off to get to where you are. Worktown helps you show them what makes you ‘you’.",
           vector: Vector1,
           colorCode: "#fff",
+          lottieAnimation: roomOptions,
         },
         {
           id: 6,
@@ -310,9 +295,16 @@ class HomePage extends React.Component {
   }
   handleSelect = (name, value) => {
     this.setState({ [name]: value.target.value });
-    name === "experience" && this.setState({ expTErr: false });
-    name === "education" && this.setState({ eduTErr: false });
-    name === "eng_lvl" && this.setState({ engTErr: false });
+    console.log(value.target.value);
+    name === "experience" && value.target.value === ""
+      ? this.setState({ expTErr: true })
+      : this.setState({ expTErr: false });
+    name === "education" && value.target.value === ""
+      ? this.setState({ eduTErr: true })
+      : this.setState({ eduTErr: false });
+    name === "eng_lvl" && value.target.value === ""
+      ? this.setState({ engTErr: true })
+      : this.setState({ engTErr: false });
   };
   handleCard = (fullpageApi, val) => {
     if (val.name === "Software & IT Jobs") {
@@ -328,7 +320,11 @@ class HomePage extends React.Component {
   handleNext1 = (fullpageApi) => {
     if (
       this.state.name === "" ||
-      (!this.state.female && !this.state.male) ||
+      (this.state.employee
+        ? !this.state.female && !this.state.male
+        : this.state.employer
+        ? this.state.company === ""
+        : "") ||
       (!this.state.csr && !this.state.sw) ||
       this.state.phone === "" ||
       this.state.selectedJobOption === "" ||
@@ -339,9 +335,13 @@ class HomePage extends React.Component {
       this.state.phone === "" && this.setState({ phoneTErr: true });
       !this.state.csr && !this.state.sw && this.setState({ jobErr: true });
       this.state.selectedJobOption === "" && this.setState({ jobErr: true });
-      !this.state.male &&
-        !this.state.female &&
-        this.setState({ radTErr: true });
+      if (this.state.employer) {
+        this.state.company === "" && this.setState({ companyTErr: true });
+      } else if (this.state.employee) {
+        !this.state.male &&
+          !this.state.female &&
+          this.setState({ radTErr: true });
+      }
     } else {
       fullpageApi.moveTo(4, 0);
     }
@@ -351,7 +351,11 @@ class HomePage extends React.Component {
     if (
       this.state.name === "" ||
       this.state.selectedJobOption === "" ||
-      (!this.state.female && !this.state.male) ||
+      (this.state.employee
+        ? !this.state.female && !this.state.male
+        : this.state.employer
+        ? this.state.company === ""
+        : "") ||
       (!this.state.csr && !this.state.sw) ||
       this.state.phone === ""
     ) {
@@ -359,39 +363,46 @@ class HomePage extends React.Component {
       this.state.phone === "" && this.setState({ phoneTErr: true });
       this.state.selectedJobOption === "" && this.setState({ jobErr: true });
       !this.state.csr && !this.state.sw && this.setState({ jobErr: true });
-      !this.state.male &&
-        !this.state.female &&
-        this.setState({ radTErr: true });
+      if (this.state.employer) {
+        this.state.company === "" && this.setState({ companyTErr: true });
+      } else {
+        !this.state.male &&
+          !this.state.female &&
+          this.setState({ radTErr: true });
+      }
       fullpageApi.moveTo(3, 0);
     }
     if (
       this.state.email === "" ||
-      this.state.experience === "Work Experience" ||
-      this.state.education === "Education" ||
-      this.state.eng_lvl === "English Level" ||
+      this.state.experience === "" ||
+      this.state.education === "" ||
+      this.state.eng_lvl === "" ||
       this.state.city === ""
     ) {
       this.state.email === "" && this.setState({ emailTErr: true });
       this.state.city === "" && this.setState({ cityTErr: true });
-      this.state.experience === "Work Experience" &&
-        this.setState({ expTErr: true });
-      this.state.education === "Education" && this.setState({ eduTErr: true });
-      this.state.eng_lvl === "English Level" &&
-        this.setState({ engTErr: true });
+      this.state.experience === "" && this.setState({ expTErr: true });
+      this.state.education === "" && this.setState({ eduTErr: true });
+      this.state.eng_lvl === "" && this.setState({ engTErr: true });
     } else {
       fullpageApi.moveTo(5, 0);
     }
   };
-  handleNext4 = (fullpageApi) => {
-    if (!this.state.skills.length || !this.state.achievement.length) {
+
+  handleNext4 = (fullpageApi, selectedCategories, salTime) => {
+    let salarytime = salTime.toString() || [];
+    let interest = selectedCategories.toString() || "";
+    if (!this.state.skills.length || interest === "") {
       !this.state.skills.length && this.setState({ skillTErr: true });
-      !this.state.achievement.length &&
-        this.setState({ achievementTErr: true });
-    }
-    if (
+      interest === "" && this.setState({ intTErr: true });
+    } else if (
       this.state.name === "" ||
       this.state.selectedJobOption === "" ||
-      (!this.state.female && !this.state.male) ||
+      (this.state.employee
+        ? !this.state.female && !this.state.male
+        : this.state.employer
+        ? this.state.company === ""
+        : "") ||
       (!this.state.csr && !this.state.sw) ||
       this.state.phone === ""
     ) {
@@ -399,59 +410,83 @@ class HomePage extends React.Component {
       this.state.phone === "" && this.setState({ phoneTErr: true });
       this.state.selectedJobOption === "" && this.setState({ jobErr: true });
       !this.state.csr && !this.state.sw && this.setState({ jobErr: true });
-      !this.state.male &&
-        !this.state.female &&
-        this.setState({ radTErr: true });
+      if (this.state.employer) {
+        this.state.company === "" && this.setState({ companyTErr: true });
+      } else {
+        !this.state.male &&
+          !this.state.female &&
+          this.setState({ radTErr: true });
+      }
       fullpageApi.moveTo(3, 0);
     } else if (
       this.state.email === "" ||
-      this.state.experience === "Work Experience" ||
-      this.state.education === "Education" ||
-      this.state.eng_lvl === "English Level" ||
+      this.state.experience === "" ||
+      this.state.education === "" ||
+      this.state.eng_lvl === "" ||
       this.state.city === ""
     ) {
       this.state.email === "" && this.setState({ emailTErr: true });
       this.state.city === "" && this.setState({ cityTErr: true });
-      this.state.experience === "Work Experience" &&
-        this.setState({ expTErr: true });
-      this.state.education === "Education" && this.setState({ eduTErr: true });
-      this.state.eng_lvl === "English Level" &&
-        this.setState({ engTErr: true });
+      this.state.experience === "" && this.setState({ expTErr: true });
+      this.state.education === "" && this.setState({ eduTErr: true });
+      this.state.eng_lvl === "" && this.setState({ engTErr: true });
       fullpageApi.moveTo(4, 0);
     } else {
-      fullpageApi.moveTo(5, 0);
+      fullpageApi.moveTo(6, 0);
     }
   };
-  handleNext3 = async (fullpageApi, selectedCategories) => {
+  handleNext3 = async (fullpageApi, selectedCategories, selectedSalTime) => {
     let interest = selectedCategories.toString() || "";
+    let salarytime = selectedSalTime.toString() || [];
     if (
+      (this.state.employer
+        ? !salarytime.length
+        : !this.state.achievement.length) ||
+      (this.state.employer
+        ? this.state.to === "" || this.state.from === ""
+        : this.state.value === "0")
+    ) {
+      !salarytime.length ? this.setState({ stTErr: true }) : console.log("now");
+      !this.state.achievement.length &&
+        this.setState({ achievementTErr: true });
+      this.state.employee
+        ? this.state.value == 0 && this.setState({ valTErr: true })
+        : (this.state.to == 0 || this.state.from == 0) &&
+          this.setState({ expSalTErr: true });
+    } else if (
       (this.state.name === "" ||
         this.state.selectedJobOption === "" ||
-        (!this.state.female && !this.state.male) ||
+        (this.state.employee
+          ? !this.state.female && !this.state.male
+          : this.state.employer
+          ? this.state.company === ""
+          : "") ||
         (!this.state.csr && !this.state.sw) ||
         this.state.phone === "") &&
       (this.state.email === "" ||
-        this.state.experience === "Work Experience" ||
+        this.state.experience === "" ||
         !this.state.skills.length ||
-        this.state.education === "Education" ||
-        this.state.eng_lvl === "English Level" ||
+        this.state.education === "" ||
+        this.state.eng_lvl === "" ||
         this.state.city === "")
     ) {
       this.state.name === "" && this.setState({ nameTErr: true });
       this.state.phone === "" && this.setState({ phoneTErr: true });
       this.state.selectedJobOption === "" && this.setState({ jobErr: true });
       !this.state.csr && !this.state.sw && this.setState({ jobErr: true });
-      !this.state.male &&
-        !this.state.female &&
-        this.setState({ radTErr: true });
+      if (this.state.employer) {
+        this.state.company === "" && this.setState({ companyTErr: true });
+      } else {
+        !this.state.male &&
+          !this.state.female &&
+          this.setState({ radTErr: true });
+      }
       !this.state.skills.length && this.setState({ skillTErr: true });
       this.state.email === "" && this.setState({ emailTErr: true });
       this.state.city === "" && this.setState({ cityTErr: true });
-      this.state.experience === "Work Experience" &&
-        this.setState({ expTErr: true });
-      this.state.education === "Education" && this.setState({ eduTErr: true });
-      this.state.eng_lvl === "English Level" &&
-        this.setState({ engTErr: true });
+      this.state.experience === "" && this.setState({ expTErr: true });
+      this.state.education === "" && this.setState({ eduTErr: true });
+      this.state.eng_lvl === "" && this.setState({ engTErr: true });
 
       interest === "" && this.setState({ intTErr: true });
       this.state.value === "0" && this.setState({ valTErr: true });
@@ -459,33 +494,28 @@ class HomePage extends React.Component {
       fullpageApi.moveTo(3, 0);
     } else if (
       this.state.email === "" ||
-      this.state.experience === "Work Experience" ||
-      this.state.education === "Education" ||
-      this.state.eng_lvl === "English Level" ||
+      this.state.experience === "" ||
+      this.state.education === "" ||
+      this.state.eng_lvl === "" ||
       this.state.city === ""
     ) {
       this.state.email === "" && this.setState({ emailTErr: true });
       this.state.city === "" && this.setState({ cityTErr: true });
-      this.state.experience === "Work Experience" &&
-        this.setState({ expTErr: true });
-      this.state.education === "Education" && this.setState({ eduTErr: true });
-      this.state.eng_lvl === "English Level" &&
-        this.setState({ engTErr: true });
+      this.state.experience === "" && this.setState({ expTErr: true });
+      this.state.education === "" && this.setState({ eduTErr: true });
+      this.state.eng_lvl === "" && this.setState({ engTErr: true });
 
       interest === "" && this.setState({ intTErr: true });
       this.state.value === "0" && this.setState({ valTErr: true });
 
       fullpageApi.moveTo(4, 0);
-    } else if (
-      this.state.skills.length === 0 ||
-      this.state.achievement.length === 0
-    ) {
+    } else if (this.state.skills.length === 0 || interest === "") {
+      interest === "" && this.setState({ intTErr: true });
       this.state.skills.length === 0 && this.setState({ skillTErr: true });
-      this.state.achievement.length === 0 &&
-        this.setState({ achievementTErr: true });
+
       fullpageApi.moveTo(5, 0);
     } else {
-      this.submitHandler(fullpageApi, selectedCategories);
+      this.submitHandler(fullpageApi, selectedCategories, selectedSalTime);
     }
 
     // try {
@@ -506,8 +536,42 @@ class HomePage extends React.Component {
     //   console.error("Error: ", e);
     // }
   };
+
   handleSalaryChange(target, value) {
-    this.setState({ [target]: value });
+    // if (target === "to") {
+    //   if (value != "") {
+    //     let toS = value.split(" ");
+    //     let strTo = toS[1].replace(/,/g, "");
+    //     let fromS = this.state.from.split(" ");
+    //     let strFrom = fromS[1].replace(/,/g, "");
+    //     let change = strFrom - strTo;
+
+    //     let diffA = strFrom * 100;
+    //     let diffB = diffA / 50;
+    //     if (change <= 0) {
+    //       this.setState({ expSalTErr: true });
+    //     } else if (change > diffB) {
+    //       this.setState({ expSalTErr: true });
+    //       console.log("change err === ", diffB);
+    //     } else {
+    //       this.setState({
+    //         [target]: value,
+    //       });
+    //     }
+    //   }
+    // } else {
+    this.setState({
+      [target]: value,
+    });
+    // }
+    console.log(this.state.from, this.state.to);
+    this.state.from === "" || this.state.to === ""
+      ? this.setState({ expSalTErr: true })
+      : this.setState({ expSalTErr: false });
+  }
+  handleNoEmp(e) {
+    e.moveTo(1, 0);
+    // this.setState({ noEmp: true });
   }
   handleNoCategory(e) {
     e.moveTo(2, 0);
@@ -529,7 +593,7 @@ class HomePage extends React.Component {
   };
   back2 = (fullpageApi) => {
     // this.setState({ part1: true, part2: false });
-    fullpageApi.moveTo(5, 0);
+    fullpageApi.moveTo(4, 0);
   };
   handleCheck = (val) => {
     if (val === "Part-time") {
@@ -634,25 +698,41 @@ class HomePage extends React.Component {
     this.setState({ radTErr: false });
   };
 
-  submitHandler = (fullpageApi, selectedCategories) => {
-    const { nameValid, cityValid, emailValid, phoneValid } =
+  submitHandler = (fullpageApi, selectedCategories, selectedSalTime) => {
+    const { nameValid, cityValid, emailValid, phoneValid, companyValid } =
       this.state.errorMessage;
     const { skills, achievement, from, to } = this.state;
-    const formIsValid = nameValid && cityValid && emailValid && phoneValid;
-    let gender = this.state.male ? "Male" : "Female";
+    const formIsValid = nameValid && emailValid && phoneValid;
+    const formIsValidEmployer =
+      nameValid && emailValid && phoneValid && companyValid;
+    let gender = this.state.male ? "Male" : this.state.female ? "Female" : "";
     let interest = selectedCategories.toString() || "";
+    let SalaryTime = selectedSalTime.toString() || "";
     let skillSet = skills.toString() || "";
     let achievementStr = achievement.toString() || "";
-    var exp_sal = this.state.employer && from + "-" + to;
-    if (!formIsValid) {
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: "Invalid input fields",
-        showConfirmButton: true,
-        // timer: 1500,
-      });
-      return;
+    var exp_sal = (this.state.employer && from + "-" + to) || "";
+    if (this.state.employee) {
+      if (!formIsValid) {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Invalid input fields",
+          showConfirmButton: true,
+          // timer: 1500,
+        });
+        return;
+      }
+    } else {
+      if (!formIsValidEmployer) {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Invalid input fields",
+          showConfirmButton: true,
+          // timer: 1500,
+        });
+        return;
+      }
     }
     if (
       this.state.name === "" ||
@@ -660,21 +740,29 @@ class HomePage extends React.Component {
       this.state.city === "" ||
       this.state.email === "" ||
       skillSet === "" ||
-      achievementStr === "" ||
       this.state.JobCategory === "" ||
       this.state.experience === "" ||
       this.state.education === "" ||
-      this.state.value === "0" ||
+      (this.state.employee && this.state.value === "0") ||
       this.state.eng_lvl === "" ||
       this.state.selectedJobOption === "" ||
-      gender === "" ||
-      interest === ""
+      (this.state.employee ? gender === "" : this.state.company === "") ||
+      (this.state.employee ? achievementStr === "" : exp_sal === "-") ||
+      (this.state.employee ? interest === "" : SalaryTime === "")
     ) {
       interest === "" && this.setState({ intTErr: true });
+      exp_sal === "" && this.setState({ expSTErr: true });
       this.state.value === "0" && this.setState({ valTErr: true });
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Invalid input fields",
+        showConfirmButton: true,
+        timer: 1000,
+      });
     } else {
       if (this.state.value === "490000 - 530000") {
-        this.setState({ value: "300000+" });
+        this.setState({ value: "500000+" });
       }
       if (this.state.value === "0") {
         this.setState({ value: "0" });
@@ -708,7 +796,33 @@ class HomePage extends React.Component {
             InterestedIn: interest,
             ExpectedSalary: exp_sal,
             EnglishLevel: this.state.eng_lvl,
-            JobTime: achievementStr,
+            JobTime: SalaryTime,
+          }).then(() => {
+            set(ref(db, "users/jobs_employer/" + this.state.phone), {
+              BusinessName: this.state.company,
+              Name: this.state.name,
+              Phone: this.state.phone,
+              City: this.state.city,
+              Email: this.state.email,
+              JobCategory: this.state.JobCategory,
+              JobType: this.state.selectedJobOption,
+              Experience: this.state.experience,
+              Skills: skillSet,
+              Education: this.state.education,
+              InterestedIn: interest,
+              ExpectedSalary: exp_sal,
+              EnglishLevel: this.state.eng_lvl,
+              JobTime: SalaryTime,
+            });
+            this.setState({ isSubmit: false });
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Awesome, you have been added!",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            this.clearForm(selectedCategories, selectedSalTime);
           });
         } else {
           this.appendSpreadsheet({
@@ -751,7 +865,7 @@ class HomePage extends React.Component {
               showConfirmButton: false,
               timer: 1500,
             });
-            this.clearForm(selectedCategories);
+            this.clearForm(selectedCategories, selectedSalTime);
           });
         }
       }, 100);
@@ -806,9 +920,6 @@ class HomePage extends React.Component {
   _handleChange = (checkValidation, validationCheck, stateKey, value) => {
     const { error, isValid } = checkValidation(value);
     if (stateKey === "phone") {
-      // let formatted = value.replace(/(\d{4,4})/, "$1-");
-      // let formatted = `${value.slice(0, 4)} ${value.slice(4, 10)}`;
-      // const formatted = this.formatPhoneNumber(value);
       this.setState({
         [stateKey]: value,
         errorMessage: {
@@ -837,6 +948,7 @@ class HomePage extends React.Component {
           () => this.state.name !== "" && this.setState({ nameTErr: false }),
           10
         );
+        this.setState({ company: this.state.company });
       } else {
         setTimeout(() => {
           this.setState({
@@ -847,6 +959,9 @@ class HomePage extends React.Component {
               [validationCheck]: true,
             },
           });
+          this.state.employer &&
+            this.state.company !== "" &&
+            this.setState({ companyTErr: false });
         }, 10);
         setTimeout(() => {
           this.state.city !== "" && this.setState({ cityTErr: false });
@@ -866,25 +981,30 @@ class HomePage extends React.Component {
         this.setState({ emailTErr: true });
     }
   };
-  clearForm = (selectedCategories) => {
+  clearForm = (selectedCategories, selectedSalary) => {
     selectedCategories = [];
+    selectedSalary = [];
+    document.getElementById("company").value = "";
     document.getElementById("phone").value = "";
     document.getElementById("name").value = "";
     document.getElementById("email").value = "";
-    document.getElementById("city").value = "";
+    // document.getElementById("city").value = "Karachi";
     document.getElementById("select").value = "";
     this.setState({
+      company: "",
       name: "",
       phone: "",
       email: "",
-      city: "",
+      to: "",
+      from: "",
+      city: "Karachi",
       value: "0",
       range_cond: 0,
       csr: false,
       sw: false,
-      experience: "Work Experience",
-      education: "Education",
-      eng_lvl: "English Level",
+      experience: "",
+      education: "",
+      eng_lvl: "",
       male: false,
       female: false,
       selected: [],
@@ -918,7 +1038,7 @@ class HomePage extends React.Component {
       // loads document properties and worksheets
       await emp_doc.loadInfo();
 
-      const sheet = emp_doc.sheetsById[SHEET_ID];
+      const sheet = emp_doc.sheetsById[SHEET_ID_EMP];
       const result = await sheet.addRow(row);
     } catch (e) {
       console.error("Error: ", e);
@@ -964,6 +1084,7 @@ class HomePage extends React.Component {
 
     // this.counterFn();
   }
+
   onLongPress = (item) => {
     this.state.selected.push(item);
     this.setState({ selectingActive: true, active: item });
@@ -993,11 +1114,12 @@ class HomePage extends React.Component {
       newList.splice(index, 1);
     } else {
       newList.push(item);
-      this.setState({ SaltimeTErr: false });
+      this.setState({ stTErr: false });
     }
     this.setState({
       selectedSal: newList,
       activeSal: item,
+      to: item === 2 ? "-" : "",
     });
   };
   handleChange = (e) => {
@@ -1006,21 +1128,13 @@ class HomePage extends React.Component {
     if (this.state.range_cond < 100000) {
       let val = `${e - 10000} - ${e}`;
       this.setState({ value: val });
-    }
-    // else if (this.state.range_cond === 310000) {
-    //   let val = "300000+";
-    //   this.setState({ value: val });
-    // }
-    else if (this.state.range_cond < 310000) {
+    } else if (this.state.range_cond < 310000) {
       let val = `${e - 20000} - ${e}`;
       this.setState({ value: val });
     } else {
       let val = `${e - 40000} - ${e}`;
       this.setState({ value: val });
     }
-    // let fort = e.toString();
-    // let formatted = fort.replace(/,/g, "-");
-    // this.setState({ range_cond: e, value: formatted });
   };
   handleSW = () => {
     if (this.state.csr) {
@@ -1038,31 +1152,26 @@ class HomePage extends React.Component {
   };
 
   render() {
-    const officeOptions = {
-      loop: true,
-      autoplay: true,
-      animationData: officeData,
-      rendererSettings: {
-        preserveAspectRatio: "xMidYMid slice",
-      },
-    };
-    const roomOptions = {
-      loop: true,
-      autoplay: true,
-      animationData: roomData,
-      rendererSettings: {
-        preserveAspectRatio: "xMidYMid slice",
-      },
-    };
-    const roadOptions = {
-      loop: true,
-      autoplay: true,
-      animationData: roadData,
-      rendererSettings: {
-        preserveAspectRatio: "xMidYMid slice",
-      },
-    };
+    $(document).ready(function () {
+      var mouseX = 0,
+        mouseY = 0;
+      var xp = 0,
+        yp = 0;
+
+      $(document).mousemove(function (e) {
+        mouseX = e.pageX - 11;
+        mouseY = e.pageY - 11;
+      });
+
+      setInterval(function () {
+        xp += (mouseX - xp) / 6;
+        yp += (mouseY - yp) / 6;
+        $("#circle").css({ left: xp + "px", top: yp + "px" });
+      }, 20);
+    });
+
     let {
+      company,
       name,
       city,
       email,
@@ -1075,47 +1184,34 @@ class HomePage extends React.Component {
       job_options,
       defSkills,
     } = this.state;
-    let {
-      name: nameError,
-      city: occError,
-      email: emailError,
-      phone: phoneError,
-    } = this.state.errorMessage;
+
     let selectedSalary = [];
     selectedSal.forEach((e) => {
       selectedSalary.push(Saltimings[e]);
     });
+
     let selectedCategories = [];
     selected.forEach((e) => {
       selectedCategories.push(timings[e]);
     });
-    let n_val = this.state.range_cond;
-    let step_val = 10000;
-    if (n_val <= 100000) {
-      step_val = 10000;
-    } else if (n_val >= 100000 && n_val <= 310000) {
-      step_val = 20000;
-    } else {
-      step_val = 40000;
-    }
 
-    console.log("value === ", selectedSalary, selectedCategories);
+    console.log("value === ", this.state);
     defSkills.sort(function (a, b) {
       return a.localeCompare(b); //using String.prototype.localCompare()
     });
-    let v1 = this.state.value.split("-");
 
     return (
       <ReactFullpage
         scrollOverflow={true}
-        sectionsColor={["#fff"]}
-        // sectionsColor={["#FF9772"]}
+        // sectionsColor={["#fff"]}
+        sectionsColor={["#FF9772"]}
         onLeave={this.onLeave.bind(this)}
         afterLoad={this.afterLoad.bind(this)}
         responsiveWidth={2500}
         render={({ state, fullpageApi }) => {
           return (
             <div id="fullpage">
+              <span id="circle" class="circle"></span>
               <div className="section section1">
                 <div className="header">
                   <div className="top">
@@ -1123,25 +1219,21 @@ class HomePage extends React.Component {
                       <img src={Logo} className="header-logo" />
                     </div>
                     <div className="wait-btn-main-div">
-                      <div className="wait-button">
-                        <a
-                          onClick={() =>
-                            this.handleModeChange("Employee", fullpageApi)
-                          }
-                          className="wait-btn"
-                        >
-                          I want a job
-                        </a>
+                      <div
+                        className="wait-button wait-btn"
+                        onClick={() =>
+                          this.handleModeChange("Employee", fullpageApi)
+                        }
+                      >
+                        I want a job
                       </div>
-                      <div className="wait-button">
-                        <a
-                          onClick={() =>
-                            this.handleModeChange("Employer", fullpageApi)
-                          }
-                          className="wait-btn"
-                        >
-                          I want to hire
-                        </a>
+                      <div
+                        className="wait-button wait-btn"
+                        onClick={() =>
+                          this.handleModeChange("Employer", fullpageApi)
+                        }
+                      >
+                        I want to hire
                       </div>
                       {/* <a href="/waitList" className="wait-btn">
                         Join the waitlist
@@ -1217,992 +1309,37 @@ class HomePage extends React.Component {
                           <p></p>
                         )}
                         {i === 0 ? (
-                          <div className="form1">
-                            <h1>Select Job Category</h1>
-                            {this.state.card.map((v, i) => (
-                              <div
-                                className="card"
-                                onClick={
-                                  v.name === "Software & IT Jobs"
-                                    ? () => this.handleCard(fullpageApi, v)
-                                    : () =>
-                                        alert(
-                                          "Telecaller & Call Center Jobs are coming soon..."
-                                        )
-                                }
-                                style={
-                                  v.name === "Telecaller & Call Center Jobs"
-                                    ? { opacity: 0.5 }
-                                    : v.name === "Software & IT Jobs" &&
-                                      this.state.sw
-                                    ? {
-                                        backgroundColor:
-                                          "rgba(240, 189, 58, 0.45)",
-                                      }
-                                    : this.state.noCategory
-                                    ? { border: "1px solid red" }
-                                    : { backgroundColor: "#fff" }
-                                }
-                              >
-                                <img
-                                  src={v.img}
-                                  style={{
-                                    width: 120,
-                                    height: 97,
-                                    marginBottom: 5,
-                                  }}
-                                />
-                                <h4
-                                  style={{
-                                    fontSize: 30,
-                                    marginTop: 15,
-                                    marginBottom: 15,
-                                  }}
-                                >
-                                  {v.name}
-                                </h4>
-                              </div>
-                            ))}
-                          </div>
+                          <Form1
+                            ctx={this}
+                            fullpageApi={fullpageApi}
+                            data={item}
+                          />
                         ) : i === 1 ? (
-                          <div
-                            className={this.state.part1 ? "intro" : "intro_off"}
-                          >
-                            <h1>Your Introduction</h1>
-                            <div
-                              className="radio-div"
-                              style={
-                                this.state.employer ? { display: "none" } : {}
-                              }
-                            >
-                              <div
-                                className={
-                                  this.state.male ? "radio-male" : "radio-in"
-                                }
-                                onClick={() => this.handleMale()}
-                                style={
-                                  this.state.radTErr
-                                    ? { border: "1px solid red" }
-                                    : { borderWidth: 0 }
-                                }
-                              >
-                                <img
-                                  src={male}
-                                  style={{
-                                    width: 50,
-                                    height: 50,
-                                    marginBottom: 5,
-                                  }}
-                                />
-                                Male
-                              </div>
-                              <div
-                                className={
-                                  this.state.female
-                                    ? "radio-female"
-                                    : "radio-in"
-                                }
-                                onClick={() => this.handleFemale()}
-                                style={
-                                  this.state.radTErr
-                                    ? { border: "1px solid red" }
-                                    : { borderWidth: 0 }
-                                }
-                              >
-                                <img
-                                  src={female}
-                                  style={{
-                                    width: 50,
-                                    height: 50,
-                                    marginBottom: 5,
-                                  }}
-                                />
-                                Female
-                              </div>
-                            </div>
-
-                            <div
-                              class="a-upper-input"
-                              style={
-                                this.state.employee ? {} : { marginTop: 20 }
-                              }
-                            >
-                              <div
-                                style={
-                                  this.state.employee ? { display: "none" } : {}
-                                }
-                                className="a-input-field"
-                              >
-                                <label className="input-label">
-                                  Business Name
-                                  <span
-                                    style={{
-                                      color: "red",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    *
-                                  </span>
-                                </label>
-                                <div
-                                  className="div-input-icon"
-                                  style={
-                                    this.state.nameTErr
-                                      ? { border: "1px solid red" }
-                                      : !(!name || !nameError)
-                                      ? { border: "1px solid red" }
-                                      : { borderWidth: 0 }
-                                  }
-                                >
-                                  <MdOutlineBusinessCenter
-                                    color="#3D459D"
-                                    size={21}
-                                    className="svg-u"
-                                    style={{
-                                      position: "relative",
-                                      top: 13,
-                                      left: 10,
-                                    }}
-                                  />
-                                  <input
-                                    placeholder="WorkHall"
-                                    id="company"
-                                    name="company"
-                                    onChange={(name) => {
-                                      this._handleChange(
-                                        companyCheck,
-                                        "companyValid",
-                                        "company",
-                                        name.target.value
-                                      );
-                                    }}
-                                    type="text"
-                                    // placeholder="We need your full name"
-                                    style={{
-                                      fontFamily: "Lato",
-                                      fontSize: 17,
-                                      color: "#868686",
-                                    }}
-                                    // value={this.state.name}
-                                    className="a-r-input-box"
-                                  />
-                                </div>
-                              </div>
-                              <div className="a-input-field">
-                                <label className="input-label">
-                                  Name
-                                  <span
-                                    style={{
-                                      color: "red",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    *
-                                  </span>
-                                </label>
-                                <div
-                                  className="div-input-icon"
-                                  style={
-                                    this.state.nameTErr
-                                      ? { border: "1px solid red" }
-                                      : !(!name || !nameError)
-                                      ? { border: "1px solid red" }
-                                      : { borderWidth: 0 }
-                                  }
-                                >
-                                  <FaRegUser
-                                    color="#3D459D"
-                                    size={17}
-                                    className="svg-u"
-                                    style={{
-                                      position: "relative",
-                                      top: 13,
-                                      left: 10,
-                                    }}
-                                  />
-                                  <input
-                                    placeholder="Ahmed Mehanti"
-                                    id="name"
-                                    name="name"
-                                    onChange={(name) => {
-                                      this._handleChange(
-                                        nameCheck,
-                                        "nameValid",
-                                        "name",
-                                        name.target.value
-                                      );
-                                    }}
-                                    type="text"
-                                    // placeholder="We need your full name"
-                                    style={{
-                                      fontFamily: "Lato",
-                                      fontSize: 17,
-                                      color: "#868686",
-                                    }}
-                                    // value={this.state.name}
-                                    className="a-r-input-box"
-                                  />
-                                </div>
-                              </div>
-
-                              <div className="div-input-inner">
-                                <div className="a-input-field a-input-field-ph ">
-                                  <label className="input-label">
-                                    Number
-                                    <span
-                                      style={{
-                                        color: "red",
-                                        fontWeight: "bold",
-                                      }}
-                                    >
-                                      *
-                                    </span>
-                                  </label>
-                                  <div
-                                    className="div-input-icon"
-                                    style={
-                                      this.state.phoneTErr
-                                        ? { border: "1px solid red" }
-                                        : !(!phone || !phoneError)
-                                        ? { border: "1px solid red" }
-                                        : { borderWidth: 0 }
-                                    }
-                                  >
-                                    <FiSmartphone
-                                      color="#3D459D"
-                                      size={20}
-                                      className="svg-p"
-                                      style={{
-                                        position: "relative",
-                                        top: 12,
-                                        left: 10,
-                                      }}
-                                    />
-                                    <input
-                                      id="phone"
-                                      name="phone"
-                                      placeholder="03001234567"
-                                      onChange={(phone) => {
-                                        this._handleChange(
-                                          phoneCheck,
-                                          "phoneValid",
-                                          "phone",
-                                          phone.target.value
-                                        );
-                                      }}
-                                      type="text"
-                                      style={{
-                                        fontFamily: "Lato",
-                                        fontSize: 17,
-                                        color: "#868686",
-                                      }}
-                                      className="a-r-input-box"
-                                      value={this.state.phone}
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="a-input-field">
-                                <label
-                                  className="input-label"
-                                  style={{ fontSize: 22, marginTop: -11 }}
-                                >
-                                  Job type
-                                  <span
-                                    style={{
-                                      color: "red",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    *
-                                  </span>
-                                </label>
-                                <a
-                                  // className="change-a"
-                                  onClick={
-                                    this.state.csr
-                                      ? () => {}
-                                      : this.state.sw
-                                      ? () => {}
-                                      : () => {
-                                          this.handleNoCategory(fullpageApi);
-                                        }
-                                  }
-                                >
-                                  <div
-                                    className="div-input-icon"
-                                    style={
-                                      this.state.jobErr
-                                        ? { border: "1px solid red" }
-                                        : { borderWidth: 0 }
-                                    }
-                                  >
-                                    <MdWorkOutline
-                                      color="#3D459D"
-                                      size={22}
-                                      className="svg-j"
-                                      style={{
-                                        position: "relative",
-                                        left: 10,
-                                      }}
-                                    />
-                                    <Select
-                                      options={job_options}
-                                      isDisabled={this.state.sw ? false : true}
-                                      onChange={(e) =>
-                                        this.selectChange(e.value)
-                                      }
-                                      id="select"
-                                      placeholder={
-                                        this.state.sw
-                                          ? "select job type"
-                                          : "first select job category above"
-                                      }
-                                    />
-                                  </div>
-                                </a>
-                                {/* {this.state.jobErr && (
-                                  <p className="a-error-message a-error-message-j">
-                                    Select job category first.
-                                  </p>
-                                )} */}
-                              </div>
-                              <div className="div-btn-2">
-                                <button
-                                  type="button"
-                                  class="a-reg-btn"
-                                  onClick={() => fullpageApi.moveTo(2, 0)}
-                                >
-                                  Back
-                                </button>
-                                <button
-                                  type="button"
-                                  class="a-reg-btn"
-                                  onClick={() => this.handleNext1(fullpageApi)}
-                                >
-                                  Next
-                                </button>
-                              </div>
-                            </div>
-                          </div>
+                          <Form2
+                            ctx={this}
+                            fullpageApi={fullpageApi}
+                            data={item}
+                          />
                         ) : i === 2 ? (
-                          <div
-                            className={
-                              this.state.part2 ? "work-exp" : "work-exp_off"
-                            }
-                          >
-                            <h1>Let's build your CV!</h1>
-
-                            <div className="a-input-field-nxt">
-                              <label className="input-label">
-                                Email
-                                <span
-                                  style={{
-                                    color: "red",
-                                    fontWeight: "bold",
-                                  }}
-                                >
-                                  *
-                                </span>{" "}
-                              </label>
-                              <div
-                                className="div-input-icon"
-                                style={
-                                  this.state.emailTErr
-                                    ? { border: "1px solid red" }
-                                    : !(!email || !emailError)
-                                    ? { border: "1px solid red" }
-                                    : { borderWidth: 0 }
-                                }
-                              >
-                                <HiOutlineMail
-                                  color="#3D459D"
-                                  size={20}
-                                  className="svg-m"
-                                  style={{
-                                    position: "relative",
-                                    top: 14,
-                                    left: 10,
-                                  }}
-                                />
-                                <input
-                                  placeholder="abc@gmail.com"
-                                  id="email"
-                                  name="email"
-                                  // value={this.state.email}
-                                  onChange={(email) => {
-                                    this._handleChange(
-                                      emailCheck,
-                                      "emailValid",
-                                      "email",
-                                      email.target.value
-                                    );
-                                  }}
-                                  type="email"
-                                  // placeholder="We need your full name"
-                                  style={{
-                                    fontFamily: "Lato",
-                                    fontSize: 17,
-                                    color: "#868686",
-                                  }}
-                                  className="a-r-input-box"
-                                />
-                              </div>
-                            </div>
-                            <div className="a-input-field-nxt">
-                              <label
-                                className="input-label"
-                                style={{ paddingLeft: 5 }}
-                              >
-                                City
-                                <span
-                                  style={{
-                                    color: "red",
-                                    fontWeight: "bold",
-                                  }}
-                                >
-                                  *
-                                </span>
-                              </label>
-                              <div
-                                className="div-input-icon"
-                                style={
-                                  this.state.cityTErr
-                                    ? { border: "1px solid red" }
-                                    : !(!city || !occError)
-                                    ? { border: "1px solid red" }
-                                    : { borderWidth: 0 }
-                                }
-                              >
-                                <MdOutlineLocationOn
-                                  color="#3D459D"
-                                  size={20}
-                                  className="svg-l"
-                                  style={{
-                                    position: "relative",
-                                    top: 14,
-                                    left: 10,
-                                  }}
-                                />
-                                <input
-                                  placeholder="Karachi"
-                                  // value={this.state.city}
-                                  id="city"
-                                  name="city"
-                                  onChange={(city) => {
-                                    this._handleChange(
-                                      cityCheck,
-                                      "cityValid",
-                                      "city",
-                                      city.target.value
-                                    );
-                                  }}
-                                  type="text"
-                                  // placeholder="We need your full name"
-                                  style={{
-                                    fontFamily: "Lato",
-                                    fontSize: 17,
-                                    color: "#868686",
-                                  }}
-                                  className="a-r-input-box"
-                                />
-                              </div>
-                            </div>
-
-                            <label
-                              className="input-label input-label1 label2"
-                              style={{ paddingLeft: 5 }}
-                            >
-                              Details
-                              <span
-                                style={{
-                                  color: "red",
-                                  fontWeight: "bold",
-                                }}
-                              >
-                                *
-                              </span>
-                            </label>
-                            <div className="div-check">
-                              <div
-                                className="select-div"
-                                style={
-                                  this.state.expTErr
-                                    ? { border: "1px solid red" }
-                                    : { borderWidth: 0 }
-                                }
-                              >
-                                <BiStar
-                                  color="#3D459D"
-                                  size={20}
-                                  style={{
-                                    position: "relative",
-                                    top: 7,
-                                    left: 8,
-                                  }}
-                                />
-                                <select
-                                  onChange={(e) =>
-                                    this.handleSelect("experience", e)
-                                  }
-                                  value={this.state.experience}
-                                  // className={this.sta}
-                                  placeholder="Work Exp"
-                                >
-                                  <option disabled>Work Experience</option>
-                                  <option>Fresher</option>
-                                  <option>0-1 years</option>
-                                  <option>2 years</option>
-                                  <option>3-5 years</option>
-                                  <option>5-10 years</option>
-                                  <option>10+ years</option>
-                                </select>
-                              </div>{" "}
-                              <div
-                                className="select-div"
-                                style={
-                                  this.state.eduTErr
-                                    ? { border: "1px solid red" }
-                                    : { borderWidth: 0 }
-                                }
-                              >
-                                <FiBookOpen
-                                  color="#3D459D"
-                                  size={20}
-                                  style={{
-                                    position: "relative",
-                                    top: 7,
-                                    left: 8,
-                                  }}
-                                />
-                                <select
-                                  onChange={(e) =>
-                                    this.handleSelect("education", e)
-                                  }
-                                  value={this.state.education}
-                                >
-                                  <option selected disabled>
-                                    Education
-                                  </option>
-                                  <option>Below 10th</option>
-                                  <option>Matric (10th)</option>
-                                  <option>Inter</option>
-                                  <option>Diploma</option>
-                                  <option>Graduate</option>
-                                  <option>Post Graduate</option>
-                                </select>
-                              </div>{" "}
-                              <div
-                                className="select-div"
-                                style={
-                                  this.state.engTErr
-                                    ? { border: "1px solid red" }
-                                    : { borderWidth: 0 }
-                                }
-                              >
-                                <TiSortAlphabeticallyOutline
-                                  color="#3D459D"
-                                  size={22}
-                                  style={{
-                                    position: "relative",
-                                    top: 6,
-                                    left: 8,
-                                  }}
-                                />
-                                <select
-                                  onChange={(e) =>
-                                    this.handleSelect("eng_lvl", e)
-                                  }
-                                  value={this.state.eng_lvl}
-                                >
-                                  <option selected disabled>
-                                    English Level
-                                  </option>
-                                  <option>English-Urdu mix</option>
-                                  <option>Basic</option>
-                                  <option>Advance</option>
-                                </select>
-                              </div>
-                            </div>
-
-                            <div className="exp-btn">
-                              <button
-                                type="button"
-                                class="a-reg-btn"
-                                onClick={() => this.back(fullpageApi)}
-                              >
-                                Back
-                              </button>
-                              <button
-                                type="button"
-                                class={"a-reg-btn"}
-                                onClick={() => this.handleNext2(fullpageApi)}
-                              >
-                                Next
-                              </button>
-                            </div>
-                          </div>
+                          <Form3
+                            ctx={this}
+                            fullpageApi={fullpageApi}
+                            data={item}
+                          />
                         ) : i === 3 ? (
-                          <div className="last-int">
-                            <h1>Let's build your CV!</h1>
-                            <div className="a-input-field-nxt a-input-field-nxt1">
-                              <label className="input-label">
-                                Skills
-                                <span
-                                  style={{
-                                    color: "red",
-                                    fontWeight: "bold",
-                                  }}
-                                >
-                                  *
-                                </span>{" "}
-                              </label>
-                              <div
-                                className="div-input-icon div-skills-inp"
-                                style={
-                                  this.state.skillTErr
-                                    ? { border: "1px solid red" }
-                                    : { borderWidth: 0 }
-                                }
-                              >
-                                <BsBookmarkStar
-                                  color="#3D459D"
-                                  size={20}
-                                  className="svg-m"
-                                  style={{
-                                    position: "relative",
-                                    top: 14,
-                                    left: 10,
-                                  }}
-                                />
-                                <TagsInput
-                                  className="a-r-input-box skill-set"
-                                  value={this.state.skillTag}
-                                  onChange={(e) => this.handleSkillAdd(e)}
-                                  maxTags={5}
-                                  inputProps={{
-                                    placeholder: " + Add another skill",
-                                  }}
-                                />
-                                <div className="defSkill-main">
-                                  {this.state.defSkills.map((v) => (
-                                    <div
-                                      className={
-                                        this.state.skills.includes(v)
-                                          ? "defSkill-map-selected"
-                                          : "defSkill-map"
-                                      }
-                                      onClick={() => {
-                                        this.handleSkillDefault(v);
-                                      }}
-                                    >
-                                      {v}
-                                    </div>
-                                  ))}
-                                </div>
-                              </div>
-                            </div>
-                            <div
-                              className="a-input-field-nxt a-input-field-nxt1 nxt2"
-                              style={
-                                this.state.employer ? { display: "none" } : {}
-                              }
-                            >
-                              <label className="input-label">
-                                Your biggest Achievement
-                                <span
-                                  style={{
-                                    color: "red",
-                                    fontWeight: "bold",
-                                  }}
-                                >
-                                  *
-                                </span>{" "}
-                              </label>
-                              <div
-                                className="div-input-icon div-skills-inp"
-                                style={
-                                  this.state.achievementTErr
-                                    ? { border: "1px solid red" }
-                                    : { borderWidth: 0 }
-                                }
-                              >
-                                <GiAchievement
-                                  color="#3D459D"
-                                  size={22}
-                                  className="svg-m"
-                                  style={{
-                                    position: "relative",
-                                    top: 14,
-                                    left: 10,
-                                  }}
-                                />
-                                <input
-                                  className="a-r-input-box skill-set"
-                                  onKeyDown={(e) => {
-                                    if (e.key === "Enter") {
-                                      this.handleAchievementAdd(e.target.value);
-                                      e.target.value = "";
-                                    }
-                                  }}
-                                  maxLength={280}
-                                  placeholder=" + Add Achievement"
-                                />
-                                <div className="defSkill-main">
-                                  {this.state.achievement.map((v) => (
-                                    <div className="defAch-map">
-                                      {v}
-                                      <MdCancel
-                                        color="#2e2f40"
-                                        size={20}
-                                        className="svg-m"
-                                        style={{
-                                          position: "relative",
-                                          top: 0,
-                                          left: 10,
-                                          marginRight: 5,
-                                          cursor: "pointer",
-                                          width: 50,
-                                        }}
-                                        onClick={() =>
-                                          this.setState({ achievement: [] })
-                                        }
-                                      />
-                                    </div>
-                                  ))}
-                                </div>
-                              </div>
-                            </div>
-                            <div
-                              className="salary-div-time"
-                              style={
-                                this.state.employee ? { display: "none" } : {}
-                              }
-                            >
-                              {" "}
-                              <label className="input-label">
-                                Job Timings
-                                <span
-                                  style={{
-                                    color: "red",
-                                    fontWeight: "bold",
-                                  }}
-                                >
-                                  *
-                                </span>{" "}
-                              </label>
-                              <div className="div-cb-salary">
-                                {Saltimings.map((v, i) => (
-                                  <button
-                                    className={
-                                      selectedSal.includes(i)
-                                        ? "tickContainer"
-                                        : "timeBtn"
-                                    }
-                                    style={
-                                      this.state.intTErr
-                                        ? { border: "0.3px solid red" }
-                                        : { borderWidth: 0 }
-                                    }
-                                    onClick={() => this.onSelectSalary(i)}
-                                  >
-                                    {v}
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-                            <div className="exp-btn1">
-                              <button
-                                type="button"
-                                class="a-reg-btn"
-                                onClick={() => this.back2(fullpageApi)}
-                              >
-                                Back
-                              </button>
-                              <button
-                                type="button"
-                                class={"a-reg-btn"}
-                                onClick={() => this.handleNext4(fullpageApi)}
-                              >
-                                Next
-                              </button>
-                            </div>
-                          </div>
+                          <Form4
+                            ctx={this}
+                            fullpageApi={fullpageApi}
+                            selectedCategories={selectedCategories}
+                            selectedSalary={selectedSalary}
+                          />
                         ) : i === 4 ? (
-                          <div className="salary-div">
-                            <h1>Job Timings</h1>
-                            <label className="input-label">
-                              Job Timings
-                              <span
-                                style={{
-                                  color: "red",
-                                  fontWeight: "bold",
-                                }}
-                              >
-                                *
-                              </span>{" "}
-                            </label>
-                            <div className="div-cb">
-                              {timings.map((v, i) => (
-                                <button
-                                  className={
-                                    selected.includes(i)
-                                      ? "tickContainer"
-                                      : "timeBtn"
-                                  }
-                                  style={
-                                    this.state.intTErr
-                                      ? { border: "0.3px solid red" }
-                                      : { borderWidth: 0 }
-                                  }
-                                  onClick={() => this.onSelect(i)}
-                                >
-                                  {v}
-                                </button>
-                              ))}
-                            </div>
-                            <h1>Current Salary</h1>
-                            <div
-                              className="current-salary-main-div"
-                              style={
-                                this.state.employer ? { display: "none" } : {}
-                              }
-                            >
-                              <label className="input-label">
-                                Current Salary
-                                <span
-                                  style={{
-                                    color: "red",
-                                    fontWeight: "bold",
-                                  }}
-                                >
-                                  *
-                                </span>{" "}
-                              </label>
-                              <div className="div-range">
-                                <div class="slidecontainer">
-                                  <div
-                                    className="div-value"
-                                    style={{ left: this.state.value_px + "%" }}
-                                  ></div>
-
-                                  <Slider
-                                    min={10000}
-                                    max={this.state.sw ? 530000 : 90000}
-                                    defaultValue={60000}
-                                    trackStyle={
-                                      this.state.value === "0"
-                                        ? { backgroundColor: "transparent" }
-                                        : { backgroundColor: "#f0bd3a" }
-                                    }
-                                    step={step_val}
-                                    onChange={(e) => this.handleChange(e)}
-                                  />
-                                </div>
-                                <h3
-                                  style={
-                                    this.state.valTErr
-                                      ? {
-                                          border: "0.3px solid red",
-                                          backgroundColor: "white",
-                                          fontSize: 20,
-                                        }
-                                      : {
-                                          borderWidth: 0,
-                                          backgroundColor: "white",
-                                          fontSize: 20,
-                                        }
-                                  }
-                                >
-                                  <NumberFormat
-                                    thousandsGroupStyle="thousand"
-                                    value={
-                                      this.state.sw
-                                        ? n_val === 530000
-                                          ? "500000+"
-                                          : n_val === 0
-                                          ? "0"
-                                          : `${v1[0]} -- ${v1[1]}`
-                                        : n_val === 90000
-                                        ? "80000+"
-                                        : n_val === 0
-                                        ? "0"
-                                        : `${v1[0]} -- ${v1[1]}`
-                                    }
-                                    prefix="Rs. "
-                                    decimalSeparator="--"
-                                    displayType="text"
-                                    type="text"
-                                    thousandSeparator={true}
-                                    allowNegative={false}
-                                    isNumericString={true}
-                                  />
-                                </h3>
-                              </div>
-                            </div>
-                            <div
-                              className="current-salary-main-div"
-                              style={
-                                this.state.employee ? { display: "none" } : {}
-                              }
-                            >
-                              <label className="input-label">
-                                Expected Salary
-                                <span
-                                  style={{
-                                    color: "red",
-                                    fontWeight: "bold",
-                                  }}
-                                >
-                                  *
-                                </span>{" "}
-                              </label>
-                              <div className="expected-salary-input">
-                                <input
-                                  type="number"
-                                  placeholder="from"
-                                  onChange={(e) =>
-                                    this.handleSalaryChange(
-                                      "from",
-                                      e.target.value
-                                    )
-                                  }
-                                />
-                                &nbsp; - &nbsp;
-                                <input
-                                  type="number"
-                                  placeholder="to"
-                                  onChange={(e) =>
-                                    this.handleSalaryChange(
-                                      "to",
-                                      e.target.value
-                                    )
-                                  }
-                                />
-                              </div>
-                            </div>
-                            <div className="exp-btn1">
-                              <button
-                                type="button"
-                                class="a-reg-btn"
-                                onClick={() => this.back1(fullpageApi)}
-                              >
-                                Back
-                              </button>
-                              <button
-                                type="button"
-                                class={"a-reg-btn"}
-                                onClick={() =>
-                                  this.handleNext3(
-                                    fullpageApi,
-                                    selectedCategories
-                                  )
-                                }
-                              >
-                                Submit
-                              </button>
-                            </div>
-                          </div>
+                          <Form5
+                            ctx={this}
+                            fullpageApi={fullpageApi}
+                            selectedCategories={selectedCategories}
+                            selectedSalary={selectedSalary}
+                          />
                         ) : (
                           <div
                             className={i === 0 ? "text-div0" : "text-div"}
@@ -2314,19 +1451,11 @@ class HomePage extends React.Component {
                       </div>
                       <div
                         className={
-                          i === 1
-                            ? "vector-div1"
-                            : i === 3
-                            ? "vector-div1"
-                            : i === 2
+                          i <= 4 && i % 2 === 0
                             ? "vector-div2"
-                            : i === 4
-                            ? "vector-div2"
-                            : i === 0
-                            ? "vector-div2"
-                            : i < 4
-                            ? "vector-div0"
-                            : "vector-div"
+                            : i > 4
+                            ? "vector-div"
+                            : "vector-div1"
                         }
                         style={
                           i % 2 == 0
@@ -2334,45 +1463,14 @@ class HomePage extends React.Component {
                             : { justifyContent: "flex-start" }
                         }
                       >
-                        {i === 1 ? (
-                          <img
-                            src={cafe}
-                            style={{ width: "100%", height: "100%" }}
-                          />
-                        ) : i === 2 ? (
+                        {i >= 0 && i <= 4 ? (
                           <Lottie
-                            options={roadOptions}
-                            height={"100%"}
-                            width={"100%"}
-                          />
-                        ) : i === 3 ? (
-                          <img
-                            src={cafe}
-                            style={{ width: "100%", height: "100%" }}
-                          />
-                        ) : i === 4 ? (
-                          <Lottie
-                            options={roomOptions}
-                            height={"100%"}
-                            width={"100%"}
-                          />
-                        ) : i === 0 ? (
-                          <Lottie
-                            options={officeOptions}
+                            options={item.lottieAnimation}
                             height={"100%"}
                             width={"100%"}
                           />
                         ) : (
-                          <img
-                            src={item.vector}
-                            className={
-                              i === 1 && i === 3
-                                ? "vector-img1"
-                                : i < 4 && i === 0
-                                ? "vector-img0"
-                                : "vector-img"
-                            }
-                          />
+                          <img src={item.vector} className="vector-img" />
                         )}
                       </div>
                     </div>
@@ -2395,6 +1493,7 @@ class HomePage extends React.Component {
                       />
                     </div>
                   </div>
+
                   <div className="last-line">
                     <div className="logo">
                       <img src={Logo} className="simple-logo" />
@@ -2402,13 +1501,24 @@ class HomePage extends React.Component {
                         Copyright © 2022. All rights reserved.
                       </p>
                     </div>
-                    <div className="wait-button">
-                      <a
-                        onClick={() => fullpageApi.moveTo(2, 0)}
-                        className="wait-btn"
+
+                    <div className="wait-btn-main-div">
+                      <div
+                        className="wait-button wait-btn"
+                        onClick={() =>
+                          this.handleModeChange("Employee", fullpageApi)
+                        }
                       >
-                        I want a Job
-                      </a>
+                        I want a job
+                      </div>
+                      <div
+                        className="wait-button wait-btn"
+                        onClick={() =>
+                          this.handleModeChange("Employer", fullpageApi)
+                        }
+                      >
+                        I want to hire
+                      </div>
                       {/* <a href="/waitList" className="wait-btn">
                         Join the waitlist
                       </a> */}
