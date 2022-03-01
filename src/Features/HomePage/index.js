@@ -1,7 +1,9 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import "rc-slider/assets/index.css";
 import { getDatabase } from "firebase/database";
 import { set, ref } from "@firebase/database";
+import firebase from "../../config/firebase";
 import ReactFullpage from "@fullpage/react-fullpage";
 import Form1 from "./form1";
 import Form2 from "./form2";
@@ -14,14 +16,23 @@ import "./homeStyles.css";
 import Logo from "../../assets/Logo/logo.png";
 import Vector1 from "../../assets/Vectors/vector1.png";
 import Vector9 from "../../assets/Vectors/vector9.png";
-import Cafe from "../../assets/Vectors/Cafe.mp4";
 import ArrowIcon from "../../assets/icons/up-arrow.png";
 import programmer from "../../assets/icons/sd.png";
 import operator from "../../assets/icons/cc.png";
+import right from "../../assets/images/right.png";
 import TextTransition, { presets } from "react-text-transition";
 import Lottie from "react-lottie";
+import RoomGif from "../../assets/Vectors/room.gif";
+import office from "../../assets/Vectors/office.gif";
+import cafegif from "../../assets/Vectors/cafe.gif";
+import dhaba from "../../assets/Vectors/dhaba.gif";
+import roadgif from "../../assets/Vectors/road.gif";
+// import Cafegif from "../../assets/Vectors/cafe1.mp4";
+// import Cafe from "../../assets/Vectors/Cafe.mp4";
 import "react-tagsinput/react-tagsinput.css"; // If using WebPack and style-loader.
 import $ from "jquery";
+import LazyLoad from "react-lazyload";
+
 import {
   dhabaOptions,
   cafeOptions,
@@ -47,6 +58,7 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      wantedCategorySelection: false,
       skillTag: [],
       employee: true,
       employer: false,
@@ -63,6 +75,7 @@ class HomePage extends React.Component {
       part2: true,
       from: "",
       to: "",
+      jobDesc: "",
       company: "",
       name: "",
       city: "Karachi",
@@ -82,6 +95,7 @@ class HomePage extends React.Component {
       radTErr: false,
       intTErr: false,
       valTErr: false,
+      jobDescTErr: false,
       skillTErr: false,
       achievementTErr: false,
       isSubmit: false,
@@ -96,6 +110,8 @@ class HomePage extends React.Component {
         phoneValid: false,
         company: "",
         companyValid: false,
+        jobdesc: "",
+        jobdescValid: false,
       },
       defSkills: [
         "Python",
@@ -196,7 +212,7 @@ class HomePage extends React.Component {
           id: 1,
           tittle: "Land your first",
           body: "We can’t promise that you will immediately, but if you stick around, you’ll see and meet remarkable people who aren’t any different from you.",
-          vector: Vector1,
+          vector: office,
           // colorCode: "#3D459D",
           colorCode: "#fff",
           lottieAnimation: officeOptions,
@@ -206,7 +222,7 @@ class HomePage extends React.Component {
           tittle: "Community-first ",
           unstyled: " from the ground up",
           body: "We’re creating a super community of storytellers, founders, dreamers, forward-thinkers, misfits, rebels, entrepreneurs, graduates, employees, investors, polyworkers, problem solvers, yay-sayers, coders, designers, freelancers, stargazers and storm-chasers.",
-          vector: Cafe,
+          vector: cafegif,
           // colorCode: "#F0BD3A",
           colorCode: "#fff",
           lottieAnimation: cafeOptions,
@@ -215,7 +231,7 @@ class HomePage extends React.Component {
           id: 3,
           tittle: "A not-so-professional network",
           body: "Professional networks are decades old and feel out-of-place. Worktown wants to make it exciting and relevant. And we think everyone’s smart enough to know what works for them.",
-          vector: Vector1,
+          vector: roadgif,
           colorCode: "#fff",
           lottieAnimation: roadOptions,
         },
@@ -223,7 +239,7 @@ class HomePage extends React.Component {
           id: 4,
           tittle: "Where you’re not defined by your job title",
           body: "That is a super-narrow expression of who you are. With Worktown, let the world know how much more you bring to the table than the arbitrary job titles and descriptions that don't fit your work.",
-          vector: Vector1,
+          vector: dhaba,
           // colorCode: "#F15925",
           colorCode: "#fff",
           lottieAnimation: dhabaOptions,
@@ -232,7 +248,7 @@ class HomePage extends React.Component {
           id: 5,
           // tittle: "Why limit the way people see you?",
           // body: "Resumes are two-dimensional – they don’t talk much about who you are and how you’ve had to work your socks off to get to where you are. Worktown helps you show them what makes you ‘you’.",
-          vector: Vector1,
+          vector: RoomGif,
           colorCode: "#fff",
           lottieAnimation: roomOptions,
         },
@@ -270,6 +286,10 @@ class HomePage extends React.Component {
     };
   }
   handleModeChange(mode, fullpage) {
+    this.setState({
+      wantedCategorySelectionErr: false,
+      wantedCategorySelection: true,
+    });
     mode === "Employer"
       ? this.setState({ employee: false, employer: true })
       : this.setState({ employer: false, employee: true });
@@ -307,14 +327,19 @@ class HomePage extends React.Component {
       : this.setState({ engTErr: false });
   };
   handleCard = (fullpageApi, val) => {
-    if (val.name === "Software & IT Jobs") {
-      this.handleSW();
-      this.setState({ noCategory: false });
+    if (this.state.wantedCategorySelection) {
+      if (val.name === "Software & IT Jobs") {
+        this.handleSW();
+        this.setState({ noCategory: false });
+      } else {
+        this.handleCSR();
+      }
+      this.setState({ JobCategory: val.name });
+      fullpageApi.moveTo(3, 0);
     } else {
-      this.handleCSR();
+      this.setState({ wantedCategorySelectionErr: true });
+      fullpageApi.moveTo(1, 0);
     }
-    this.setState({ JobCategory: val.name });
-    fullpageApi.moveTo(3, 0);
   };
 
   handleNext1 = (fullpageApi) => {
@@ -325,16 +350,14 @@ class HomePage extends React.Component {
         : this.state.employer
         ? this.state.company === ""
         : "") ||
-      (!this.state.csr && !this.state.sw) ||
       this.state.phone === "" ||
-      this.state.selectedJobOption === "" ||
+      this.state.email === "" ||
       this.state.phoneTErr ||
       !this.state.errorMessage.phoneValid
     ) {
       this.state.name === "" && this.setState({ nameTErr: true });
       this.state.phone === "" && this.setState({ phoneTErr: true });
-      !this.state.csr && !this.state.sw && this.setState({ jobErr: true });
-      this.state.selectedJobOption === "" && this.setState({ jobErr: true });
+      this.state.email === "" && this.setState({ emailTErr: true });
       if (this.state.employer) {
         this.state.company === "" && this.setState({ companyTErr: true });
       } else if (this.state.employee) {
@@ -342,6 +365,7 @@ class HomePage extends React.Component {
           !this.state.female &&
           this.setState({ radTErr: true });
       }
+      // console.log(this.state)
     } else {
       fullpageApi.moveTo(4, 0);
     }
@@ -350,22 +374,21 @@ class HomePage extends React.Component {
   handleNext2 = (fullpageApi) => {
     if (
       this.state.name === "" ||
-      this.state.selectedJobOption === "" ||
       (this.state.employee
         ? !this.state.female && !this.state.male
         : this.state.employer
         ? this.state.company === ""
         : "") ||
-      (!this.state.csr && !this.state.sw) ||
+      this.state.email === "" ||
       this.state.phone === ""
     ) {
       this.state.name === "" && this.setState({ nameTErr: true });
       this.state.phone === "" && this.setState({ phoneTErr: true });
-      this.state.selectedJobOption === "" && this.setState({ jobErr: true });
-      !this.state.csr && !this.state.sw && this.setState({ jobErr: true });
+      this.state.email === "" && this.setState({ emailTErr: true });
+
       if (this.state.employer) {
         this.state.company === "" && this.setState({ companyTErr: true });
-      } else {
+      } else if (this.state.employee) {
         !this.state.male &&
           !this.state.female &&
           this.setState({ radTErr: true });
@@ -373,13 +396,15 @@ class HomePage extends React.Component {
       fullpageApi.moveTo(3, 0);
     }
     if (
-      this.state.email === "" ||
+      this.state.selectedJobOption === "" ||
+      (!this.state.csr && !this.state.sw) ||
       this.state.experience === "" ||
       this.state.education === "" ||
       this.state.eng_lvl === "" ||
       this.state.city === ""
     ) {
-      this.state.email === "" && this.setState({ emailTErr: true });
+      this.state.selectedJobOption === "" && this.setState({ jobErr: true });
+      !this.state.csr && !this.state.sw && this.setState({ jobErr: true });
       this.state.city === "" && this.setState({ cityTErr: true });
       this.state.experience === "" && this.setState({ expTErr: true });
       this.state.education === "" && this.setState({ eduTErr: true });
@@ -393,6 +418,8 @@ class HomePage extends React.Component {
     let salarytime = salTime.toString() || [];
     let interest = selectedCategories.toString() || "";
     if (!this.state.skills.length || interest === "") {
+      // console.log(salarytime);
+
       !this.state.skills.length && this.setState({ skillTErr: true });
       interest === "" && this.setState({ intTErr: true });
     } else if (
@@ -444,8 +471,12 @@ class HomePage extends React.Component {
         : !this.state.achievement.length) ||
       (this.state.employer
         ? this.state.to === "" || this.state.from === ""
-        : this.state.value === "0")
+        : this.state.value === "0") ||
+      (this.state.employer && this.state.jobDesc === "")
     ) {
+      this.state.employer &&
+        this.state.jobDesc === "" &&
+        this.setState({ jobDescTErr: true });
       !salarytime.length ? this.setState({ stTErr: true }) : console.log("now");
       !this.state.achievement.length &&
         this.setState({ achievementTErr: true });
@@ -536,7 +567,22 @@ class HomePage extends React.Component {
     //   console.error("Error: ", e);
     // }
   };
+  check() {
+    let toS = this.state.to.split(" ");
+    let strTo = toS[1].replace(/,/g, "");
+    let fromS = this.state.from.split(" ");
+    let strFrom = fromS[1].replace(/,/g, "");
+    let change = strFrom - strTo;
 
+    let diffA = strFrom * 2;
+    // let diffB = diffA / 50;
+    console.log("change 0 === ", diffA);
+    if (change <= 0) {
+      console.log("change 1 === ", diffA);
+    } else if (change > diffA) {
+      console.log("change 2 === ", diffA);
+    }
+  }
   handleSalaryChange(target, value) {
     // if (target === "to") {
     //   if (value != "") {
@@ -748,7 +794,8 @@ class HomePage extends React.Component {
       this.state.selectedJobOption === "" ||
       (this.state.employee ? gender === "" : this.state.company === "") ||
       (this.state.employee ? achievementStr === "" : exp_sal === "-") ||
-      (this.state.employee ? interest === "" : SalaryTime === "")
+      (this.state.employee ? interest === "" : SalaryTime === "") ||
+      (this.state.employer && this.state.jobDesc === "")
     ) {
       interest === "" && this.setState({ intTErr: true });
       exp_sal === "" && this.setState({ expSTErr: true });
@@ -762,7 +809,7 @@ class HomePage extends React.Component {
       });
     } else {
       if (this.state.value === "490000 - 530000") {
-        this.setState({ value: "500000+" });
+        this.setState({ value: "300000+" });
       }
       if (this.state.value === "0") {
         this.setState({ value: "0" });
@@ -790,6 +837,7 @@ class HomePage extends React.Component {
             Email: this.state.email,
             JobCategory: this.state.JobCategory,
             JobType: this.state.selectedJobOption,
+            JobDescription: this.state.jobDesc,
             Experience: this.state.experience,
             Skills: skillSet,
             Education: this.state.education,
@@ -806,6 +854,7 @@ class HomePage extends React.Component {
               Email: this.state.email,
               JobCategory: this.state.JobCategory,
               JobType: this.state.selectedJobOption,
+              JobDescription: this.state.jobDesc,
               Experience: this.state.experience,
               Skills: skillSet,
               Education: this.state.education,
@@ -822,7 +871,7 @@ class HomePage extends React.Component {
               showConfirmButton: false,
               timer: 1500,
             });
-            this.clearForm(selectedCategories, selectedSalTime);
+            this.clearForm(selectedCategories);
           });
         } else {
           this.appendSpreadsheet({
@@ -865,7 +914,7 @@ class HomePage extends React.Component {
               showConfirmButton: false,
               timer: 1500,
             });
-            this.clearForm(selectedCategories, selectedSalTime);
+            this.clearForm(selectedCategories);
           });
         }
       }, 100);
@@ -920,6 +969,9 @@ class HomePage extends React.Component {
   _handleChange = (checkValidation, validationCheck, stateKey, value) => {
     const { error, isValid } = checkValidation(value);
     if (stateKey === "phone") {
+      // let formatted = value.replace(/(\d{4,4})/, "$1-");
+      // let formatted = `${value.slice(0, 4)} ${value.slice(4, 10)}`;
+      // const formatted = this.formatPhoneNumber(value);
       this.setState({
         [stateKey]: value,
         errorMessage: {
@@ -962,6 +1014,7 @@ class HomePage extends React.Component {
           this.state.employer &&
             this.state.company !== "" &&
             this.setState({ companyTErr: false });
+          this.state.jobDesc !== "" && this.setState({ jobDescTErr: false });
         }, 10);
         setTimeout(() => {
           this.state.city !== "" && this.setState({ cityTErr: false });
@@ -981,9 +1034,8 @@ class HomePage extends React.Component {
         this.setState({ emailTErr: true });
     }
   };
-  clearForm = (selectedCategories, selectedSalary) => {
+  clearForm = (selectedCategories) => {
     selectedCategories = [];
-    selectedSalary = [];
     document.getElementById("company").value = "";
     document.getElementById("phone").value = "";
     document.getElementById("name").value = "";
@@ -995,8 +1047,6 @@ class HomePage extends React.Component {
       name: "",
       phone: "",
       email: "",
-      to: "",
-      from: "",
       city: "Karachi",
       value: "0",
       range_cond: 0,
@@ -1128,13 +1178,21 @@ class HomePage extends React.Component {
     if (this.state.range_cond < 100000) {
       let val = `${e - 10000} - ${e}`;
       this.setState({ value: val });
-    } else if (this.state.range_cond < 310000) {
+    }
+    // else if (this.state.range_cond === 310000) {
+    //   let val = "300000+";
+    //   this.setState({ value: val });
+    // }
+    else if (this.state.range_cond < 310000) {
       let val = `${e - 20000} - ${e}`;
       this.setState({ value: val });
     } else {
       let val = `${e - 40000} - ${e}`;
       this.setState({ value: val });
     }
+    // let fort = e.toString();
+    // let formatted = fort.replace(/,/g, "-");
+    // this.setState({ range_cond: e, value: formatted });
   };
   handleSW = () => {
     if (this.state.csr) {
@@ -1159,8 +1217,8 @@ class HomePage extends React.Component {
         yp = 0;
 
       $(document).mousemove(function (e) {
-        mouseX = e.pageX - 11;
-        mouseY = e.pageY - 11;
+        mouseX = e.pageX - 7;
+        mouseY = e.pageY - 7;
       });
 
       setInterval(function () {
@@ -1224,16 +1282,40 @@ class HomePage extends React.Component {
                         onClick={() =>
                           this.handleModeChange("Employee", fullpageApi)
                         }
+                        style={
+                          this.state.wantedCategorySelectionErr
+                            ? { border: "2px solid red" }
+                            : this.state.wantedCategorySelection &&
+                              this.state.employee
+                            ? { backgroundColor: "#ffe26f" }
+                            : {}
+                        }
                       >
-                        I want a job
+                        I want a job &nbsp;
+                        <span style={{ fontSize: 22 }}>
+                          {this.state.wantedCategorySelection &&
+                            this.state.employee &&
+                            `✓`}
+                        </span>
                       </div>
                       <div
                         className="wait-button wait-btn"
                         onClick={() =>
                           this.handleModeChange("Employer", fullpageApi)
                         }
+                        style={
+                          this.state.wantedCategorySelectionErr
+                            ? { border: "2px solid red" }
+                            : this.state.wantedCategorySelection &&
+                              this.state.employer
+                            ? { backgroundColor: "#ffe26f" }
+                            : {}
+                        }
                       >
-                        I want to hire
+                        I want to hire &nbsp;
+                        <span style={{ fontSize: 22 }}>
+                          {this.state.employer && `✓`}
+                        </span>
                       </div>
                       {/* <a href="/waitList" className="wait-btn">
                         Join the waitlist
@@ -1453,9 +1535,9 @@ class HomePage extends React.Component {
                         className={
                           i <= 4 && i % 2 === 0
                             ? "vector-div2"
-                            : i > 4
-                            ? "vector-div"
-                            : "vector-div1"
+                            : // : i > 4
+                              // ? "vector-div"
+                              "vector-div1"
                         }
                         style={
                           i % 2 == 0
@@ -1464,13 +1546,27 @@ class HomePage extends React.Component {
                         }
                       >
                         {i >= 0 && i <= 4 ? (
-                          <Lottie
-                            options={item.lottieAnimation}
-                            height={"100%"}
-                            width={"100%"}
-                          />
+                          // <Lottie
+                          //   options={item.lottieAnimation}
+                          //   height={"100%"}
+                          //   width={"100%"}
+                          //   />
+                          <LazyLoad height={200} offset={100} once={true}>
+                            <img
+                              src={item.vector}
+                              style={{ width: "100%", height: "100%" }}
+                            />
+                          </LazyLoad>
                         ) : (
-                          <img src={item.vector} className="vector-img" />
+                          // <video autoplay preload muted loop>
+                          //   <source type="video/mp4"></source>
+                          // </video>
+                          // <Lottie
+                          //   options={roomOptions}
+                          //   height={"100%"}
+                          //   width={"100%"}
+                          // />
+                          <></>
                         )}
                       </div>
                     </div>

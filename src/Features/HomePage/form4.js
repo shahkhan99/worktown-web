@@ -3,26 +3,19 @@ import { BsBookmarkStar } from "react-icons/bs";
 import TagsInput from "react-tagsinput";
 
 export default class Form4 extends Component {
+  constructor() {
+    super();
+    this.state = {
+      show: false,
+    };
+  }
   render() {
     const ctx = this.props.ctx;
     const fullpageApi = this.props.fullpageApi;
     const selectedSalary = this.props.selectedSalary;
     const selectedCategories = this.props.selectedCategories;
     // console.log(ctx);
-    let {
-      company,
-      name,
-      city,
-      email,
-      phone,
-      error,
-      selected,
-      selectedSal,
-      timings,
-      Saltimings,
-      job_options,
-      defSkills,
-    } = ctx.state;
+    let { selected, timings } = ctx.state;
     return (
       <div className="last-int">
         {ctx.state.employee ? (
@@ -63,12 +56,15 @@ export default class Form4 extends Component {
             <TagsInput
               className=" skill-set"
               value={ctx.state.skillTag}
-              onChange={(e) => ctx.handleSkillAdd(e)}
+              onChange={(e) => {
+                ctx.handleSkillAdd(e);
+              }}
               maxTags={5}
               inputProps={{
                 placeholder: " + Add another skill",
               }}
             />
+
             <div className="defSkill-main">
               {ctx.state.defSkills.map((v) => (
                 <div

@@ -9,6 +9,8 @@ import {
   Introduction,
   JobCategory,
   Employer_DB,
+  WTRouter,
+  ShortlistedCandidates,
 } from "./index";
 
 let Routes = () => {
@@ -31,9 +33,14 @@ let Routes = () => {
 
         <Route path="/" exact component={HomePage} />
         <Route path="/waitList" exact component={AppSignUp} />
-        <Route path="/intro" exact component={Introduction} />
-        <Route path="/jobcategory" exact component={JobCategory} />
+        {/* <Route path="/intro" exact component={Introduction} />
+        <Route path="/jobcategory" exact component={JobCategory} /> */}
         <Route path="/employer_dashboard" exact component={Employer_DB} />
+        <Route
+          path="/employer_dashboard/ShortlistedCandidates"
+          exact
+          component={ShortlistedCandidates}
+        />
 
         {/* <ProtectedRoute path="/@dm!n" component={IndividualDashboard} /> */}
       </Switch>

@@ -64,3 +64,7 @@ export const companyCheck = (val) => {
   const comReg = /^[a-zA-Z0-9!@#\s\$%\^\&*\)\(+=._-]+$/g;
   return isCheck(val, comReg, "company");
 };
+export const JobDescCheck = (val) => {
+  const comReg = /^[a-zA-Z0-9!@#\s\$%\^\&*\)\(+=._-]+$/g;
+  return isCheck(val, comReg, "company");
+};

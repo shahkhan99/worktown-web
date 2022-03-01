@@ -30,7 +30,7 @@ body {
 .css-1f43avz-a11yText-A11yText,
 .css-319lph-ValueContainer {
   padding-left: 21px !important;
-  padding-bottom: 3px !important;
+  padding-bottom: 5px !important;
 }
 .css-1insrsq-control {
   background-color: transparent !important;
@@ -40,6 +40,7 @@ body {
 .css-3iigni-container {
   width: 100% !important;
   background-color: transparent !important;
+  /* padding-left: 25px !important; */
 }
 .css-1s2u09g-control,
 .css-1s2u09g-control:default {
@@ -157,7 +158,8 @@ body {
   flex-direction: column;
   align-items: center;
 }
-.last-int h1 {
+.last-int h1,
+.salary-div h1 {
   text-align: center;
   margin-bottom: 20px;
   font-size: 32px !important;
@@ -307,6 +309,18 @@ body {
   background: #f3f4f8 !important;
   border-radius: 16px;
   height: 45px;
+}
+.div-input-jbdesc {
+  display: flex;
+  width: 100%;
+  background: #f3f4f8 !important;
+  border-radius: 16px;
+  height: 165px;
+  padding: 10px 0px;
+}
+.a-r-jb-desc {
+  height: 90%;
+  resize: none;
 }
 .div-skills-inp {
   background: #f3f4f869 !important;
@@ -596,6 +610,7 @@ input[type="range"]:focus {
 }
 .react-tagsinput-input {
   width: 80%;
+  background-color: transparent !important;
 }
 .a-input-field-nxt1 {
   width: 100%;
@@ -694,6 +709,9 @@ input[type="range"]:focus {
   font-size: 15px;
   /* padding-left: 25px; */
   margin-bottom: 0;
+}
+.job-selection-css {
+  padding-left: 25px;
 }
 @media only screen and (max-width: 1050px) {
   .intro {

@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import "./navigation.css";
 import Logo from "../../assets/Logo/logo.png";
-import { AiOutlineHome } from "react-icons/ai";
+import { AiOutlineHome, AiOutlinePlusCircle } from "react-icons/ai";
 import { FaUserNinja } from "react-icons/fa";
+import { RiPagesLine } from "react-icons/ri";
+import { MdOutlineLibraryBooks } from "react-icons/md";
 
-function Left_navigation() {
+function Left_navigation({ checkNav }) {
+  const [selected_nav, setSelected_nav] = useState(0);
   const [li_items, set_li_items] = useState([
     "Home",
+    "Create A Contract",
     "Candidates",
     "Contracts",
-    "Compliance Documents",
     "Invoices & Receipts",
     "Team Settings",
     "Perks",
@@ -21,15 +24,23 @@ function Left_navigation() {
     "Payment Methods",
   ]);
   const icons = [
-    <AiOutlineHome color="#3D459D" size={15} style={{ marginRight: 5 }} />,
-    <FaUserNinja color="#3D459D" size={15} style={{ marginRight: 5 }} />,
-    <AiOutlineHome color="#3D459D" size={15} style={{ marginRight: 5 }} />,
-    <FaUserNinja color="#3D459D" size={15} style={{ marginRight: 5 }} />,
-    <AiOutlineHome color="#3D459D" size={15} style={{ marginRight: 5 }} />,
-    <AiOutlineHome color="#3D459D" size={15} style={{ marginRight: 5 }} />,
-    <FaUserNinja color="#3D459D" size={15} style={{ marginRight: 5 }} />,
+    <AiOutlineHome color="#f0bd3a" size={15} style={{ marginRight: 5 }} />,
+    <FaUserNinja color="#f0bd3a" size={15} style={{ marginRight: 5 }} />,
+    <AiOutlinePlusCircle
+      color="#f0bd3a"
+      size={15}
+      style={{ marginRight: 5 }}
+    />,
+    <RiPagesLine color="#f0bd3a" size={15} style={{ marginRight: 5 }} />,
+    <MdOutlineLibraryBooks
+      color="#f0bd3a"
+      size={15}
+      style={{ marginRight: 5 }}
+    />,
+    <AiOutlineHome color="#f0bd3a" size={15} style={{ marginRight: 5 }} />,
+    <FaUserNinja color="#f0bd3a" size={15} style={{ marginRight: 5 }} />,
   ];
-
+  checkNav(selected_nav);
   return (
     <div className="nav-main-div">
       <div>
@@ -40,9 +51,15 @@ function Left_navigation() {
         <ul className="nav-div-ul">
           {li_items.map((v, i) => {
             const Icon = icons[i];
-            console.log(Icon);
             return (
-              <li className={"li" + i} key={i}>
+              <li
+                onClick={() => {
+                  setSelected_nav(i);
+                }}
+                className={"li" + i}
+                key={i}
+                style={i == selected_nav ? { backgroundColor: "#d6d6d6" } : {}}
+              >
                 {Icon}
                 {v}
               </li>

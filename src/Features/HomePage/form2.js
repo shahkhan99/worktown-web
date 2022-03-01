@@ -10,9 +10,9 @@ import male from "../../assets/icons/male-student.png";
 import female from "../../assets/icons/woman.png";
 import { MdOutlineBusinessCenter } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
+import { HiOutlineMail } from "react-icons/hi";
+
 import { FiSmartphone } from "react-icons/fi";
-import { MdWorkOutline } from "react-icons/md";
-import Select from "react-select";
 
 export default class Form3 extends Component {
   render() {
@@ -267,11 +267,8 @@ export default class Form3 extends Component {
             </div>
           </div>
           <div className="a-input-field">
-            <label
-              className="input-label"
-              style={{ fontSize: 22, marginTop: -11 }}
-            >
-              Job title
+            <label className="input-label">
+              Email
               <span
                 style={{
                   color: "red",
@@ -279,55 +276,51 @@ export default class Form3 extends Component {
                 }}
               >
                 *
-              </span>
+              </span>{" "}
             </label>
-            <a
-              // className="change-a"
-              onClick={
-                ctx.state.csr
-                  ? () => {}
-                  : ctx.state.sw
-                  ? () => {}
-                  : () => {
-                      ctx.handleNoCategory(fullpageApi);
-                    }
+            <div
+              className="div-input-icon"
+              style={
+                ctx.state.emailTErr
+                  ? { border: "1px solid red" }
+                  : !(!email || !emailError)
+                  ? { border: "1px solid red" }
+                  : { borderWidth: 0 }
               }
             >
-              <div
-                className="div-input-icon"
-                style={
-                  ctx.state.jobErr
-                    ? { border: "1px solid red" }
-                    : { borderWidth: 0 }
-                }
-              >
-                <MdWorkOutline
-                  color="#3D459D"
-                  size={22}
-                  className="svg-j"
-                  style={{
-                    position: "relative",
-                    left: 10,
-                  }}
-                />
-                <Select
-                  options={job_options}
-                  isDisabled={ctx.state.sw ? false : true}
-                  onChange={(e) => ctx.selectChange(e.value)}
-                  id="select"
-                  placeholder={
-                    ctx.state.sw
-                      ? "select job title"
-                      : "first select job category above"
-                  }
-                />
-              </div>
-            </a>
-            {/* {this.state.jobErr && (
-              <p className="a-error-message a-error-message-j">
-                Select job category first.
-              </p>
-            )} */}
+              <HiOutlineMail
+                color="#3D459D"
+                size={20}
+                className="svg-m"
+                style={{
+                  position: "relative",
+                  top: 14,
+                  left: 10,
+                }}
+              />
+              <input
+                placeholder="abc@gmail.com"
+                id="email"
+                name="email"
+                // value={this.state.email}
+                onChange={(email) => {
+                  ctx._handleChange(
+                    emailCheck,
+                    "emailValid",
+                    "email",
+                    email.target.value
+                  );
+                }}
+                type="email"
+                // placeholder="We need your full name"
+                style={{
+                  fontFamily: "Lato",
+                  fontSize: 17,
+                  color: "#868686",
+                }}
+                className="a-r-input-box"
+              />
+            </div>
           </div>
           <div className="div-btn-2">
             <button

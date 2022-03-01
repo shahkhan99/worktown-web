@@ -1,4 +1,10 @@
 import React, { Component } from "react";
+import { getDatabase } from "firebase/database";
+// import { set, ref, get, child } from "@firebase/database";
+import firebase from "../../config/firebase";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+
+const db = ref(getDatabase());
 
 export default class Form1 extends Component {
   render() {

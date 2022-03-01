@@ -1,8 +1,8 @@
-import officeData from "../../assets/Vectors/office.json";
-import roomData from "../../assets/Vectors/room.json";
-import roadData from "../../assets/Vectors/ROAD.json";
-import dhabaData from "../../assets/Vectors/dhaba.json";
-import cafeData from "../../assets/Vectors/cafe1.json";
+import officeData from "../../assets/Vectors/jsons/office.json";
+import roomData from "../../assets/Vectors/jsons/room.json";
+import roadData from "../../assets/Vectors/jsons/ROAD.json";
+import dhabaData from "../../assets/Vectors/jsons/dhaba.json";
+import cafeData from "../../assets/Vectors/jsons/cafe1.json";
 
 const officeOptions = {
   loop: true,

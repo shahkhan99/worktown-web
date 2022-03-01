@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { MdOutlineLocationOn } from "react-icons/md";
-import { HiOutlineMail } from "react-icons/hi";
+import { MdWorkOutline } from "react-icons/md";
 import { BiStar } from "react-icons/bi";
 import { FiBookOpen } from "react-icons/fi";
 import { TiSortAlphabeticallyOutline } from "react-icons/ti";
+import Select from "react-select";
 import {
   emailCheck,
   nameCheck,
@@ -45,10 +46,12 @@ export default class Form3 extends Component {
         ) : (
           <h1>Let’s create your job post!</h1>
         )}
-
         <div className="a-input-field-nxt">
-          <label className="input-label">
-            Email
+          <label
+            className="input-label"
+            style={{ fontSize: 22, marginTop: -11 }}
+          >
+            Job title
             <span
               style={{
                 color: "red",
@@ -56,52 +59,57 @@ export default class Form3 extends Component {
               }}
             >
               *
-            </span>{" "}
+            </span>
           </label>
-          <div
-            className="div-input-icon"
-            style={
-              ctx.state.emailTErr
-                ? { border: "1px solid red" }
-                : !(!email || !emailError)
-                ? { border: "1px solid red" }
-                : { borderWidth: 0 }
+          <a
+            // className="change-a"
+            onClick={
+              ctx.state.csr
+                ? () => {}
+                : ctx.state.sw
+                ? () => {}
+                : () => {
+                    ctx.handleNoCategory(fullpageApi);
+                  }
             }
           >
-            <HiOutlineMail
-              color="#3D459D"
-              size={20}
-              className="svg-m"
-              style={{
-                position: "relative",
-                top: 14,
-                left: 10,
-              }}
-            />
-            <input
-              placeholder="abc@gmail.com"
-              id="email"
-              name="email"
-              // value={this.state.email}
-              onChange={(email) => {
-                ctx._handleChange(
-                  emailCheck,
-                  "emailValid",
-                  "email",
-                  email.target.value
-                );
-              }}
-              type="email"
-              // placeholder="We need your full name"
-              style={{
-                fontFamily: "Lato",
-                fontSize: 17,
-                color: "#868686",
-              }}
-              className="a-r-input-box"
-            />
-          </div>
+            <div
+              className="div-input-icon"
+              style={
+                ctx.state.jobErr
+                  ? { border: "1px solid red" }
+                  : { borderWidth: 0 }
+              }
+            >
+              <MdWorkOutline
+                color="#3D459D"
+                size={22}
+                className="svg-j"
+                style={{
+                  position: "relative",
+                  left: 10,
+                }}
+              />
+              <Select
+                options={job_options}
+                isDisabled={ctx.state.sw ? false : true}
+                onChange={(e) => ctx.selectChange(e.value)}
+                id="select"
+                placeholder={
+                  ctx.state.sw
+                    ? "select job title"
+                    : "first select job category above"
+                }
+              />
+            </div>
+          </a>
+          {/* {this.state.jobErr && (
+              <p className="a-error-message a-error-message-j">
+                Select job category first.
+              </p>
+            )} */}
         </div>
+
         <div className="a-input-field-nxt">
           <label className="input-label" style={{ paddingLeft: 5 }}>
             City
