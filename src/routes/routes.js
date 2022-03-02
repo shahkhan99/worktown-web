@@ -11,6 +11,7 @@ import {
   Employer_DB,
   WTRouter,
   ShortlistedCandidates,
+  DashboardLoginSignup,
 } from "./index";
 
 let Routes = () => {
@@ -37,9 +38,9 @@ let Routes = () => {
         <Route path="/jobcategory" exact component={JobCategory} /> */}
         <Route path="/employer_dashboard" exact component={Employer_DB} />
         <Route
-          path="/employer_dashboard/ShortlistedCandidates"
+          path="/employer_dashboard/registration"
           exact
-          component={ShortlistedCandidates}
+          component={DashboardLoginSignup}
         />
 
         {/* <ProtectedRoute path="/@dm!n" component={IndividualDashboard} /> */}

@@ -1,11 +1,35 @@
+.shortlisted-main {
+  display: flex;
+}
 .div-cand-card-main {
-  width: 90%;
+  width: 100%;
   /* background: #fff; */
   display: flex;
-  height: 450px;
-  padding: 15px;
-  overflow-x: scroll;
+  /* flex-direction: column; */
+  height: 700px;
+  /* padding: 15px; */
+  overflow-y: auto;
   border-radius: 10px;
+  align-self: flex-start;
+  justify-content: center;
+}
+.shrt-head-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+}
+.shrt-cont-div {
+  background-color: #f3f0f0;
+  width: 100%;
+  /* padding: 20px 150px; */
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-evenly; */
+  height: 100%;
+  align-items: center;
 }
 .div-cand-card-main::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px #f0bc3a;
@@ -28,12 +52,14 @@
   background-color: #f0bc3a;
 }
 .div-cand-card-main-sub {
-  width: auto;
+  width: 90%;
   /* background: #fff; */
   display: flex;
-  height: 400px;
-  justify-content: center;
+  height: auto;
+  justify-content: space-between;
   padding: 15px;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 .div-cand-card {
   display: flex;
@@ -41,11 +67,11 @@
   justify-content: center;
   width: 420px;
   background: #fff;
-  margin: 5px 20px;
-  height: 90%;
-  padding: 20px;
+  margin: 20px;
+  height: 380px;
+  padding: 0px 20px;
   border-radius: 16px;
-  box-shadow: 0px 0px 5px gray;
+  box-shadow: 0px 0px 5px grey;
 }
 .div-cand-card:hover {
   background-color: #f0f3f3;
@@ -59,7 +85,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 80%;
+  width: 100%;
   align-self: center;
 }
 .div-cand-card-inner1 {
@@ -89,23 +115,33 @@
 }
 
 .div-cand-card h4:first-of-type {
-  font-size: 24px;
+  font-size: 19px;
 }
 .div-cand-card h4 {
   font-size: 19px;
 }
 .div-cand-card h3 {
-  font-size: 33px;
+  display: flex;
+  justify-content: space-between;
 }
-.div-cand-card-inner p:first-of-type {
+.div-cand-card h3 {
+  font-size: 27px;
+}
+.div-cand-card h3 p {
+  font-size: 18px;
+}
+.div-cand-card-inner p {
   background: #d6d6d66b;
-  padding: 10px 50px;
   border-radius: 8px;
+  width: 100px;
+  height: 30px !important;
 }
 .div-cand-card-inner p {
   /* background: #000; */
-  padding: 10px 40px;
+  padding: 0px 10px;
   border-radius: 8px;
+  display: flex;
+  justify-content: center;
 }
 .div-cand-card-inner-skl {
   display: flex;
@@ -113,7 +149,7 @@
   width: 90%;
   padding: 15px;
   align-items: center;
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
 }
 .div-cand-card-inner-skl-inn {
@@ -125,6 +161,26 @@
   /* padding: 15px; */
 }
 .div-cand-card-inner-skl-inn p {
+  min-width: 105px;
+  /* padding: 0 20px; */
+  margin: 5px 5px;
+  background: #d6d6d66b;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+}
+.div-cand-card-inner-skl-inn1 {
+  width: auto;
+  /* background: #fff; */
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  /* padding: 15px; */
+}
+.div-cand-card-inner-skl-inn1 p {
   min-width: 100px;
   /* padding: 0 20px; */
   margin: 5px 5px;
@@ -134,12 +190,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 15px;
+  font-size: 13px;
 }
 .div-cand-card-inner-skl::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px #5a4a23;
   background-color: #f3f4f8;
   border-radius: 10px;
+}
+
+/* Track */
+
+.div-cand-card-inner-skl::-webkit-scrollbar {
+  width: 0px;
+  background-color: #f0bc3a;
+  height: 10px;
 }
 .div-cand-card-inner-skl::-webkit-scrollbar-thumb {
   background-color: #c49d3c;
@@ -160,7 +224,7 @@
   color: #fff;
   cursor: pointer;
   border: 0;
-  font-size: 15px;
+  font-size: 13px;
   letter-spacing: 0.4px;
 }
 .div-cand-card-btn button:hover {
@@ -174,11 +238,11 @@
   height: auto;
 }
 .div-cand-card-inner1-fields label {
-  font-size: 14px;
+  font-size: 13px;
   height: 25px;
 }
 .div-cand-card-inner1-fields p {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: bold;
   height: 25px;
 }
@@ -186,15 +250,100 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 86%;
+  width: 100%;
+  align-self: flex-start;
 }
 .shortlisted-ind-header-heading {
   border-radius: 20px;
   align-self: flex-start;
   background: #fff;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
   padding-left: 15px;
-  width: 50%;
+  width: 90%;
+  align-items: center;
+  position: relative;
+  left: 4%;
+  height: 60px;
+}
+.create-head-div-int {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.create-head-div-int h2 {
+  font-size: 35px;
+}
+.div-cand-card-int {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 280px;
+  background: #fff;
+  margin: 20px;
+  height: 220px;
+  padding: 0px 20px;
+  border-radius: 16px;
+  box-shadow: 0px 0px 5px grey;
+}
+.div-cand-card-int h3 {
+  font-size: 27px;
+}
+.div-cand-card-int h4 {
+  font-size: 17px;
+}
+.div-cand-card-inner-skl-int {
+  display: flex;
+  /* justify-content: center; */
+  width: 90%;
+  padding: 5px;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.div-cand-card-inner-skl-int::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #5a4a23;
+  background-color: #f3f4f8;
+  border-radius: 10px;
+}
+.div-cand-card-inner-skl-int::-webkit-scrollbar {
+  width: 0px;
+  background-color: #f0bc3a;
+  height: 10px;
+}
+.div-cand-card-inner-skl-int::-webkit-scrollbar-thumb {
+  background-color: #c49d3c;
+  background-image: -webkit-linear-gradient(90deg, #f0bc3a transparent);
+} /* width */
+.int-overflow {
+  overflow-y: auto;
+  height: 670px;
+  padding: 15px;
+}
+.int-main-div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 38%;
+}
+.shortlisted-ind-header-heading-int {
+  border-radius: 20px;
+  align-self: flex-start;
+  background: #fff;
+  display: flex;
+  padding-left: 15px;
+  width: 90%;
+  align-items: center;
+  position: relative;
+  left: 4%;
+  height: 60px;
+}
+.shortlisted-ind-header-heading-int h2 {
+  font-size: 28px;
+}
+.shortlisting-main-upper {
+  width: 100%;
 }

@@ -6,6 +6,7 @@ import JobCategory from "../Features/JobCategory";
 import Employer_DB from "../Features/EmpDB";
 import WTRouter from "../config/router";
 import ShortlistedCandidates from "../Components/Candidates/ShortlistedCandidates/ShortlistedCandidates";
+import DashboardLoginSignup from "../Components/DashboardLoginSignup";
 
 export {
   AppSignUp,
@@ -15,4 +16,5 @@ export {
   Employer_DB,
   WTRouter,
   ShortlistedCandidates,
+  DashboardLoginSignup,
 };

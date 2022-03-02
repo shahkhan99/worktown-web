@@ -6,9 +6,10 @@ var allCandidates = "";
 var cand = [];
 var jobTypeFilter = "";
 var jobTypeFilterCand = "";
+
 const checkUser = async () => {
   await get(child(dbRef, `users/jobs_users`))
-    .then((snapshot) => {
+    .then(async (snapshot) => {
       if (snapshot.exists()) {
         allCandidates = snapshot.val();
         var propertyNames = Object.entries(allCandidates);
@@ -18,9 +19,8 @@ const checkUser = async () => {
           cand.push(seperated);
         }
         // console.log(cand);
-        MatchingCandidates().then((e) => {
-          jobTypeFilterCand = e;
-        });
+        await MatchingCandidates();
+        // console.log(jobTypeFilterCand);
       } else {
         console.log("No data available");
       }
@@ -28,7 +28,6 @@ const checkUser = async () => {
     .catch((error) => {
       console.error(error);
     });
-  return jobTypeFilterCand;
 };
 const getCurrentUserData = (setCurrentUser) => {
   get(child(dbRef, `users/jobs_employer/923332100584`))
@@ -44,16 +43,20 @@ const getCurrentUserData = (setCurrentUser) => {
     });
 };
 const MatchingCandidates = async () => {
-  var jobTypeFilterCand = cand.filter((e) => e.JobType === jobTypeFilter);
-  return jobTypeFilterCand;
+  jobTypeFilterCand = cand.filter(
+    (e) => e.JobType === "Applications Engineer"
+    // console.log(cand, e.JobType)
+  );
+  // console.log(cand, jobTypeFilterCand);
 };
 
-const getJobTypeFilterCand = async (currentUser) => {
-  jobTypeFilter = currentUser && currentUser.JobType;
+const getJobTypeFilterCand = async (setShortlistedCandidates) => {
   await checkUser();
+  // console.log(jobTypeFilterCand);
+  setShortlistedCandidates(jobTypeFilterCand);
 };
 const getShortlisted = async () => {
-  jobTypeFilterCand.length && console.log(jobTypeFilterCand);
+  // return jobTypeFilterCand
 };
 export {
   checkUser,

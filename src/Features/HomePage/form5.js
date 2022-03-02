@@ -59,7 +59,7 @@ export default class Form1 extends Component {
           className="a-input-field-nxt a-input-field-nxt1 nxt2"
           style={ctx.state.employee ? { display: "none" } : {}}
         >
-          <label className="input-label">
+          <label className="input-label lbl2">
             Job Description
             <span
               style={{
@@ -115,7 +115,7 @@ export default class Form1 extends Component {
           className="a-input-field-nxt a-input-field-nxt1 nxt2"
           style={ctx.state.employer ? { display: "none" } : {}}
         >
-          <label className="input-label">
+          <label className="input-label lbl2">
             Your biggest Achievement
             <span
               style={{
@@ -333,7 +333,7 @@ export default class Form1 extends Component {
                   : { borderWidth: 0 }
               }
             />
-            &nbsp; {selectedSalary[0] != "Fixed" ? "to" : ""} &nbsp;
+            &nbsp; {selectedSalary[0] != "Fixed" ? <p> to </p> : ""} &nbsp;
             <CurrencyFormat
               value={ctx.state.to}
               placeholder="Rs"
@@ -355,7 +355,7 @@ export default class Form1 extends Component {
             <p className="p-select-sal">{selectedSalary}</p>
           </div>
         </div>
-        <div className="exp-btn1">
+        <div className="exp-btn1 sal-btn">
           <button
             type="button"
             class="a-reg-btn"

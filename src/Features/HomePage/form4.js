@@ -111,7 +111,7 @@ export default class Form4 extends Component {
           ))}
         </div>
 
-        <div className="exp-btn1">
+        <div className="exp-btn1 jb-btn">
           <button
             type="button"
             class="a-reg-btn"

@@ -872,6 +872,19 @@ input[type="range"]:focus {
   }
 }
 @media (min-width: 320px) and (max-width: 767px) {
+  .div-input-jbdesc {
+    height: 90px;
+    padding: 0px;
+  }
+  .a-input-field-nxt a {
+    width: 100%;
+  }
+  .css-14el2xx-placeholder {
+    font-size: 13px !important;
+  }
+  .skill-set ::placeholder {
+    font-size: 13px !important;
+  }
   .react-tagsinput-input {
     margin-bottom: -6px;
   }
@@ -904,6 +917,8 @@ input[type="range"]:focus {
   }
   .salary-div {
     width: 90%;
+    position: relative;
+    bottom: 10%;
   }
   .div-skills-inp {
     padding: 0;
@@ -973,16 +988,39 @@ input[type="range"]:focus {
     top: 0;
     margin-bottom: 10%;
   }
-  .last-int h1 {
-    font-size: 24px;
+  .last-int h1,
+  .salary-div h1 {
+    font-size: 24px !important;
     width: 100%;
+  }
+  .salary-div h1 {
+    margin-bottom: 0px;
+  }
+  .salary-div-time {
+    margin-bottom: 5px;
+  }
+  .timeBtn,
+  .tickContainer {
+    height: 30px;
+  }
+  .sal-btn {
+    top: 20px !important;
+  }
+  .jb-btn {
+    top: -10px !important;
+  }
+  .expected-salary-input input {
+    height: 30px;
   }
   ::-webkit-input-placeholder {
     /* Edge */
     font-size: 13px !important;
   }
+  .p-select-sal {
+    font-size: 13px;
+  }
 
-  :-ms-input-pl13pholder {
+  :-ms-input-placeholder {
     /* Internet13pplorer */
     font-size: 13px !important;
   }
@@ -1110,6 +1148,7 @@ input[type="range"]:focus {
     padding-left: 0px !important;
     font-size: 14px !important;
   }
+
   .a-upper-input {
     width: 90% !important;
     padding-bottom: 10px;

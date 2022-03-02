@@ -31,7 +31,6 @@ import roadgif from "../../assets/Vectors/road.gif";
 // import Cafe from "../../assets/Vectors/Cafe.mp4";
 import "react-tagsinput/react-tagsinput.css"; // If using WebPack and style-loader.
 import $ from "jquery";
-import LazyLoad from "react-lazyload";
 
 import {
   dhabaOptions,
@@ -1291,12 +1290,7 @@ class HomePage extends React.Component {
                             : {}
                         }
                       >
-                        I want a job &nbsp;
-                        <span style={{ fontSize: 22 }}>
-                          {this.state.wantedCategorySelection &&
-                            this.state.employee &&
-                            `✓`}
-                        </span>
+                        I want to work
                       </div>
                       <div
                         className="wait-button wait-btn"
@@ -1312,10 +1306,7 @@ class HomePage extends React.Component {
                             : {}
                         }
                       >
-                        I want to hire &nbsp;
-                        <span style={{ fontSize: 22 }}>
-                          {this.state.employer && `✓`}
-                        </span>
+                        I want to hire
                       </div>
                       {/* <a href="/waitList" className="wait-btn">
                         Join the waitlist
@@ -1551,12 +1542,11 @@ class HomePage extends React.Component {
                           //   height={"100%"}
                           //   width={"100%"}
                           //   />
-                          <LazyLoad height={200} offset={100} once={true}>
-                            <img
-                              src={item.vector}
-                              style={{ width: "100%", height: "100%" }}
-                            />
-                          </LazyLoad>
+
+                          <img
+                            src={item.vector}
+                            style={{ width: "100%", height: "100%" }}
+                          />
                         ) : (
                           // <video autoplay preload muted loop>
                           //   <source type="video/mp4"></source>
