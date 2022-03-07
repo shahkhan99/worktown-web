@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./ShortlistedCandidates.css";
+import Loader from "../../Loader/loader";
 import {
   checkUser,
   getCurrentUserData,
@@ -7,7 +8,7 @@ import {
   getJobTypeFilterCand,
   getShortlisted,
 } from "../backend/index";
-import { ImLocation } from "react-icons/im";
+import { ImLocation, ImCross } from "react-icons/im";
 import { TiSortAlphabeticallyOutline } from "react-icons/ti";
 import { GrTechnology } from "react-icons/gr";
 import { BiPhone } from "react-icons/bi";
@@ -84,13 +85,15 @@ function ShortlistedCandidates() {
   const [ShortlistedCandidates, setShortlistedCandidates] = useState("");
   const [currentUser, setCurrentUser] = useState("");
   useEffect(async () => {
-    getCurrentUserData(setCurrentUser);
-    await getJobTypeFilterCand(setShortlistedCandidates);
+    if (currentUser === "") {
+      await getCurrentUserData(setCurrentUser);
+    }
+    await getJobTypeFilterCand(currentUser, setShortlistedCandidates);
     getShortlisted();
     // MatchingCandidates();
     // await checkUser()
-  }, []);
-  console.log("current =>", ShortlistedCandidates, Shortlisted);
+  }, [currentUser]);
+  console.log("current =>", currentUser);
   return (
     <div className="shortlisting-main-upper">
       <div className="shrt-head-div">
@@ -98,7 +101,7 @@ function ShortlistedCandidates() {
       </div>
       <div className="shortlisted-main">
         <div className="shrt-cont-div">
-          <div>
+          <div style={{ width: "100%" }}>
             <div className="shortlisted-ind-header">
               <div className="shortlisted-ind-header-heading">
                 <GrTechnology
@@ -111,13 +114,14 @@ function ShortlistedCandidates() {
             </div>
             <div className="div-cand-card-main">
               <div className="div-cand-card-main-sub">
-                {ShortlistedCandidates.length !== 0 &&
+                {ShortlistedCandidates.length ? (
                   ShortlistedCandidates.map((v, i) => {
                     {
                       var sklArr = v.Skills.split(",");
                       var nameArr = v.Name.split(" ");
                       var timeArr = v.InterestedIn.split(",");
                     }
+
                     return (
                       <div className="div-cand-card">
                         {/* {console.log(nameArr[1] && nameArr[1][0])} */}
@@ -185,12 +189,15 @@ function ShortlistedCandidates() {
                           </div>
                         </div>
                         <div className="div-cand-card-btn">
-                          <button>Accept &#10004; </button>
                           <button>Reject &#x2718;</button>
+                          <button>Accept &#10004; </button>
                         </div>
                       </div>
                     );
-                  })}
+                  })
+                ) : (
+                  <Loader />
+                )}
               </div>
             </div>
           </div>
@@ -206,7 +213,14 @@ function ShortlistedCandidates() {
                 var nameArr = v.name.split(" ");
                 return (
                   <div className="div-cand-card-int">
-                    <div>
+                    <div className="int-cross">
+                      <ImCross
+                        color="#000"
+                        size={15}
+                        style={{ position: "absolute", right: 0 }}
+                      />
+                    </div>
+                    <div className="int-card-header-name-exp">
                       <h3>{nameArr[0]}</h3>
                       <div className="div-cand-card-inner1-fields">
                         <label>
@@ -215,31 +229,21 @@ function ShortlistedCandidates() {
                             size={15}
                             style={{ marginRight: 5 }}
                           />
-                          Exp
+                          Experience
                         </label>
                         <p>{v.exp}</p>
                       </div>
                     </div>
                     <h4>{v.industry}</h4>
-                    <div className="div-cand-card-inner1">
-                      <div className="div-cand-card-inner1-fields">
-                        <label>
-                          <FaStar
-                            color="#000"
-                            size={15}
-                            style={{ marginRight: 5 }}
-                          />
-                          Exp
-                        </label>
-                        <p>{v.exp}</p>
-                      </div>
-                    </div>
                     <div className="div-cand-card-inner-skl-int">
                       <div className="div-cand-card-inner-skl-inn1">
                         {v.skilss.map((skl) => (
                           <p>{skl}</p>
                         ))}
                       </div>
+                    </div>
+                    <div className="div-cand-card-btn-int">
+                      <button>Schedule Interview </button>
                     </div>
                   </div>
                 );

@@ -198,8 +198,8 @@ class HomePage extends React.Component {
         },
         { value: "Technical Support", label: "Technical Support" },
         {
-          value: "User Interface/User Experience Designer",
-          label: "User Interface/User Experience Designer",
+          value: "User Interface/User Experience Designer (UI/UX Designer)",
+          label: "User Interface/User Experience Designer (UI/UX Designer)",
         },
         { value: "Video Game Developer", label: "Video Game Developer" },
         { value: "Web Administrator", label: "Web Administrator" },

@@ -1,0 +1,45 @@
+.dash-login-main-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #f3f0f0;
+  flex-direction: column;
+}
+.dash-login-main-div-input {
+  width: 45%;
+}
+.dash-login-main-div-input-pass {
+  height: auto;
+}
+.dash-login-main-div-input div {
+  background-color: #fff !important;
+}
+.dash-login-main-div-inner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.dash-login-main-div-btn {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dash-login-main-div-btn button {
+  width: 100%;
+  height: 40px;
+  border: 0;
+  border-radius: 16px;
+  background: cornflowerblue;
+  cursor: pointer;
+  color: white;
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+.dash-login-main-div-btn button:hover {
+  background: rgb(83, 115, 175);
+}
