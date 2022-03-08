@@ -144,7 +144,7 @@ export default class Form1 extends Component {
                 left: 10,
               }}
             />
-            <input
+            {/* <input
               className=" skill-set a-r-input-box"
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
@@ -190,7 +190,29 @@ export default class Form1 extends Component {
                   />
                 </div>
               ))}
-            </div>
+            </div> */}
+            <textarea
+              placeholder="Enter any of your achievement"
+              id="name"
+              name="name"
+              onChange={(e) => {
+                ctx.handleAchievementAdd(e.target.value);
+                this.setState({ show: false });
+              }}
+              type="text"
+              maxLength={280}
+              // placeholder="We need your full name"
+              style={{
+                fontFamily: "Lato",
+                fontSize: 17,
+                color: "#868686",
+                resize: "none",
+                width: "90%",
+                height: "100%",
+              }}
+              // value={this.state.name}
+              className="skill-set a-r-input-box "
+            />
           </div>
         </div>
         <div

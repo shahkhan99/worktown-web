@@ -134,7 +134,7 @@ class HomePage extends React.Component {
         "Night Shift",
       ],
       skills: [],
-      achievement: [],
+      achievement: "",
       count: 0,
       experience: "",
       eng_lvl: "",
@@ -957,13 +957,9 @@ class HomePage extends React.Component {
   };
   handleAchievementAdd = (item) => {
     let { achievement } = this.state;
-    if (achievement.length === 1) {
-      alert("You can add only 1 achievement");
-    } else {
-      achievement.push(item);
-      this.setState({ achievement: achievement });
-      achievement.length && this.setState({ achievementTErr: false });
-    }
+
+    this.setState({ achievement: item });
+    achievement.length && this.setState({ achievementTErr: false });
   };
   _handleChange = (checkValidation, validationCheck, stateKey, value) => {
     const { error, isValid } = checkValidation(value);

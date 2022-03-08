@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const auth = getAuth();
-export default function DashboardLoginSignup() {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");
@@ -162,60 +162,11 @@ export default function DashboardLoginSignup() {
             />
           </div>
         </div>
-        <div
-          className="a-input-field dash-login-main-div-input "
-          style={showPass ? { display: "flex" } : { display: "none" }}
-        >
-          <label className="input-label">
-            Confirm Password
-            <span
-              style={{
-                color: "red",
-                fontWeight: "bold",
-              }}
-            >
-              *
-            </span>
-          </label>
-          <div className="div-input-icon">
-            {/* <FaRegUser
-            color="#3D459D"
-            size={17}
-            className="svg-u"
-            style={{
-              position: "relative",
-              top: 13,
-              left: 10,
-            }}
-          /> */}
-            <input
-              placeholder="confirm password"
-              id="name"
-              name="name"
-              onChange={(pass) => {
-                setCPassword(pass.target.value);
-              }}
-              type="password"
-              // placeholder="We need your full name"
-              style={{
-                fontFamily: "Lato",
-                fontSize: 17,
-                color: "#868686",
-              }}
-              // value={this.state.name}
-              className="a-r-input-box dash-login-main-div-input-pass "
-            />
-          </div>
+
+        <div className="dash-login-main-div-btn">
+          <button onClick={handleLogin}>Login</button>
         </div>
-        {!emailCheck ? (
-          <div className="dash-login-main-div-btn">
-            <button onClick={handleEmail}>Next</button>
-          </div>
-        ) : (
-          <div className="dash-login-main-div-btn">
-            <button onClick={handleLogin}>Login</button>
-          </div>
-        )}
+
         <div>
           <a href="/" target="_blank">
             <p>Don't have an account? Sign Up here!</p>

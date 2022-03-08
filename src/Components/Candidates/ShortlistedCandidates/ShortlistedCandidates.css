@@ -88,14 +88,18 @@
   width: 100%;
   align-self: center;
   overflow-y: scroll;
+  height: 100%;
+  flex-direction: column;
 }
 .div-cand-card-inner1 {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 90%;
   align-self: center;
-  padding: 10px 5px;
+  padding: 0px 5px;
+  height: 100%;
+  flex-direction: column;
 }
 .div-cand-card-inner p {
   height: 22px !important;
@@ -106,11 +110,15 @@
 .div-cand-card-inner-skl-inn p {
   color: #000;
 }
+.div-cand-card-inner-skl-inn {
+  height: 100%;
+  flex-direction: column;
+}
 .div-cand-card h3,
 .div-cand-card h4,
 .div-cand-card-inner,
 .div-cand-card-inner-skl-inn {
-  height: 50px;
+  /* height: 50px; */
   display: flex;
   align-items: center;
 }
@@ -150,16 +158,19 @@
   width: 90%;
   padding: 15px;
   align-items: center;
-  overflow-x: auto;
-  overflow-y: hidden;
+  /* overflow-x: auto;
+  overflow-y: hidden; */
+  height: 100%;
+  flex-direction: column;
 }
 .div-cand-card-inner-skl-inn {
   width: auto;
   /* background: #fff; */
   display: flex;
   height: 40px;
-  justify-content: center;
+  justify-content: flex-start;
   /* padding: 15px; */
+  height: 100%;
 }
 .div-cand-card-inner-skl-inn p {
   min-width: 105px;
@@ -178,8 +189,10 @@
   /* background: #fff; */
   display: flex;
   height: 40px;
-  justify-content: center;
+  justify-content: flex-start;
   /* padding: 15px; */
+  height: 100%;
+  flex-direction: column;
 }
 .div-cand-card-inner-skl-inn1 p {
   min-width: 100px;
@@ -222,7 +235,7 @@
 .div-cand-card-btn button {
   height: 30px;
   cursor: pointer;
-  background: #70581b;
+  background: #f0bc3a;
   width: 100px;
   border-radius: 10px;
   color: #fff;
@@ -233,17 +246,19 @@
 }
 .div-cand-card-btn button:hover {
   background: #f2d383;
-  color: #70581b;
+  color: #fff;
   transition: background 0.5s;
 }
 .div-cand-card-inner1-fields {
   display: flex;
   flex-direction: column;
   height: auto;
+  margin-bottom: 20px;
 }
 .div-cand-card-inner1-fields label {
   font-size: 13px;
-  height: 25px;
+  height: 20px;
+  padding: 5px 0px;
 }
 .div-cand-card-inner1-fields p {
   font-size: 14px;
@@ -269,6 +284,9 @@
   left: 4%;
   height: 60px;
 }
+.shortlisted-ind-header-heading h4 {
+  font-size: 27px;
+}
 .create-head-div-int {
   display: flex;
   flex-direction: column;
@@ -286,8 +304,8 @@
   width: 280px;
   background: #fff;
   margin: 20px;
-  height: 220px;
-  padding: 0px 20px;
+  height: 225px;
+  padding: 5px 20px;
   border-radius: 16px;
   box-shadow: 0px 0px 5px grey;
 }
@@ -295,16 +313,17 @@
   font-size: 27px;
 }
 .div-cand-card-int h4 {
-  font-size: 17px;
+  font-size: 19px;
 }
 .div-cand-card-inner-skl-int {
   display: flex;
   /* justify-content: center; */
-  width: 90%;
+  width: 100%;
   padding: 5px;
   align-items: center;
-  overflow-x: auto;
-  overflow-y: hidden;
+  /* overflow-x: auto; */
+  overflow-y: auto;
+  height: 100%;
 }
 .div-cand-card-inner-skl-int::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px #5a4a23;
@@ -346,7 +365,7 @@
   height: 60px;
 }
 .shortlisted-ind-header-heading-int h2 {
-  font-size: 28px;
+  font-size: 27px;
 }
 .shortlisting-main-upper {
   width: 100%;
@@ -354,6 +373,7 @@
 .int-card-header-name-exp {
   display: flex;
   justify-content: space-between;
+  height: 30px;
 }
 .div-cand-card-btn-int {
   display: flex;
@@ -364,7 +384,7 @@
 .div-cand-card-btn-int button {
   height: 30px;
   cursor: pointer;
-  background: #70581b;
+  background: #f0bc3a;
   width: 150px;
   border-radius: 10px;
   color: #fff;
@@ -375,15 +395,49 @@
 }
 .div-cand-card-btn-int button:hover {
   background: #f2d383;
-  color: #70581b;
+  color: #fff;
   transition: background 0.5s;
 }
 .int-cross {
-  display: none;
-}
-.div-cand-card-int:hover .int-cross {
   display: flex;
   position: relative;
-  margin-bottom: 5px;
   cursor: pointer;
+}
+
+.div-cand-card-inner-main {
+  height: 250px;
+}
+.div-cand-card-inner-skl-inn1-int {
+  width: auto;
+  /* background: #fff; */
+  display: flex;
+  height: 40px;
+  justify-content: flex-start;
+  /* padding: 15px; */
+  height: 100%;
+  flex-direction: column;
+}
+.div-cand-card-inner-skl-inn1-int p {
+  min-width: 100px;
+  padding: 7px 0px;
+  margin: 5px 5px;
+  background: #d6d6d66b;
+  /* height: 30px; */
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+}
+label {
+  font-size: 13px;
+}
+.div-cand-card-inner-skl-exp-loc-main {
+  display: flex;
+  height: 120px;
+  justify-content: space-between;
+}
+
+.div-cand-card-inner-skl-exp-loc-inner {
+  height: 80%;
 }

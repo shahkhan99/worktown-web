@@ -8,7 +8,7 @@
   flex-direction: column;
 }
 .dash-login-main-div-input {
-  width: 45%;
+  width: 35%;
 }
 .dash-login-main-div-input-pass {
   height: auto;
@@ -24,7 +24,7 @@
   flex-direction: column;
 }
 .dash-login-main-div-btn {
-  width: 20%;
+  width: 15%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,12 +34,29 @@
   height: 40px;
   border: 0;
   border-radius: 16px;
-  background: cornflowerblue;
+  background: #f0bd3a;
   cursor: pointer;
   color: white;
   font-size: 17px;
   margin-bottom: 10px;
 }
 .dash-login-main-div-btn button:hover {
-  background: rgb(83, 115, 175);
+  background: rgb(255, 226, 111);
+}
+.swal2-title {
+  font-family: lato !important;
+  font-size: 19px !important;
+  font-weight: 700;
+  color: #000;
+}
+.swal2-container.swal2-center > .swal2-popup {
+  padding: 50px 0px !important;
+}
+.swal2-popup {
+  border-radius: 16px !important;
+}
+.swal2-container.swal2-backdrop-show,
+.swal2-container.swal2-noanimation {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(3px);
 }

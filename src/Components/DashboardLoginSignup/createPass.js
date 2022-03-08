@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const auth = getAuth();
-export default function DashboardLoginSignup() {
+export default function CreatePassword() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");

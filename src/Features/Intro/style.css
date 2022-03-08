@@ -639,6 +639,7 @@ input[type="range"]:focus {
   border: 0;
   font-size: 17px;
   padding-left: 25px;
+  padding-top: 0 !important;
 }
 .skill-set ::placeholder {
   font-size: 15px !important;
@@ -938,10 +939,10 @@ input[type="range"]:focus {
     margin-bottom: 0px;
     font-size: 12px;
   }
-  .skill-set {
+  .div-skills-inp .skill-set {
     padding: 3px 25px !important;
     font-size: 13px !important;
-    width: 75% !important;
+    width: 85% !important;
     margin-bottom: 0;
   }
   .css-qc6sy-singleValue {

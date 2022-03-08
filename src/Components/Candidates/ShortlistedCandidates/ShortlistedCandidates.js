@@ -137,15 +137,8 @@ function ShortlistedCandidates() {
                           </p>
                         </h3>
                         <h4>{v.JobType}</h4>
-                        <div className="div-cand-card-inner">
-                          <div className="div-cand-card-inner-skl-inn">
-                            {timeArr.map((time) => (
-                              <p>{time}</p>
-                            ))}
-                          </div>
-                        </div>
-                        <div className="div-cand-card-inner1">
-                          <div className="div-cand-card-inner1-fields">
+                        <div className="div-cand-card-inner-main">
+                          <div className="div-cand-card-inner">
                             <label>
                               <FaStar
                                 color="#000"
@@ -154,43 +147,68 @@ function ShortlistedCandidates() {
                               />
                               Experience
                             </label>
-                            <p>{v.Experience}</p>
+                            <div className="div-cand-card-inner-skl-inn">
+                              {timeArr.map((time) => (
+                                <p>{time}</p>
+                              ))}
+                            </div>
                           </div>
-                          <div className="div-cand-card-inner1-fields">
+                          <div className="div-cand-card-inner1">
+                            <div className="div-cand-card-inner1-fields">
+                              <label>
+                                <FaStar
+                                  color="#000"
+                                  size={15}
+                                  style={{ marginRight: 5 }}
+                                />
+                                Experience
+                              </label>
+                              <p>{v.Experience}</p>
+                            </div>
+                            <div className="div-cand-card-inner1-fields">
+                              <label>
+                                {" "}
+                                <FaUserGraduate
+                                  color="#000"
+                                  size={15}
+                                  style={{ marginRight: 5 }}
+                                />
+                                Education
+                              </label>
+                              <p>{v.Education}</p>
+                            </div>
+                            <div className="div-cand-card-inner1-fields">
+                              <label>
+                                {" "}
+                                <TiSortAlphabeticallyOutline
+                                  color="#000"
+                                  size={20}
+                                  style={{ marginRight: 5 }}
+                                />
+                                Enlish level
+                              </label>
+                              <p>{v.EnglishLevel}</p>
+                            </div>
+                          </div>
+                          <div className="div-cand-card-inner-skl">
                             <label>
-                              {" "}
-                              <FaUserGraduate
+                              <FaStar
                                 color="#000"
                                 size={15}
                                 style={{ marginRight: 5 }}
                               />
-                              Education
+                              Experience
                             </label>
-                            <p>{v.Education}</p>
-                          </div>
-                          <div className="div-cand-card-inner1-fields">
-                            <label>
-                              {" "}
-                              <TiSortAlphabeticallyOutline
-                                color="#000"
-                                size={20}
-                                style={{ marginRight: 5 }}
-                              />
-                              Enlish level
-                            </label>
-                            <p>{v.EnglishLevel}</p>
-                          </div>
-                        </div>
-                        <div className="div-cand-card-inner-skl">
-                          <div className="div-cand-card-inner-skl-inn1">
-                            {sklArr.map((skl) => (
-                              <p>{skl}</p>
-                            ))}
+                            <div className="div-cand-card-inner-skl-inn1">
+                              {sklArr.map((skl) => (
+                                <p>{skl}</p>
+                              ))}
+                            </div>
                           </div>
                         </div>
                         <div className="div-cand-card-btn">
-                          <button>Reject &#x2718;</button>
-                          <button>Accept &#10004; </button>
+                          <button>Reject</button>
+                          <button>Accept</button>
                         </div>
                       </div>
                     );
@@ -217,11 +235,31 @@ function ShortlistedCandidates() {
                       <ImCross
                         color="#000"
                         size={15}
-                        style={{ position: "absolute", right: 0 }}
+                        style={{ position: "absolute", right: 0, top: 10 }}
                       />
                     </div>
                     <div className="int-card-header-name-exp">
-                      <h3>{nameArr[0]}</h3>
+                      <h4>{nameArr[0]}</h4>
+                    </div>
+                    <h4>{v.industry}</h4>
+                    <div className="div-cand-card-inner-skl-exp-loc-main">
+                      <div className="div-cand-card-inner-skl-exp-loc-inner">
+                        <label>
+                          <FaStar
+                            color="#000"
+                            size={15}
+                            style={{ marginRight: 5 }}
+                          />
+                          Experience
+                        </label>
+                        <div className="div-cand-card-inner-skl-int">
+                          <div className="div-cand-card-inner-skl-inn1-int">
+                            {v.skilss.map((skl) => (
+                              <p>{skl}</p>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
                       <div className="div-cand-card-inner1-fields">
                         <label>
                           <FaStar
@@ -232,14 +270,14 @@ function ShortlistedCandidates() {
                           Experience
                         </label>
                         <p>{v.exp}</p>
-                      </div>
-                    </div>
-                    <h4>{v.industry}</h4>
-                    <div className="div-cand-card-inner-skl-int">
-                      <div className="div-cand-card-inner-skl-inn1">
-                        {v.skilss.map((skl) => (
-                          <p>{skl}</p>
-                        ))}
+                        <p style={{ marginTop: 5 }}>
+                          <ImLocation
+                            color="#000"
+                            size={15}
+                            style={{ marginRight: 5 }}
+                          />
+                          {v.city}
+                        </p>
                       </div>
                     </div>
                     <div className="div-cand-card-btn-int">
