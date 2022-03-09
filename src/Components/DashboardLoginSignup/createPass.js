@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./dashboardloginsignup.css";
-import { getUsers } from "./backend";
-import Swal from "sweetalert2";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getUsers, handleEmail, handleRegister } from "./backend";
 
-const auth = getAuth();
-export default function CreatePassword() {
+export default function DashboardLoginSignup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");
@@ -15,65 +12,9 @@ export default function CreatePassword() {
 
   useEffect(async () => {
     await getUsers(setCheckUser);
-    console.log(checkUser);
   }, []);
+  console.log(checkUser);
 
-  const handleEmail = async () => {
-    const getObjs = (obj) => Object.values(checkUser);
-    let users = getObjs(checkUser);
-    let gotEmail = users.filter((e) => {
-      return e.Email === email;
-    });
-    gotEmail.length && setShowPass(true);
-    gotEmail.length && setEmailCheck(true);
-    if (!gotEmail.length) {
-      Swal.fire({
-        title:
-          "Umm.. we can't seem to find your email in our database. Please double check the spelling or sign up to access the portal.",
-        showCancelButton: true,
-        confirmButtonText: "Sign Up",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.replace("http://localhost:3000/");
-        }
-      });
-    }
-    console.log(gotEmail);
-  };
-  const handleLogin = async () => {
-    if (password === cPassword) {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          // ...
-          console.log(user);
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode, "/////", errorMessage);
-          Swal.fire({
-            title:
-              error.message ===
-              "Firebase: Password should be at least 6 characters (auth/weak-password)."
-                ? "Password should be at least 6 characters"
-                : error.message ===
-                  "Firebase: Error (auth/email-already-in-use)."
-                ? "Entered email is already in use by another account."
-                : error.message === "Firebase: Error (auth/invalid-email)."
-                ? "Invalid Email address"
-                : error.message,
-            timer: 5000,
-          });
-        });
-    } else {
-      Swal.fire({
-        title: "Passwords are not same.",
-        timer: 2500,
-      });
-    }
-  };
   return (
     <div className="dash-login-main-div">
       <h3 style={{ height: "13%" }}>Create Password </h3>
@@ -209,11 +150,19 @@ export default function CreatePassword() {
         </div>
         {!emailCheck ? (
           <div className="dash-login-main-div-btn">
-            <button onClick={handleEmail}>Next</button>
+            <button
+              onClick={() =>
+                handleEmail(email, checkUser, setShowPass, setEmailCheck)
+              }
+            >
+              Next
+            </button>
           </div>
         ) : (
           <div className="dash-login-main-div-btn">
-            <button onClick={handleLogin}>Login</button>
+            <button onClick={() => handleRegister(email, password, cPassword)}>
+              Login
+            </button>
           </div>
         )}
         <div>
