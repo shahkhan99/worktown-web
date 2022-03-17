@@ -214,7 +214,7 @@ export default class Form3 extends Component {
               <option>0-1 years</option>
               <option>2 years</option>
               <option>3-5 years</option>
-              <option>6-10 years</option>
+              <option>5-10 years</option>
               <option>10+ years</option>
             </select>
           </div>{" "}

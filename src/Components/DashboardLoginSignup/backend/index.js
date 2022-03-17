@@ -5,6 +5,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 
 const dbRef = ref(getDatabase());
@@ -40,12 +41,12 @@ const handleEmail = async (email, checkUser, setShowPass, setEmailCheck) => {
       showCancelButton: true,
       confirmButtonText: "Sign Up",
     }).then((result) => {
-      if (result.isConfirmed) {
-        window.location.replace("http://localhost:3000/");
-      }
+      // if (result.isConfirmed) {
+      //   window.location.replace("http://localhost:3000/");
+      // }
     });
   }
-  console.log(gotEmail);
+  // console.log(gotEmail);
 };
 const handleRegister = async (email, password, cPassword) => {
   if (password === cPassword) {
@@ -55,6 +56,18 @@ const handleRegister = async (email, password, cPassword) => {
         const user = userCredential.user;
         await sendEmailVerification(user);
         // ...
+
+        Swal.fire({
+          title: "Check your email address to verify your account.",
+          showConfirmButton: true,
+          confirmButtonText: "OK",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.replace(
+              "http://localhost:3000/employer_dashboard/login"
+            );
+          }
+        });
         // console.log(auth.currentUser);
       })
       .catch((error) => {
@@ -63,8 +76,7 @@ const handleRegister = async (email, password, cPassword) => {
         console.log(errorCode, "/////", errorMessage);
         Swal.fire({
           title:
-            error.message ===
-            "Firebase: Password should be at least 6 characters (auth/weak-password)."
+            error.code === "auth/weak-password"
               ? "Password should be at least 6 characters"
               : error.message === "Firebase: Error (auth/email-already-in-use)."
               ? "Entered email is already in use by another account. Go to login page."
@@ -84,17 +96,6 @@ const handleRegister = async (email, password, cPassword) => {
           }
         });
       });
-    Swal.fire({
-      title: "Check your email address to verify your account.",
-      showConfirmButton: true,
-      confirmButtonText: "OK",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        window.location.replace(
-          "http://localhost:3000/employer_dashboard/login"
-        );
-      }
-    });
   } else {
     Swal.fire({
       title: "Passwords are not same.",
@@ -102,4 +103,70 @@ const handleRegister = async (email, password, cPassword) => {
     });
   }
 };
-export { getUsers, handleEmail, handleRegister };
+
+const handleLogin = async (
+  checkUser,
+  email,
+  emailVerify,
+  setEmailVerify,
+  password,
+  set_data
+) => {
+  const getObjs = (obj) => Object.values(checkUser);
+  let users = getObjs(checkUser);
+  let gotEmail = users.filter((e) => {
+    return e.Email === email;
+  });
+  if (!gotEmail.length) {
+    Swal.fire({
+      title:
+        "Umm.. we can't seem to find your email in our database. Please double check the spelling or sign up to access the portal.",
+      showCancelButton: true,
+      confirmButtonText: "Sign Up",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.replace("http://localhost:3000/");
+      }
+    });
+  } else {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        if (!user.emailVerified) {
+          setEmailVerify(false);
+          Swal.fire({
+            title:
+              "It seems like you haven't verify your email yet. We have sent a verification link to your email, kindly verify it to access the portal.",
+            showConfirmButton: true,
+            confirmButtonText: "Ok",
+          });
+          console.log("then =>", user);
+          // sendEmailVerification(user);
+        } else {
+          setEmailVerify(true);
+          set_data(user.uid);
+          window.location.replace("http://localhost:3000/employer_dashboard");
+          console.log("then =>", user);
+        }
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        Swal.fire({
+          title:
+            errorCode === "auth/user-not-found"
+              ? "User not found or may be you haven't set your password yet."
+              : errorCode === "auth/wrong-password" &&
+                "Wrong email or password",
+          showConfirmButton: true,
+          confirmButtonText: "Ok",
+        });
+        console.log("Err =>", errorCode);
+      });
+    console.log("then =>", emailVerify);
+  }
+};
+export { getUsers, handleEmail, handleRegister, handleLogin };

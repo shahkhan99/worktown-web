@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import "./home.css";
 import Logo from "../../assets/Logo/logo.png";
 import { GiAntiAircraftGun } from "react-icons/gi";
+import { useSelector, useDispatch } from "react-redux";
+
 function Home() {
+  const redux_data = useSelector(
+    (state) => state.dashboard_auth.set_current_user_data
+  );
   return (
     <div className="main-div">
       <div>
-        <h4>Good Evening, Ahmed!</h4>
+        <h4>Good Evening, {redux_data !== undefined && redux_data.Name}!</h4>
       </div>
       <div className="div-main-payment">
         <div className="div-main-payment-card1">

@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "rc-slider/assets/index.css";
 import { getDatabase } from "firebase/database";
-import { set, ref } from "@firebase/database";
+import { set, ref, push, child, update } from "@firebase/database";
 import firebase from "../../config/firebase";
 import ReactFullpage from "@fullpage/react-fullpage";
 import Form1 from "./form1";
@@ -119,9 +119,17 @@ class HomePage extends React.Component {
         "C#",
         "Html/Css",
         "React Js",
-        "Aws",
+        "Angular Js",
+        "React Native",
+        "AWS",
         "Php",
+        "Laravel",
+        "Wordpress",
+        "ASP .NET",
         "Android",
+        "Node Js",
+        "Swift",
+        "Django",
         "Objective C",
       ],
       Saltimings: ["Hourly", "Monthly", "Fixed"],
@@ -844,23 +852,32 @@ class HomePage extends React.Component {
             ExpectedSalary: exp_sal,
             EnglishLevel: this.state.eng_lvl,
             JobTime: SalaryTime,
-          }).then(() => {
-            set(ref(db, "users/jobs_employer/" + this.state.phone), {
+          }).then(async () => {
+            const newPostKey = push(
+              child(ref(db), `users/jobs_employer/${this.state.phone}/jobs`)
+            ).key;
+            await update(ref(db, `users/jobs_employer/${this.state.phone}/`), {
               BusinessName: this.state.company,
               Name: this.state.name,
               Phone: this.state.phone,
               City: this.state.city,
               Email: this.state.email,
-              JobCategory: this.state.JobCategory,
-              JobType: this.state.selectedJobOption,
-              JobDescription: this.state.jobDesc,
-              Experience: this.state.experience,
-              Skills: skillSet,
-              Education: this.state.education,
-              InterestedIn: interest,
-              ExpectedSalary: exp_sal,
-              EnglishLevel: this.state.eng_lvl,
-              JobTime: SalaryTime,
+            }).then(async () => {
+              await push(
+                ref(db, `users/jobs_employer/${this.state.phone}/jobs`),
+                {
+                  JobCategory: this.state.JobCategory,
+                  JobType: this.state.selectedJobOption,
+                  JobDescription: this.state.jobDesc,
+                  Experience: this.state.experience,
+                  Skills: skillSet,
+                  Education: this.state.education,
+                  InterestedIn: interest,
+                  ExpectedSalary: exp_sal,
+                  EnglishLevel: this.state.eng_lvl,
+                  JobTime: SalaryTime,
+                }
+              );
             });
             this.setState({ isSubmit: false });
             Swal.fire({

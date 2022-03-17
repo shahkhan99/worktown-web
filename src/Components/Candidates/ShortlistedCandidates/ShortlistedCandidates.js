@@ -1,20 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ReactFragment } from "react";
 import "./ShortlistedCandidates.css";
+import Select from "react-select";
 import Loader from "../../Loader/loader";
+import PopupSelectFilter from "./components/popupSelectFilter";
 import {
-  checkUser,
-  getCurrentUserData,
+  setFilterType,
   MatchingCandidates,
   getJobTypeFilterCand,
-  getShortlisted,
+  getJobTitleFilters,
 } from "../backend/index";
 import { ImLocation, ImCross } from "react-icons/im";
 import { TiSortAlphabeticallyOutline } from "react-icons/ti";
 import { GrTechnology } from "react-icons/gr";
 import { BiPhone } from "react-icons/bi";
 import { FaStar, FaUserGraduate } from "react-icons/fa";
-import Eng from "../../assets/eng.png";
+import { useSelector, useDispatch } from "react-redux";
+
 function ShortlistedCandidates() {
+  const [job_options, SetJob_options] = useState([]);
   const [Shortlisted, SetShortlisted] = useState([
     {
       name: "Arham Abeer",
@@ -25,14 +28,7 @@ function ShortlistedCandidates() {
       edu: "Post graduate ",
       time: "full-time",
       city: "Karachi",
-      skilss: [
-        "react js",
-        "react native",
-        "python",
-        "nodejs",
-        "mongodb",
-        "mysql",
-      ],
+      skilss: ["react js", "react native", "python", "nodejs"],
     },
     {
       name: "Ahmed Mehanti",
@@ -83,16 +79,33 @@ function ShortlistedCandidates() {
     },
   ]);
   const [ShortlistedCandidates, setShortlistedCandidates] = useState("");
+  const [filterType, setFilter] = useState("");
   const [currentUser, setCurrentUser] = useState("");
+  const redux_data = useSelector(
+    (state) => state.dashboard_auth.set_current_user_data
+  );
+
   useEffect(async () => {
     if (currentUser === "") {
-      await getCurrentUserData(setCurrentUser);
+      await setCurrentUser(redux_data);
     }
-    await getJobTypeFilterCand(currentUser, setShortlistedCandidates);
-    getShortlisted();
+    if (currentUser !== "") {
+      await setFilterType(setFilter, currentUser, filterType);
+      await getJobTypeFilterCand(
+        currentUser,
+        setShortlistedCandidates,
+        filterType
+      );
+      await getJobTitleFilters(SetJob_options, currentUser);
+    }
     // MatchingCandidates();
     // await checkUser()
-  }, [currentUser]);
+  }, [currentUser, filterType]);
+
+  const getFilterTitle = (e) => {
+    setFilter(e);
+  };
+  let filterSplit = filterType.split("/");
   console.log("current =>", currentUser);
   return (
     <div className="shortlisting-main-upper">
@@ -104,12 +117,24 @@ function ShortlistedCandidates() {
           <div style={{ width: "100%" }}>
             <div className="shortlisted-ind-header">
               <div className="shortlisted-ind-header-heading">
-                <GrTechnology
-                  color="#000"
-                  size={35}
-                  style={{ marginRight: 15 }}
-                />
-                <h4>Software & IT</h4>
+                <div className="shortlisted-ind-header-heading-1">
+                  <GrTechnology
+                    color="#000"
+                    size={35}
+                    style={{ marginRight: 15 }}
+                  />
+                  <h4>Software & IT</h4>
+                </div>
+                <div className="shortlisted-ind-header-heading-2">
+                  <div className="div-cand-card-inner-skl-inn skl-inn-filter">
+                    <p>{filterSplit[0]}</p>
+                    <p>{filterSplit[1]}</p>
+                  </div>
+                  <PopupSelectFilter
+                    getFilterTitle={(e) => getFilterTitle(e)}
+                    job_options={job_options}
+                  />
+                </div>
               </div>
             </div>
             <div className="div-cand-card-main">
@@ -125,46 +150,36 @@ function ShortlistedCandidates() {
                     return (
                       <div className="div-cand-card">
                         {/* {console.log(nameArr[1] && nameArr[1][0])} */}
-                        <h3>
-                          {nameArr[0]}{" "}
-                          <p>
-                            <ImLocation
-                              color="#000"
-                              size={15}
-                              style={{ marginRight: 5 }}
-                            />
-                            {v.City}
-                          </p>
-                        </h3>
-                        <h4>{v.JobType}</h4>
-                        <div className="div-cand-card-inner-main">
-                          <div className="div-cand-card-inner">
-                            <label>
+                        <div className="div-cand-card-header-loc-exp-main">
+                          <h3>{nameArr[0]} </h3>
+                          <div className="div-cand-card-header-loc-exp">
+                            <p>
+                              <ImLocation
+                                color="#000"
+                                size={15}
+                                style={{ marginRight: 5 }}
+                              />
+                              {v.City}
+                            </p>
+                            <p>
                               <FaStar
                                 color="#000"
                                 size={15}
                                 style={{ marginRight: 5 }}
                               />
-                              Experience
-                            </label>
-                            <div className="div-cand-card-inner-skl-inn">
-                              {timeArr.map((time) => (
-                                <p>{time}</p>
-                              ))}
-                            </div>
+
+                              {v.Experience}
+                            </p>
+                          </div>
+                        </div>
+                        <h4>{v.JobType}</h4>
+                        <div className="div-cand-card-inner-main">
+                          <div className="div-cand-card-inner-skl-inn1">
+                            {sklArr.map((skl) => (
+                              <p>{skl}</p>
+                            ))}
                           </div>
                           <div className="div-cand-card-inner1">
-                            <div className="div-cand-card-inner1-fields">
-                              <label>
-                                <FaStar
-                                  color="#000"
-                                  size={15}
-                                  style={{ marginRight: 5 }}
-                                />
-                                Experience
-                              </label>
-                              <p>{v.Experience}</p>
-                            </div>
                             <div className="div-cand-card-inner1-fields">
                               <label>
                                 {" "}
@@ -173,9 +188,8 @@ function ShortlistedCandidates() {
                                   size={15}
                                   style={{ marginRight: 5 }}
                                 />
-                                Education
+                                <p>{v.Education}</p>
                               </label>
-                              <p>{v.Education}</p>
                             </div>
                             <div className="div-cand-card-inner1-fields">
                               <label>
@@ -185,29 +199,25 @@ function ShortlistedCandidates() {
                                   size={20}
                                   style={{ marginRight: 5 }}
                                 />
-                                Enlish level
+                                <p>{v.EnglishLevel}</p>
                               </label>
-                              <p>{v.EnglishLevel}</p>
                             </div>
                           </div>
                           <div className="div-cand-card-inner-skl">
-                            <label>
-                              <FaStar
-                                color="#000"
-                                size={15}
-                                style={{ marginRight: 5 }}
-                              />
-                              Experience
-                            </label>
-                            <div className="div-cand-card-inner-skl-inn1">
-                              {sklArr.map((skl) => (
-                                <p>{skl}</p>
-                              ))}
+                            <div className="div-cand-card-inner">
+                              <div className="div-cand-card-inner-skl-inn">
+                                {timeArr.map((time) => (
+                                  <p>{time}</p>
+                                ))}
+                                {/* {v.time} */}
+                              </div>
                             </div>
                           </div>
                         </div>
                         <div className="div-cand-card-btn">
-                          <button>Reject</button>
+                          <button className="div-cand-card-btn-int-rej">
+                            Reject
+                          </button>
                           <button>Accept</button>
                         </div>
                       </div>
@@ -241,17 +251,9 @@ function ShortlistedCandidates() {
                     <div className="int-card-header-name-exp">
                       <h4>{nameArr[0]}</h4>
                     </div>
-                    <h4>{v.industry}</h4>
+                    <h3>{v.industry}</h3>
                     <div className="div-cand-card-inner-skl-exp-loc-main">
                       <div className="div-cand-card-inner-skl-exp-loc-inner">
-                        <label>
-                          <FaStar
-                            color="#000"
-                            size={15}
-                            style={{ marginRight: 5 }}
-                          />
-                          Experience
-                        </label>
                         <div className="div-cand-card-inner-skl-int">
                           <div className="div-cand-card-inner-skl-inn1-int">
                             {v.skilss.map((skl) => (
@@ -265,11 +267,15 @@ function ShortlistedCandidates() {
                           <FaStar
                             color="#000"
                             size={15}
-                            style={{ marginRight: 5 }}
+                            style={{
+                              marginRight: 5,
+                              position: "relative",
+                              top: 1,
+                            }}
                           />
-                          Experience
+                          {v.exp}
                         </label>
-                        <p>{v.exp}</p>
+
                         <p style={{ marginTop: 5 }}>
                           <ImLocation
                             color="#000"
@@ -291,6 +297,7 @@ function ShortlistedCandidates() {
         </div>
       </div>
     </div>
+    // <div>{/* <PopupSelectFilter /> */}</div>
   );
 }
 export default ShortlistedCandidates;

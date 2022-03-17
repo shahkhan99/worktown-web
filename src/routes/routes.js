@@ -37,6 +37,9 @@ let Routes = () => {
         <Route path="/waitList" exact component={AppSignUp} />
         {/* <Route path="/intro" exact component={Introduction} />
         <Route path="/jobcategory" exact component={JobCategory} /> */}
+
+        {/* DashBoard ROUTES */}
+
         <Route path="/employer_dashboard" exact component={Employer_DB} />
         <Route
           path="/employer_dashboard/registration"

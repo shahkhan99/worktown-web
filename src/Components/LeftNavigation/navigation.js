@@ -5,15 +5,18 @@ import { AiOutlineHome, AiOutlinePlusCircle } from "react-icons/ai";
 import { FaUserNinja } from "react-icons/fa";
 import { RiPagesLine } from "react-icons/ri";
 import { MdOutlineLibraryBooks } from "react-icons/md";
+import { useSelector, useDispatch } from "react-redux";
+import { getAuth, signOut } from "firebase/auth";
 
 function Left_navigation({ checkNav }) {
+  const auth = getAuth();
   const [selected_nav, setSelected_nav] = useState(0);
   const [li_items, set_li_items] = useState([
     "Home",
     "Create A Contract",
     "Candidates",
-    "Contracts",
-    "Invoices & Receipts",
+    "Archieve",
+    "Edit Profile",
     "Team Settings",
     "Perks",
   ]);
@@ -41,11 +44,27 @@ function Left_navigation({ checkNav }) {
     <FaUserNinja color="#f0bd3a" size={15} style={{ marginRight: 5 }} />,
   ];
   checkNav(selected_nav);
+
+  const Logout = () => {
+    signOut(auth)
+      .then(() => {
+        window.location.replace(
+          "http://localhost:3000/employer_dashboard/login"
+        );
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
+
+  const redux_data = useSelector(
+    (state) => state.dashboard_auth.set_current_user_data
+  );
+  // console.log(redux_data);
   return (
     <div className="nav-main-div">
       <div>
-        <img src={Logo} width={70} height={70} />
-        <h6>Work Hall Co</h6>
+        <h6>{redux_data !== undefined && redux_data.BusinessName}</h6>
       </div>
       <div className="nav-div">
         <ul className="nav-div-ul">
@@ -73,6 +92,11 @@ function Left_navigation({ checkNav }) {
             <li key={i}>{v}</li>
           ))}
         </ul>
+      </div>
+      <div className="logout-nav div-cand-card-btn ">
+        <button className="div-cand-card-btn-int-rej" onClick={() => Logout()}>
+          Logout
+        </button>
       </div>
     </div>
   );

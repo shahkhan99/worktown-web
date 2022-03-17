@@ -94,7 +94,7 @@
 .div-cand-card-inner1 {
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   width: 90%;
   align-self: center;
   padding: 0px 5px;
@@ -156,7 +156,7 @@
   display: flex;
   /* justify-content: center; */
   width: 90%;
-  padding: 15px;
+  /* padding: 15px; */
   align-items: center;
   /* overflow-x: auto;
   overflow-y: hidden; */
@@ -195,7 +195,7 @@
   flex-direction: column;
 }
 .div-cand-card-inner-skl-inn1 p {
-  min-width: 100px;
+  min-width: 125px;
   /* padding: 0 20px; */
   margin: 5px 5px;
   background: #d6d6d66b;
@@ -283,8 +283,19 @@
   position: relative;
   left: 4%;
   height: 60px;
+  justify-content: space-between;
 }
-.shortlisted-ind-header-heading h4 {
+.shortlisted-ind-header-heading-1 {
+  display: flex;
+  align-items: center;
+}
+.shortlisted-ind-header-heading-2 {
+  cursor: pointer;
+  display: flex;
+  width: 40%;
+  justify-content: space-between;
+}
+.shortlisted-ind-header-heading-1 h4 {
   font-size: 27px;
 }
 .create-head-div-int {
@@ -314,6 +325,9 @@
 }
 .div-cand-card-int h4 {
   font-size: 19px;
+}
+.div-cand-card-int h3 {
+  font-size: 17px;
 }
 .div-cand-card-inner-skl-int {
   display: flex;
@@ -393,7 +407,14 @@
   font-size: 13px;
   letter-spacing: 0.4px;
 }
-.div-cand-card-btn-int button:hover {
+.div-cand-card-btn-int-rej {
+  background: #9d2b30 !important;
+}
+.div-cand-card-btn-int-rej:hover {
+  background: #9d2b30b0 !important;
+}
+.div-cand-card-btn-int button:hover,
+.div-cand-card-btn-int-rej:hover {
   background: #f2d383;
   color: #fff;
   transition: background 0.5s;
@@ -440,4 +461,22 @@ label {
 
 .div-cand-card-inner-skl-exp-loc-inner {
   height: 80%;
+}
+.skl-inn-filter {
+  flex-direction: row;
+}
+.skl-inn-filter p {
+  padding: 0 15px;
+}
+.div-cand-card-header-loc-exp {
+  display: flex;
+  flex-direction: column;
+}
+.div-cand-card-header-loc-exp p {
+  height: 45px;
+  font-weight: 500;
+}
+.div-cand-card-header-loc-exp-main {
+  display: flex;
+  justify-content: space-between;
 }

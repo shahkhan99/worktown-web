@@ -1,94 +1,91 @@
 import React, { useState, useEffect } from "react";
 import "./dashboardloginsignup.css";
-import { getUsers } from "./backend";
+import { getUsers, handleLogin } from "./backend";
+import { useSelector, useDispatch } from "react-redux";
+import { set_current_user_data } from "../../store/action/index";
 import Swal from "sweetalert2";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  sendEmailVerification,
-} from "firebase/auth";
 import { async } from "@firebase/util";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import Loading from "../../assets/Loader/worktown-loader.gif";
 
-const auth = getAuth();
 export default function DashboardLogin() {
+  const redux_data = useSelector((state) => state.dashboard_auth);
+  console.log(redux_data);
+  const dispatch = useDispatch();
+  const auth = getAuth();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [emailNotVerify, setEmailNotVerify] = useState(false);
+  const [emailVerify, setEmailVerify] = useState(true);
   const [checkUser, setCheckUser] = useState("");
+  const [checking, setChecking] = useState(true);
 
   useEffect(async () => {
     await getUsers(setCheckUser);
-    console.log(checkUser);
+    await onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uEmail = user.email;
+        if (uEmail) {
+          await getUsers(setCheckUser);
+          const getObjs = (obj) => Object.values(checkUser);
+          let users = getObjs(checkUser);
+          let gotEmail = users.filter((e) => {
+            return e.Email === uEmail;
+          });
+          var result = gotEmail.find((obj) => {
+            return obj.Email === uEmail;
+          });
+          dispatch(set_current_user_data(result));
+          window.location.replace("http://localhost:3000/employer_dashboard/");
+        }
+        // ...
+      } else {
+        // User is signed out
+        setChecking(false);
+        // ...
+      }
+    });
   }, []);
 
-  const handleLogin = async () => {
-    const getObjs = (obj) => Object.values(checkUser);
-    let users = getObjs(checkUser);
-    let gotEmail = users.filter((e) => {
-      return e.Email === email;
-    });
-    if (!gotEmail.length) {
-      Swal.fire({
-        title:
-          "Umm.. we can't seem to find your email in our database. Please double check the spelling or sign up to access the portal.",
-        showCancelButton: true,
-        confirmButtonText: "Sign Up",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.replace("http://localhost:3000/");
-        }
-      });
-    } else {
-      const auth = getAuth();
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user;
-          if (!user.emailVerified) {
-            Swal.fire({
-              title:
-                "It seems like you haven't verify your email yet. We have sent a verification link to your email, kindly verify it to access the portal.",
-              showCancelButton: true,
-              confirmButtonText: "Ok",
-            }).then((result) => {
-              if (result.isConfirmed) {
-                setEmailNotVerify(true);
-              }
-            });
-            // sendEmailVerification(user);
-          } else {
-            setEmailNotVerify(false);
-            console.log("then =>", user);
-          }
-          // console.log("then =>", user);
-          // ...
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log("Err =>", errorMessage);
-        });
-      console.log("then =>", emailNotVerify);
-    }
+  const set_data = (user) => {
+    // dispatch(set_current_user_data(user));
   };
-  return (
-    <div className="dash-login-main-div">
-      <h3 style={{ height: "13%" }}>Login</h3>
-      <div className="dash-login-main-div-inner">
-        <div className="a-input-field dash-login-main-div-input">
-          <label className="input-label">
-            Email
-            <span
-              style={{
-                color: "red",
-                fontWeight: "bold",
-              }}
-            >
-              *
-            </span>
-          </label>
-          <div className="div-input-icon">
-            {/* <FaRegUser
+
+  if (checking) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          height: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <img src={Loading} />
+      </div>
+    );
+  } else {
+    return (
+      <div className="dash-login-main-div">
+        <h3 style={{ height: "13%" }}>Login</h3>
+        <div className="dash-login-main-div-inner">
+          <div className="a-input-field dash-login-main-div-input">
+            <label className="input-label">
+              Email
+              <span
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                }}
+              >
+                *
+              </span>
+            </label>
+            <div className="div-input-icon">
+              {/* <FaRegUser
             color="#3D459D"
             size={17}
             className="svg-u"
@@ -98,36 +95,36 @@ export default function DashboardLogin() {
               left: 10,
             }}
           /> */}
-            <input
-              placeholder="your email address"
-              onChange={(email) => {
-                setEmail(email.target.value);
-              }}
-              type="email"
-              style={{
-                fontFamily: "Lato",
-                fontSize: 17,
-                color: "#868686",
-              }}
-              // value={this.state.name}
-              className="a-r-input-box"
-            />
+              <input
+                placeholder="your email address"
+                onChange={(email) => {
+                  setEmail(email.target.value);
+                }}
+                type="email"
+                style={{
+                  fontFamily: "Lato",
+                  fontSize: 17,
+                  color: "#868686",
+                }}
+                // value={this.state.name}
+                className="a-r-input-box"
+              />
+            </div>
           </div>
-        </div>
-        <div className="a-input-field dash-login-main-div-input ">
-          <label className="input-label">
-            Password
-            <span
-              style={{
-                color: "red",
-                fontWeight: "bold",
-              }}
-            >
-              *
-            </span>
-          </label>
-          <div className="div-input-icon">
-            {/* <FaRegUser
+          <div className="a-input-field dash-login-main-div-input ">
+            <label className="input-label">
+              Password
+              <span
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                }}
+              >
+                *
+              </span>
+            </label>
+            <div className="div-input-icon">
+              {/* <FaRegUser
             color="#3D459D"
             size={17}
             className="svg-u"
@@ -137,36 +134,50 @@ export default function DashboardLogin() {
               left: 10,
             }}
           /> */}
-            <input
-              placeholder="password"
-              id="name"
-              name="name"
-              onChange={(pass) => {
-                setPassword(pass.target.value);
-              }}
-              type="password"
-              // placeholder="We need your full name"
-              style={{
-                fontFamily: "Lato",
-                fontSize: 17,
-                color: "#868686",
-              }}
-              // value={this.state.name}
-              className="a-r-input-box dash-login-main-div-input-pass "
-            />
+              <input
+                placeholder="password"
+                id="name"
+                name="name"
+                onChange={(pass) => {
+                  setPassword(pass.target.value);
+                }}
+                type="password"
+                // placeholder="We need your full name"
+                style={{
+                  fontFamily: "Lato",
+                  fontSize: 17,
+                  color: "#868686",
+                }}
+                // value={this.state.name}
+                className="a-r-input-box dash-login-main-div-input-pass "
+              />
+            </div>
           </div>
-        </div>
 
-        <div className="dash-login-main-div-btn">
-          <button onClick={() => handleLogin()}>Login</button>
-        </div>
+          <div className="dash-login-main-div-btn">
+            <button
+              onClick={() =>
+                handleLogin(
+                  checkUser,
+                  email,
+                  emailVerify,
+                  setEmailVerify,
+                  password,
+                  set_data
+                )
+              }
+            >
+              Login
+            </button>
+          </div>
 
-        <div>
-          <a href="/employer_dashboard/registration" target="_blank">
-            <p>Haven't set your password yet? Do it here!</p>
-          </a>
+          <div>
+            <a href="/employer_dashboard/registration" target="_blank">
+              <p>Haven't set your password yet? Do it here!</p>
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
