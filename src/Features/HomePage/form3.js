@@ -18,20 +18,7 @@ export default class Form3 extends Component {
     const fullpageApi = this.props.fullpageApi;
     const data = this.props.data;
     // console.log(ctx);
-    let {
-      company,
-      name,
-      city,
-      email,
-      phone,
-      error,
-      selected,
-      selectedSal,
-      timings,
-      Saltimings,
-      job_options,
-      defSkills,
-    } = ctx.state;
+    let { city, job_options } = ctx.state;
     let {
       name: nameError,
       city: occError,

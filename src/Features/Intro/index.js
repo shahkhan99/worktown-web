@@ -86,9 +86,7 @@ class Introduction extends Component {
     // console.log("btn running ... ");
     this.submitHandler(JobCategory);
   };
-  back = () => {
-    // this.setState({ part1: true, part2: false });
-  };
+  back = () => {};
   handleCheck = (val) => {
     if (val === "Part-time") {
       if (this.state.parttime) {

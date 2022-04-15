@@ -1,0 +1,194 @@
+.div-cand-card-main-sub-view-jobs {
+  width: 94%;
+}
+.div-cand-card-view-jobs {
+  width: 90%;
+  height: 270px;
+  right: 0 !important;
+  background-color: #fff;
+  margin: 20px;
+}
+.div-js-card-header-loc-exp p {
+  color: #172331;
+}
+.div-js-card-header-loc-exp-main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.div-cand-card-view-jobs h3,
+.div-cand-card-view-jobs h4 {
+  color: #172331;
+}
+.div-jd-view-jobs-employer {
+  height: auto;
+}
+.div-jd-view-jobs-employer p {
+  font-size: 13px;
+  font-family: "Lato";
+  height: auto;
+}
+.div-exp-sal-view-jobs-employer {
+  height: 50px;
+  justify-content: center;
+}
+.div-exp-sal-view-jobs-employer p {
+  font-size: 14px;
+  font-weight: 700;
+}
+.div-jv-basic-main-main-div {
+  height: 80%;
+  /* justify-content: space-around; */
+  align-items: flex-start;
+}
+.div-jv-basic-main-div1,
+.div-jv-basic-main-div2 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  margin: 0 10px;
+}
+.div-jv-basic-jd,
+.div-jv-basic-jt,
+.div-jv-basic-exps,
+.div-jv-basic-skl,
+.div-jv-basic-edu,
+.div-jv-basic-exp,
+.div-jv-basic-eng {
+  display: flex;
+  height: auto;
+  align-items: flex-start;
+  width: 100%;
+  height: 40px;
+}
+.div-jv-basic-jd label,
+.div-jv-basic-jt label,
+.div-jv-basic-exps label,
+.div-jv-basic-skl label,
+.div-jv-basic-exp label,
+.div-jv-basic-edu label,
+.div-jv-basic-eng label {
+  font-size: 10.5px;
+  width: 18%;
+  align-items: flex-start;
+  padding-top: 2px;
+}
+
+.div-jv-basic-jd p,
+.div-jv-basic-jt p,
+.div-jv-basic-skl p,
+.div-jv-basic-exp p,
+.div-jv-basic-edu p,
+.div-jv-basic-eng p,
+.div-jv-basic-exps p {
+  width: 82%;
+  font-size: 12px;
+  height: auto;
+  font-weight: bold;
+}
+.div-jv-card-btn {
+  display: flex;
+  /* padding: 10px 0px; */
+  width: 20%;
+  height: 150px;
+  justify-content: space-around;
+  /* align-self: center; */
+  flex-direction: column;
+  align-items: flex-end;
+}
+.div-jv-card-btn button {
+  height: 30px;
+  cursor: pointer;
+  background: #f0bc3a;
+  width: 100px;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
+  font-size: 13px;
+  display: flex;
+  letter-spacing: 0.4px;
+  align-items: center;
+  justify-content: center;
+}
+.div-input-icon-emp-dash-edit-job input {
+  background: transparent;
+  color: #172331;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  font-size: 18px;
+  font-size: 12px !important;
+  padding: 0px !important;
+  padding-left: 10px !important;
+  margin: 0 !important;
+}
+.div-input-icon-emp-dash-edit-job1 textarea {
+  background: transparent;
+  color: #172331;
+  width: 100%;
+  height: 70%;
+  border: 0;
+  font-size: 18px;
+  font-size: 12px !important;
+  padding-left: 10px !important;
+  resize: none;
+}
+.div-input-icon-emp-dash-edit-job1 {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  background: #f3f4f8 !important;
+  border-radius: 16px;
+}
+.div-input-icon-emp-dash-edit-job {
+  width: 30%;
+  height: 40px;
+  display: flex;
+  background: #f3f4f8 !important;
+  border-radius: 16px;
+}
+.select-div-job-view-edit {
+  text-align: center;
+  width: 60%;
+  height: 30px;
+  padding: 5px;
+  border-width: 0px;
+  border-radius: 16px;
+  color: #868686 !important;
+  font-size: 18px;
+  box-shadow: 0px 0px 0px #868686;
+  background-color: #f3f4f8 !important;
+  margin-bottom: 25px;
+  display: flex;
+}
+.select-div-job-view-edit-span {
+  margin-bottom: 0px;
+  width: 100%;
+}
+.select-div-job-view-edit select {
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.div-jv-basic-exps span {
+  font-size: 12px !important;
+  font-weight: bold;
+  height: auto !important;
+  align-items: flex-end;
+}
+.label-on-edit-jv-emp {
+  align-self: center !important;
+  align-items: center !important;
+}
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+  border-color: transparent !important;
+}
+.pos-bot-jv-emp {
+  position: relative;
+  bottom: 20px;
+}

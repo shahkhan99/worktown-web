@@ -60,3 +60,35 @@
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(3px);
 }
+.input-label1 {
+  width: 100%;
+  padding-left: 5px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #172331;
+  margin-bottom: 7px;
+}
+/* .div-input-icon {
+  display: flex;
+  width: 100%;
+  background: #f3f4f8 !important;
+  border-radius: 16px;
+  height: 45px;
+}
+.a-r-input-box {
+  background: transparent !important;
+
+  color: #172331 !important;
+  width: 100%;
+
+  padding-bottom: 6px;
+  border: 0;
+  font-size: 18px;
+  padding-left: 25px;
+}
+.a-input-field {
+  position: relative;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+} */

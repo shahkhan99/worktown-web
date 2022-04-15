@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./dashboardloginsignup.css";
-import { getUsers, handleLogin } from "./backend";
+import { getUsers, handleLogin, ResetPassword, getEmployees } from "./backend";
 import { useSelector, useDispatch } from "react-redux";
 import { set_current_user_data } from "../../store/action/index";
-import Swal from "sweetalert2";
-import { async } from "@firebase/util";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Loading from "../../assets/Loader/worktown-loader.gif";
 
@@ -18,10 +16,12 @@ export default function DashboardLogin() {
   const [password, setPassword] = useState("");
   const [emailVerify, setEmailVerify] = useState(true);
   const [checkUser, setCheckUser] = useState("");
+  // const [Employee, setEmployee] = useState("");
   const [checking, setChecking] = useState(true);
 
   useEffect(async () => {
     await getUsers(setCheckUser);
+    // await getEmployees(setCheckUser);
     await onAuthStateChanged(auth, async (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
@@ -49,6 +49,7 @@ export default function DashboardLogin() {
     });
   }, []);
 
+  console.log(checkUser);
   const set_data = (user) => {
     // dispatch(set_current_user_data(user));
   };
@@ -73,7 +74,7 @@ export default function DashboardLogin() {
         <h3 style={{ height: "13%" }}>Login</h3>
         <div className="dash-login-main-div-inner">
           <div className="a-input-field dash-login-main-div-input">
-            <label className="input-label">
+            <label className="input-label1">
               Email
               <span
                 style={{
@@ -112,7 +113,7 @@ export default function DashboardLogin() {
             </div>
           </div>
           <div className="a-input-field dash-login-main-div-input ">
-            <label className="input-label">
+            <label className="input-label1">
               Password
               <span
                 style={{
@@ -124,16 +125,6 @@ export default function DashboardLogin() {
               </span>
             </label>
             <div className="div-input-icon">
-              {/* <FaRegUser
-            color="#3D459D"
-            size={17}
-            className="svg-u"
-            style={{
-              position: "relative",
-              top: 13,
-              left: 10,
-            }}
-          /> */}
               <input
                 placeholder="password"
                 id="name"
@@ -174,6 +165,18 @@ export default function DashboardLogin() {
           <div>
             <a href="/employer_dashboard/registration" target="_blank">
               <p>Haven't set your password yet? Do it here!</p>
+            </a>
+            <a onClick={() => ResetPassword(email)}>
+              <p
+                style={{
+                  textAlign: "center",
+                  marginTop: 5,
+                  cursor: "pointer",
+                  color: "blueviolet",
+                }}
+              >
+                Forgot Password?
+              </p>
             </a>
           </div>
         </div>

@@ -1,23 +1,50 @@
 import firebase from "../../../config/firebase";
-import { getDatabase, ref, child, get } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  child,
+  get,
+  onValue,
+  onChildAdded,
+} from "firebase/database";
 import Swal from "sweetalert2";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 
 const dbRef = ref(getDatabase());
+const db = getDatabase();
 const auth = getAuth();
 
+// EMPLOYER BACKEND
+
 const getUsers = async (setCheckUser) => {
+  let users = [];
+  let userObj = "";
+  let userObj1 = "";
+  let merged = "";
   // console.log("running ...");
   await get(child(dbRef, `users/jobs_employer`))
-    .then((snapshot) => {
+    .then(async (snapshot) => {
       if (snapshot.exists()) {
         // console.log("running ...", snapshot.val());
-        setCheckUser(snapshot.val());
+        userObj = snapshot.val();
+        setCheckUser(userObj);
+        await get(child(dbRef, `users/jobs_users`))
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              userObj1 = snapshot.val();
+            } else {
+              console.log("No data available");
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
       } else {
         console.log("No data available");
       }
@@ -25,6 +52,34 @@ const getUsers = async (setCheckUser) => {
     .catch((error) => {
       console.error(error);
     });
+  merged = { ...userObj, ...userObj1 };
+  setCheckUser(userObj);
+  // let allData = [];
+  // const starCountRef = ref(db, `users/jobs_employer`);
+  // await onChildAdded(starCountRef, (snapshot) => {
+  //   allData.push(snapshot.val());
+  // });
+  // setCheckUser(allData);
+  // console.log("running ... ", allData);
+
+  // onValue(starCountRef, (snapshot) => {
+  //   const data = snapshot.val();
+  //   setCheckUser(starCountRef.val());
+  //   console.log("running ...", starCountRef.val());
+  // });
+
+  //
+  // .then((snapshot) => {
+  //   if (snapshot.exists()) {
+  //     // console.log("running ...", snapshot.val());
+  //     setCheckUser(snapshot.val());
+  //   } else {
+  //     console.log("No data available");
+  //   }
+  // })
+  // .catch((error) => {
+  //   console.error(error);
+  // });
 };
 const handleEmail = async (email, checkUser, setShowPass, setEmailCheck) => {
   const getObjs = (obj) => Object.values(checkUser);
@@ -169,4 +224,56 @@ const handleLogin = async (
     console.log("then =>", emailVerify);
   }
 };
-export { getUsers, handleEmail, handleRegister, handleLogin };
+
+const ResetPassword = (email) => {
+  if (email.length) {
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        // Password reset email sent!
+        // ..
+        Swal.fire({
+          title: "Check your email address to reset password",
+          showConfirmButton: true,
+          confirmButtonText: "Ok",
+        });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+  } else {
+    Swal.fire({
+      title: "Enter Valid Email",
+      showConfirmButton: true,
+      confirmButtonText: "Ok",
+    });
+  }
+};
+
+// EMPLOYEE BACKEND
+
+const getEmployees = async (setCheckUser) => {
+  console.log("running ...");
+  await get(child(dbRef, `users/jobs_users`))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log("running ...", snapshot.val());
+        setCheckUser(snapshot.val());
+      } else {
+        console.log("No data available");
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export {
+  getUsers,
+  handleEmail,
+  handleRegister,
+  handleLogin,
+  ResetPassword,
+  getEmployees,
+};

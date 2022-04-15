@@ -5,44 +5,34 @@ import { set_current_user_data } from "../../store/action/index";
 import Left_navigation from "../../Components/LeftNavigation/navigation";
 import Stepper from "../../Components/Employer/CreateAContract/Emp_Create_Contract_Stepper/stepper";
 import ShortlistedCandidates from "../../Components/Employer/Candidates/ShortlistedCandidates/ShortlistedCandidates";
+import ViewJobsEmployee from "../../Components/Employee/Jobs/index";
 import Archieve from "../../Components/Employer/Archieve/index";
 import EditProfileEmployer from "../../Components/Employer/EditProfileEmployer/EditProfileEmployer";
 import ViewJobsEmployer from "../../Components/Employer/ViewJobsEmployer/ViewJobsEmployer";
-import ViewJobsEmployee from "../../Components/Employee/Jobs/index";
 import Home from "../../Components/Employer/HomeContent/home";
 import Loading from "../../assets/Loader/worktown-loader.gif";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getUsers } from "../../Components/DashboardLoginSignup/backend/index";
-function Employer_DB() {
+function Employee_DB() {
   const [selected_nav, setSelected_nav] = useState(0);
   const [checking, setChecking] = useState(true);
   const [isUser, setIsUser] = useState();
   const [checkUser, setCheckUser] = useState("");
-  const [checkSide, setCheckSide] = useState(true);
+
   const redux_data = useSelector((state) => state.dashboard_auth);
   const dispatch = useDispatch();
-  console.log(redux_data);
+  // console.log(window.location.pathname);
 
   const auth = getAuth();
 
   const Components = [
     <Home />,
-    <ShortlistedCandidates />,
-    <ViewJobsEmployer />,
     <Stepper />,
-    <Archieve />,
-    <EditProfileEmployer />,
-  ];
-  const Components1 = [
-    <Home />,
     <ViewJobsEmployee />,
-    <Stepper />,
     <Archieve />,
     <EditProfileEmployer />,
+    <ViewJobsEmployer />,
   ];
-  const getEmployeeOrEmployer = (e) => {
-    setCheckSide(e);
-  };
   useEffect(async () => {
     if (!isUser) {
       await getUsers(setCheckUser);
@@ -100,10 +90,7 @@ function Employer_DB() {
       return (
         <div style={{ height: "100%", display: "flex", background: "#f3f0f0" }}>
           {/* <WTRouter /> */}
-          <Left_navigation
-            checkNav={checkNav}
-            getEmployeeOrEmployer={getEmployeeOrEmployer}
-          />
+          <Left_navigation checkNav={checkNav} />
           {/* <Home /> */}
           {/* <SelectContract /> */}
           {/* <CreateContract /> */}
@@ -112,7 +99,7 @@ function Employer_DB() {
           {/* <EmpData /> */}
           {/* <Compensation /> */}
           {/* <Stepper /> */}
-          {checkSide ? Components[selected_nav] : Components1[selected_nav]}
+          {Components[selected_nav]}
         </div>
       );
     } else {
@@ -121,4 +108,4 @@ function Employer_DB() {
   }
 }
 
-export default Employer_DB;
+export default Employee_DB;

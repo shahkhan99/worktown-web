@@ -6,13 +6,10 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {
   AppSignUp,
   HomePage,
-  Introduction,
-  JobCategory,
   Employer_DB,
-  WTRouter,
-  ShortlistedCandidates,
   DashboardLoginSignup,
   DashboardLogin,
+  Employee_DB,
 } from "./index";
 
 let Routes = () => {
@@ -34,13 +31,13 @@ let Routes = () => {
         <Route path="/cfo" component={CFOPage} /> */}
 
         <Route path="/" exact component={HomePage} />
-        <Route path="/waitList" exact component={AppSignUp} />
+        {/* <Route path="/waitList" exact component={AppSignUp} /> */}
         {/* <Route path="/intro" exact component={Introduction} />
         <Route path="/jobcategory" exact component={JobCategory} /> */}
 
         {/* DashBoard ROUTES */}
-
         <Route path="/employer_dashboard" exact component={Employer_DB} />
+        <Route path="/employee_dashboard" exact component={Employee_DB} />
         <Route
           path="/employer_dashboard/registration"
           exact

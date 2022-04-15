@@ -91,15 +91,19 @@ export default class Form1 extends Component {
               placeholder="Job description"
               id="jobDesc"
               name="jobDesc"
-              onChange={(name) => {
-                ctx._handleChange(
-                  JobDescCheck,
-                  "jobDescValid",
-                  "jobDesc",
-                  name.target.value
-                );
-              }}
+              onChange={
+                // (e) => console.log(e.target.value.length)
+                (name) => {
+                  ctx._handleChange(
+                    JobDescCheck,
+                    "jobDescValid",
+                    "jobDesc",
+                    name.target.value
+                  );
+                }
+              }
               type="text"
+              maxLength={300}
               // placeholder="We need your full name"
               style={{
                 fontFamily: "Lato",
@@ -109,6 +113,9 @@ export default class Form1 extends Component {
               // value={this.state.name}
               className="a-r-input-box a-r-jb-desc"
             />
+            <p className="p-achievement-length">
+              {ctx.state.achievementLen}/300
+            </p>
           </div>
         </div>
         <div
@@ -195,12 +202,15 @@ export default class Form1 extends Component {
               placeholder="Enter any of your achievement"
               id="name"
               name="name"
-              onChange={(e) => {
-                ctx.handleAchievementAdd(e.target.value);
-                this.setState({ show: false });
-              }}
+              onChange={
+                // (e) => console.log(e.target.value.length)
+                (e) => {
+                  ctx.handleAchievementAdd(e.target.value);
+                  this.setState({ show: false });
+                }
+              }
               type="text"
-              maxLength={280}
+              maxLength={300}
               // placeholder="We need your full name"
               style={{
                 fontFamily: "Lato",
@@ -213,6 +223,9 @@ export default class Form1 extends Component {
               // value={this.state.name}
               className="skill-set a-r-input-box "
             />
+            <p className="p-achievement-length">
+              {ctx.state.achievementLen}/300
+            </p>
           </div>
         </div>
         <div

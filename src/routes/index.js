@@ -1,22 +1,16 @@
 // Screens
 import AppSignUp from "../Features/AppSignUpPage/index";
 import HomePage from "../Features/HomePage";
-import Introduction from "../Features/Intro";
-import JobCategory from "../Features/JobCategory";
 import Employer_DB from "../Features/EmpDB";
-import WTRouter from "../config/router";
-import ShortlistedCandidates from "../Components/Candidates/ShortlistedCandidates/ShortlistedCandidates";
+import Employee_DB from "../Features/EmployeeDB";
 import DashboardLoginSignup from "../Components/DashboardLoginSignup";
 import DashboardLogin from "../Components/DashboardLoginSignup/login.js";
 
 export {
   AppSignUp,
   HomePage,
-  Introduction,
-  JobCategory,
   Employer_DB,
-  WTRouter,
-  ShortlistedCandidates,
   DashboardLoginSignup,
   DashboardLogin,
+  Employee_DB,
 };

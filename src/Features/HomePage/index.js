@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "rc-slider/assets/index.css";
 import { getDatabase } from "firebase/database";
-import { set, ref, push, child, update } from "@firebase/database";
+import { set, ref, push, child, update, onValue } from "@firebase/database";
 import firebase from "../../config/firebase";
 import ReactFullpage from "@fullpage/react-fullpage";
 import Form1 from "./form1";
@@ -13,6 +13,8 @@ import Form5 from "./form5";
 import Swal from "sweetalert2";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import "./homeStyles.css";
+import "./style1.css";
+import "./style2.css";
 import Logo from "../../assets/Logo/logo.png";
 import Vector1 from "../../assets/Vectors/vector1.png";
 import Vector9 from "../../assets/Vectors/vector9.png";
@@ -59,6 +61,7 @@ class HomePage extends React.Component {
     this.state = {
       wantedCategorySelection: false,
       skillTag: [],
+      allUsers: {},
       employee: true,
       employer: false,
       index: 0,
@@ -143,6 +146,7 @@ class HomePage extends React.Component {
       ],
       skills: [],
       achievement: "",
+      achievementLen: 0,
       count: 0,
       experience: "",
       eng_lvl: "",
@@ -259,20 +263,6 @@ class HomePage extends React.Component {
           colorCode: "#fff",
           lottieAnimation: roomOptions,
         },
-        {
-          id: 6,
-          tittle: "Showcase the real ‘you’",
-          body: "Stay true to who you are. Be authentic. Live on your own terms because we’re not destined for a single-track identity. Ever stopped to wonder that you do more than one type of work?",
-          vector: Vector1,
-          colorCode: "#CC2F42",
-        },
-        {
-          id: 4,
-          tittle: "Fall in love with work all over again",
-          body: "The work we do is an extension of ourselves and the people around us. Let us help you make a difference because the world needs to know who you are and what you can do.",
-          vector: Vector1,
-          colorCode: "#204751",
-        },
       ],
       card: [
         {
@@ -303,13 +293,13 @@ class HomePage extends React.Component {
     fullpage.moveTo(2, 0);
   }
   onLeave(origin, destination, direction) {
-    console.log("Leaving section " + origin.index);
+    // console.log("Leaving section " + origin.index);
     if (origin.index == 1) {
       clearInterval(this.intervalId);
     }
   }
   afterLoad(origin, destination, direction) {
-    console.log("After load: " + destination.index);
+    // console.log("After load: " + destination.index);
     if (destination.index == 1) {
       this.intervalId = setInterval(
         () => {
@@ -322,7 +312,7 @@ class HomePage extends React.Component {
   }
   handleSelect = (name, value) => {
     this.setState({ [name]: value.target.value });
-    console.log(value.target.value);
+    // console.log(value.target.value);
     name === "experience" && value.target.value === ""
       ? this.setState({ expTErr: true })
       : this.setState({ expTErr: false });
@@ -349,7 +339,7 @@ class HomePage extends React.Component {
     }
   };
 
-  handleNext1 = (fullpageApi) => {
+  handleNext1 = async (fullpageApi) => {
     if (
       this.state.name === "" ||
       (this.state.employee
@@ -372,9 +362,89 @@ class HomePage extends React.Component {
           !this.state.female &&
           this.setState({ radTErr: true });
       }
+
       // console.log(this.state)
     } else {
+      let gender = this.state.male ? "Male" : this.state.female ? "Female" : "";
+      this.appendSpreadsheet({
+        Name: this.state.name,
+        Phone: this.state.phone,
+        City: this.state.city,
+        Email: this.state.email,
+        JobCategory: "",
+        JobType: "",
+        Experience: "",
+        Skills: "",
+        Education: "",
+        InterestedIn: "",
+        CurrentSalary: "",
+        Gender: gender,
+        EnglishLevel: "",
+        Achievement: "",
+      });
       fullpageApi.moveTo(4, 0);
+
+      // let allEmployeesResult = {};
+      // let allEmployersResult = {};
+      // let allUsers = {};
+
+      // if (this.state.employer) {
+      //   const allEmployers = ref(db, `users/jobs_employer`);
+
+      //   onValue(allEmployers, (snapshot) => {
+      //     if (snapshot.exists()) {
+      //       allEmployersResult = snapshot.val();
+      //       // console.log(allEmployersResult);
+      //       let ObjVal = Object.values(allEmployersResult);
+      //       let findSimilar = ObjVal.filter(
+      //         (e) =>
+      //           e.Email === this.state.email || e.Phone === this.state.phone
+      //       );
+      //       // this.setState({ allUsers: findSimilar });
+      //       console.log(findSimilar);
+      //       if (findSimilar.length > 1) {
+      //         console.log(
+      //           "Email and Phone number are registered to different accounts"
+      //         );
+      //       }
+      //     } else {
+      //       console.log("No data available");
+      //     }
+      //   });
+      // } else if (this.state.employee) {
+      //   const allEmployees = ref(db, `users/jobs_users`);
+
+      //   onValue(allEmployees, (snapshot) => {
+      //     if (snapshot.exists()) {
+      //       allEmployeesResult = snapshot.val();
+      //       // console.log(allEmployeesResult);
+      //       let ObjVal = Object.values(allEmployeesResult);
+      //       let findSimilar = ObjVal.filter(
+      //         (e) =>
+      //           e.Email === this.state.email || e.Phone === this.state.phone
+      //       );
+      //       // this.setState({ allUsers: findSimilar });
+      //       console.log(findSimilar);
+      //       if (findSimilar.length > 1) {
+      //         console.log(
+      //           "Email and Phone number are registered to different accounts"
+      //         );
+      //       }
+      //       if (
+      //         findSimilar[0].Email !== this.state.email ||
+      //         findSimilar[0].Phone !== this.state.phone
+      //       ) {
+      //         console.log("Please enter same email and phone number");
+      //       } else {
+      //         this.setState({
+      //           name: findSimilar[0].Name,
+      //         });
+      //       }
+      //     } else {
+      //       console.log("No data available");
+      //     }
+      //   });
+      // }
     }
   };
 
@@ -484,7 +554,7 @@ class HomePage extends React.Component {
       this.state.employer &&
         this.state.jobDesc === "" &&
         this.setState({ jobDescTErr: true });
-      !salarytime.length ? this.setState({ stTErr: true }) : console.log("now");
+      !salarytime.length && this.setState({ stTErr: true });
       !this.state.achievement.length &&
         this.setState({ achievementTErr: true });
       this.state.employee
@@ -583,11 +653,11 @@ class HomePage extends React.Component {
 
     let diffA = strFrom * 2;
     // let diffB = diffA / 50;
-    console.log("change 0 === ", diffA);
+    // console.log("change 0 === ", diffA);
     if (change <= 0) {
-      console.log("change 1 === ", diffA);
+      // console.log("change 1 === ", diffA);
     } else if (change > diffA) {
-      console.log("change 2 === ", diffA);
+      // console.log("change 2 === ", diffA);
     }
   }
   handleSalaryChange(target, value) {
@@ -617,7 +687,7 @@ class HomePage extends React.Component {
       [target]: value,
     });
     // }
-    console.log(this.state.from, this.state.to);
+    // console.log(this.state.from, this.state.to);
     this.state.from === "" || this.state.to === ""
       ? this.setState({ expSalTErr: true })
       : this.setState({ expSalTErr: false });
@@ -853,31 +923,34 @@ class HomePage extends React.Component {
             EnglishLevel: this.state.eng_lvl,
             JobTime: SalaryTime,
           }).then(async () => {
-            const newPostKey = push(
-              child(ref(db), `users/jobs_employer/${this.state.phone}/jobs`)
-            ).key;
-            await update(ref(db, `users/jobs_employer/${this.state.phone}/`), {
+            let uid = this.state.phone;
+
+            await update(ref(db, `users/jobs_employer/${uid}/`), {
               BusinessName: this.state.company,
               Name: this.state.name,
               Phone: this.state.phone,
               City: this.state.city,
               Email: this.state.email,
+              uid: uid,
             }).then(async () => {
-              await push(
-                ref(db, `users/jobs_employer/${this.state.phone}/jobs`),
-                {
-                  JobCategory: this.state.JobCategory,
-                  JobType: this.state.selectedJobOption,
-                  JobDescription: this.state.jobDesc,
-                  Experience: this.state.experience,
-                  Skills: skillSet,
-                  Education: this.state.education,
-                  InterestedIn: interest,
-                  ExpectedSalary: exp_sal,
-                  EnglishLevel: this.state.eng_lvl,
-                  JobTime: SalaryTime,
-                }
-              );
+              const key = this.state.experience + this.state.selectedJobOption;
+              // const key = push(
+              //   child(ref(db), `users/jobs_employer/${uid}/`)
+              // ).key;
+              await update(ref(db, `users/jobs_employer/${uid}/jobs/${key}`), {
+                JobCategory: this.state.JobCategory,
+                City: this.state.city,
+                JobType: this.state.selectedJobOption,
+                JobDescription: this.state.jobDesc,
+                Experience: this.state.experience,
+                Skills: skillSet,
+                Education: this.state.education,
+                InterestedIn: interest,
+                ExpectedSalary: exp_sal,
+                EnglishLevel: this.state.eng_lvl,
+                JobTime: SalaryTime,
+                key: key,
+              });
             });
             this.setState({ isSubmit: false });
             Swal.fire({
@@ -890,23 +963,44 @@ class HomePage extends React.Component {
             this.clearForm(selectedCategories);
           });
         } else {
-          this.appendSpreadsheet({
-            Name: this.state.name,
-            Phone: this.state.phone,
-            City: this.state.city,
-            Email: this.state.email,
-            JobCategory: this.state.JobCategory,
-            JobType: this.state.selectedJobOption,
-            Experience: this.state.experience,
-            Skills: skillSet,
-            Education: this.state.education,
-            InterestedIn: interest,
-            CurrentSalary: this.state.value,
-            Gender: gender,
-            EnglishLevel: this.state.eng_lvl,
-            Achievement: achievementStr,
-          }).then(() => {
-            set(ref(db, "users/jobs_users/" + this.state.phone), {
+          // this.appendSpreadsheet({
+          //   Name: this.state.name,
+          //   Phone: this.state.phone,
+          //   City: this.state.city,
+          //   Email: this.state.email,
+          //   JobCategory: this.state.JobCategory,
+          //   JobType: this.state.selectedJobOption,
+          //   Experience: this.state.experience,
+          //   Skills: skillSet,
+          //   Education: this.state.education,
+          //   InterestedIn: interest,
+          //   CurrentSalary: this.state.value,
+          //   Gender: gender,
+          //   EnglishLevel: this.state.eng_lvl,
+          //   Achievement: achievementStr,
+          // }).then(() => {
+          this.updateSpreadsheet(
+            {
+              Name: this.state.name,
+              Phone: this.state.phone,
+              City: this.state.city,
+              Email: this.state.email,
+              JobCategory: this.state.JobCategory,
+              JobType: this.state.selectedJobOption,
+              Experience: this.state.experience,
+              Skills: skillSet,
+              Education: this.state.education,
+              InterestedIn: interest,
+              CurrentSalary: this.state.value,
+              Gender: gender,
+              EnglishLevel: this.state.eng_lvl,
+              Achievement: achievementStr,
+            },
+            selectedCategories,
+            selectedSalTime
+          ).then(() => {
+            let uid = this.state.phone;
+            update(ref(db, "users/jobs_employer/" + uid), {
               Name: this.state.name,
               Phone: this.state.phone,
               City: this.state.city,
@@ -921,6 +1015,7 @@ class HomePage extends React.Component {
               EnglishLevel: this.state.eng_lvl,
               JobType: this.state.selectedJobOption,
               Achievement: achievementStr,
+              uid: uid,
             });
             this.setState({ isSubmit: false });
             Swal.fire({
@@ -945,8 +1040,8 @@ class HomePage extends React.Component {
   };
   handleSkillAdd = (item) => {
     let { defSkills } = this.state;
-    if (this.state.skills.length === 5) {
-      alert("You can add max 5 skills");
+    if (this.state.skills.length === 10) {
+      alert("You can add max 10 skills");
     } else {
       let strItem = item.toString();
       let strItemUp = strItem.charAt(0).toUpperCase() + strItem.slice(1);
@@ -965,8 +1060,8 @@ class HomePage extends React.Component {
     const index = this.state.skills.indexOf(e);
     index > -1
       ? this.state.skills.splice(index, 1)
-      : this.state.skills.length === 5
-      ? alert("You can add max 5 skills")
+      : this.state.skills.length === 10
+      ? alert("You can add max 10 skills")
       : this.state.skills.push(e);
 
     this.state.skills.length && this.setState({ skillTErr: false });
@@ -975,7 +1070,7 @@ class HomePage extends React.Component {
   handleAchievementAdd = (item) => {
     let { achievement } = this.state;
 
-    this.setState({ achievement: item });
+    this.setState({ achievement: item, achievementLen: item.length });
     achievement.length && this.setState({ achievementTErr: false });
   };
   _handleChange = (checkValidation, validationCheck, stateKey, value) => {
@@ -1045,6 +1140,9 @@ class HomePage extends React.Component {
       this.state.errorMessage.email === "Please enter a valid Email" &&
         this.setState({ emailTErr: true });
     }
+    if (stateKey === "jobDesc") {
+      this.setState({ achievementLen: value.length });
+    }
   };
   clearForm = (selectedCategories) => {
     selectedCategories = [];
@@ -1076,7 +1174,161 @@ class HomePage extends React.Component {
     });
   };
 
+  updateSpreadsheet = async (row, selectedCategories, selectedSalTime) => {
+    try {
+      await doc.useServiceAccountAuth({
+        client_email: CLIENT_EMAIL,
+        private_key: PRIVATE_KEY,
+      });
+      // loads document properties and worksheets
+      await doc.loadInfo();
+
+      const sheet = doc.sheetsById[SHEET_ID];
+      // const result = await sheet.addRow(row);
+
+      const result = (await sheet.getRows()).filter((v) => {
+        return v.Email === row.Email;
+      });
+      // console.log(result);
+      const { skills, achievement, from, to } = this.state;
+      let gender = this.state.male ? "Male" : this.state.female ? "Female" : "";
+      let interest = selectedCategories.toString() || "";
+      let SalaryTime = selectedSalTime.toString() || "";
+      let skillSet = skills.toString() || "";
+      let achievementStr = achievement.toString() || "";
+      var exp_sal = (this.state.employer && from + "-" + to) || "";
+
+      if (result.length) {
+        let res1 = result.filter((e) => {
+          return (
+            e.Skills === skillSet &&
+            e.CurrentSalary === this.state.value &&
+            e.JobType === this.state.selectedJobOption
+          );
+        });
+        let res2 = result.filter((e) => {
+          return e.Skills === "";
+        });
+        // console.log("running", res2);
+        if (res1.length) {
+          res1.forEach((v) => {
+            v.Name = this.state.name;
+            v.Phone = this.state.phone;
+            v.City = this.state.city;
+            v.Email = this.state.email;
+            v.JobCategory = this.state.JobCategory;
+            v.JobType = this.state.selectedJobOption;
+            v.Experience = this.state.experience;
+            v.Skills = skillSet;
+            v.Education = this.state.education;
+            v.InterestedIn = interest;
+            v.CurrentSalary = this.state.value;
+            v.Gender = gender;
+            v.EnglishLevel = this.state.eng_lvl;
+            v.Achievement = achievementStr;
+            v.save();
+          });
+        } else {
+          if (res2.length) {
+            res2.forEach((v) => {
+              v.Name = this.state.name;
+              v.Phone = this.state.phone;
+              v.City = this.state.city;
+              v.Email = this.state.email;
+              v.JobCategory = this.state.JobCategory;
+              v.JobType = this.state.selectedJobOption;
+              v.Experience = this.state.experience;
+              v.Skills = skillSet;
+              v.Education = this.state.education;
+              v.InterestedIn = interest;
+              v.CurrentSalary = this.state.value;
+              v.Gender = gender;
+              v.EnglishLevel = this.state.eng_lvl;
+              v.Achievement = achievementStr;
+              v.save();
+            });
+          } else {
+            this.appendNewSpreadsheet({
+              Name: this.state.name,
+              Phone: this.state.phone,
+              City: this.state.city,
+              Email: this.state.email,
+              JobCategory: this.state.JobCategory,
+              JobType: this.state.selectedJobOption,
+              Experience: this.state.experience,
+              Skills: skillSet,
+              Education: this.state.education,
+              InterestedIn: interest,
+              CurrentSalary: this.state.value,
+              Gender: gender,
+              EnglishLevel: this.state.eng_lvl,
+              Achievement: achievementStr,
+            });
+          }
+
+          // result.forEach((v) => {
+          //   v.Name = this.state.name;
+          //   v.Phone = this.state.phone;
+          //   v.City = this.state.city;
+          //   v.Email = this.state.email;
+          //   v.JobCategory = this.state.JobCategory;
+          //   v.JobType = this.state.selectedJobOption;
+          //   v.Experience = this.state.experience;
+          //   v.Skills = skillSet;
+          //   v.Education = this.state.education;
+          //   v.InterestedIn = interest;
+          //   v.CurrentSalary = this.state.value;
+          //   v.Gender = gender;
+          //   v.EnglishLevel = this.state.eng_lvl;
+          //   v.Achievement = achievementStr;
+          //   v.save();
+          // });
+        }
+      } else {
+        this.appendSpreadsheet({
+          Name: this.state.name,
+          Phone: this.state.phone,
+          City: this.state.city,
+          Email: this.state.email,
+          JobCategory: this.state.JobCategory,
+          JobType: this.state.selectedJobOption,
+          Experience: this.state.experience,
+          Skills: skillSet,
+          Education: this.state.education,
+          InterestedIn: interest,
+          CurrentSalary: this.state.value,
+          Gender: gender,
+          EnglishLevel: this.state.eng_lvl,
+          Achievement: achievementStr,
+        });
+      }
+    } catch (e) {
+      console.error("Error: ", e);
+    }
+  };
+
   appendSpreadsheet = async (row) => {
+    try {
+      await doc.useServiceAccountAuth({
+        client_email: CLIENT_EMAIL,
+        private_key: PRIVATE_KEY,
+      });
+      // loads document properties and worksheets
+      await doc.loadInfo();
+
+      const sheet = doc.sheetsById[SHEET_ID];
+      // console.log("else running", row);
+      const check = (await sheet.getRows()).filter((v) => {
+        return v.Email === row.Email;
+      });
+      if (!check.length) {
+        const result = await sheet.addRow(row);
+      }
+    } catch (e) {
+      console.error("Error: ", e);
+    }
+  };
+  appendNewSpreadsheet = async (row) => {
     try {
       await doc.useServiceAccountAuth({
         client_email: CLIENT_EMAIL,
@@ -1265,10 +1517,20 @@ class HomePage extends React.Component {
       selectedCategories.push(timings[e]);
     });
 
-    console.log("value === ", this.state);
     defSkills.sort(function (a, b) {
       return a.localeCompare(b); //using String.prototype.localCompare()
     });
+    // console.log(this.state.allUsers);
+    // Swal.fire({
+    //   position: "center",
+    //   icon: "success",
+    //   title: "Thanks for applying! ",
+    //   showConfirmButton: false,
+    //   iconColor: "#D24C27",
+    //   footer: "Someone from our team will get back to you soon",
+    //   timerProgressBar: true,
+    //   // timer: 2500,
+    // });
 
     return (
       <ReactFullpage
@@ -1602,7 +1864,7 @@ class HomePage extends React.Component {
                     </div>
 
                     <div className="wait-btn-main-div">
-                      <div
+                      {/* <div
                         className="wait-button wait-btn"
                         onClick={() =>
                           this.handleModeChange("Employee", fullpageApi)
@@ -1617,7 +1879,7 @@ class HomePage extends React.Component {
                         }
                       >
                         I want to hire
-                      </div>
+                      </div> */}
                       {/* <a href="/waitList" className="wait-btn">
                         Join the waitlist
                       </a> */}
