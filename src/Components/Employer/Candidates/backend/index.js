@@ -8,9 +8,11 @@ import {
   set,
   onValue,
 } from "firebase/database";
+import UseWhatsapp from "whatsapp-react-component";
+import { send } from "emailjs-com";
 
 const db = getDatabase();
-const relatedArray = ["Java"];
+
 const dbRef = ref(getDatabase());
 var allCandidates = "";
 var cand = [];
@@ -298,6 +300,31 @@ const handleCross = async (redux_data, v, filter, setShortlistedCandidates) => {
       alert("Something went wrong!");
     });
 };
+
+const handleScheduleInterviewBtn = async (redux_data, e) => {
+  console.log(redux_data, e);
+  await update(
+    ref(db, `users/jobs_employer/${redux_data.uid}/appointments/${e.uid}`),
+    e
+  ).then(async () => {
+    await update(
+      ref(
+        db,
+        `users/jobs_employer/${e.uid}/employee_side_appointments/${redux_data.uid}`
+      ),
+      e
+    );
+  });
+  // send("service_0kxx7l1", "template_5y7pfk5", toSend, "gdh_CSodanmGmK83y")
+  //   .then((response) => {
+  //     console.log("SUCCESS!", response.status, response.text);
+  //   })
+  //   .catch((err) => {
+  //     console.log("FAILED...", err);
+  //   });
+  // UseWhatsapp("3020217792", "hello");
+};
+
 export {
   checkUser,
   getCurrentUserData,
@@ -309,4 +336,5 @@ export {
   getInterviewCandidates,
   handleReject,
   handleCross,
+  handleScheduleInterviewBtn,
 };

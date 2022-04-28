@@ -15,7 +15,7 @@ export default function DashboardLoginSignup() {
       await getUsers(setCheckUser);
     }
   }, []);
-  // console.log(checkUser);
+  console.log(checkUser);
 
   return (
     <div className="dash-login-main-div">

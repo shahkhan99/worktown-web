@@ -7,9 +7,14 @@ import Stepper from "../../Components/Employer/CreateAContract/Emp_Create_Contra
 import ShortlistedCandidates from "../../Components/Employer/Candidates/ShortlistedCandidates/ShortlistedCandidates";
 import Archieve from "../../Components/Employer/Archieve/index";
 import EditProfileEmployer from "../../Components/Employer/EditProfileEmployer/EditProfileEmployer";
+import EditProfileEmployee from "../../Components/Employee/EditProfileEmployee/EditProfileEmpolyee";
+import EditProfessionalDetails from "../../Components/Employee/EditProfessionalDetails/EditProfessionalDetails";
+import ViewCV from "../../Components/Employee/ViewYourCV/viewCV";
 import ViewJobsEmployer from "../../Components/Employer/ViewJobsEmployer/ViewJobsEmployer";
+import ScheduledInterview from "../../Components/Employee/ScheduledInterview/ScheduledInterview";
 import ViewJobsEmployee from "../../Components/Employee/Jobs/index";
 import Home from "../../Components/Employer/HomeContent/home";
+import Home1 from "../../Components/Employee/HomeContent/home";
 import Loading from "../../assets/Loader/worktown-loader.gif";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getUsers } from "../../Components/DashboardLoginSignup/backend/index";
@@ -34,11 +39,11 @@ function Employer_DB() {
     <EditProfileEmployer />,
   ];
   const Components1 = [
-    <Home />,
-    <ViewJobsEmployee />,
-    <Stepper />,
-    <Archieve />,
-    <EditProfileEmployer />,
+    <Home1 />,
+    <EditProfessionalDetails />,
+    <EditProfileEmployee />,
+    <ViewCV />,
+    <ScheduledInterview />,
   ];
   const getEmployeeOrEmployer = (e) => {
     setCheckSide(e);
@@ -52,18 +57,23 @@ function Employer_DB() {
           // https://firebase.google.com/docs/reference/js/firebase.User
           const uEmail = user.email;
           if (uEmail) {
-            const getObjs = (obj) => Object.values(checkUser);
-            let users = getObjs(checkUser);
-            let gotEmail = users.filter((e) => {
-              return e.Email === uEmail;
-            });
-            var result = gotEmail.find((obj) => {
-              return obj.Email === uEmail;
-            });
-            dispatch(set_current_user_data(result));
-            console.log(result);
-            setIsUser(true);
-            setChecking(false);
+            // console.log("checkUser", uEmail);
+            if (checkUser) {
+              const getObjs = (obj) => Object.values(checkUser);
+              let users = getObjs(checkUser);
+              let gotEmail = users.filter((e) => {
+                return e.Email === uEmail;
+              });
+              var result = gotEmail.find((obj) => {
+                return obj.Email === uEmail;
+              });
+              dispatch(set_current_user_data(result));
+              // console.log(checkUser);
+              setIsUser(true);
+              setChecking(false);
+            } else {
+              setIsUser(false);
+            }
           }
           // ...
         } else {
@@ -81,6 +91,7 @@ function Employer_DB() {
   const checkNav = (e) => {
     setSelected_nav(e);
   };
+  // console.log(checkUser, isUser);
   if (checking) {
     return (
       <div

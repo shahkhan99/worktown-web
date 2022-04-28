@@ -10,6 +10,7 @@ import Form2 from "./form2";
 import Form3 from "./form3";
 import Form4 from "./form4";
 import Form5 from "./form5";
+import Form6 from "./form6";
 import Swal from "sweetalert2";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import "./homeStyles.css";
@@ -257,6 +258,14 @@ class HomePage extends React.Component {
         },
         {
           id: 5,
+          // tittle: "Why limit the way people see you?",
+          // body: "Resumes are two-dimensional – they don’t talk much about who you are and how you’ve had to work your socks off to get to where you are. Worktown helps you show them what makes you ‘you’.",
+          vector: RoomGif,
+          colorCode: "#fff",
+          lottieAnimation: roomOptions,
+        },
+        {
+          id: 6,
           // tittle: "Why limit the way people see you?",
           // body: "Resumes are two-dimensional – they don’t talk much about who you are and how you’ve had to work your socks off to get to where you are. Worktown helps you show them what makes you ‘you’.",
           vector: RoomGif,
@@ -1523,7 +1532,7 @@ class HomePage extends React.Component {
     // console.log(this.state.allUsers);
     // Swal.fire({
     //   position: "center",
-    //   icon: "success",
+    //   // icon: "success",
     //   title: "Thanks for applying! ",
     //   showConfirmButton: false,
     //   iconColor: "#D24C27",
@@ -1688,6 +1697,8 @@ class HomePage extends React.Component {
                             selectedCategories={selectedCategories}
                             selectedSalary={selectedSalary}
                           />
+                        ) : i === 5 ? (
+                          <Form6 ctx={this} fullpageApi={fullpageApi} />
                         ) : (
                           <div
                             className={i === 0 ? "text-div0" : "text-div"}
@@ -1729,7 +1740,7 @@ class HomePage extends React.Component {
                         className="color-bg"
                         style={{ background: item.colorCode }}
                       >
-                        {i < 5 ? (
+                        {i < 6 ? (
                           <div
                             className={i < 5 ? "text-div0" : "text-div"}
                             style={
@@ -1811,7 +1822,7 @@ class HomePage extends React.Component {
                             : { justifyContent: "flex-start" }
                         }
                       >
-                        {i >= 0 && i <= 4 ? (
+                        {i >= 0 && i <= 5 ? (
                           // <Lottie
                           //   options={item.lottieAnimation}
                           //   height={"100%"}

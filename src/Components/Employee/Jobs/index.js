@@ -9,7 +9,7 @@ import { BsCash } from "react-icons/bs";
 import { MdOutlineSpeakerNotes } from "react-icons/md";
 import { FaStar, FaUserGraduate } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
-// import { getJobsToView } from "./backend";
+import { Get_all_users_jobs } from "./backend";
 
 function ViewJobsEmployee() {
   const [job_options, SetJob_options] = useState([]);
@@ -74,7 +74,7 @@ function ViewJobsEmployee() {
   );
 
   useEffect(async () => {
-    // getJobsToView(redux_data.jobs, setAllJobs);
+    Get_all_users_jobs();
   }, []);
 
   console.log("current =>", allJobs);
@@ -82,7 +82,7 @@ function ViewJobsEmployee() {
   return (
     <div className="shortlisting-main-upper">
       <div className="shrt-head-div">
-        <h4>Your Jobs</h4>
+        <h4>Recommended Jobs</h4>
       </div>
       <div className="shortlisted-main">
         <div className="shrt-cont-div">
@@ -97,16 +97,6 @@ function ViewJobsEmployee() {
                   />
                   <h4>Software & IT</h4>
                 </div>
-                {/* <div className="shortlisted-ind-header-heading-2">
-                    <div className="div-cand-card-inner-skl-inn skl-inn-filter">
-                        <p>{filterSplit[0]}</p>
-                        <p>{filterSplit[1]}</p>
-                    </div>
-                    <PopupSelectFilter
-                        getFilterTitle={(e) => getFilterTitle(e)}
-                        job_options={job_options}
-                    />
-                    </div> */}
               </div>
             </div>
             <div className="div-cand-card-main">
@@ -118,9 +108,9 @@ function ViewJobsEmployee() {
                     return (
                       <div className="div-cand-card div-cand-card-view-jobs">
                         {/* {console.log(nameArr[1] && nameArr[1][0])} */}
-                        <div className="div-cand-card-header-loc-exp-main">
-                          <h3>{v.position} </h3>
-                          <div className="div-cand-card-header-loc-exp">
+                        <div className="div-cand-card-header-loc-exp-main div-js-card-header-loc-exp-main">
+                          <h3 style={{ fontSize: 23 }}>{v.JobType} </h3>
+                          <div className="div-cand-card-header-loc-exp div-js-card-header-loc-exp">
                             <p>
                               <ImLocation
                                 color="#000"
@@ -129,74 +119,54 @@ function ViewJobsEmployee() {
                               />
                               {v.city}
                             </p>
-                            <p>
-                              <FaStar
-                                color="#000"
-                                size={15}
-                                style={{ marginRight: 5 }}
-                              />
+                          </div>
+                        </div>
+                        <div className="div-jv-basic-main-main-div">
+                          <div className="div-jv-basic-main-div1">
+                            <div className="div-jv-basic-jd">
+                              <label>Job description</label>
+                              <p>{v.jd}</p>
+                            </div>
+                            <div className="div-jv-basic-jt">
+                              <label>Job timings</label>
+                              <p>{v.InterestedIn}</p>
+                            </div>
+                          </div>
+                          <div className="div-jv-basic-main-div2">
+                            <div className="div-jv-basic-skl">
+                              <label>Skills</label>
+                              <p>{v.skilss}</p>
+                            </div>
+                            <div className="div-jv-basic-exp">
+                              <label>Experience</label>
+                              <p>{v.exp}</p>
+                            </div>
+                            <div className="div-jv-basic-exp">
+                              <label>Education</label>
+                              <p>{v.edu}</p>
+                            </div>
+                            <div className="div-jv-basic-exp">
+                              <label>English Level</label>
+                              <p>{v.eng}</p>
+                            </div>
+                          </div>
+                          <div className="div-jv-card-btn">
+                            <button>Apply</button>
 
-                              {v.exp}
-                            </p>
+                            <button className="div-cand-card-btn-int-rej">
+                              Reject
+                            </button>
                           </div>
                         </div>
-                        <h4>{v.JobCategory}</h4>
-                        <div className="div-cand-card-inner-main">
-                          <div className="div-cand-card-inner-skl-inn1">
-                            {v.skilss.map((skl) => (
-                              <p>{skl}</p>
-                            ))}
-                          </div>
-                          <div className="div-cand-card-inner1">
-                            <div className="div-cand-card-inner1-fields">
-                              <label>
-                                {" "}
-                                <FaUserGraduate
-                                  color="#000"
-                                  size={15}
-                                  style={{ marginRight: 5 }}
-                                />
-                                <p>{v.edu}</p>
-                              </label>
-                            </div>
-                            <div className="div-cand-card-inner1-fields">
-                              <label>
-                                {" "}
-                                <TiSortAlphabeticallyOutline
-                                  color="#000"
-                                  size={20}
-                                  style={{ marginRight: 5 }}
-                                />
-                                <p>{v.eng}</p>
-                              </label>
-                            </div>
-                          </div>
-                          <div className="div-cand-card-inner-skl">
-                            <div className="div-cand-card-inner">
-                              <div className="div-cand-card-inner-skl-inn">
-                                {v.time.map((time) => (
-                                  <p>{time}</p>
-                                ))}
-                                {/* {v.time} */}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <MdOutlineSpeakerNotes
-                          color="#000"
-                          size={22}
-                          style={{ marginRight: 5 }}
-                        />
-                        <div className="div-jd-view-jobs-employer">
-                          <p>{v.JobDescription}</p>
-                        </div>
-
-                        <div className="div-cand-card-btn">
-                          <button className="div-cand-card-btn-int-rej">
-                            Delete
-                          </button>
-                          <button>Edit</button>
-                        </div>
+                        {/* <div className="div-exp-sal-view-jobs-employer">
+                          <BsCash
+                            color="#000"
+                            size={22}
+                            style={{ marginRight: 5 }}
+                          />
+                          <p>{v.ExpectedSalary}</p>&nbsp;/&nbsp;{" "}
+                          <p>{v.JobTime}</p>
+                        </div> */}
                       </div>
                     );
                   })

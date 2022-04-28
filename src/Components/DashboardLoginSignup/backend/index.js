@@ -28,32 +28,34 @@ const getUsers = async (setCheckUser) => {
   let userObj1 = "";
   let merged = "";
   // console.log("running ...");
-  await get(child(dbRef, `users/jobs_employer`))
-    .then(async (snapshot) => {
-      if (snapshot.exists()) {
-        // console.log("running ...", snapshot.val());
-        userObj = snapshot.val();
-        setCheckUser(userObj);
-        await get(child(dbRef, `users/jobs_users`))
-          .then((snapshot) => {
-            if (snapshot.exists()) {
-              userObj1 = snapshot.val();
-            } else {
-              console.log("No data available");
-            }
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      } else {
-        console.log("No data available");
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  merged = { ...userObj, ...userObj1 };
-  setCheckUser(userObj);
+  const get_users = await ref(db, `users/jobs_employer`);
+  // console.log(starCountRef);
+  onValue(get_users, (snapshot) => {
+    if (snapshot.exists()) {
+      userObj = snapshot.val();
+      console.log(userObj);
+      setCheckUser(userObj);
+    } else {
+      console.log("No data available");
+    }
+  });
+
+  // await get(child(dbRef, `users/jobs_employer`))
+  //   .then(async (snapshot) => {
+  //     if (snapshot.exists()) {
+  //       // console.log("running ...", snapshot.val());
+  //       userObj = snapshot.val();
+  //       console.log(userObj);
+  //       // setCheckUser(userObj);
+  //     } else {
+  //       console.log("No data available");
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+  //   });
+
+  // setCheckUser(userObj);
   // let allData = [];
   // const starCountRef = ref(db, `users/jobs_employer`);
   // await onChildAdded(starCountRef, (snapshot) => {

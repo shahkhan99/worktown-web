@@ -1,7 +1,7 @@
 import React, { useState, useEffect, ReactFragment } from "react";
-import "./archieve.css";
+import "./ScheduledInterview.css";
 import Select from "react-select";
-import Loader from "../Loader/loader";
+// import Loader from "../Loader/loader";
 import { getArchiveCand, handleCross } from "./backend/index";
 import { ImLocation, ImCross } from "react-icons/im";
 import { RiPagesLine } from "react-icons/ri";
@@ -10,7 +10,7 @@ import { BiPhone } from "react-icons/bi";
 import { FaStar, FaUserGraduate } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 
-function Archieve() {
+function ScheduledInterview() {
   const [archiveCandidates, setArchiveCandidates] = useState("");
   const [filterType, setFilter] = useState("");
   const redux_data = useSelector(
@@ -28,9 +28,9 @@ function Archieve() {
   console.log("current =>", archiveCandidates);
   return (
     <div className="arch-main-div">
-      <div className="shortlisted-ind-header-heading-int Archive-ind-header-heading-int">
+      <div className="shortlisted-ind-header-heading-int">
         <RiPagesLine color="#000" size={35} style={{ marginRight: 15 }} />
-        <h2>Archive</h2>
+        <h2>Scheduled Interview</h2>
       </div>
       <div className="arch-overflow">
         <div className="arch-overflow-div">
@@ -88,4 +88,4 @@ function Archieve() {
     </div>
   );
 }
-export default Archieve;
+export default ScheduledInterview;

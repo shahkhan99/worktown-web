@@ -18,16 +18,17 @@ function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
     "Home",
     "Candidates",
     "View Job Posts",
-    "Create A Contract",
+    "Contracts",
     "Archive",
     "Edit Profile",
   ]);
   const [li_items2, set_li_items2] = useState([
     "Home",
-    "View Jobs",
-    "Create A Contract",
-    "Archive",
+    "Edit Professional Details",
     "Edit Profile",
+    "View Your Resume / CV",
+    // "Recommended Jobs",
+    "Scheduled Interviews",
     // "View Jobs",
   ]);
   const icons = [

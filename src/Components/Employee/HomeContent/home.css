@@ -98,14 +98,3 @@
 .div-appointments-ul-empployer Button {
   font-size: 13px !important;
 }
-.PersonFullData_main_main_div {
-  background: white;
-  width: 40%;
-  height: 400px;
-  border-radius: 16px;
-  position: absolute;
-  top: 25%;
-  left: 35%;
-  border-radius: 16px;
-  z-index: 99;
-}
