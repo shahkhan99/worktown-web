@@ -18,14 +18,22 @@ function AddVenueLocation({ handleNext, handleBack, setData, data }) {
         <h4>Schedule Interview</h4>
       </div>
       <div className="div-schediling-step-info">
-        <h6>Add pin location of venue</h6>
+        <h6>
+          {data.InterviewType === "Physical"
+            ? "Add pin location of venue"
+            : "Add meeting link"}
+        </h6>
         <div className="div-inputs-schediling-step">
           <div
             className="div-input-emp div-input-icon "
             style={{ backgroundColor: "transparent" }}
           >
             <input
-              placeholder="Google map location"
+              placeholder={
+                data.InterviewType === "Physical"
+                  ? "Google map location"
+                  : "Meeting link"
+              }
               type="text"
               style={{
                 fontFamily: "Lato",
@@ -38,15 +46,21 @@ function AddVenueLocation({ handleNext, handleBack, setData, data }) {
           </div>
         </div>
       </div>
-      <div className="nxt-btn-emp nxt-btn-sch">
-        <button type="button" class="nxt-btn-btn" onClick={handleCompNext}>
-          Next
-        </button>
-      </div>
-      <div className="bck-btn-emp bck-btn-sch">
-        <button type="button" class="bck-btn-btn" onClick={() => handleBack()}>
-          <BiArrowBack size={18} style={{ marginRight: 5 }} /> Back
-        </button>
+      <div className="bck-btn-emp-main">
+        <div className="nxt-btn-emp nxt-btn-sch">
+          <button type="button" class="nxt-btn-btn" onClick={handleCompNext}>
+            Next
+          </button>
+        </div>
+        <div className="bck-btn-emp bck-btn-sch">
+          <button
+            type="button"
+            class="bck-btn-btn"
+            onClick={() => handleBack()}
+          >
+            <BiArrowBack size={18} style={{ marginRight: 5 }} /> Back
+          </button>
+        </div>
       </div>
     </div>
   );

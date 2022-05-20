@@ -38,7 +38,7 @@ export default function DashboardLogin() {
             return obj.Email === uEmail;
           });
           dispatch(set_current_user_data(result));
-          window.location.replace("http://localhost:3000/employer_dashboard/");
+          // window.location.replace("http://localhost:3000/portal/");
         }
         // ...
       } else {
@@ -73,6 +73,15 @@ export default function DashboardLogin() {
       <div className="dash-login-main-div">
         <h3 style={{ height: "13%" }}>Login</h3>
         <div className="dash-login-main-div-inner">
+          {/* <form
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+            onKeyPress={(e) => console.log(e)}
+          > */}
           <div className="a-input-field dash-login-main-div-input">
             <label className="input-label1">
               Email
@@ -96,6 +105,7 @@ export default function DashboardLogin() {
               left: 10,
             }}
           /> */}
+
               <input
                 placeholder="your email address"
                 onChange={(email) => {
@@ -141,6 +151,17 @@ export default function DashboardLogin() {
                 }}
                 // value={this.state.name}
                 className="a-r-input-box dash-login-main-div-input-pass "
+                onKeyPress={(e) =>
+                  e.charCode === 13 &&
+                  handleLogin(
+                    checkUser,
+                    email,
+                    emailVerify,
+                    setEmailVerify,
+                    password,
+                    set_data
+                  )
+                }
               />
             </div>
           </div>
@@ -161,9 +182,9 @@ export default function DashboardLogin() {
               Login
             </button>
           </div>
-
+          {/* </form> */}
           <div>
-            <a href="/employer_dashboard/registration" target="_blank">
+            <a href="/portal/registration" target="_blank">
               <p>Haven't set your password yet? Do it here!</p>
             </a>
             <a onClick={() => ResetPassword(email)}>

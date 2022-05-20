@@ -5,31 +5,16 @@ import { Button } from "@mui/material";
 import { TiSortAlphabeticallyOutline } from "react-icons/ti";
 import { FaStar, FaUserGraduate } from "react-icons/fa";
 import { ImLocation } from "react-icons/im";
+import { IoTrashBin } from "react-icons/io5";
 import { GiAchievement } from "react-icons/gi";
 
 export default function PersonFullData({ setShowPersonFullData, viewCand }) {
   var skills = viewCand.Skills.split(",");
   var InterestedIn = viewCand.InterestedIn.split(",");
-  console.log(viewCand);
+  // console.log(viewCand);
 
   return (
     <div className="div_main_Person_data">
-      <div className="div_inner_main_Person_data">
-        <div className="div_inner_Person_data">
-          <label>Venue</label>
-          <h6>{viewCand !== {} && viewCand.Interview_Details.venue}</h6>
-        </div>
-        <div className="div_inner_Person_data">
-          <label>Date</label>
-          <h6>
-            {moment(viewCand.Interview_Details.date).format("MMMM DD, YYYY")}
-          </h6>
-        </div>
-        <div className="div_inner_Person_data">
-          <label>Time</label>
-          <h6>{moment(viewCand.Interview_Details.date).format("hh: mm A ")}</h6>
-        </div>
-      </div>
       <div className="div_inner_main_Person_data">
         <div className="div_inner_Person_data">
           <label>Name</label>
@@ -76,13 +61,21 @@ export default function PersonFullData({ setShowPersonFullData, viewCand }) {
           <h6>{viewCand.City}</h6>
         </div>
       </div>
-      <div className="div_inner_main_Person_data_ach">
+      <div className="div_inner_main_Person_data_ach-arch div_inner_main_Person_data_ach ">
         <GiAchievement
           color="#000"
           size={20}
           style={{ marginRight: 5, marginBottom: 7 }}
         />
         <p>{viewCand.Achievement}</p>
+      </div>
+      <div className="div_inner_main_Person_data_ach div_inner_main_Person_data_ach-arch">
+        <IoTrashBin
+          color="#000"
+          size={20}
+          style={{ marginRight: 5, marginBottom: 7 }}
+        />
+        <p>{viewCand.recjectionFeedback}</p>
       </div>
       <div className="div_inner_main_Person_data_skl_time">
         <div className="div-home-appt-inner-skls ">

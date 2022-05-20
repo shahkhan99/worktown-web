@@ -3,9 +3,11 @@
   background: #fff;
   border-radius: 10px;
   padding: 20px 40px;
+  overflow: auto;
 }
 .epemp-main-div-edit-innerCV-main {
   width: 100%;
   display: flex;
   justify-content: center;
+  height: 900px;
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-
-function AddVenue({ handleNext, setData, data }) {
+import { BiArrowBack } from "react-icons/bi";
+function AddVenue({ handleNext, handleBack, setData, data }) {
   const [venue, setVenue] = useState("");
 
   const handleCompNext = () => {
@@ -16,14 +16,20 @@ function AddVenue({ handleNext, setData, data }) {
         <h4>Schedule Interview</h4>
       </div>
       <div className="div-schediling-step-info">
-        <h6>Confirm Venue</h6>
+        <h6>
+          Confirm {data.InterviewType === "Physical" ? "Venue" : "Platform"}
+        </h6>
         <div className="div-inputs-schediling-step">
           <div
             className="div-input-emp div-input-icon "
             style={{ backgroundColor: "transparent" }}
           >
             <input
-              placeholder="Enter venue name"
+              placeholder={
+                data.InterviewType === "Physical"
+                  ? "Enter venue name"
+                  : "Enter platform name (zoom / google meet)"
+              }
               type="text"
               style={{
                 fontFamily: "Lato",
@@ -36,10 +42,21 @@ function AddVenue({ handleNext, setData, data }) {
           </div>
         </div>
       </div>
-      <div className="nxt-btn-emp nxt-btn-sch">
-        <button type="button" class="nxt-btn-btn" onClick={handleCompNext}>
-          Next
-        </button>
+      <div className="bck-btn-emp-main">
+        <div className="nxt-btn-emp nxt-btn-sch">
+          <button type="button" class="nxt-btn-btn" onClick={handleCompNext}>
+            Next
+          </button>
+        </div>
+        <div className="bck-btn-emp bck-btn-sch">
+          <button
+            type="button"
+            class="bck-btn-btn"
+            onClick={() => handleBack()}
+          >
+            <BiArrowBack size={18} style={{ marginRight: 5 }} /> Back
+          </button>
+        </div>
       </div>
     </div>
   );

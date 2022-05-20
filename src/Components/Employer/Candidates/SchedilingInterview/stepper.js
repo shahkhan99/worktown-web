@@ -4,16 +4,20 @@ import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
+import InterviewType from "./components/InterviewType/InterviewType";
 import AddVenue from "./components/AddVenue/AddVenue";
 import AddVenueLocation from "./components/AddVenueLocation/AddVenueLocation";
 import ReviewScheduling from "./components/ReviewScheduling/ReviewScheduling";
 import SelectDate from "./components/SelectDate/SelectDate";
+import ConfirmTime from "./components/SelectTime/selectTime";
 import Button from "@mui/material/Button";
 
 const steps = [
-  "Confirm venue",
-  "Confirm venue location",
-  "Confirm date/time",
+  "Select interview type",
+  "Confirm venue / platform",
+  "Provide location / link",
+  "Confirm date & time slot",
+  "Confirm alternate date & time",
   "Schedule",
 ];
 
@@ -56,17 +60,23 @@ export default function HorizontalLinearStepper({
     setScheduleData({});
     setNormal(true);
   };
-  const handleSchedule = () => {
+  const handleSchedule = (AppData) => {
     let appointmentTime = { Interview_Details: data };
     let newObj = { ...scheduledCandidate, ...appointmentTime };
     setScheduleData(data);
-    handleScheduleInterviewBtn(redux_data, newObj);
+    handleScheduleInterviewBtn(redux_data, newObj, AppData);
     setNormal(true);
   };
 
   // console.log(scheduledCandidate);
   const component = [
-    <AddVenue handleNext={handleNext} setData={setData} data={data} />,
+    <InterviewType handleNext={handleNext} setData={setData} data={data} />,
+    <AddVenue
+      handleNext={handleNext}
+      handleBack={handleBack}
+      setData={setData}
+      data={data}
+    />,
     <AddVenueLocation
       handleNext={handleNext}
       handleBack={handleBack}
@@ -74,6 +84,12 @@ export default function HorizontalLinearStepper({
       data={data}
     />,
     <SelectDate
+      handleNext={handleNext}
+      handleBack={handleBack}
+      setData={setData}
+      data={data}
+    />,
+    <ConfirmTime
       handleNext={handleNext}
       handleBack={handleBack}
       setData={setData}

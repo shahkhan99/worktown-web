@@ -192,3 +192,9 @@
   position: relative;
   bottom: 20px;
 }
+
+@media (min-width: 1051px) and (max-width: 1420px) {
+  .shrt-cont-div-view-jb {
+    width: 100%;
+  }
+}

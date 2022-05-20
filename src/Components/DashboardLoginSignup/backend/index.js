@@ -14,6 +14,7 @@ import {
   sendEmailVerification,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
+  signOut,
 } from "firebase/auth";
 
 const dbRef = ref(getDatabase());
@@ -33,7 +34,7 @@ const getUsers = async (setCheckUser) => {
   onValue(get_users, (snapshot) => {
     if (snapshot.exists()) {
       userObj = snapshot.val();
-      console.log(userObj);
+      // console.log(userObj);
       setCheckUser(userObj);
     } else {
       console.log("No data available");
@@ -120,9 +121,7 @@ const handleRegister = async (email, password, cPassword) => {
           confirmButtonText: "OK",
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.replace(
-              "http://localhost:3000/employer_dashboard/login"
-            );
+            window.location.replace("http://localhost:3000/portal/login");
           }
         });
         // console.log(auth.currentUser);
@@ -130,7 +129,7 @@ const handleRegister = async (email, password, cPassword) => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, "/////", errorMessage);
+        // console.log(errorCode, "/////", errorMessage);
         Swal.fire({
           title:
             error.code === "auth/weak-password"
@@ -147,9 +146,7 @@ const handleRegister = async (email, password, cPassword) => {
           confirmButtonText: "Login",
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.replace(
-              "http://localhost:3000/employer_dashboard/login"
-            );
+            window.location.replace("http://localhost:3000/portal/login");
           }
         });
       });
@@ -182,11 +179,13 @@ const handleLogin = async (
       confirmButtonText: "Sign Up",
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location.replace("http://localhost:3000/");
+        window.open("http://localhost:3000/", "_blank");
       }
     });
   } else {
     const auth = getAuth();
+    console.log("then =>", emailVerify);
+
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -199,12 +198,15 @@ const handleLogin = async (
             showConfirmButton: true,
             confirmButtonText: "Ok",
           });
+          // signOut(auth);
+          // sendEmailVerification(user).then(() => {
+          //   console.log("Sent");
+          // });
           console.log("then =>", user);
-          // sendEmailVerification(user);
         } else {
           setEmailVerify(true);
           set_data(user.uid);
-          window.location.replace("http://localhost:3000/employer_dashboard");
+          window.location.replace("http://localhost:3000/portal");
           console.log("then =>", user);
         }
         // ...
@@ -223,7 +225,6 @@ const handleLogin = async (
         });
         console.log("Err =>", errorCode);
       });
-    console.log("then =>", emailVerify);
   }
 };
 

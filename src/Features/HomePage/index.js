@@ -60,6 +60,7 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      submitionSuccess: true,
       wantedCategorySelection: false,
       skillTag: [],
       allUsers: {},
@@ -374,86 +375,86 @@ class HomePage extends React.Component {
 
       // console.log(this.state)
     } else {
-      let gender = this.state.male ? "Male" : this.state.female ? "Female" : "";
-      this.appendSpreadsheet({
-        Name: this.state.name,
-        Phone: this.state.phone,
-        City: this.state.city,
-        Email: this.state.email,
-        JobCategory: "",
-        JobType: "",
-        Experience: "",
-        Skills: "",
-        Education: "",
-        InterestedIn: "",
-        CurrentSalary: "",
-        Gender: gender,
-        EnglishLevel: "",
-        Achievement: "",
-      });
-      fullpageApi.moveTo(4, 0);
+      // let gender = this.state.male ? "Male" : this.state.female ? "Female" : "";
+      // this.appendSpreadsheet({
+      //   Name: this.state.name,
+      //   Phone: this.state.phone,
+      //   City: this.state.city,
+      //   Email: this.state.email,
+      //   JobCategory: "",
+      //   JobType: "",
+      //   Experience: "",
+      //   Skills: "",
+      //   Education: "",
+      //   InterestedIn: "",
+      //   CurrentSalary: "",
+      //   Gender: gender,
+      //   EnglishLevel: "",
+      //   Achievement: "",
+      // });
+      // fullpageApi.moveTo(4, 0);
 
-      // let allEmployeesResult = {};
-      // let allEmployersResult = {};
-      // let allUsers = {};
+      let allEmployeesResult = {};
+      let allEmployersResult = {};
+      let allUsers = {};
 
-      // if (this.state.employer) {
-      //   const allEmployers = ref(db, `users/jobs_employer`);
+      if (this.state.employer) {
+        const allEmployers = ref(db, `users/jobs_employer`);
 
-      //   onValue(allEmployers, (snapshot) => {
-      //     if (snapshot.exists()) {
-      //       allEmployersResult = snapshot.val();
-      //       // console.log(allEmployersResult);
-      //       let ObjVal = Object.values(allEmployersResult);
-      //       let findSimilar = ObjVal.filter(
-      //         (e) =>
-      //           e.Email === this.state.email || e.Phone === this.state.phone
-      //       );
-      //       // this.setState({ allUsers: findSimilar });
-      //       console.log(findSimilar);
-      //       if (findSimilar.length > 1) {
-      //         console.log(
-      //           "Email and Phone number are registered to different accounts"
-      //         );
-      //       }
-      //     } else {
-      //       console.log("No data available");
-      //     }
-      //   });
-      // } else if (this.state.employee) {
-      //   const allEmployees = ref(db, `users/jobs_users`);
+        onValue(allEmployers, (snapshot) => {
+          if (snapshot.exists()) {
+            allEmployersResult = snapshot.val();
+            // console.log(allEmployersResult);
+            let ObjVal = Object.values(allEmployersResult);
+            let findSimilar = ObjVal.filter(
+              (e) =>
+                e.Email === this.state.email || e.Phone === this.state.phone
+            );
+            // this.setState({ allUsers: findSimilar });
+            console.log(findSimilar);
+            if (findSimilar.length > 1) {
+              console.log(
+                "Email or Phone number are registered to different accounts"
+              );
+            }
+          } else {
+            console.log("No data available");
+          }
+        });
+      } else if (this.state.employee) {
+        const allEmployees = ref(db, `users/jobs_employer`);
 
-      //   onValue(allEmployees, (snapshot) => {
-      //     if (snapshot.exists()) {
-      //       allEmployeesResult = snapshot.val();
-      //       // console.log(allEmployeesResult);
-      //       let ObjVal = Object.values(allEmployeesResult);
-      //       let findSimilar = ObjVal.filter(
-      //         (e) =>
-      //           e.Email === this.state.email || e.Phone === this.state.phone
-      //       );
-      //       // this.setState({ allUsers: findSimilar });
-      //       console.log(findSimilar);
-      //       if (findSimilar.length > 1) {
-      //         console.log(
-      //           "Email and Phone number are registered to different accounts"
-      //         );
-      //       }
-      //       if (
-      //         findSimilar[0].Email !== this.state.email ||
-      //         findSimilar[0].Phone !== this.state.phone
-      //       ) {
-      //         console.log("Please enter same email and phone number");
-      //       } else {
-      //         this.setState({
-      //           name: findSimilar[0].Name,
-      //         });
-      //       }
-      //     } else {
-      //       console.log("No data available");
-      //     }
-      //   });
-      // }
+        onValue(allEmployees, (snapshot) => {
+          if (snapshot.exists()) {
+            allEmployeesResult = snapshot.val();
+            console.log(allEmployeesResult);
+            let ObjVal = Object.values(allEmployeesResult);
+            let findSimilar = ObjVal.filter(
+              (e) =>
+                e.Email === this.state.email || e.Phone === this.state.phone
+            );
+            // this.setState({ allUsers: findSimilar });
+            console.log(findSimilar);
+            if (findSimilar.length > 1) {
+              console.log(
+                "Email or Phone number are registered to different accounts"
+              );
+            }
+            // if (
+            //   findSimilar[0].Email !== this.state.email ||
+            //   findSimilar[0].Phone !== this.state.phone
+            // ) {
+            //   console.log("Please enter same email and phone number");
+            // } else {
+            //   this.setState({
+            //     name: findSimilar[0].Name,
+            //   });
+            // }
+          } else {
+            console.log("No data available");
+          }
+        });
+      }
     }
   };
 
@@ -633,6 +634,7 @@ class HomePage extends React.Component {
       fullpageApi.moveTo(5, 0);
     } else {
       this.submitHandler(fullpageApi, selectedCategories, selectedSalTime);
+      fullpageApi.moveTo(7, 0);
     }
 
     // try {
@@ -969,6 +971,7 @@ class HomePage extends React.Component {
               showConfirmButton: false,
               timer: 1500,
             });
+            this.setState({ submitionSuccess: true });
             this.clearForm(selectedCategories);
           });
         } else {
@@ -1034,6 +1037,7 @@ class HomePage extends React.Component {
               showConfirmButton: false,
               timer: 1500,
             });
+            this.setState({ submitionSuccess: true });
             this.clearForm(selectedCategories);
           });
         }
@@ -1698,7 +1702,11 @@ class HomePage extends React.Component {
                             selectedSalary={selectedSalary}
                           />
                         ) : i === 5 ? (
-                          <Form6 ctx={this} fullpageApi={fullpageApi} />
+                          this.state.submitionSuccess ? (
+                            <Form6 ctx={this} fullpageApi={fullpageApi} />
+                          ) : (
+                            <></>
+                          )
                         ) : (
                           <div
                             className={i === 0 ? "text-div0" : "text-div"}

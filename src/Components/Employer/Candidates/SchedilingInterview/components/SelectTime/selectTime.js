@@ -4,11 +4,20 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import TextField from "@mui/material/TextField";
+import moment from "moment";
+import ReactTimeslotCalendar from "react-timeslot-calendar";
 
-function ConfirmDate({ handleNext, handleBack, setData, data }) {
+function ConfirmTime({ handleNext, handleBack, setData, data }) {
   const [value, setValue] = useState(null);
   const [Avalue, setAValue] = useState(null);
   const [id, setId] = useState(null);
+
+  const handleCompNext = async () => {
+    if (value !== null && Avalue !== null) {
+      await setData({ ...data, Adate: value, Atime: Avalue });
+      handleNext();
+    }
+  };
   const handleChange = (v) => {
     setId(v.id);
     setAValue(v.Stime);
@@ -30,13 +39,6 @@ function ConfirmDate({ handleNext, handleBack, setData, data }) {
     { Stime: "9:00 pm", id: 12 },
     { Stime: "10:00 pm", id: 13 },
   ];
-  const handleCompNext = async () => {
-    if (value !== null && Avalue !== null) {
-      await setData({ ...data, date: value, time: Avalue });
-      handleNext();
-    }
-  };
-  const today = new Date();
 
   console.log(value);
   return (
@@ -46,11 +48,11 @@ function ConfirmDate({ handleNext, handleBack, setData, data }) {
       </div>
       <div className="div-schediling-step-info_date">
         <div className="div-inputs-schediling-step_date">
-          <h6>Confirm Date</h6>
+          <h6>Alternate Date</h6>
           <div className="div-input-icon-date-sch" style={{}}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
-                minDate={today}
+                minDate={data.date}
                 renderInput={(params) => <TextField {...params} />}
                 // label="Ignore date and time"
                 value={value}
@@ -60,7 +62,7 @@ function ConfirmDate({ handleNext, handleBack, setData, data }) {
               />
             </LocalizationProvider>
           </div>
-          <h6>Confirm Time Slot</h6>
+          <h6>Alternate Time Slot</h6>
           <div className="div-input-icon-date-sch" style={{}}>
             {timeslots.map((v) => {
               return (
@@ -79,21 +81,6 @@ function ConfirmDate({ handleNext, handleBack, setData, data }) {
             })}
           </div>
         </div>
-        {/* <div className="div-inputs-schediling-step">
-          <div className="div-input-icon-date-sch" style={{}}>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DatePicker
-                minDate={value}
-                renderInput={(params) => <TextField {...params} />}
-                // label="Ignore date and time"
-                value={Avalue}
-                onChange={(newValue) => {
-                  setAValue(newValue);
-                }}
-              />
-            </LocalizationProvider>
-          </div>
-        </div> */}
       </div>
       <div className="bck-btn-emp-main">
         <div className="nxt-btn-emp nxt-btn-sch">
@@ -115,4 +102,4 @@ function ConfirmDate({ handleNext, handleBack, setData, data }) {
   );
 }
 
-export default ConfirmDate;
+export default ConfirmTime;

@@ -18,7 +18,7 @@ const GetAppointments = async (redux_data, setAppt) => {
     db,
     `users/jobs_employer/${redux_data.uid}/employee_side_appointments`
   );
-  // console.log(starCountRef);
+  console.log(starCountRef);
 
   onChildAdded(starCountRef, (snapshot) => {
     if (snapshot.exists()) {

@@ -80,9 +80,7 @@ function Employer_DB() {
           // User is signed out
           setIsUser(false);
           setChecking(false);
-          window.location.replace(
-            "http://localhost:3000/employer_dashboard/login"
-          );
+          window.location.replace("http://localhost:3000/portal/login");
           // ...
         }
       });
@@ -127,7 +125,7 @@ function Employer_DB() {
         </div>
       );
     } else {
-      window.location.replace("http://localhost:3000/employer_dashboard/login");
+      window.location.replace("http://localhost:3000/portal/login");
     }
   }
 }

@@ -4,7 +4,7 @@
 .div-cand-card-main {
   width: 100%;
   /* background: #fff; */
-  display: flex;
+  /* display: flex; */
   /* flex-direction: column; */
   height: 700px;
   /* padding: 15px; */
@@ -12,6 +12,12 @@
   border-radius: 10px;
   align-self: flex-start;
   justify-content: center;
+}
+.div-cand-select-update-main {
+  width: 95%;
+  left: 2%;
+  top: 2%;
+  position: relative;
 }
 .shrt-head-div {
   display: flex;
@@ -52,7 +58,7 @@
   background-color: #f0bc3a;
 }
 .div-cand-card-main-sub {
-  width: 100%;
+  width: 97%;
   /* background: #fff; */
   display: flex;
   height: auto;
@@ -308,7 +314,7 @@
 }
 .shortlisted-ind-header-heading-2 {
   display: flex;
-  width: 35%;
+  width: 5%;
   justify-content: space-between;
 }
 .shortlisted-ind-header-heading-2 div {
@@ -340,8 +346,12 @@
   height: 150px;
   padding: 5px 20px;
   border-radius: 16px;
+
   /* box-shadow: 0px 0px 5px grey; */
   /* background-color: #f0bd3b; */
+}
+.int-card-int-cursor {
+  cursor: pointer;
 }
 .div-cand-card-int h3 {
   font-size: 27px;
@@ -600,4 +610,57 @@ label {
 }
 .Shortlisted_stepper_scheduling_main_div {
   width: 100%;
+}
+.div-cand-card-btn-div-input {
+  width: 90%;
+}
+.div-cand-card-btn-input {
+  height: 20px;
+  background: white;
+  border: 1px solid black;
+  width: 90%;
+  margin-bottom: 0;
+  margin-right: 5px;
+  border-radius: 10px;
+}
+.div-cand-card-btn-input::placeholder {
+  font-size: 14px !important;
+}
+
+@media (min-width: 1051px) and (max-width: 1420px) {
+  .shortlisted-ind-header-heading {
+    left: 1%;
+  }
+  .shortlisted-ind-header-heading-2 {
+    width: 50%;
+  }
+  .div-cand-card-main-sub {
+    padding: 0;
+  }
+  .css-pgrorv-MuiSwitch-root {
+    margin: 8px 0px !important;
+  }
+  .shortlisted-ind-header-heading-int h2,
+  .shortlisted-ind-header-heading-1 h4 {
+    font-size: 22px;
+  }
+  .shortlisted-ind-header-heading-int {
+    padding-left: 2px;
+  }
+  .int-main-div {
+    width: 29.5%;
+  }
+  .int-overflow,
+  .div-cand-card-main {
+    height: 600px;
+  }
+  .div-cand-card-int {
+    padding: 5px 15px;
+  }
+  .div-cand-card-int {
+    width: 250px;
+  }
+  .shrt-cont-div {
+    width: 70%;
+  }
 }

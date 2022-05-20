@@ -10,26 +10,10 @@ import { GiAchievement } from "react-icons/gi";
 export default function PersonFullData({ setShowPersonFullData, viewCand }) {
   var skills = viewCand.Skills.split(",");
   var InterestedIn = viewCand.InterestedIn.split(",");
-  console.log(viewCand);
+  // console.log(viewCand);
 
   return (
     <div className="div_main_Person_data">
-      <div className="div_inner_main_Person_data">
-        <div className="div_inner_Person_data">
-          <label>Venue</label>
-          <h6>{viewCand !== {} && viewCand.Interview_Details.venue}</h6>
-        </div>
-        <div className="div_inner_Person_data">
-          <label>Date</label>
-          <h6>
-            {moment(viewCand.Interview_Details.date).format("MMMM DD, YYYY")}
-          </h6>
-        </div>
-        <div className="div_inner_Person_data">
-          <label>Time</label>
-          <h6>{moment(viewCand.Interview_Details.date).format("hh: mm A ")}</h6>
-        </div>
-      </div>
       <div className="div_inner_main_Person_data">
         <div className="div_inner_Person_data">
           <label>Name</label>

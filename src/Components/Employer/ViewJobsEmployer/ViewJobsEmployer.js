@@ -146,7 +146,7 @@ function ViewJobsEmployer() {
         <h4>Your Job Posts</h4>
       </div>
       <div className="shortlisted-main">
-        <div className="shrt-cont-div">
+        <div className="shrt-cont-div shrt-cont-div-view-jb">
           <div style={{ width: "100%" }}>
             <div className="shortlisted-ind-header">
               <div className="shortlisted-ind-header-heading">

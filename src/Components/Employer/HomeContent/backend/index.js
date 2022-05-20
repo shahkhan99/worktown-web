@@ -23,6 +23,7 @@ const GetAppointments = async (redux_data, setAppt) => {
   onChildAdded(starCountRef, (snapshot) => {
     if (snapshot.exists()) {
       data.push(snapshot.val());
+      // console.log("stat=> ", snapshot.val());
     } else {
       console.log("No data available");
     }
@@ -31,4 +32,21 @@ const GetAppointments = async (redux_data, setAppt) => {
   setAppt(data);
 };
 
-export { GetAppointments };
+const GetStats = async (redux_data, setStats) => {
+  let data = [];
+  const starCountRef = ref(db, `users/jobs_employer/${redux_data.uid}`);
+  // console.log(starCountRef);
+
+  onValue(starCountRef, (snapshot) => {
+    if (snapshot.exists()) {
+      data.push(snapshot.val());
+      // console.log("stat=> ", snapshot.val());
+    } else {
+      console.log("No data available");
+    }
+  });
+  //   console.log(data);
+  setStats(data);
+};
+
+export { GetAppointments, GetStats };

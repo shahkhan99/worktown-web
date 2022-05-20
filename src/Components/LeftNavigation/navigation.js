@@ -51,9 +51,7 @@ function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
   const Logout = () => {
     signOut(auth)
       .then(() => {
-        window.location.replace(
-          "http://localhost:3000/employer_dashboard/login"
-        );
+        window.location.replace("http://localhost:3000/portal/login");
       })
       .catch((error) => {
         // An error happened.

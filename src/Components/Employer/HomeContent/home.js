@@ -3,7 +3,7 @@ import "./home.css";
 import Logo from "../../../assets/Logo/logo.png";
 import { GiAntiAircraftGun } from "react-icons/gi";
 import { useSelector, useDispatch } from "react-redux";
-import { GetAppointments } from "./backend";
+import { GetAppointments, GetStats } from "./backend";
 import { Button } from "@mui/material";
 import moment from "moment";
 import PersonFullData from "../../PersonFullData/PersonFullData";
@@ -15,9 +15,11 @@ function Home() {
   const [showPersonFullData, setShowPersonFullData] = useState(false);
   const [viewCand, setViewCand] = useState({});
   const [appt, setAppt] = useState([]);
+  const [stats, setStats] = useState([]);
 
   useEffect(async () => {
     await GetAppointments(redux_data, setAppt);
+    await GetStats(redux_data, setStats);
   }, [redux_data]);
 
   const handleViewBtn = (v) => {
@@ -26,6 +28,7 @@ function Home() {
   };
 
   var nameArr = redux_data !== undefined && redux_data.Name.split(" ");
+  console.log(stats);
   return (
     <React.Fragment>
       <div
@@ -58,6 +61,40 @@ function Home() {
           </div>
         </div>
         <div className="div-pay-hist-main">
+          <div className="div-pay-hist-inner">
+            <div className="div-pay-hist-inner1">
+              <p style={{ fontWeight: 700 }}>Your Stats</p>
+            </div>
+            {stats.length ? (
+              <div className="div-stats-ul-empployer">
+                <div className="div-stats-ul-empployer-div apt-li-cls-1">
+                  <label>Number of Appointments</label>
+                  <p>{Object.keys(stats[0]?.appointments).length}</p>
+                </div>
+                <div className="div-stats-ul-empployer-div apt-li-cls-2">
+                  <label>Number of Job Posts</label>
+                  <p>{Object.keys(stats[0]?.jobs).length}</p>
+                </div>
+                <div className="div-stats-ul-empployer-div apt-li-cls-1">
+                  <label>Number of Archive</label>
+                  <p>{Object.keys(stats[0]?.archive).length}</p>
+                </div>
+              </div>
+            ) : (
+              <h6
+                style={{
+                  height: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  color: "darkgray",
+                  fontSize: 20,
+                }}
+              >
+                No Appointments...
+              </h6>
+            )}
+          </div>
           <div className="div-pay-hist-inner">
             <div className="div-pay-hist-inner1">
               <p style={{ fontWeight: 700 }}>Appointments</p>
@@ -118,10 +155,14 @@ function Home() {
         className="PersonFullData_main_main_div"
         style={showPersonFullData ? { display: "flex" } : { display: "none" }}
       >
-        <PersonFullData
-          setShowPersonFullData={setShowPersonFullData}
-          viewCand={viewCand}
-        />
+        {showPersonFullData ? (
+          <PersonFullData
+            setShowPersonFullData={setShowPersonFullData}
+            viewCand={viewCand}
+          />
+        ) : (
+          <></>
+        )}
       </div>
     </React.Fragment>
   );

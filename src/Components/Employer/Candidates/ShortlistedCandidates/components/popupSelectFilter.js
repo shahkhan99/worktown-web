@@ -41,18 +41,18 @@ export default function PopupSelectFilter({
   };
   // console.log(jobs_filter);
   return (
-    <div>
+    <div className="div-cand-select-update-main">
       <div className="div-cand-card-inner-skl-inn skl-inn-filter">
         <p onClick={() => handleClickOpen()}>
           {filterSplit[0] + "/" + filterSplit[1]}
           <MdOutlineArrowDropDown size={22} style={{ marginLeft: 5 }} />
         </p>
-        <BsFilterLeft
+        {/* <BsFilterLeft
           color="#000"
           size={35}
           style={{ marginRight: 15 }}
           onClick={() => handleClickOpen()}
-        />
+        /> */}
       </div>
       <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
         <DialogTitle>Filter by Job Post </DialogTitle>

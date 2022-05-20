@@ -35,7 +35,7 @@ export default function DashboardLoginSignup() {
           });
           console.log(result);
           dispatch(set_current_user_data(result));
-          window.location.replace("http://localhost:3000/employer_dashboard/");
+          // window.location.replace("http://localhost:3000/portal/");
         }
         // ...
       } else {

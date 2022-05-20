@@ -51,7 +51,7 @@
 .div-pay-hist-main {
   width: 80%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-end;
 }
 .div-pay-hist-inner {
@@ -73,6 +73,29 @@
   height: 350px;
   overflow-y: auto;
   width: 90%;
+}
+.div-stats-ul-empployer {
+  height: 350px;
+  overflow-y: auto;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.div-stats-ul-empployer-div {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  padding: 15px;
+  margin: 3px;
+  border-radius: 10px;
+}
+.div-stats-ul-empployer-div label {
+  letter-spacing: 1.25px;
+}
+.div-stats-ul-empployer-div p {
+  font-size: 16px;
+  font-weight: bold;
 }
 .div-appointments-ul-empployer ul {
   width: 100%;
@@ -97,4 +120,11 @@
 }
 .div-appointments-ul-empployer Button {
   font-size: 13px !important;
+}
+.div_inner_main_Person_data_Employee_home {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }

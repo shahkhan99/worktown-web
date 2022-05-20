@@ -1,4 +1,5 @@
 import firebase from "../../../../config/firebase";
+import React from "react";
 import {
   getDatabase,
   ref,
@@ -21,7 +22,7 @@ var allJobsArr = [];
 var jobTypeFilterCand = [];
 
 const checkUser = async (currentUser, filter) => {
-  await get(child(dbRef, `users/jobs_users`))
+  await get(child(dbRef, `users/jobs_employer`))
     .then(async (snapshot) => {
       if (snapshot.exists()) {
         allCandidates = snapshot.val();
@@ -29,6 +30,7 @@ const checkUser = async (currentUser, filter) => {
         cand = [];
         for (let i = 0; i < propertyNames.length; i++) {
           let seperated = propertyNames[i][1];
+          console.log(allCandidates);
           cand.push(seperated);
         }
         // console.log(filter);
@@ -103,7 +105,7 @@ const MatchingCandidates = async (currentUser, filter) => {
       arrArchResult = Object.values(ArchResult);
       // console.log(arrResult);
     } else {
-      console.log("No data available");
+      // console.log("No data available");
     }
   });
   jobTypeFilterCand = [];
@@ -136,15 +138,22 @@ const MatchingCandidates = async (currentUser, filter) => {
   // var userSkills = [...currentUser.Skills];
   for (let i = 0; i < currentUserSkills.length; i++) {
     checking.push(
-      ...cand.filter((e) =>
-        e.Skills.toLowerCase().includes(currentUserSkills[i].toLowerCase())
-      )
+      ...cand.filter((e) => {
+        // console.log(e);
+        if (e.Skills !== undefined) {
+          return e.Skills.toLowerCase().includes(
+            currentUserSkills[i].toLowerCase()
+          );
+        }
+      })
     );
 
     // jobTypeFilterCand.push(
     //   ...cand.filter((e) => e.Skills.includes(currentUserSkills[i]))
     // );
   }
+
+  // console.log(checking);
 
   matchedSkilled = await checking.reduce((acc, current) => {
     const x = acc.find((item) => item.Email === current.Email);
@@ -160,7 +169,6 @@ const MatchingCandidates = async (currentUser, filter) => {
     matchedSkilled2 = matchedSkilled.filter((e) => {
       return !finalMatch.some((v) => v.Email === e.Email);
     });
-    console.log(159);
 
     jobTypeFilterCand.push(
       ...matchedSkilled2.filter((e) => e.Experience.includes(userExp))
@@ -177,7 +185,6 @@ const MatchingCandidates = async (currentUser, filter) => {
       );
     }
   } else {
-    console.log(177);
     jobTypeFilterCand.push(
       ...matchedSkilled.filter((e) => e.Experience.includes(userExp))
     );
@@ -224,11 +231,19 @@ const handleReject = async (
   e,
   redux_data,
   filter,
-  setShortlistedCandidates
+  setShortlistedCandidates,
+  setEditingState,
+  rejectionChange
 ) => {
+  setEditingState("");
+
+  let recjectionFeedback = { recjectionFeedback: rejectionChange };
+  let data = { ...e, ...recjectionFeedback };
+  // console.log(data);
+
   await update(
     ref(db, `users/jobs_employer/${redux_data.uid}/archive/${e.Phone}`),
-    e
+    data
   )
     .then(() => {
       getJobTypeFilterCand(redux_data, setShortlistedCandidates, filter);
@@ -276,8 +291,28 @@ const getInterviewCandidates = async (redux_data, setInterviewCandidates) => {
     if (snapshot.exists()) {
       let result = snapshot.val();
       let arrResult = Object.values(result);
-      console.log(arrResult);
-      setInterviewCandidates(arrResult);
+      // console.log(arrResult);
+      const appointment_cand = ref(
+        db,
+        `users/jobs_employer/${redux_data.uid}/appointments`
+      );
+      onValue(appointment_cand, (snapshot) => {
+        if (snapshot.exists()) {
+          let appResult = snapshot.val();
+          let appArrResult = Object.values(appResult);
+          console.log(appArrResult);
+          if (appArrResult.length) {
+            let finalInterviewCandidate = arrResult.filter((e) => {
+              return !appArrResult.some((v) => v.Email === e.Email);
+            });
+            console.log(finalInterviewCandidate);
+            setInterviewCandidates(finalInterviewCandidate);
+          }
+        } else {
+          setInterviewCandidates(arrResult);
+        }
+      });
+      // setInterviewCandidates(arrResult);
     } else {
       setInterviewCandidates([]);
     }
@@ -301,20 +336,37 @@ const handleCross = async (redux_data, v, filter, setShortlistedCandidates) => {
     });
 };
 
-const handleScheduleInterviewBtn = async (redux_data, e) => {
+const handleScheduleInterviewBtn = async (redux_data, e, Appdata) => {
+  const toSend = {
+    from_name: redux_data.Name,
+    to_name: e.Name,
+    employer_name: redux_data.BusinessName,
+    send_to: e.Email,
+    send_by: "hello@worktown.co",
+  };
+
   console.log(redux_data, e);
-  await update(
-    ref(db, `users/jobs_employer/${redux_data.uid}/appointments/${e.uid}`),
-    e
-  ).then(async () => {
-    await update(
-      ref(
-        db,
-        `users/jobs_employer/${e.uid}/employee_side_appointments/${redux_data.uid}`
-      ),
-      e
-    );
-  });
+
+  let employee_data = {
+    BusinessName: redux_data.BusinessName,
+    Name: redux_data.Name,
+    Phone: redux_data.Phone,
+    Email: redux_data.Email,
+    Interview_Details: Appdata,
+  };
+  // console.log(employee_data);
+  // await update(
+  //   ref(db, `users/jobs_employer/${redux_data.uid}/appointments/${e.uid}`),
+  //   e
+  // ).then(async () => {
+  //   await update(
+  //     ref(
+  //       db,
+  //       `users/jobs_employer/${e.uid}/employee_side_appointments/${redux_data.uid}`
+  //     ),
+  //     employee_data
+  //   );
+  // });
   // send("service_0kxx7l1", "template_5y7pfk5", toSend, "gdh_CSodanmGmK83y")
   //   .then((response) => {
   //     console.log("SUCCESS!", response.status, response.text);
@@ -322,7 +374,7 @@ const handleScheduleInterviewBtn = async (redux_data, e) => {
   //   .catch((err) => {
   //     console.log("FAILED...", err);
   //   });
-  // UseWhatsapp("3020217792", "hello");
+  // UseWhatsapp(e.Phone, "hello");
 };
 
 export {

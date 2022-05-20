@@ -24,21 +24,20 @@ function ViewCV() {
   return (
     <div className="epemp-main-div">
       <div className="shrt-head-div">
-        <h4>Your CV</h4>
+        <h4>Your Resume</h4>
       </div>
       <div className="epemp-main-div-edit-CV-main">
-        <h6 style={{ fontSize: 22 }}>Resume</h6>
         <div className="epemp-main-div-edit-innerCV-main">
           {/* <BlobProvider document={<MyPDF />} /> */}
-          <PDFViewer height={750} width={1000}>
+          {/* <PDFViewer height={900} width={620}>
             <MyPDF />
-          </PDFViewer>
-          <MyPDF />
-          {/* <PDFDownloadLink document={<MyPDF />} fileName="somename.pdf">
+          </PDFViewer> */}
+          <MyPDF data={data} />
+          <PDFDownloadLink document={<MyPDF />} fileName="somename.pdf">
             {({ blob, url, loading, error }) =>
               loading ? "Loading document..." : "Download now!"
             }
-          </PDFDownloadLink> */}
+          </PDFDownloadLink>
         </div>
       </div>
     </div>

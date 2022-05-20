@@ -36,18 +36,14 @@ let Routes = () => {
         <Route path="/jobcategory" exact component={JobCategory} /> */}
 
         {/* DashBoard ROUTES */}
-        <Route path="/employer_dashboard" exact component={Employer_DB} />
-        <Route path="/employee_dashboard" exact component={Employee_DB} />
+        <Route path="/portal" exact component={Employer_DB} />
+        {/* <Route path="/employee_dashboard" exact component={Employee_DB} /> */}
         <Route
-          path="/employer_dashboard/registration"
+          path="/portal/registration"
           exact
           component={DashboardLoginSignup}
         />
-        <Route
-          path="/employer_dashboard/login"
-          exact
-          component={DashboardLogin}
-        />
+        <Route path="/portal/login" exact component={DashboardLogin} />
 
         {/* <ProtectedRoute path="/@dm!n" component={IndividualDashboard} /> */}
       </Switch>

@@ -19,8 +19,12 @@
 }
 .div-arch-card-int {
   margin: 20px;
+  cursor: pointer;
 }
 .Archive-ind-header-heading-int {
   left: 20px;
   width: 96%;
+}
+.div_inner_main_Person_data_ach-arch {
+  margin-bottom: 10px !important;
 }

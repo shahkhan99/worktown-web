@@ -15,20 +15,45 @@
 .input-stepper-schedule {
   width: 100%;
 }
-.div-schediling-step-info {
+.div-schediling-step-info_date {
   display: flex;
-  width: 50%;
+  width: 65%;
   justify-content: center;
-  /* align-items: center; */
+  align-items: center;
   background-color: #fff;
   flex-direction: column;
-  height: 200px;
+  height: 500px;
   border-radius: 10px;
+  margin-bottom: 15px;
+}
+.div-schediling-step-info {
+  display: flex;
+  width: 65%;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  flex-direction: column;
+  height: 300px;
+  border-radius: 10px;
+}
+.div-schediling-step-info_date h6 {
+  font-size: 24px;
+  width: 80%;
+  align-self: center;
 }
 .div-schediling-step-info h6 {
   font-size: 24px;
   width: 80%;
   align-self: center;
+}
+.div-inputs-schediling-step_date {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  align-self: center;
+  height: 90%;
 }
 .div-inputs-schediling-step {
   width: 80%;
@@ -37,7 +62,7 @@
   align-items: center;
   justify-content: space-evenly;
   align-self: center;
-  height: 100px;
+  height: 50%;
 }
 .nxt-btn-sch {
   width: 50%;
@@ -62,8 +87,15 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  height: 50%;
+  height: 70%;
   align-items: center;
+}
+.bck-btn-emp-main {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 .bck-btn-sch {
   display: flex;
@@ -73,11 +105,57 @@
 }
 .div-input-icon-date-sch {
   display: flex;
-  width: 65%;
+  width: 75%;
   background: #f3f4f8 !important;
-  border-radius: 16px;
-  height: 55px;
+  border-radius: 6px;
+  /* height: 200px; */
+  overflow-y: auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
 }
 .css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
   width: 100% !important;
+}
+.tsc-calendar {
+  padding: 0 !important;
+}
+.tsc-month {
+  font-size: 11px !important;
+}
+.slots-time-picker {
+  width: 25%;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  border-radius: 16px;
+  margin: 15px;
+  cursor: pointer;
+}
+.slots-time-picker:hover {
+  background-color: #f0bd3a;
+}
+.div-schediling-step-info-phy-vir {
+  display: flex;
+  width: 60%;
+  justify-content: space-around;
+  align-items: center;
+}
+.div-schediling-step-info-phy-vir-inner {
+  width: 40%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 0px 2px grey;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 20px;
+}
+.div-schediling-step-info-phy-vir-inner:hover {
+  background-color: #f0bd3a;
+  color: #fff;
 }
