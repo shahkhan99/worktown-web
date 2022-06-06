@@ -121,7 +121,8 @@ const handleRegister = async (email, password, cPassword) => {
           confirmButtonText: "OK",
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.replace("http://localhost:3000/portal/login");
+            // window.location.replace("http://localhost:3000/portal/login");
+            window.location.replace("/portal/login");
           }
         });
         // console.log(auth.currentUser);
@@ -146,7 +147,8 @@ const handleRegister = async (email, password, cPassword) => {
           confirmButtonText: "Login",
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.replace("http://localhost:3000/portal/login");
+            // window.location.replace("http://localhost:3000/portal/login");
+            window.location.replace("/portal/login");
           }
         });
       });
@@ -179,7 +181,8 @@ const handleLogin = async (
       confirmButtonText: "Sign Up",
     }).then((result) => {
       if (result.isConfirmed) {
-        window.open("http://localhost:3000/", "_blank");
+        // window.open("http://localhost:3000/", "_blank");
+        window.open("/", "_blank");
       }
     });
   } else {
@@ -206,7 +209,8 @@ const handleLogin = async (
         } else {
           setEmailVerify(true);
           set_data(user.uid);
-          window.location.replace("http://localhost:3000/portal");
+          window.location.replace("/portal");
+          // window.location.replace("http://localhost:3000/portal");
           console.log("then =>", user);
         }
         // ...
@@ -261,7 +265,7 @@ const getEmployees = async (setCheckUser) => {
   await get(child(dbRef, `users/jobs_users`))
     .then((snapshot) => {
       if (snapshot.exists()) {
-        console.log("running ...", snapshot.val());
+        // console.log("running ...", snapshot.val());
         setCheckUser(snapshot.val());
       } else {
         console.log("No data available");

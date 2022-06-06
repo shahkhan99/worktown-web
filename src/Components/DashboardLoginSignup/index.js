@@ -14,12 +14,12 @@ export default function DashboardLoginSignup() {
     if (!checkUser.length) {
       await getUsers(setCheckUser);
     }
+    console.log("checkUser");
   }, []);
-  console.log(checkUser);
 
   return (
     <div className="dash-login-main-div">
-      <h3 style={{ height: "13%" }}>Create Password </h3>
+      <h3 style={{ height: "13%" }}>Create Password</h3>
       <div className="dash-login-main-div-inner">
         <div className="a-input-field dash-login-main-div-input">
           <label className="input-label">

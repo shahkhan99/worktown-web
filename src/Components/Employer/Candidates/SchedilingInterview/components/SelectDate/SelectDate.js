@@ -34,6 +34,8 @@ function ConfirmDate({ handleNext, handleBack, setData, data }) {
     if (value !== null && Avalue !== null) {
       await setData({ ...data, date: value, time: Avalue });
       handleNext();
+    } else {
+      alert("All fields are mandatory.");
     }
   };
   const today = new Date();
@@ -69,7 +71,7 @@ function ConfirmDate({ handleNext, handleBack, setData, data }) {
                   onClick={() => handleChange(v)}
                   style={
                     v.id === id
-                      ? { backgroundColor: "#f0bd3a" }
+                      ? { backgroundColor: "#3E469D", color: "#fff" }
                       : { background: "#fff" }
                   }
                 >

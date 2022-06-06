@@ -1,3 +1,16 @@
+@font-face {
+  font-family: myFontSM;
+  src: url(../../../../assets//fonts//Poppins-SemiBold.ttf);
+}
+@font-face {
+  font-family: myFontM;
+  src: url(../../../../assets//fonts//Poppins-Medium.ttf);
+}
+@font-face {
+  font-family: myFontR;
+  src: url(../../../../assets//fonts//Poppins-Regular.ttf);
+}
+
 .shortlisted-main {
   display: flex;
 }
@@ -19,16 +32,22 @@
   top: 2%;
   position: relative;
 }
+.shrt-head-div h4 {
+  font-size: 26px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
 .shrt-head-div {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100px;
+  align-items: flex-start;
+  width: 96.5%;
+  align-self: center;
 }
 .shrt-cont-div {
-  background-color: #f3f0f0;
+  background-color: #f5f5f5;
   width: 100%;
   /* padding: 20px 150px; */
   display: flex;
@@ -70,16 +89,16 @@
 .div-cand-card {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  /* width: 370px; */
-  background: transparent;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  background: #fff;
   /* margin: 20px; */
   height: 100%;
   padding: 10px;
-  border-radius: 16px;
+  border-radius: 17px;
   /* box-shadow: 0px 0px 5px grey; */
   position: relative;
-  right: 100%;
 }
 /* .div-cand-card:hover {
   background-color: #f0f3f3;
@@ -111,12 +130,7 @@
 }
 .div-cand-card-inner p {
   height: 22px !important;
-}
-.div-cand-card h3,
-.div-cand-card h4,
-.div-cand-card-inner p,
-.div-cand-card-inner-skl-inn p {
-  color: #000;
+  font-family: "poppins";
 }
 .div-cand-card-inner-skl-inn {
   height: 100%;
@@ -125,43 +139,49 @@
 .div-cand-card h3,
 .div-cand-card h4,
 .div-cand-card-inner,
-.div-cand-card-inner-skl-inn {
+.div-cand-card-inner-skl-inn,
+.div-cand-card-inner-skl-inn p {
   /* height: 50px; */
   display: flex;
   align-items: center;
-  color: #fff;
+  font-family: "poppins";
+  color: #000;
 }
 
 .div-cand-card h4:first-of-type {
-  font-size: 19px;
-  color: #fff;
+  font-size: 14px;
+  color: #3e469d;
 }
 .div-cand-card h4 {
-  font-size: 19px;
-  color: #fff;
+  font-size: 14px;
+  color: #3e469d;
 }
 .div-cand-card h3 {
   display: flex;
-  color: #fff;
+  color: #000;
   justify-content: space-between;
 }
 .div-cand-card h3 {
-  font-size: 27px;
-  color: #fff;
+  font-size: 22px;
+  color: #000;
+  font-family: "poppins";
 }
 .div-cand-card h3 p {
   font-size: 18px;
-  color: #fff;
+  color: #000;
+  font-family: "poppins";
 }
 .div-cand-card-inner p {
   background: #d6d6d66b;
   border-radius: 8px;
   width: 100px;
   height: 30px !important;
+  font-family: "poppins";
 }
 .div-cand-card-inner p {
   /* background: #000; */
   padding: 0px 10px;
+  font-family: "poppins";
   border-radius: 8px;
   display: flex;
   justify-content: center;
@@ -188,9 +208,10 @@
 }
 .div-cand-card-inner-skl-inn p {
   min-width: 105px;
+  font-family: "poppins";
   /* padding: 0 20px; */
   margin: 5px 5px;
-  background: #d6d6d66b;
+  background: transparent;
   height: 30px;
   border-radius: 8px;
   display: flex;
@@ -219,6 +240,7 @@
   justify-content: center;
   align-items: center;
   font-size: 13px;
+  font-family: "poppins";
 }
 .div-cand-card-inner-skl::-webkit-scrollbar-track,
 .div-cand-card-inner::-webkit-scrollbar-track {
@@ -244,29 +266,31 @@
   display: flex;
   align-items: center;
   /* padding: 10px 0px; */
-  width: 70%;
+  width: 60%;
   justify-content: space-evenly;
   align-self: center;
   position: relative;
-  top: 50px;
+  align-self: center;
+  /* top: 50px; */
 }
 .div-cand-card-btn button {
-  height: 30px;
+  height: 40px;
   cursor: pointer;
-  background: #f0bc3a;
-  width: 100px;
+  background: #3e469d;
+  width: 125px;
   border-radius: 10px;
   color: #fff;
   cursor: pointer;
   border: 0;
-  font-size: 13px;
+  font-size: 17px;
+  font-family: "poppins";
   display: flex;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.8px;
   align-items: center;
   justify-content: center;
 }
 .div-cand-card-btn button:hover {
-  background: #f2d383;
+  background: #2c73e59a;
   color: #fff;
   transition: background 0.5s;
 }
@@ -279,6 +303,7 @@
 .div-cand-card-inner1-fields label {
   font-size: 13px;
   height: 20px;
+  font-family: "poppins";
   padding: 5px 0px;
   /* color: #fff !important; */
 }
@@ -286,6 +311,7 @@
   font-size: 14px;
   /* font-weight: bold; */
   height: 25px;
+  font-family: "poppins";
   /* color: #fff !important; */
 }
 .shortlisted-ind-header {
@@ -294,6 +320,7 @@
   align-items: center;
   width: 100%;
   align-self: flex-start;
+  margin-bottom: 5px;
 }
 .shortlisted-ind-header-heading {
   border-radius: 20px;
@@ -314,17 +341,23 @@
 }
 .shortlisted-ind-header-heading-2 {
   display: flex;
-  width: 5%;
+  width: 48%;
   justify-content: space-between;
 }
 .shortlisted-ind-header-heading-2 div {
   display: flex;
-  width: 100%;
   justify-content: space-between;
+  align-items: center;
   cursor: pointer;
 }
+.css-1uyh00o-MuiFormControl-root {
+  margin: 0 !important;
+}
+.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+  color: transparent !important;
+}
 .shortlisted-ind-header-heading-1 h4 {
-  font-size: 27px;
+  font-size: 20px;
 }
 .create-head-div-int {
   display: flex;
@@ -430,11 +463,14 @@
 }
 .shortlisting-main-upper {
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .int-card-header-name-exp {
   display: flex;
   justify-content: space-between;
   height: 30px;
+  font-family: "poppins";
 }
 .div-cand-card-btn-int {
   display: flex;
@@ -445,13 +481,14 @@
 .div-cand-card-btn-int button {
   height: 30px;
   cursor: pointer;
-  background: #f0bd3b;
+  background: #81b441;
   width: 150px;
   border-radius: 10px;
   color: #fff;
   cursor: pointer;
   border: 0;
   font-size: 13px;
+  font-family: "poppins";
   letter-spacing: 0.4px;
 }
 .div-cand-card-btn-int-rej {
@@ -462,8 +499,8 @@
 }
 .div-cand-card-btn-int button:hover,
 .div-cand-card-btn-int-rej:hover {
-  background: #f2d383;
-  color: #fff;
+  background: #81b4419a;
+  color: #000;
   transition: background 0.5s;
 }
 .int-cross {
@@ -496,9 +533,11 @@
   justify-content: center;
   align-items: center;
   font-size: 13px;
+  font-family: "poppins";
 }
 label {
   font-size: 13px;
+  font-family: "poppins";
 }
 .div-cand-card-inner-skl-exp-loc-main {
   display: flex;
@@ -521,80 +560,122 @@ label {
 }
 .div-cand-card-header-loc-exp p {
   height: 45px;
-  font-weight: 500;
-  color: #fff;
+  font-family: "poppins";
+  color: #707070;
 }
 .div-cand-card-header-loc-exp-main {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  align-items: flex-start;
+}
+.div-cand-card-header-loc-exp-main-new {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
 }
 .div-cand-card-inner-skl-short {
-  width: 100%;
+  width: 95%;
   height: auto;
   flex-direction: column;
+  /* margin-top: -12px; */
+  height: 300px;
+}
+.div-cand-card-inner1-short label {
+  color: #707070;
+  font-family: "poppins";
+  font-size: 15px;
+  height: 35px;
 }
 .div-cand-card-inner1-short {
   width: 100%;
-  height: 125px;
+  height: 100px;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 .div-cand-card-inner-short {
-  width: 330px;
-  height: 100%;
+  width: 100%;
+  height: 65px;
   overflow-y: scroll;
   flex-wrap: wrap;
+  align-items: flex-start;
 }
 .div-cand-card-inner-short p {
-  width: 100px;
-  height: 30px;
-  background: #ffffff3d;
+  width: 110px;
+  height: 35px;
+  background: #3e469d1a;
   display: flex;
-  border-radius: 8px;
-  margin: 5px;
+  border-radius: 10px;
+  margin: 5px 10px 5px 0px;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  color: white;
+  font-size: 15px;
+  color: #3e469d;
+  font-family: myFontSM;
 }
 .div-cand-card-inner-timing-short {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
   align-self: center;
   /* overflow-y: scroll; */
   height: 50px;
   flex-direction: row;
   align-items: center;
+  flex-wrap: wrap;
+  margin: 7px;
+}
+.div-cand-card-inner-timing-short span {
+  color: #3e469d;
+  margin-right: 5px;
+  font-size: 19px;
+  margin-bottom: 3px;
 }
 .div-cand-card-inner-timing-short p {
   height: 25px;
-  font-size: 12px;
-  color: #fff;
+  font-size: 15px;
+  color: #000;
+  width: auto;
+  margin: 0px 10px 0px 0px;
+  /* width: 145px; */
+  justify-content: flex-start;
+  font-family: "poppins";
 }
 .div-cand-card-inner-skl-inn1-short {
   width: 100%;
-  justify-content: space-evenly;
+  justify-content: space-between;
   height: 50px;
 }
-.div-cand-card-inner1-fields-short label p {
-  font-size: 12px;
-  color: #fff;
+.div-cand-card-inner1-fields-short label {
+  color: #707070;
+  font-size: 15px !important;
+  font-family: "poppins";
+}
+.div-cand-card-inner1-fields-short {
+  flex-direction: column;
+  display: flex;
+  align-items: flex-start;
+}
+.div-cand-card-inner1-fields-short p {
+  font-size: 15px;
+  font-family: "poppins";
+  color: #000;
 }
 .div-cand-card-achieve-short {
-  width: 95%;
+  width: 100%;
   height: 75px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 0px 10px;
+  /* padding: 0px 10px; */
   position: relative;
   top: 30px;
 }
 .div-cand-card-achieve-short p {
   height: auto;
-  font-size: 12px;
+  font-size: 14px;
+  font-family: myFontSM;
 }
 .div-cand-card-img {
   width: 100%;
@@ -602,11 +683,11 @@ label {
 }
 .frag {
   display: flex;
-  width: 350px;
-  height: 480px;
+  width: 550px;
+  height: 450px;
   background: #fff;
-  margin: 10px;
-  border-radius: 60px;
+  margin: 20px 0;
+  border-radius: 17px;
 }
 .Shortlisted_stepper_scheduling_main_div {
   width: 100%;
@@ -616,7 +697,7 @@ label {
 }
 .div-cand-card-btn-input {
   height: 20px;
-  background: white;
+  background: #000;
   border: 1px solid black;
   width: 90%;
   margin-bottom: 0;
@@ -642,7 +723,7 @@ label {
   }
   .shortlisted-ind-header-heading-int h2,
   .shortlisted-ind-header-heading-1 h4 {
-    font-size: 22px;
+    font-size: 20px;
   }
   .shortlisted-ind-header-heading-int {
     padding-left: 2px;
@@ -652,7 +733,7 @@ label {
   }
   .int-overflow,
   .div-cand-card-main {
-    height: 600px;
+    height: 750px;
   }
   .div-cand-card-int {
     padding: 5px 15px;
@@ -662,5 +743,13 @@ label {
   }
   .shrt-cont-div {
     width: 70%;
+  }
+  .shrt-head-div {
+    height: 130px;
+  }
+  .div-cand-card-view-jobs {
+    margin: 20px 0px 5px 0px !important;
+    width: 480px !important;
+    padding: 5px;
   }
 }

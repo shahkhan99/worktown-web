@@ -19,6 +19,7 @@ export default function PopupSelectFilter({
   filterSplit,
 }) {
   const [open, setOpen] = React.useState(false);
+
   const [filterType, setFilterType] = React.useState("");
 
   const handleChange = (target, event) => {
@@ -39,7 +40,6 @@ export default function PopupSelectFilter({
   const handleClickOpen = () => {
     setOpen(true);
   };
-  // console.log(jobs_filter);
   return (
     <div className="div-cand-select-update-main">
       <div className="div-cand-card-inner-skl-inn skl-inn-filter">
@@ -47,12 +47,6 @@ export default function PopupSelectFilter({
           {filterSplit[0] + "/" + filterSplit[1]}
           <MdOutlineArrowDropDown size={22} style={{ marginLeft: 5 }} />
         </p>
-        {/* <BsFilterLeft
-          color="#000"
-          size={35}
-          style={{ marginRight: 15 }}
-          onClick={() => handleClickOpen()}
-        /> */}
       </div>
       <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
         <DialogTitle>Filter by Job Post </DialogTitle>

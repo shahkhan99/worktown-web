@@ -33,7 +33,7 @@
 }
 .div-main-payment-card1 button {
   width: 30%;
-  background: #516bed;
+  background: #3e469d !important;
   color: white;
   height: 30px;
   border: 0;
@@ -91,26 +91,31 @@
   font-size: 13px;
 }
 .apt-li-cls-1 {
-  background-color: antiquewhite;
+  background-color: #3e469d;
+  color: #fff;
 }
 .apt-li-cls-2 {
-  background-color: darksalmon;
+  background-color: #3e469d21;
+  color: #3e469d;
 }
 .div-appointments-ul-empployer Button {
   font-size: 13px !important;
 }
 .PersonFullData_main_main_div {
   background: white;
-  width: 40%;
-  height: 400px;
+  width: 570px;
+  height: 470px;
   border-radius: 16px;
   position: absolute;
   top: 25%;
   left: 35%;
   border-radius: 16px;
   z-index: 99;
+  box-shadow: 0px 0px 10px gray;
 }
-
+.nav-div-switches {
+  height: 88px;
+}
 @media (min-width: 1051px) and (max-width: 1420px) {
   .nav-main-div {
     width: 20%;

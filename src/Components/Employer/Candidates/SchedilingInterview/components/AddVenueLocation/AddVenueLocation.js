@@ -8,6 +8,8 @@ function AddVenueLocation({ handleNext, handleBack, setData, data }) {
     if (venue !== "") {
       setData({ ...data, venuePin: venue });
       handleNext();
+    } else {
+      alert("All fields are mandatory.");
     }
   };
 

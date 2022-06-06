@@ -51,7 +51,9 @@ export default class Form3 extends Component {
         >
           <div
             className={ctx.state.male ? "radio-male" : "radio-in"}
-            onClick={() => ctx.handleMale()}
+            onClick={
+              ctx.state.redux_data === null ? () => ctx.handleMale() : ""
+            }
             style={
               ctx.state.radTErr
                 ? { border: "1px solid red" }
@@ -69,8 +71,11 @@ export default class Form3 extends Component {
             Male
           </div>
           <div
+            disabled={ctx.state.redux_data !== null && true}
             className={ctx.state.female ? "radio-female" : "radio-in"}
-            onClick={() => ctx.handleFemale()}
+            onClick={
+              ctx.state.redux_data === null ? () => ctx.handleFemale() : ""
+            }
             style={
               ctx.state.radTErr
                 ? { border: "1px solid red" }
@@ -141,13 +146,20 @@ export default class Form3 extends Component {
                   );
                 }}
                 type="text"
+                disabled={ctx.state.redux_data !== null && true}
                 // placeholder="We need your full name"
                 style={{
                   fontFamily: "Lato",
                   fontSize: 17,
                   color: "#868686",
                 }}
-                // value={this.state.name}
+                value={
+                  ctx.state.redux_data !== null
+                    ? ctx.state.redux_data.BusinessName
+                      ? ctx.state.redux_data.BusinessName
+                      : ctx.state.name
+                    : ctx.state.company
+                }
                 className="a-r-input-box"
               />
             </div>
@@ -197,13 +209,18 @@ export default class Form3 extends Component {
                   );
                 }}
                 type="text"
+                disabled={ctx.state.redux_data !== null && true}
                 // placeholder="We need your full name"
                 style={{
                   fontFamily: "Lato",
                   fontSize: 17,
                   color: "#868686",
                 }}
-                // value={this.state.name}
+                value={
+                  ctx.state.redux_data !== null
+                    ? ctx.state.redux_data.Name
+                    : null
+                }
                 className="a-r-input-box"
               />
             </div>
@@ -254,6 +271,7 @@ export default class Form3 extends Component {
                       phone.target.value
                     );
                   }}
+                  disabled={ctx.state.redux_data !== null && true}
                   type="text"
                   style={{
                     fontFamily: "Lato",
@@ -261,7 +279,11 @@ export default class Form3 extends Component {
                     color: "#868686",
                   }}
                   className="a-r-input-box"
-                  value={ctx.state.phone}
+                  value={
+                    ctx.state.redux_data !== null
+                      ? ctx.state.redux_data.Phone
+                      : ctx.state.phone
+                  }
                 />
               </div>
             </div>
@@ -302,7 +324,11 @@ export default class Form3 extends Component {
                 placeholder="abc@gmail.com"
                 id="email"
                 name="email"
-                // value={this.state.email}
+                value={
+                  ctx.state.redux_data !== null
+                    ? ctx.state.redux_data.Email
+                    : null
+                }
                 onChange={(email) => {
                   ctx._handleChange(
                     emailCheck,
@@ -312,6 +338,7 @@ export default class Form3 extends Component {
                   );
                 }}
                 type="email"
+                disabled={ctx.state.redux_data !== null && true}
                 // placeholder="We need your full name"
                 style={{
                   fontFamily: "Lato",

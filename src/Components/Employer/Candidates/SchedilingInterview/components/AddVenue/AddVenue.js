@@ -7,6 +7,8 @@ function AddVenue({ handleNext, handleBack, setData, data }) {
     if (venue !== "") {
       setData({ ...data, venue: venue });
       handleNext();
+    } else {
+      alert("All fields are mandatory.");
     }
   };
   // console.log(inputData);

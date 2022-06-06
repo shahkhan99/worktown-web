@@ -2,24 +2,19 @@ body > #root > div {
   height: 100vh;
 }
 .nav-main-div {
-  width: 15%;
+  width: 13%;
   background: #fff;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  /* align-items: center; */
+  align-items: center;
   height: 100%;
-  padding-left: 50px;
 }
 .nav-div {
   display: flex;
   justify-content: flex-start;
 }
-.nav-main-div div h6 {
-  font-size: 25px;
-  position: relative;
-  top: 30px;
-}
+
 .nav-div-ul {
   display: flex;
   flex-direction: column;
@@ -36,17 +31,100 @@ ul {
   list-style: none;
 }
 li {
-  height: 30px;
+  width: 170px;
+  height: 40px;
   display: flex;
   align-items: center;
   padding: 0px 15px;
-  font-size: 14px;
-  border-radius: 5px;
+  font-size: 13px;
+  font-family: myFontSM;
+  border-radius: 10px;
   cursor: pointer;
 }
 .logout-nav {
   justify-content: flex-start !important;
 }
+.nav-main-div-resp {
+  display: none;
+}
+.logo-left-nav {
+  width: 63px;
+  height: 63px;
+}
+.left_nav_businessName {
+  width: 200px;
+  height: 34px;
+  border: 1px solid #d2d2d2;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.left_nav_businessName h6 {
+  color: #101518;
+  font-size: 12px;
+  font-family: "poppins";
+}
+
+.nav_div_cross_logo {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+}
 /* .li0 {
   background-color: #f3f0f0;
 } */
+
+/* MOBILE SCREEN CSS */
+
+@media (min-width: 360px) and (max-width: 767px) {
+  .nav-main-div {
+    display: none;
+    padding: 0;
+    width: 30%;
+    position: absolute;
+  }
+  .nav-main-div-resp {
+    display: block;
+  }
+  .nav-div-ul {
+    width: 90%;
+  }
+  .nav-div-ul li {
+    font-size: 12 px;
+    padding: 0px 7px;
+    height: 25px;
+    font-family: "poppins";
+  }
+  .div-cand-card-btn button {
+    font-size: 12px !important;
+    font-family: "poppins";
+
+    height: 25px !important;
+  }
+  .css-1q36rmd-MuiStack-root {
+    flex-direction: column !important;
+  }
+  .css-ahj2mt-MuiTypography-root,
+  .css-ahj2mt-MuiTypography-root {
+    font-size: 15px !important;
+    color: #7d7d7d !important;
+  }
+  .css-pgrorv-MuiSwitch-root,
+  .css-dmmspl-MuiFormGroup-root {
+    margin: 4px !important;
+  }
+  .main-div {
+    padding: 0 !important;
+  }
+  .div-main-payment,
+  .div-pay-hist-main {
+    /* flex-direction: column; */
+    width: 100% !important;
+  }
+  .div-main-payment-card1,
+  .div-main-payment-card2,
+  .div-pay-hist-inner {
+    width: 80% !important;
+  }
+}

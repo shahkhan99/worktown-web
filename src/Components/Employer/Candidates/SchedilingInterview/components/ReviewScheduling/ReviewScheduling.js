@@ -3,19 +3,27 @@ import { BiArrowBack } from "react-icons/bi";
 import Select from "react-select";
 import moment from "moment";
 
-function ReviewScheduling({ handleSchedule, handleBack, data }) {
+function ReviewScheduling({
+  handleSchedule,
+  handleScheduleVirtual,
+  handleBack,
+  data,
+}) {
   const handleInputChange = (target, e) => {};
   const handleCompNext = () => {
     handleSchedule(data);
   };
-  console.log("check=> ", data);
+  const handleCompNextVitual = () => {
+    handleScheduleVirtual(data);
+  };
+  // console.log("check=> ", data);
   return (
     <div className="create-cont-div">
       <div className="create-head-div">
         <h4>Schedule Interview</h4>
       </div>
       <div className="epemp-main-div-edit-main">
-        <h6 style={{ fontSize: 15 }}>Review Details</h6>
+        <h6 style={{ fontSize: 19, textAlign: "center" }}>Review Details</h6>
         <div className="epemp-main-div-edit-inner-main">
           <div className="epemp-main-div-edit-inner">
             <label>Interview type</label>
@@ -25,15 +33,16 @@ function ReviewScheduling({ handleSchedule, handleBack, data }) {
             <label>
               {data.InterviewType === "Physical" ? "Venue" : "Platform"}
             </label>
-            <h6>{data.venue}</h6>
+            <h6>
+              {data.InterviewType === "Physical" ? data.venue : "Google Meet"}
+            </h6>
           </div>
 
-          <div className="epemp-main-div-edit-inner">
-            <label>
-              {data.InterviewType === "Physical"
-                ? "Pin Location"
-                : "Meeting Link"}
-            </label>
+          <div
+            className="epemp-main-div-edit-inner"
+            style={data.InterviewType === "Physical" ? {} : { display: "none" }}
+          >
+            <label>Pin Location</label>
             <h6>{data.venuePin}</h6>
           </div>
 
@@ -48,14 +57,20 @@ function ReviewScheduling({ handleSchedule, handleBack, data }) {
             <label>Time</label>
             <h6>{data.time}</h6>
           </div>
-          <div className="epemp-main-div-edit-inner">
+          <div
+            className="epemp-main-div-edit-inner"
+            style={data.InterviewType === "Physical" ? {} : { display: "none" }}
+          >
             <label>Alternate Date</label>
             <h6>
               {moment(data.Adate).format("dddd")},{" "}
               {moment(data.Adate).format("MMMM DD, YYYY")}
             </h6>
           </div>
-          <div className="epemp-main-div-edit-inner">
+          <div
+            className="epemp-main-div-edit-inner"
+            style={data.InterviewType === "Physical" ? {} : { display: "none" }}
+          >
             <label>Alternate Time</label>
             <h6>{data.Atime}</h6>
           </div>
@@ -63,7 +78,15 @@ function ReviewScheduling({ handleSchedule, handleBack, data }) {
       </div>
       <div className="bck-btn-emp-main">
         <div className="nxt-btn-emp">
-          <button type="button" class="nxt-btn-btn" onClick={handleCompNext}>
+          <button
+            type="button"
+            class="nxt-btn-btn"
+            onClick={
+              data.InterviewType === "Physical"
+                ? handleCompNext
+                : handleCompNextVitual
+            }
+          >
             Schedule
           </button>
         </div>

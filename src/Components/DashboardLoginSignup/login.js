@@ -39,6 +39,7 @@ export default function DashboardLogin() {
           });
           dispatch(set_current_user_data(result));
           // window.location.replace("http://localhost:3000/portal/");
+          console.log("run");
         }
         // ...
       } else {

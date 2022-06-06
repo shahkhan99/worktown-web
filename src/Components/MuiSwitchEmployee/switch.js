@@ -5,6 +5,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import { display } from "@mui/system";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -195,33 +196,30 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-export default function MuiSwitches({ handleCheck, setSelected_nav }) {
+export default function MuiSwitches({ handleSwitchEmployee, checkSide }) {
   const Check = (e) => {
-    handleCheck(e);
+    handleSwitchEmployee(e);
   };
-  // setSelected_nav(1);
+  console.log(checkSide);
   return (
-    <FormGroup>
+    <FormGroup style={!checkSide ? { display: "flex" } : { display: "none" }}>
       {/* <FormControlLabel
         control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
         label="MUI switch"
       />
-      <FormControlLabel 
+      <FormControlLabel
         control={<Android12Switch defaultChecked />}
         label="Android 12"
       /> */}
       <Stack direction="row" spacing={1} alignItems="center">
-        <Typography style={{ color: "#7D7D7D", fontSize: 15 }}>
-          Employee
+        <Typography style={{ color: "#7D7D7D", fontSize: 13 }}>
+          Available for Hire
         </Typography>
         <FormControlLabel
-          onClick={() => setSelected_nav(0)}
           control={<IOSSwitch sx={{ m: 1 }} defaultChecked Check={Check} />}
           label=""
         />
-        <Typography style={{ color: "#7D7D7D", fontSize: 15 }}>
-          Business
-        </Typography>
+        {/* <Typography>Business</Typography> */}
       </Stack>
       {/* <Stack direction="row" spacing={1} alignItems="center">
         <Typography>Off</Typography>

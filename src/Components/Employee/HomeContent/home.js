@@ -26,11 +26,22 @@ function Home() {
     setShowPersonFullData(true);
   };
   var nameArr = redux_data !== undefined && redux_data.Name.split(" ");
+  let date = new Date();
+  let hours = date.getHours();
+  let message =
+    hours < 12
+      ? "Good Morning"
+      : hours < 18
+      ? "Good Afternoon"
+      : "Good Evening";
   return (
     <React.Fragment>
       <div className="main-div">
         <div>
-          <h4>Good Evening, {redux_data !== undefined && nameArr[0]}!</h4>
+          <h4>
+            {" "}
+            {message}, {redux_data !== undefined && nameArr[0]}!
+          </h4>
         </div>
         <div className="div-main-payment">
           <div className="div-main-payment-card1">

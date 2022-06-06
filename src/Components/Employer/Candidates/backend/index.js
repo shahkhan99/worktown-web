@@ -11,6 +11,9 @@ import {
 } from "firebase/database";
 import UseWhatsapp from "whatsapp-react-component";
 import { send } from "emailjs-com";
+import moment from "moment";
+
+import { API_KEY_WT, CLIENT_ID_WT } from "./calenderAPI";
 
 const db = getDatabase();
 
@@ -30,7 +33,7 @@ const checkUser = async (currentUser, filter) => {
         cand = [];
         for (let i = 0; i < propertyNames.length; i++) {
           let seperated = propertyNames[i][1];
-          console.log(allCandidates);
+          // console.log(allCandidates);
           cand.push(seperated);
         }
         // console.log(filter);
@@ -233,7 +236,8 @@ const handleReject = async (
   filter,
   setShortlistedCandidates,
   setEditingState,
-  rejectionChange
+  rejectionChange,
+  dispatch
 ) => {
   setEditingState("");
 
@@ -247,6 +251,23 @@ const handleReject = async (
   )
     .then(() => {
       getJobTypeFilterCand(redux_data, setShortlistedCandidates, filter);
+      let alltimeRejDB = 0;
+      const all_time_rec = ref(db, `users/jobs_employer/${redux_data.uid}`);
+      onValue(all_time_rec, async (snapshot) => {
+        if (snapshot.exists()) {
+          let alltimeDB = snapshot.val();
+          alltimeRejDB = alltimeDB?.all_time_stats.all_time_archive
+            ? alltimeDB.all_time_stats.all_time_archive
+            : 0;
+        } else {
+          // console.log("No Data");
+        }
+      });
+      alltimeRejDB++;
+      // console.log("if", alltimeJobDB);
+      update(ref(db, `users/jobs_employer/${redux_data.uid}/all_time_stats`), {
+        all_time_archive: alltimeRejDB,
+      });
     })
     .catch(() => {
       alert("Something went wrong!");
@@ -300,12 +321,12 @@ const getInterviewCandidates = async (redux_data, setInterviewCandidates) => {
         if (snapshot.exists()) {
           let appResult = snapshot.val();
           let appArrResult = Object.values(appResult);
-          console.log(appArrResult);
+          // console.log(appArrResult);
           if (appArrResult.length) {
             let finalInterviewCandidate = arrResult.filter((e) => {
               return !appArrResult.some((v) => v.Email === e.Email);
             });
-            console.log(finalInterviewCandidate);
+            // console.log(finalInterviewCandidate);
             setInterviewCandidates(finalInterviewCandidate);
           }
         } else {
@@ -334,6 +355,175 @@ const handleCross = async (redux_data, v, filter, setShortlistedCandidates) => {
     .catch(() => {
       alert("Something went wrong!");
     });
+};
+
+const gapi = window.gapi;
+const DISCOVERY_DOC = [
+  "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
+];
+const SCOPES = "https://www.googleapis.com/auth/calendar";
+const handleScheduleInterviewVirtualBtn = async (redux_data, Appdata, e) => {
+  // console.log(redux_data, Appdata, e);
+
+  const convertTime12to24 = async (time12h) => {
+    console.log(time12h);
+    const [time, modifier] = time12h.split(" ");
+
+    let [hours, minutes] = time.split(":");
+
+    if (hours === "12") {
+      hours = "00";
+    }
+
+    if (modifier === "pm") {
+      hours = parseInt(hours, 10) + 12;
+    }
+
+    return `${hours}:${minutes}`;
+  };
+  let formattedDate = moment(Appdata.date).format("YYYY-MM-DD");
+  let formattedTime = (await convertTime12to24(Appdata.time)) + ":00";
+  let formattedendTime = parseInt(formattedTime) + 1;
+  let endTime = formattedendTime.toString() + ":00:00";
+
+  let finalStartDate = `${formattedDate}T${formattedTime}`;
+  let finalEndDate = `${formattedDate}T${endTime}`;
+
+  // console.log(finalStartDate, finalEndDate);
+
+  gapi.load("client:auth2", () => {
+    // console.log("loaded client", gapi);
+
+    gapi.client.init({
+      apiKey: API_KEY_WT,
+      clientId: CLIENT_ID_WT,
+      discoveryDocs: DISCOVERY_DOC,
+      scope: SCOPES,
+      plugin_name: "streamy",
+    });
+    // gapi.client.load("calendar", "v3", () => console.log("boom!!!"));
+    gapi.auth2
+      .getAuthInstance()
+      .signIn()
+      .then(() => {
+        var event = {
+          summary: "Google I/O 2015",
+          location: "Karachi, Pakistan",
+          description:
+            "A chance to hear more about Google's developer products.",
+          start: {
+            dateTime: finalStartDate,
+            timeZone: "Asia/Karachi",
+          },
+          end: {
+            dateTime: finalEndDate,
+            timeZone: "Asia/Karachi",
+          },
+          recurrence: ["RRULE:FREQ=DAILY;COUNT=1"],
+          attendees: [
+            { email: "lpage@example.com" },
+            { email: "sbrin@example.com" },
+          ],
+          reminders: {
+            useDefault: false,
+            overrides: [
+              { method: "email", minutes: 24 * 60 },
+              { method: "popup", minutes: 10 },
+            ],
+          },
+        };
+        var request = gapi.client.calendar.events.insert({
+          calendarId: "primary",
+          resource: event,
+          conferenceDataVersion: 1,
+          sendNotifications: true,
+          sendUpdates: "all",
+          conferenceData: {
+            createRequest: {
+              conferenceSolutionKey: {
+                type: "hangoutsMeet",
+              },
+              requestId: "any-random-string",
+            },
+          },
+          end: {
+            dateTime: finalEndDate,
+            timeZone: "Asia/Karachi",
+          },
+          start: {
+            dateTime: finalStartDate,
+            timeZone: "Asia/Karachi",
+          },
+          attendees: [
+            { email: "worktown.co@gmail.com" },
+            { email: "arhamabeerahmed@gmail.com" },
+          ],
+          source: {
+            title: "hey there!",
+            url: "https://worktown.co/",
+          },
+          summary: `Worktown: Interview w/ ${redux_data.BusinessName}`,
+        });
+
+        request.execute(async function (event) {
+          let employee_data = {
+            BusinessName: redux_data.BusinessName,
+            Name: redux_data.Name,
+            Phone: redux_data.Phone,
+            Email: redux_data.Email,
+            Interview_Details: Appdata,
+            eventID: event.id,
+          };
+          let employer_data = {
+            ...e,
+            eventID: event.id,
+            Interview_Details: Appdata,
+          };
+          console.log(employee_data, employer_data);
+          await update(
+            ref(
+              db,
+              `users/jobs_employer/${redux_data.uid}/appointments/${e.uid}`
+            ),
+            employer_data
+          )
+            .then(async () => {
+              await update(
+                ref(
+                  db,
+                  `users/jobs_employer/${e.uid}/employee_side_appointments/${redux_data.uid}`
+                ),
+                employee_data
+              );
+            })
+            .then(async () => {
+              let alltimeAppDB = 0;
+              const all_time_rec = ref(
+                db,
+                `users/jobs_employer/${redux_data.uid}`
+              );
+              onValue(all_time_rec, async (snapshot) => {
+                if (snapshot.exists()) {
+                  let alltimeDB = snapshot.val();
+                  alltimeAppDB = alltimeDB?.all_time_stats.all_time_appoitments
+                    ? alltimeDB.all_time_stats.all_time_appoitments
+                    : 0;
+                } else {
+                  // console.log("No Data");
+                }
+              });
+              alltimeAppDB++;
+              // console.log("if", alltimeJobDB);
+              update(
+                ref(db, `users/jobs_employer/${redux_data.uid}/all_time_stats`),
+                {
+                  all_time_appoitments: alltimeAppDB,
+                }
+              );
+            });
+        });
+      });
+  });
 };
 
 const handleScheduleInterviewBtn = async (redux_data, e, Appdata) => {
@@ -389,4 +579,5 @@ export {
   handleReject,
   handleCross,
   handleScheduleInterviewBtn,
+  handleScheduleInterviewVirtualBtn,
 };

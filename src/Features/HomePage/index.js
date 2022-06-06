@@ -2,7 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "rc-slider/assets/index.css";
 import { getDatabase } from "firebase/database";
-import { set, ref, push, child, update, onValue } from "@firebase/database";
+import {
+  set,
+  ref,
+  push,
+  child,
+  update,
+  onValue,
+  onChildAdded,
+} from "@firebase/database";
 import firebase from "../../config/firebase";
 import ReactFullpage from "@fullpage/react-fullpage";
 import Form1 from "./form1";
@@ -34,6 +42,8 @@ import roadgif from "../../assets/Vectors/road.gif";
 // import Cafe from "../../assets/Vectors/Cafe.mp4";
 import "react-tagsinput/react-tagsinput.css"; // If using WebPack and style-loader.
 import $ from "jquery";
+import { checkUserSession } from "./backend/index";
+import { connect } from "react-redux";
 
 import {
   dhabaOptions,
@@ -42,6 +52,7 @@ import {
   roomOptions,
   officeOptions,
 } from "./animationOptions";
+import { async } from "@firebase/util";
 const db = getDatabase();
 const SPREADSHEET_ID = "1tJUmkVph10mUleXZmVAlwIta2DwBeCJClYaGagUpxzA";
 const EMPLOYER_SPREADSHEET_ID = "1tJUmkVph10mUleXZmVAlwIta2DwBeCJClYaGagUpxzA";
@@ -60,7 +71,10 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      uId: "",
+      redux_data: null,
       submitionSuccess: true,
+      loginSession: false,
       wantedCategorySelection: false,
       skillTag: [],
       allUsers: {},
@@ -375,25 +389,6 @@ class HomePage extends React.Component {
 
       // console.log(this.state)
     } else {
-      // let gender = this.state.male ? "Male" : this.state.female ? "Female" : "";
-      // this.appendSpreadsheet({
-      //   Name: this.state.name,
-      //   Phone: this.state.phone,
-      //   City: this.state.city,
-      //   Email: this.state.email,
-      //   JobCategory: "",
-      //   JobType: "",
-      //   Experience: "",
-      //   Skills: "",
-      //   Education: "",
-      //   InterestedIn: "",
-      //   CurrentSalary: "",
-      //   Gender: gender,
-      //   EnglishLevel: "",
-      //   Achievement: "",
-      // });
-      // fullpageApi.moveTo(4, 0);
-
       let allEmployeesResult = {};
       let allEmployersResult = {};
       let allUsers = {};
@@ -406,52 +401,132 @@ class HomePage extends React.Component {
             allEmployersResult = snapshot.val();
             // console.log(allEmployersResult);
             let ObjVal = Object.values(allEmployersResult);
+            let findSimilarE = ObjVal.filter(
+              (e) => e.Email === this.state.email
+            );
             let findSimilar = ObjVal.filter(
-              (e) =>
-                e.Email === this.state.email || e.Phone === this.state.phone
+              (e) => e.Phone === this.state.phone
             );
             // this.setState({ allUsers: findSimilar });
-            console.log(findSimilar);
-            if (findSimilar.length > 1) {
-              console.log(
-                "Email or Phone number are registered to different accounts"
-              );
+            console.log(findSimilar, findSimilarE);
+            if (findSimilar.length && !findSimilarE.length) {
+              Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "Email or Phone is registered to different accounts",
+                showConfirmButton: true,
+                // timer: 1500,
+              });
+            } else if (!findSimilar.length && findSimilarE.length) {
+              Swal.fire({
+                position: "center",
+                icon: "error",
+                title:
+                  "It seems like you've not logged in. Make sure to logged in to post a new job",
+                showConfirmButton: true,
+                // timer: 1500,
+              });
+            } else if (findSimilar.length && findSimilarE.length) {
+              Swal.fire({
+                position: "center",
+                icon: "error",
+                title:
+                  "It seems like you've not logged in. Make sure to logged in to post a new job",
+                showConfirmButton: true,
+                // timer: 1500,
+              });
             }
           } else {
-            console.log("No data available");
+            let gender = this.state.male
+              ? "Male"
+              : this.state.female
+              ? "Female"
+              : "";
+            this.appendSpreadsheet({
+              Name: this.state.name,
+              Phone: this.state.phone,
+              City: this.state.city,
+              Email: this.state.email,
+              JobCategory: "",
+              JobType: "",
+              Experience: "",
+              Skills: "",
+              Education: "",
+              InterestedIn: "",
+              CurrentSalary: "",
+              Gender: gender,
+              EnglishLevel: "",
+              Achievement: "",
+            });
+            fullpageApi.moveTo(4, 0);
           }
         });
-      } else if (this.state.employee) {
-        const allEmployees = ref(db, `users/jobs_employer`);
+      } else {
+        const allEmployers = ref(db, `users/jobs_employer`);
 
-        onValue(allEmployees, (snapshot) => {
+        onValue(allEmployers, (snapshot) => {
           if (snapshot.exists()) {
-            allEmployeesResult = snapshot.val();
-            console.log(allEmployeesResult);
-            let ObjVal = Object.values(allEmployeesResult);
+            allEmployersResult = snapshot.val();
+            // console.log(allEmployersResult);
+            let ObjVal = Object.values(allEmployersResult);
+            let findSimilarE = ObjVal.filter(
+              (e) => e.Email === this.state.email
+            );
             let findSimilar = ObjVal.filter(
-              (e) =>
-                e.Email === this.state.email || e.Phone === this.state.phone
+              (e) => e.Phone === this.state.phone
             );
             // this.setState({ allUsers: findSimilar });
-            console.log(findSimilar);
-            if (findSimilar.length > 1) {
-              console.log(
-                "Email or Phone number are registered to different accounts"
-              );
+            console.log(findSimilar, findSimilarE);
+            if (findSimilar.length && !findSimilarE.length) {
+              Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "Email or Phone is registered to different accounts",
+                showConfirmButton: true,
+                // timer: 1500,
+              });
+            } else if (!findSimilar.length && findSimilarE.length) {
+              Swal.fire({
+                position: "center",
+                icon: "error",
+                title:
+                  "It seems like you've not logged in. Make sure to logged in to post a new job",
+                showConfirmButton: true,
+                // timer: 1500,
+              });
+            } else if (findSimilar.length && findSimilarE.length) {
+              Swal.fire({
+                position: "center",
+                icon: "error",
+                title:
+                  "It seems like you've not logged in. Make sure to logged in to post a new job",
+                showConfirmButton: true,
+                // timer: 1500,
+              });
             }
-            // if (
-            //   findSimilar[0].Email !== this.state.email ||
-            //   findSimilar[0].Phone !== this.state.phone
-            // ) {
-            //   console.log("Please enter same email and phone number");
-            // } else {
-            //   this.setState({
-            //     name: findSimilar[0].Name,
-            //   });
-            // }
           } else {
-            console.log("No data available");
+            let gender = this.state.male
+              ? "Male"
+              : this.state.female
+              ? "Female"
+              : "";
+            this.appendSpreadsheet({
+              Name: this.state.name,
+              Phone: this.state.phone,
+              City: this.state.city,
+              Email: this.state.email,
+              JobCategory: "",
+              JobType: "",
+              Experience: "",
+              Skills: "",
+              Education: "",
+              InterestedIn: "",
+              CurrentSalary: "",
+              Gender: gender,
+              EnglishLevel: "",
+              Achievement: "",
+            });
+            fullpageApi.moveTo(4, 0);
           }
         });
       }
@@ -633,8 +708,66 @@ class HomePage extends React.Component {
 
       fullpageApi.moveTo(5, 0);
     } else {
-      this.submitHandler(fullpageApi, selectedCategories, selectedSalTime);
-      fullpageApi.moveTo(7, 0);
+      let allEmployersResult = {};
+      let proceed = false;
+      const allEmployers = ref(db, `users/jobs_employer`);
+
+      onValue(allEmployers, (snapshot) => {
+        if (snapshot.exists()) {
+          allEmployersResult = snapshot.val();
+          // console.log(allEmployersResult);
+          let ObjVal = Object.values(allEmployersResult);
+          let findSimilarE = ObjVal.filter((e) => e.Email === this.state.email);
+          let findSimilar = ObjVal.filter((e) => e.Phone === this.state.phone);
+          // this.setState({ allUsers: findSimilar });
+          console.log(findSimilar, findSimilarE);
+          if (findSimilar.length && !findSimilarE.length) {
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: "Email or Phone is registered to different accounts",
+              showConfirmButton: true,
+              // timer: 1500,
+            });
+          } else if (!findSimilar.length && findSimilarE.length) {
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title:
+                "It seems like you've not logged in. Make sure to logged in to post a new job",
+              showConfirmButton: true,
+              // timer: 1500,
+            });
+          } else if (findSimilar.length && findSimilarE.length) {
+            if (this.state.loginSession) {
+              // this.
+              proceed = true;
+
+              // console.log("chal gya");
+            } else {
+              // console.log("chal gya else");
+              Swal.fire({
+                position: "center",
+                icon: "error",
+                title:
+                  "It seems like you've not logged in. Make sure to logged in to post a new job",
+                showConfirmButton: true,
+                // timer: 1500,
+              });
+            }
+          } else {
+            // console.log("New user", this.state);
+            proceed = true;
+          }
+        } else {
+          console.log("No data available");
+        }
+      });
+      if (proceed) {
+        this.submitHandler(fullpageApi, selectedCategories, selectedSalTime);
+        fullpageApi.moveTo(7, 0);
+        proceed = false;
+      }
     }
 
     // try {
@@ -839,6 +972,7 @@ class HomePage extends React.Component {
     const formIsValid = nameValid && emailValid && phoneValid;
     const formIsValidEmployer =
       nameValid && emailValid && phoneValid && companyValid;
+    // console.log(nameValid, emailValid, phoneValid, companyValid);
     let gender = this.state.male ? "Male" : this.state.female ? "Female" : "";
     let interest = selectedCategories.toString() || "";
     let SalaryTime = selectedSalTime.toString() || "";
@@ -850,7 +984,7 @@ class HomePage extends React.Component {
         Swal.fire({
           position: "center",
           icon: "error",
-          title: "Invalid input fields",
+          title: "Invalid input fields 1",
           showConfirmButton: true,
           // timer: 1500,
         });
@@ -861,7 +995,7 @@ class HomePage extends React.Component {
         Swal.fire({
           position: "center",
           icon: "error",
-          title: "Invalid input fields",
+          title: "Invalid input fields 2",
           showConfirmButton: true,
           // timer: 1500,
         });
@@ -891,7 +1025,7 @@ class HomePage extends React.Component {
       Swal.fire({
         position: "center",
         icon: "error",
-        title: "Invalid input fields",
+        title: "Invalid input fields 3",
         showConfirmButton: true,
         timer: 1000,
       });
@@ -917,6 +1051,8 @@ class HomePage extends React.Component {
           showLoading();
         }
         if (this.state.employer) {
+          console.log(this.state);
+
           this.emp_appendSpreadsheet({
             BusinessName: this.state.company,
             Name: this.state.name,
@@ -934,7 +1070,11 @@ class HomePage extends React.Component {
             EnglishLevel: this.state.eng_lvl,
             JobTime: SalaryTime,
           }).then(async () => {
-            let uid = this.state.phone;
+            let uid =
+              this.state.uId !== ""
+                ? this.state.uId
+                : push(child(ref(db), `users/jobs_employer/`)).key;
+            // let uid = this.state.phone;
 
             await update(ref(db, `users/jobs_employer/${uid}/`), {
               BusinessName: this.state.company,
@@ -944,10 +1084,10 @@ class HomePage extends React.Component {
               Email: this.state.email,
               uid: uid,
             }).then(async () => {
-              const key = this.state.experience + this.state.selectedJobOption;
-              // const key = push(
-              //   child(ref(db), `users/jobs_employer/${uid}/`)
-              // ).key;
+              const key = push(
+                child(ref(db), `users/jobs_employer/${uid}/jobs`)
+              ).key;
+              // this.state.experience + this.state.selectedJobOption;
               await update(ref(db, `users/jobs_employer/${uid}/jobs/${key}`), {
                 JobCategory: this.state.JobCategory,
                 City: this.state.city,
@@ -961,6 +1101,25 @@ class HomePage extends React.Component {
                 EnglishLevel: this.state.eng_lvl,
                 JobTime: SalaryTime,
                 key: key,
+              }).then(async () => {
+                let alltimeJobDB = 0;
+                const all_time_rec = ref(db, `users/jobs_employer/${uid}`);
+                onValue(all_time_rec, async (snapshot) => {
+                  if (snapshot.exists()) {
+                    let alltimeDB = snapshot.val();
+                    alltimeJobDB = alltimeDB?.all_time_stats
+                      ? alltimeDB.all_time_stats.all_time_jobs
+                      : 0;
+                  } else {
+                    // console.log("No Data");
+                  }
+                });
+                alltimeJobDB++;
+                // console.log("if", alltimeJobDB);
+                await update(
+                  ref(db, `users/jobs_employer/${uid}/all_time_stats`),
+                  { all_time_jobs: alltimeJobDB }
+                );
               });
             });
             this.setState({ isSubmit: false });
@@ -1405,7 +1564,9 @@ class HomePage extends React.Component {
       // });
     } catch (e) {}
   };
-  componentDidMount() {
+
+  async componentDidMount() {
+    await checkUserSession(this);
     this.readRows();
     this.emp_readRows();
 
@@ -1533,7 +1694,8 @@ class HomePage extends React.Component {
     defSkills.sort(function (a, b) {
       return a.localeCompare(b); //using String.prototype.localCompare()
     });
-    // console.log(this.state.allUsers);
+    console.log("data => ", this.state);
+
     // Swal.fire({
     //   position: "center",
     //   // icon: "success",
@@ -1913,7 +2075,11 @@ class HomePage extends React.Component {
     );
   }
 }
+const mapStateToProps = (state) => ({
+  redux_data: state.dashboard_auth,
+});
 
 // ReactDOM.render(<HomePage />, document.getElementById("react-root"));
+export default connect(mapStateToProps)(HomePage);
 
-export default HomePage;
+// export default HomePage;

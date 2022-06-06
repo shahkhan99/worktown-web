@@ -152,22 +152,12 @@ function ViewJobsEmployer() {
               <div className="shortlisted-ind-header-heading">
                 <div className="shortlisted-ind-header-heading-1">
                   <GrTechnology
-                    color="#000"
-                    size={35}
+                    color="#2C72E5"
+                    size={20}
                     style={{ marginRight: 15 }}
                   />
                   <h4>Software & IT</h4>
                 </div>
-                {/* <div className="shortlisted-ind-header-heading-2">
-                    <div className="div-cand-card-inner-skl-inn skl-inn-filter">
-                        <p>{filterSplit[0]}</p>
-                        <p>{filterSplit[1]}</p>
-                    </div>
-                    <PopupSelectFilter
-                        getFilterTitle={(e) => getFilterTitle(e)}
-                        job_options={job_options}
-                    />
-                    </div> */}
               </div>
             </div>
             <div className="div-cand-card-main">
@@ -180,38 +170,67 @@ function ViewJobsEmployer() {
                   </div>
                 ) : allJobs.length ? (
                   allJobs.map((v, i) => {
-                    // console.log(v.key === editingState);
-                    // var sklArr = v.Skills.split(",");
+                    var expSalFixed = v.ExpectedSalary.split("-");
+                    // console.log(expSalFixed[0]);
                     // var timeArr = v.InterestedIn.split(",");
-
+                    var sklArr = v.Skills.split(",");
                     return (
-                      <div className="div-cand-card div-cand-card-view-jobs">
+                      <div
+                        className="div-cand-card div-cand-card-view-jobs"
+                        style={v.key === editingState ? { height: 610 } : {}}
+                      >
                         {/* {console.log(nameArr[1] && nameArr[1][0])} */}
                         <div className="div-cand-card-header-loc-exp-main div-js-card-header-loc-exp-main">
-                          <h3 style={{ fontSize: 23 }}>{v.JobType} </h3>
-                          <div className="div-cand-card-header-loc-exp div-js-card-header-loc-exp">
-                            <p>
-                              <ImLocation
-                                color="#000"
-                                size={15}
-                                style={{ marginRight: 5 }}
-                              />
-                              {v.City}
-                            </p>
+                          <div className="div-jv-card-btn">
+                            <button
+                              style={
+                                v.key === editingState
+                                  ? { display: "none" }
+                                  : { display: "flex" }
+                              }
+                              onClick={() => handleEdit(v, i)}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              style={
+                                v.key === editingState
+                                  ? { display: "flex" }
+                                  : { display: "none" }
+                              }
+                              onClick={() => handleSave(i)}
+                            >
+                              Save
+                            </button>
+                            <button
+                              style={
+                                v.key === editingState
+                                  ? { display: "flex" }
+                                  : { display: "none" }
+                              }
+                              onClick={() => handleDelete(i)}
+                              className="div-jd-card-btn-int-rej"
+                            >
+                              Delete
+                            </button>
+                          </div>
+                          <div className="div_title_loc_main">
+                            <h3 style={{ fontSize: 20 }}>{v.JobType} </h3>
+                            <div className="div-cand-card-header-loc-exp div-js-card-header-loc-exp">
+                              <p>
+                                <ImLocation
+                                  color="#2C72E5"
+                                  size={13}
+                                  style={{ marginRight: 5, marginLeft: -1.25 }}
+                                />
+                                {v.City}
+                              </p>
+                            </div>
                           </div>
                         </div>
                         <div className="div-jv-basic-main-main-div">
                           <div className="div-jv-basic-main-div1">
                             <div className="div-jv-basic-jd">
-                              <label
-                                className={
-                                  v.key === editingState
-                                    ? "label-on-edit-jv-emp"
-                                    : ""
-                                }
-                              >
-                                Job description
-                              </label>
                               <p
                                 style={
                                   v.key === editingState
@@ -248,142 +267,264 @@ function ViewJobsEmployer() {
                                 />
                               </div>
                             </div>
-                            <div className="div-jv-basic-jt">
-                              <label
-                                className={
-                                  v.key === editingState
-                                    ? "label-on-edit-jv-emp"
-                                    : ""
-                                }
-                              >
-                                Job timings
-                              </label>
-                              <p
-                                style={
-                                  v.key === editingState
-                                    ? { display: "none" }
-                                    : { display: "flex" }
-                                }
-                              >
-                                {v.InterestedIn}
-                              </p>
-                              <div
-                                className="select-div-job-view-edit"
-                                style={
-                                  v.key === editingState
-                                    ? { display: "flex" }
-                                    : { display: "none" }
-                                }
-                              >
-                                <MultipleSelectCheckmarks
-                                  editingdata={editingdata}
-                                  getMuiTimings={getMuiTimings}
-                                />
-                              </div>
-                            </div>
                             <div
-                              className={
+                              className="div-jv-basic-jt-sal-main"
+                              style={
                                 v.key === editingState
-                                  ? "div-jv-basic-exps pos-bot-jv-emp"
-                                  : "div-jv-basic-exps"
+                                  ? { flexDirection: "column", height: 155 }
+                                  : {}
                               }
                             >
-                              <label
-                                className={
-                                  v.key === editingState
-                                    ? "label-on-edit-jv-emp"
-                                    : ""
-                                }
-                              >
-                                Salary
-                              </label>
-                              <p
-                                style={
-                                  v.key === editingState
-                                    ? { display: "none" }
-                                    : { display: "flex" }
-                                }
-                              >
-                                {v.ExpectedSalary} &nbsp; / &nbsp; {v.JobTime}{" "}
-                              </p>
-                              <div
-                                className="div-input-icon-emp-dash-edit-job"
-                                style={
-                                  v.key === editingState
-                                    ? { display: "flex" }
-                                    : { display: "none" }
-                                }
-                              >
-                                <input
-                                  id="name"
-                                  name="name"
-                                  onChange={(e) => setstrArr1(e.target.value)}
-                                  type="number"
-                                  style={{
-                                    fontFamily: "Lato",
-                                  }}
-                                  multiple
-                                  className=""
-                                  value={strArr1}
-                                />{" "}
-                              </div>
-                              <p
-                                style={
-                                  editingdata.JobTime === "Fixed"
-                                    ? {
-                                        display: "none",
-                                      }
-                                    : {
-                                        fontSize: 20,
-                                        width: "auto",
-                                        alignSelf: "center",
-                                        fontWeight: "bold",
-                                        padding: "0px 3px",
-                                      }
-                                }
-                              >
-                                -
-                              </p>
-                              <div
-                                className="div-input-icon-emp-dash-edit-job"
-                                style={
-                                  v.key === editingState
-                                    ? editingdata.JobTime === "Fixed"
-                                      ? {
-                                          display: "none",
-                                        }
-                                      : {
-                                          display: "flex",
-                                        }
-                                    : { display: "none" }
-                                }
-                              >
-                                <input
-                                  id="name"
-                                  name="name"
-                                  onChange={(e) => setstrArr2(e.target.value)}
-                                  type="number"
-                                  style={{
-                                    fontFamily: "Lato",
-                                  }}
-                                  multiple
-                                  className=""
-                                  value={strArr2}
-                                />{" "}
-                              </div>
-                              <span
-                                style={
-                                  v.key === editingState
-                                    ? { display: "flex" }
-                                    : { display: "none" }
-                                }
-                              >
-                                &nbsp; / &nbsp;{" "}
+                              <div className="div-jv-basic-jt">
+                                <label
+                                  className={
+                                    v.key === editingState
+                                      ? "label-on-edit-jv-emp"
+                                      : ""
+                                  }
+                                >
+                                  Job timings
+                                </label>
+                                <p
+                                  style={
+                                    v.key === editingState
+                                      ? { display: "none" }
+                                      : { display: "flex" }
+                                  }
+                                >
+                                  {v.InterestedIn}
+                                </p>
                                 <div
-                                  className="select-div-job-view-edit select-div-job-view-edit-span"
+                                  className="select-div-job-view-edit"
                                   style={
                                     v.key === editingState
                                       ? { display: "flex" }
+                                      : { display: "none" }
+                                  }
+                                >
+                                  <MultipleSelectCheckmarks
+                                    editingdata={editingdata}
+                                    getMuiTimings={getMuiTimings}
+                                  />
+                                </div>
+                              </div>
+                              <div
+                                className={
+                                  v.key === editingState
+                                    ? "div-jv-basic-exps pos-bot-jv-emp"
+                                    : "div-jv-basic-exps"
+                                }
+                              >
+                                <label
+                                  className={
+                                    v.key === editingState
+                                      ? "label-on-edit-jv-emp"
+                                      : ""
+                                  }
+                                >
+                                  Salary
+                                </label>
+                                <p
+                                  style={
+                                    v.key === editingState
+                                      ? { display: "none" }
+                                      : { display: "flex" }
+                                  }
+                                >
+                                  {v.JobTime === "Fixed"
+                                    ? expSalFixed[0]
+                                    : v.ExpectedSalary}{" "}
+                                  &nbsp;{" "}
+                                  <span className="span_sal_exp">
+                                    {" "}
+                                    / &nbsp; {v.JobTime}{" "}
+                                  </span>
+                                </p>
+                                <div
+                                  style={
+                                    v.key === editingState
+                                      ? { display: "flex" }
+                                      : { display: "none" }
+                                  }
+                                >
+                                  <div
+                                    className="div-input-icon-emp-dash-edit-job"
+                                    style={
+                                      v.key === editingState
+                                        ? { display: "flex" }
+                                        : { display: "none" }
+                                    }
+                                  >
+                                    <input
+                                      id="name"
+                                      name="name"
+                                      onChange={(e) =>
+                                        setstrArr1(e.target.value)
+                                      }
+                                      type="number"
+                                      style={{
+                                        fontFamily: "Lato",
+                                      }}
+                                      multiple
+                                      className=""
+                                      value={strArr1}
+                                    />{" "}
+                                  </div>
+                                  <p
+                                    style={
+                                      v.key === editingState
+                                        ? editingdata.JobTime === "Fixed"
+                                          ? {
+                                              display: "none",
+                                            }
+                                          : {
+                                              fontSize: 20,
+                                              width: "auto",
+                                              alignSelf: "center",
+                                              fontWeight: "bold",
+                                              padding: "0px 3px",
+                                            }
+                                        : { display: "none" }
+                                    }
+                                  >
+                                    -
+                                  </p>
+                                  <div
+                                    className="div-input-icon-emp-dash-edit-job"
+                                    style={
+                                      v.key === editingState
+                                        ? editingdata.JobTime === "Fixed"
+                                          ? {
+                                              display: "none",
+                                            }
+                                          : {
+                                              display: "flex",
+                                            }
+                                        : { display: "none" }
+                                    }
+                                  >
+                                    <input
+                                      id="name"
+                                      name="name"
+                                      onChange={(e) =>
+                                        setstrArr2(e.target.value)
+                                      }
+                                      type="number"
+                                      style={{
+                                        fontFamily: "Lato",
+                                      }}
+                                      multiple
+                                      className=""
+                                      value={strArr2}
+                                    />{" "}
+                                  </div>
+                                  <span
+                                    style={
+                                      v.key === editingState
+                                        ? {
+                                            display: "flex",
+                                            alignItems: "center",
+                                          }
+                                        : { display: "none" }
+                                    }
+                                  >
+                                    &nbsp; / &nbsp;{" "}
+                                    <div
+                                      className="select-div-job-view-edit select-div-job-view-edit-span"
+                                      style={
+                                        v.key === editingState
+                                          ? { display: "flex" }
+                                          : { display: "none" }
+                                      }
+                                    >
+                                      <select
+                                        onChange={(e) =>
+                                          setEditingData({
+                                            ...editingdata,
+                                            JobTime: e.target.value,
+                                          })
+                                        }
+                                        value={editingdata.JobTime}
+                                        // className={this.sta}
+                                        placeholder="Salary"
+                                        required
+                                      >
+                                        <option>Hourly</option>
+                                        <option>Monthly</option>
+                                        <option>Fixed</option>
+                                      </select>
+                                    </div>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="div-jv-basic-main-div2">
+                            <div className="div-jv-basic-skl">
+                              <label>Skills</label>
+                              <div className="div-cand-card-inner-short-jv">
+                                {sklArr.map((skl) => (
+                                  <p>{skl}</p>
+                                ))}
+                              </div>
+                            </div>
+                            <div
+                              className="div-jv-basic-exp-edu-eng-main"
+                              style={
+                                v.key === editingState
+                                  ? {
+                                      flexWrap: "wrap",
+                                      height: 220,
+                                      alignItems: "center",
+                                    }
+                                  : {}
+                              }
+                            >
+                              <div
+                                className="div-jv-basic-exp"
+                                style={
+                                  v.key === editingState
+                                    ? { width: "100%" }
+                                    : {}
+                                }
+                              >
+                                <label>Experience</label>
+                                <p>{v.Experience}</p>
+                              </div>
+
+                              <div
+                                className={
+                                  v.key === editingState
+                                    ? "div-jv-basic-edu pos-bot-jv-emp"
+                                    : "div-jv-basic-edu"
+                                }
+                                style={
+                                  v.key === editingState ? { width: "50%" } : {}
+                                }
+                              >
+                                <label
+                                  className={
+                                    v.key === editingState
+                                      ? "label-on-edit-jv-emp"
+                                      : ""
+                                  }
+                                >
+                                  Education
+                                </label>
+                                <p
+                                  style={
+                                    v.key === editingState
+                                      ? { display: "none" }
+                                      : { display: "flex" }
+                                  }
+                                >
+                                  {v.Education}
+                                </p>
+                                <div
+                                  className="select-div-job-view-edit"
+                                  style={
+                                    v.key === editingState
+                                      ? { display: "flex", width: 210 }
                                       : { display: "none" }
                                   }
                                 >
@@ -391,164 +532,78 @@ function ViewJobsEmployer() {
                                     onChange={(e) =>
                                       setEditingData({
                                         ...editingdata,
-                                        JobTime: e.target.value,
+                                        Education: e.target.value,
                                       })
                                     }
-                                    value={editingdata.JobTime}
+                                    value={editingdata.Education}
                                     // className={this.sta}
-                                    placeholder="Salary"
+                                    placeholder="Education"
                                     required
                                   >
-                                    <option>Hourly</option>
-                                    <option>Monthly</option>
-                                    <option>Fixed</option>
+                                    <option>Below 10th</option>
+                                    <option>Matric (10th)</option>
+                                    <option>Inter</option>
+                                    <option>Diploma</option>
+                                    <option>Graduate</option>
+                                    <option>Post Graduate</option>
                                   </select>
                                 </div>
-                              </span>
-                            </div>
-                          </div>
-                          <div className="div-jv-basic-main-div2">
-                            <div className="div-jv-basic-skl">
-                              <label>Skills</label>
-                              <p>{v.Skills}</p>
-                            </div>
-                            <div className="div-jv-basic-exp">
-                              <label>Experience</label>
-                              <p>{v.Experience}</p>
-                            </div>
-                            <div
-                              className={
-                                v.key === editingState
-                                  ? "div-jv-basic-edu pos-bot-jv-emp"
-                                  : "div-jv-basic-edu"
-                              }
-                            >
-                              <label
+                              </div>
+                              <div
                                 className={
                                   v.key === editingState
-                                    ? "label-on-edit-jv-emp"
-                                    : ""
+                                    ? "div-jv-basic-eng pos-bot-jv-emp"
+                                    : "div-jv-basic-eng"
                                 }
-                              >
-                                Education
-                              </label>
-                              <p
                                 style={
-                                  v.key === editingState
-                                    ? { display: "none" }
-                                    : { display: "flex" }
+                                  v.key === editingState ? { width: "50%" } : {}
                                 }
                               >
-                                {v.Education}
-                              </p>
-                              <div
-                                className="select-div-job-view-edit"
-                                style={
-                                  v.key === editingState
-                                    ? { display: "flex" }
-                                    : { display: "none" }
-                                }
-                              >
-                                <select
-                                  onChange={(e) =>
-                                    setEditingData({
-                                      ...editingdata,
-                                      Education: e.target.value,
-                                    })
+                                <label
+                                  className={
+                                    v.key === editingState
+                                      ? "label-on-edit-jv-emp"
+                                      : ""
                                   }
-                                  value={editingdata.Education}
-                                  // className={this.sta}
-                                  placeholder="Education"
-                                  required
                                 >
-                                  <option>Below 10th</option>
-                                  <option>Matric (10th)</option>
-                                  <option>Inter</option>
-                                  <option>Diploma</option>
-                                  <option>Graduate</option>
-                                  <option>Post Graduate</option>
-                                </select>
+                                  English Level
+                                </label>
+                                <p
+                                  style={
+                                    v.key === editingState
+                                      ? { display: "none" }
+                                      : { display: "flex" }
+                                  }
+                                >
+                                  {v.EnglishLevel}
+                                </p>
+                                <div
+                                  className="select-div-job-view-edit"
+                                  style={
+                                    v.key === editingState
+                                      ? { display: "flex", width: 210 }
+                                      : { display: "none" }
+                                  }
+                                >
+                                  <select
+                                    onChange={(e) =>
+                                      setEditingData({
+                                        ...editingdata,
+                                        EnglishLevel: e.target.value,
+                                      })
+                                    }
+                                    value={editingdata.EnglishLevel}
+                                    // className={this.sta}
+                                    placeholder="Eng Lvl"
+                                    required
+                                  >
+                                    <option>English-Urdu mix</option>
+                                    <option>Basic</option>
+                                    <option>Advance</option>
+                                  </select>
+                                </div>
                               </div>
                             </div>
-                            <div
-                              className={
-                                v.key === editingState
-                                  ? "div-jv-basic-eng pos-bot-jv-emp"
-                                  : "div-jv-basic-eng"
-                              }
-                            >
-                              <label
-                                className={
-                                  v.key === editingState
-                                    ? "label-on-edit-jv-emp"
-                                    : ""
-                                }
-                              >
-                                English Level
-                              </label>
-                              <p
-                                style={
-                                  v.key === editingState
-                                    ? { display: "none" }
-                                    : { display: "flex" }
-                                }
-                              >
-                                {v.EnglishLevel}
-                              </p>
-                              <div
-                                className="select-div-job-view-edit"
-                                style={
-                                  v.key === editingState
-                                    ? { display: "flex" }
-                                    : { display: "none" }
-                                }
-                              >
-                                <select
-                                  onChange={(e) =>
-                                    setEditingData({
-                                      ...editingdata,
-                                      EnglishLevel: e.target.value,
-                                    })
-                                  }
-                                  value={editingdata.EnglishLevel}
-                                  // className={this.sta}
-                                  placeholder="Eng Lvl"
-                                  required
-                                >
-                                  <option>English-Urdu mix</option>
-                                  <option>Basic</option>
-                                  <option>Advance</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="div-jv-card-btn">
-                            <button
-                              style={
-                                v.key === editingState
-                                  ? { display: "none" }
-                                  : { display: "flex" }
-                              }
-                              onClick={() => handleEdit(v, i)}
-                            >
-                              Edit
-                            </button>
-                            <button
-                              style={
-                                v.key === editingState
-                                  ? { display: "flex" }
-                                  : { display: "none" }
-                              }
-                              onClick={() => handleSave(i)}
-                            >
-                              Save
-                            </button>
-                            <button
-                              onClick={() => handleDelete(i)}
-                              className="div-cand-card-btn-int-rej"
-                            >
-                              Delete
-                            </button>
                           </div>
                         </div>
                         {/* <div className="div-exp-sal-view-jobs-employer">

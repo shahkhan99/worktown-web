@@ -4,6 +4,9 @@ import Select from "react-select";
 import Loader from "../../Loader/loader";
 import PopupSelectFilter from "./components/popupSelectFilter";
 import PersonFullData from "../../PersonFullData/PersonFullData";
+import Tech from "../assets/tech.png";
+import DropDown from "./components/dropdownMUI/dropdown";
+import { Backdrop } from "@mui/material";
 import {
   setFilterType,
   MatchingCandidates,
@@ -14,12 +17,12 @@ import {
   handleReject,
   handleCross,
   handleScheduleInterviewBtn,
+  handleScheduleInterviewVirtualBtn,
 } from "../backend/index";
 import { ImLocation, ImCross } from "react-icons/im";
 import { BsFilterLeft } from "react-icons/bs";
-import { API_KEY, CLIENT_ID } from "../backend/calenderAPI";
 import { GrTechnology } from "react-icons/gr";
-import { MdOutlineArrowDropDown } from "react-icons/md";
+import { MdLocationOn } from "react-icons/md";
 import { BiPhone } from "react-icons/bi";
 import { TiSortAlphabeticallyOutline } from "react-icons/ti";
 import { FaStar, FaUserGraduate } from "react-icons/fa";
@@ -50,7 +53,7 @@ function ShortlistedCandidates() {
   const [personFullData, setPersonFullData] = useState({});
   const [showPersonFullData, setShowPersonFullData] = useState(false);
   const [isReject, setIsReject] = useState(false);
-
+  const dispatch = useDispatch();
   const redux_data = useSelector(
     (state) => state.dashboard_auth.set_current_user_data
   );
@@ -91,68 +94,6 @@ function ShortlistedCandidates() {
     // console.log("current =>", v);
   };
 
-  const gapi = window.gapi;
-  const DISCOVERY_DOC = [
-    "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
-  ];
-  const SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
-  const handleScheduleInterview1 = (e) => {
-    gapi.load("client:auth2", () => {
-      console.log("loaded client");
-
-      gapi.client.init({
-        apiKey: API_KEY,
-        clientId: CLIENT_ID,
-        discoveryDocs: DISCOVERY_DOC,
-        scope: SCOPES,
-      });
-
-      gapi.client.load("calendar", "v3", () => console.log("boom!!!"));
-      gapi.auth2
-        .getAuthInstance()
-        .signIn()
-        .then(() => {
-          var event = {
-            summary: "Google I/O 2015",
-            location: "800 Howard St., San Francisco, CA 94103",
-            description:
-              "A chance to hear more about Google's developer products.",
-            start: {
-              dateTime: "2022-05-28T09:00:00-07:00",
-              timeZone: "America/Los_Angeles",
-            },
-            end: {
-              dateTime: "2022-05-28T17:00:00-07:00",
-              timeZone: "America/Los_Angeles",
-            },
-            recurrence: ["RRULE:FREQ=DAILY;COUNT=2"],
-            attendees: [
-              { email: "lpage@example.com" },
-              { email: "sbrin@example.com" },
-            ],
-            reminders: {
-              useDefault: false,
-              overrides: [
-                { method: "email", minutes: 24 * 60 },
-                { method: "popup", minutes: 10 },
-              ],
-            },
-          };
-
-          var request = gapi.client.calendar.events.insert({
-            calendarId: "primary",
-            resource: event,
-          });
-
-          request.execute(function (event) {
-            // window.open(event.htmlLink);
-            console.log(event);
-          });
-        });
-    });
-
-    // console.log(window.gapi);
-  };
   const handleScheduleInterview = (e) => {
     setScheduledCandidate(e);
     // console.log(e.Phone);
@@ -167,9 +108,7 @@ function ShortlistedCandidates() {
     setNormal(false);
     // handleScheduleInterviewBtn(redux_data, e);
   };
-  const checkOpenPopUp = () => {
-    // checkOpen();
-  };
+
   let filterSplit = filterType && filterType.split("/");
 
   // console.log("current =>", rejectionChange);
@@ -195,39 +134,60 @@ function ShortlistedCandidates() {
               <div className="shortlisted-ind-header">
                 <div className="shortlisted-ind-header-heading">
                   <div className="shortlisted-ind-header-heading-1">
-                    <GrTechnology
-                      color="#000"
-                      size={35}
+                    <img
+                      src={Tech}
+                      width={20}
+                      height={20}
                       style={{ marginRight: 15 }}
                     />
                     <h4>Software & IT</h4>
                   </div>
                   <div className="shortlisted-ind-header-heading-2">
                     {job_options.length ? (
-                      <BsFilterLeft
-                        color="#000"
-                        size={35}
-                        style={{ marginRight: 15 }}
-                        // onClick={() => handleClickOpen()}
-                      />
+                      <div style={{ width: "100%" }}>
+                        {/* <BsFilterLeft
+                          color="#000"
+                          size={35}
+                          style={{ marginRight: 15 }}
+                          onClick={() => checkOpenPopUp()}
+                        /> */}
+                        <DropDown
+                          job_options={job_options}
+                          filterSplit={filterSplit}
+                          getFilterTitle={(e) => getFilterTitle(e)}
+                        />
+                      </div>
                     ) : (
-                      // <PopupSelectFilter
-                      //   getFilterTitle={(e) => getFilterTitle(e)}
-                      //   job_options={job_options}
-                      //   filterSplit={filterSplit}
-                      // />
                       ""
                     )}
                   </div>
                 </div>
               </div>
+              {/* <div>
+                <div className="shortlisted-ind-header">
+                  <div className="shortlisted-ind-header-heading">
+                    <div className="shortlisted-ind-header-heading-1">
+                      <img
+                        src={Tech}
+                        width={20}
+                        height={20}
+                        style={{ marginRight: 15 }}
+                      />
+                      <PopupSelectFilter
+                        getFilterTitle={(e) => getFilterTitle(e)}
+                        job_options={job_options}
+                        filterSplit={filterSplit}
+                      />
+                    </div>
+                    <div className="shortlisted-ind-header-heading-2"></div>
+                  </div>
+                </div>
+              </div> */}
               <div className="div-cand-card-main">
-                <PopupSelectFilter
-                  getFilterTitle={(e) => getFilterTitle(e)}
-                  job_options={job_options}
-                  filterSplit={filterSplit}
-                />
-                <div className="div-cand-card-main-sub">
+                <div
+                  className="div-cand-card-main-sub"
+                  style={{ height: "100%" }}
+                >
                   {ShortlistedCandidates.length ? (
                     ShortlistedCandidates.map((v, i) => {
                       {
@@ -238,83 +198,52 @@ function ShortlistedCandidates() {
 
                       return (
                         <div className="frag">
-                          <img
-                            width={400}
-                            height={400}
-                            src={slope}
-                            className="div-cand-card-img"
-                          />
                           <div className="div-cand-card">
-                            <div className="div-cand-card-header-loc-exp-main">
-                              <h3>{nameArr[0]} </h3>
-                              <h4>{v.JobType}</h4>
-                            </div>
-                            <div className="div-cand-card-header-loc-exp">
-                              <p>
-                                <ImLocation
-                                  color="#fff"
-                                  size={15}
-                                  style={{ marginRight: 5 }}
-                                />
-                                {v.City}
-                              </p>
-                              {/* <p>
-                            <FaStar
-                              color="#000"
-                              size={15}
-                              style={{ marginRight: 5 }}
-                            />
-
-                            {v.Experience}
-                          </p> */}
+                            <div className="div-cand-card-header-loc-exp-main-new">
+                              <div className="div-cand-card-header-loc-exp-main">
+                                <h3>{nameArr[0]} </h3>
+                                <h4>{v.JobType}</h4>
+                              </div>
+                              <div className="div-cand-card-header-loc-exp">
+                                <p>
+                                  <MdLocationOn
+                                    color="#3E469D"
+                                    size={17}
+                                    style={{ marginRight: 0, width: 20 }}
+                                  />
+                                  {v.City}
+                                </p>
+                              </div>
                             </div>
                             <div className="div-cand-card-inner-skl-short">
                               <div className="div-cand-card-inner1-short">
+                                <label>Skills</label>
                                 <div className="div-cand-card-inner-short">
                                   {sklArr.map((skl) => (
                                     <p>{skl}</p>
                                   ))}
                                 </div>
-
-                                <div className="div-cand-card-inner-timing-short">
-                                  {timeArr.map((time) => (
-                                    <p> &#9679; {time} &nbsp;</p>
-                                  ))}
-                                </div>
+                              </div>
+                              <div className="div-cand-card-inner-timing-short">
+                                {timeArr.map((time) => (
+                                  <p>
+                                    {" "}
+                                    <span> &#9679;</span> {time} &nbsp;
+                                  </p>
+                                ))}
                               </div>
                               <div className="div-cand-card-inner-skl-inn1-short">
                                 <div className="div-cand-card-inner1-fields-short">
-                                  <label>
-                                    {" "}
-                                    <FaStar
-                                      color="#fff"
-                                      size={20}
-                                      style={{ marginRight: 5 }}
-                                    />
-                                    <p>{v.Experience}</p>
-                                  </label>
+                                  <label>Experience</label>
+                                  <p>{v.Experience}</p>
                                 </div>
                                 <div className="div-cand-card-inner1-fields-short">
-                                  <label>
-                                    {" "}
-                                    <FaUserGraduate
-                                      color="#fff"
-                                      size={15}
-                                      style={{ marginRight: 5 }}
-                                    />
-                                    <p>{v.Education}</p>
-                                  </label>
+                                  <label>Education</label>
+                                  <p>{v.Education}</p>
                                 </div>
                                 <div className="div-cand-card-inner1-fields-short">
-                                  <label>
-                                    {" "}
-                                    <TiSortAlphabeticallyOutline
-                                      color="#fff"
-                                      size={20}
-                                      style={{ marginRight: 5 }}
-                                    />
-                                    <p>{v.EnglishLevel}</p>
-                                  </label>
+                                  <label>English Level</label>
+                                  <p>{v.EnglishLevel}</p>
                                 </div>
                               </div>
                               <div className="div-cand-card-achieve-short">
@@ -367,7 +296,8 @@ function ShortlistedCandidates() {
                                     filterType,
                                     setShortlistedCandidates,
                                     setEditingState,
-                                    rejectionChange
+                                    rejectionChange,
+                                    dispatch
                                   )
                                 }
                                 className="div-cand-card-btn-int-rej"
@@ -413,7 +343,15 @@ function ShortlistedCandidates() {
                   ) : ShortlistedCandidates === "" ? (
                     <Loader />
                   ) : (
-                    <div className="int-overflow-h3">
+                    <div
+                      className="int-overflow-h3"
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: "100%",
+                      }}
+                    >
                       <h3 className="int-overflow-h3-">
                         No Candidates available
                       </h3>
@@ -485,8 +423,8 @@ function ShortlistedCandidates() {
                         </div>
                       </div>
                       <div className="div-cand-card-btn-int">
+                        {/* <button onClick={() => handleScheduleInterview1(v)}> */}
                         <button onClick={() => handleScheduleInterview(v)}>
-                          {/* <button onClick={() => handleScheduleInterview(v)}> */}
                           Schedule Interview
                         </button>
                       </div>
@@ -512,6 +450,7 @@ function ShortlistedCandidates() {
           handleScheduleInterviewBtn={handleScheduleInterviewBtn}
           redux_data={redux_data}
           scheduledCandidate={scheduledCandidate}
+          handleScheduleInterviewVirtualBtn={handleScheduleInterviewVirtualBtn}
         />
       </div>
       <div
@@ -521,7 +460,7 @@ function ShortlistedCandidates() {
         {showPersonFullData ? (
           <PersonFullData
             setShowPersonFullData={setShowPersonFullData}
-            viewCand={personFullData}
+            v={personFullData}
           />
         ) : (
           <></>

@@ -34,6 +34,7 @@ export default function DashboardLoginSignup() {
             return obj.Email === uEmail;
           });
           console.log(result);
+          console.log("run");
           dispatch(set_current_user_data(result));
           // window.location.replace("http://localhost:3000/portal/");
         }

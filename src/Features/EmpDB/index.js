@@ -34,15 +34,15 @@ function Employer_DB() {
     <Home />,
     <ShortlistedCandidates />,
     <ViewJobsEmployer />,
-    <Stepper />,
-    <Archieve />,
     <EditProfileEmployer />,
+    <Archieve />,
+    <Stepper />,
   ];
   const Components1 = [
     <Home1 />,
     <EditProfessionalDetails />,
-    <EditProfileEmployee />,
     <ViewCV />,
+    <EditProfileEmployee />,
     <ScheduledInterview />,
   ];
   const getEmployeeOrEmployer = (e) => {
@@ -107,7 +107,7 @@ function Employer_DB() {
   } else {
     if (isUser) {
       return (
-        <div style={{ height: "100%", display: "flex", background: "#f3f0f0" }}>
+        <div style={{ height: "100%", display: "flex", background: "#F5F5F5" }}>
           {/* <WTRouter /> */}
           <Left_navigation
             checkNav={checkNav}

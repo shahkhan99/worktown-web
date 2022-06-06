@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./home.css";
 import Logo from "../../../assets/Logo/logo.png";
 import { GiAntiAircraftGun } from "react-icons/gi";
+import Swal from "sweetalert2";
 import { useSelector, useDispatch } from "react-redux";
-import { GetAppointments, GetStats } from "./backend";
+import { GetAppointments, GetStats, CancelAppointment } from "./backend";
 import { Button } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import moment from "moment";
 import PersonFullData from "../../PersonFullData/PersonFullData";
 function Home() {
@@ -13,6 +16,7 @@ function Home() {
   );
 
   const [showPersonFullData, setShowPersonFullData] = useState(false);
+  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
   const [viewCand, setViewCand] = useState({});
   const [appt, setAppt] = useState([]);
   const [stats, setStats] = useState([]);
@@ -26,8 +30,37 @@ function Home() {
     setViewCand(v);
     setShowPersonFullData(true);
   };
+  const handleCancelAppointment = (v) => {
+    setShowDeleteWarning(true);
+    Swal.fire({
+      title: `Are you sure to cancel your appoinment with ${v.Name}?`,
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      // timer: 1000,
+      showConfirmButton: true,
+      showDenyButton: true,
+      denyButtonText: `Don't Cancel`,
+      confirmButtonText: `Cancel`,
+    }).then((result) => {
+      // console.log(result);
+      if (result.isConfirmed) {
+        CancelAppointment(redux_data, v);
+        // console.log("cancel");
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
+    });
+  };
 
   var nameArr = redux_data !== undefined && redux_data.Name.split(" ");
+  let date = new Date();
+  let hours = date.getHours();
+  let message =
+    hours < 12
+      ? "Good Morning"
+      : hours < 17
+      ? "Good Afternoon"
+      : "Good Evening";
   console.log(stats);
   return (
     <React.Fragment>
@@ -40,7 +73,9 @@ function Home() {
         }
       >
         <div>
-          <h4>Good Evening, {redux_data !== undefined && nameArr[0]}!</h4>
+          <h4>
+            {message}, {redux_data !== undefined && nameArr[0]}!
+          </h4>
         </div>
         <div className="div-main-payment">
           <div className="div-main-payment-card1">
@@ -67,17 +102,47 @@ function Home() {
             </div>
             {stats.length ? (
               <div className="div-stats-ul-empployer">
-                <div className="div-stats-ul-empployer-div apt-li-cls-1">
-                  <label>Number of Appointments</label>
-                  <p>{Object.keys(stats[0]?.appointments).length}</p>
+                <div className="div-stats-ul-empployer-div apt-li-cls-2">
+                  <label>Active Appointments</label>
+                  <p>
+                    {stats.length
+                      ? Object.keys(stats[0]?.appointments)?.length
+                      : 0}
+                  </p>
                 </div>
                 <div className="div-stats-ul-empployer-div apt-li-cls-2">
-                  <label>Number of Job Posts</label>
-                  <p>{Object.keys(stats[0]?.jobs).length}</p>
+                  <label>Active Job Posts</label>
+                  <p>
+                    {stats.length ? Object.keys(stats[0]?.jobs)?.length : 0}
+                  </p>
                 </div>
-                <div className="div-stats-ul-empployer-div apt-li-cls-1">
-                  <label>Number of Archive</label>
-                  <p>{Object.keys(stats[0]?.archive).length}</p>
+                <div className="div-stats-ul-empployer-div apt-li-cls-2">
+                  <label>Active Archive</label>
+                  <p>
+                    {stats.length ? Object.keys(stats[0]?.archive)?.length : 0}
+                  </p>
+                </div>
+                <div className="div-stats-ul-empployer-div apt-li-cls-2">
+                  <label>Total Appointments</label>
+                  <p>
+                    {stats.length
+                      ? stats[0]?.all_time_stats?.all_time_appoitments
+                      : 0}
+                  </p>
+                </div>
+                <div className="div-stats-ul-empployer-div apt-li-cls-2">
+                  <label>Total Job Posts</label>
+                  <p>
+                    {stats.length ? stats[0]?.all_time_stats?.all_time_jobs : 0}
+                  </p>
+                </div>
+                <div className="div-stats-ul-empployer-div apt-li-cls-2">
+                  <label>Total Archive</label>
+                  <p>
+                    {stats.length
+                      ? stats[0]?.all_time_stats?.all_time_archive
+                      : 0}
+                  </p>
                 </div>
               </div>
             ) : (
@@ -91,7 +156,7 @@ function Home() {
                   fontSize: 20,
                 }}
               >
-                No Appointments...
+                No Stats...
               </h6>
             )}
           </div>
@@ -109,11 +174,7 @@ function Home() {
                     //   )
                     // );
                     return (
-                      <li
-                        className={
-                          i % 2 === 0 ? "apt-li-cls-1" : "apt-li-cls-2"
-                        }
-                      >
+                      <li className={"apt-li-cls-1"}>
                         <p>{v.Name}</p>
                         <p>
                           {moment(v.Interview_Details.date).format(
@@ -122,13 +183,41 @@ function Home() {
                           at{" "}
                           {moment(v.Interview_Details.date).format("hh:mm A")}
                         </p>
-                        <Button
+                        <span className="apt-li-cls-span">
+                          <Button
+                            size="small"
+                            style={
+                              i % 2 === 0
+                                ? { borderColor: "#fff", color: "#fff" }
+                                : { borderColor: "#fff", color: "#fff" }
+                            }
+                            variant="outlined"
+                            onClick={() => handleViewBtn(v)}
+                          >
+                            View
+                          </Button>
+                          {/* <Button
                           size="small"
-                          variant="outlined"
-                          onClick={() => handleViewBtn(v)}
+                          variant={i % 2 !== 0 ? "outlined" : "contained"}
+                          color="error"
+                          
+                          // onClick={() => handleViewBtn(v)}
                         >
-                          View
-                        </Button>
+                          Cancel
+                        </Button> */}
+                          <IconButton
+                            aria-label="delete"
+                            sx={
+                              i % 2 !== 0
+                                ? { color: "#fff" }
+                                : { color: "#fff" }
+                            }
+                            size="small"
+                            onClick={() => handleCancelAppointment(v)}
+                          >
+                            <DeleteOutlinedIcon fontSize="medium" />
+                          </IconButton>
+                        </span>
                       </li>
                     );
                   })
@@ -158,7 +247,7 @@ function Home() {
         {showPersonFullData ? (
           <PersonFullData
             setShowPersonFullData={setShowPersonFullData}
-            viewCand={viewCand}
+            v={viewCand}
           />
         ) : (
           <></>

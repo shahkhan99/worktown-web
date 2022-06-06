@@ -16,6 +16,8 @@ function ConfirmTime({ handleNext, handleBack, setData, data }) {
     if (value !== null && Avalue !== null) {
       await setData({ ...data, Adate: value, Atime: Avalue });
       handleNext();
+    } else {
+      alert("All fields are mandatory.");
     }
   };
   const handleChange = (v) => {
@@ -71,7 +73,7 @@ function ConfirmTime({ handleNext, handleBack, setData, data }) {
                   onClick={() => handleChange(v)}
                   style={
                     v.id === id
-                      ? { backgroundColor: "#f0bd3a" }
+                      ? { backgroundColor: "#3E469D", color: "#fff" }
                       : { background: "#fff" }
                   }
                 >

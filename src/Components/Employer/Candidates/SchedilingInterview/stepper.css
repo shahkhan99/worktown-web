@@ -1,11 +1,11 @@
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
-  color: #f0bd3a !important;
+  color: #3e469d !important;
 }
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root {
   color: rgba(0, 0, 0, 0.38);
 }
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
-  color: #f0bd3a !important;
+  color: #3e469d !important;
 }
 .stepper_exit_mui_btn_shortlisted {
   display: flex;
@@ -13,7 +13,7 @@
   width: 75%;
 }
 .input-stepper-schedule {
-  width: 100%;
+  width: 50%;
 }
 .div-schediling-step-info_date {
   display: flex;
@@ -73,8 +73,8 @@
   width: 50%;
   height: 40px;
   border-radius: 10px;
-  border: 1px solid #f0bd3a;
-  background: #f0bd3a;
+  border: 1px solid #3e469d;
+  background: #3e469d;
   color: #fff;
   font-size: 20px;
   letter-spacing: 5px;
@@ -91,7 +91,7 @@
   align-items: center;
 }
 .bck-btn-emp-main {
-  width: 100%;
+  width: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -136,7 +136,7 @@
   cursor: pointer;
 }
 .slots-time-picker:hover {
-  background-color: #f0bd3a;
+  background-color: #3e469d;
 }
 .div-schediling-step-info-phy-vir {
   display: flex;
@@ -156,6 +156,6 @@
   font-size: 20px;
 }
 .div-schediling-step-info-phy-vir-inner:hover {
-  background-color: #f0bd3a;
+  background-color: #3e469d;
   color: #fff;
 }

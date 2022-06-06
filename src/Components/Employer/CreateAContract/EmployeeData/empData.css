@@ -15,7 +15,8 @@
 }
 .div-input-emp {
   background-color: transparent !important;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
 }
 .div-inputs-emp {
   width: 80%;
