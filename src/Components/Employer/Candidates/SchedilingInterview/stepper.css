@@ -81,7 +81,7 @@
   cursor: pointer;
 }
 .sch-stepper-form-div {
-  background-color: #f3f0f0;
+  /* background-color: #f3f0f0; */
   width: 100%;
   /* padding: 20px 150px; */
   display: flex;
@@ -158,4 +158,48 @@
 .div-schediling-step-info-phy-vir-inner:hover {
   background-color: #3e469d;
   color: #fff;
+}
+.css-1s8ir4e {
+  display: flex !important;
+  flex-direction: column !important;
+}
+.create-cont-div-rv_scg {
+  background-color: transparent !important;
+}
+@media (min-width: 1051px) and (max-width: 1420px) {
+  .css-m5vj9m-MuiStepper-root {
+    height: 75px !important;
+  }
+  .stepper_exit_mui_btn_shortlisted {
+    align-self: center;
+    position: relative;
+    top: 20px;
+  }
+  .nxt-btn-btn {
+    height: 35px;
+    width: 60%;
+  }
+  .input-stepper-schedule {
+    width: 85%;
+  }
+  .slots-time-picker {
+    height: 35px;
+    width: 20%;
+    border-radius: 12px;
+  }
+  .div-input-icon-date-sch {
+    width: 100%;
+  }
+  .div-inputs-schediling-step_date {
+    width: 90%;
+  }
+  .sch-stepper-form-div {
+    height: 80%;
+  }
+  .div-input-icon-date-sch-time {
+    height: 185px;
+  }
+  .create-cont-div-rv_scg {
+    height: 77%;
+  }
 }

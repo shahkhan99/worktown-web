@@ -63,7 +63,10 @@ function ConfirmDate({ handleNext, handleBack, setData, data }) {
             </LocalizationProvider>
           </div>
           <h6>Confirm Time Slot</h6>
-          <div className="div-input-icon-date-sch" style={{}}>
+          <div
+            className="div-input-icon-date-sch div-input-icon-date-sch-time"
+            style={{}}
+          >
             {timeslots.map((v) => {
               return (
                 <div

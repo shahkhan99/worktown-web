@@ -18,7 +18,7 @@ function ReviewScheduling({
   };
   // console.log("check=> ", data);
   return (
-    <div className="create-cont-div">
+    <div className="create-cont-div create-cont-div-rv_scg">
       <div className="create-head-div">
         <h4>Schedule Interview</h4>
       </div>
