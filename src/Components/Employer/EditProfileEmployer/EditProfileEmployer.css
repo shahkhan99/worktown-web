@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 100%;
+  width: 97%;
 }
 .epemp-main-div-edit-inner-main {
   width: 100%;
@@ -174,16 +174,24 @@
 
 @media (min-width: 1051px) and (max-width: 1420px) {
   .epemp-main-div {
-    width: 80%;
+    width: 100%;
   }
   .frag-profile {
     width: 100%;
   }
   .epemp-main-div-edit-main-1st {
-    width: 320px;
+    width: 350px;
+    height: 470px;
+    padding: 20px;
   }
   .epemp-main-div-edit-main {
-    width: 610px;
+    width: 640px;
     padding: 20px;
+    height: 470px;
+  }
+  .epemp-main-div-edit-inner button {
+    height: 35px;
+    width: 90px;
+    font-size: 16px;
   }
 }

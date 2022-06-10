@@ -13,8 +13,12 @@
 .dash-login-main-div-input-pass {
   height: auto;
 }
-.dash-login-main-div-input div {
+.div-input-icon_login {
   background-color: #fff !important;
+  align-items: center;
+}
+.div-input-icon_reg {
+  align-items: center;
 }
 .dash-login-main-div-inner {
   width: 100%;
@@ -34,14 +38,14 @@
   height: 40px;
   border: 0;
   border-radius: 16px;
-  background: #f0bd3a;
+  background: #3d459d;
   cursor: pointer;
   color: white;
   font-size: 17px;
   margin-bottom: 10px;
 }
 .dash-login-main-div-btn button:hover {
-  background: rgb(255, 226, 111);
+  background: #3d459dbd;
 }
 .swal2-title {
   font-family: lato !important;

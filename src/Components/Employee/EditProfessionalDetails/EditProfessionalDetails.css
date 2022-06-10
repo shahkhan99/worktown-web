@@ -1,6 +1,6 @@
 .select-div-prof-det-edit {
   text-align: center;
-  width: 60%;
+  width: 90%;
   height: 30px;
   padding: 5px;
   border-width: 0px;
@@ -24,8 +24,12 @@
   margin-top: -7px;
   width: 80%;
 }
+.salary_opt_edit_prof_det123 {
+  margin-top: 0px;
+}
 .epemp-main-div-edit-prof-det {
-  width: 62%;
+  width: 90%;
+  align-items: center;
 }
 .css-6j8wv5-Input {
   display: flex !important;
@@ -37,4 +41,24 @@
 .css-g1d714-ValueContainer {
   height: 60px !important;
   padding-top: 10px !important;
+}
+.epemp-main-div-edit-main-1st-employee-profession {
+  width: 420px;
+  height: 550px;
+  padding: 20px 40px;
+}
+.epemp-main-div-edit-inner-employee-profession-2 {
+  width: 90%;
+}
+
+@media (min-width: 1051px) and (max-width: 1450px) {
+  .epemp-main-div-edit-main-1st-employee-profession {
+    height: 500px;
+    width: 350px;
+  }
+
+  .epemp-main-div-edit-main-employee {
+    width: 600px;
+    height: 500px;
+  }
 }

@@ -41,8 +41,8 @@ function Employer_DB() {
   const Components1 = [
     <Home1 />,
     <EditProfessionalDetails />,
-    <ViewCV />,
     <EditProfileEmployee />,
+    <ViewCV />,
     <ScheduledInterview />,
   ];
   const getEmployeeOrEmployer = (e) => {

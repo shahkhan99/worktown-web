@@ -8,14 +8,16 @@ import Backdrop from "@mui/material/Backdrop";
 
 import { BsFilterLeft } from "react-icons/bs";
 import "./dropdown.css";
+import MaxWidthDialog from "../dialogSelect/dialogSelect";
 
 export default function ControlledOpenSelect({
   job_options,
   filterSplit,
   getFilterTitle,
+  filterTyped,
 }) {
   const [age, setAge] = React.useState("");
-  const [open, setOpen] = React.useState(false);
+  const [checkopen, setCheckOpen] = React.useState(false);
   const [selected, setSelected] = React.useState(0);
   const [filterType, setFilterType] = React.useState("");
 
@@ -29,55 +31,24 @@ export default function ControlledOpenSelect({
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setCheckOpen(false);
   };
 
   const handleOpen = () => {
-    setOpen(true);
+    setCheckOpen(true);
   };
   // console.log(selected);
 
   return (
     <div style={{ width: "100%" }}>
-      <FormControl sx={{ m: 1, minWidth: 0 }}>
-        <Select
-          IconComponent={() => null}
-          labelId="demo-controlled-open-select-label"
-          id="demo-controlled-open-select"
-          open={open}
-          onClose={handleClose}
-          onOpen={handleOpen}
-          value=""
-          onChange={(e) => handleChange(setFilterType, e)}
-          style={{ width: 630, borderRadius: 13 }}
-          disableEscapeKeyDown
-          // MenuProps={{
-          //   style: { zIndex: 35001 },
-          // }}
-        >
-          {jobs_filter.length
-            ? jobs_filter.map((v, i) => (
-                <MenuItem
-                  style={
-                    selected === i
-                      ? {
-                          backgroundColor: "#3e469d",
-                          color: "#fff",
-                          width: 630,
-                          borderRadius: 13,
-                        }
-                      : { width: 630 }
-                  }
-                  key={i}
-                  value={v[0] + "/" + v[1]}
-                  onClick={() => setSelected(i)}
-                >
-                  {`${v[0]}(${v[1]})`}
-                </MenuItem>
-              ))
-            : ""}
-        </Select>
-      </FormControl>
+      <MaxWidthDialog
+        getFilterTitle={getFilterTitle}
+        job_options={job_options}
+        filterSplit={filterSplit}
+        filterTyped={filterTyped}
+        checkopen={checkopen}
+        handleClosed={handleClose}
+      />
       <BsFilterLeft
         color="#000"
         size={35}
@@ -86,7 +57,7 @@ export default function ControlledOpenSelect({
       />
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
+        open={checkopen}
         onClick={handleClose}
         // style={{ width: "100%" }}
       ></Backdrop>

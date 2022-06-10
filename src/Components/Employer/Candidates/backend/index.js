@@ -421,8 +421,9 @@ const handleScheduleInterviewVirtualBtn = async (redux_data, Appdata, e) => {
           },
           recurrence: ["RRULE:FREQ=DAILY;COUNT=1"],
           attendees: [
-            { email: "lpage@example.com" },
-            { email: "sbrin@example.com" },
+            { email: e.Email },
+            { email: redux_data.Email },
+            { email: "worktown.co@gmail.com" },
           ],
           reminders: {
             useDefault: false,
@@ -455,8 +456,9 @@ const handleScheduleInterviewVirtualBtn = async (redux_data, Appdata, e) => {
             timeZone: "Asia/Karachi",
           },
           attendees: [
+            { email: e.Email },
+            { email: redux_data.Email },
             { email: "worktown.co@gmail.com" },
-            { email: "arhamabeerahmed@gmail.com" },
           ],
           source: {
             title: "hey there!",
@@ -535,8 +537,6 @@ const handleScheduleInterviewBtn = async (redux_data, e, Appdata) => {
     send_by: "hello@worktown.co",
   };
 
-  console.log(redux_data, e);
-
   let employee_data = {
     BusinessName: redux_data.BusinessName,
     Name: redux_data.Name,
@@ -544,6 +544,8 @@ const handleScheduleInterviewBtn = async (redux_data, e, Appdata) => {
     Email: redux_data.Email,
     Interview_Details: Appdata,
   };
+
+  console.log(employee_data);
   // console.log(employee_data);
   // await update(
   //   ref(db, `users/jobs_employer/${redux_data.uid}/appointments/${e.uid}`),
@@ -564,7 +566,160 @@ const handleScheduleInterviewBtn = async (redux_data, e, Appdata) => {
   //   .catch((err) => {
   //     console.log("FAILED...", err);
   //   });
-  // UseWhatsapp(e.Phone, "hello");
+
+  const convertTime12to24 = async (time12h) => {
+    // console.log(time12h);
+    const [time, modifier] = time12h.split(" ");
+
+    let [hours, minutes] = time.split(":");
+
+    if (hours === "12") {
+      hours = "00";
+    }
+
+    if (modifier === "pm") {
+      hours = parseInt(hours, 10) + 12;
+    }
+
+    return `${hours}:${minutes}`;
+  };
+  let formattedDate = moment(Appdata.date).format("YYYY-MM-DD");
+  let formattedTime = (await convertTime12to24(Appdata.time)) + ":00";
+  let formattedendTime = parseInt(formattedTime) + 1;
+  let endTime = formattedendTime.toString() + ":00:00";
+
+  let finalStartDate = `${formattedDate}T${formattedTime}`;
+  let finalEndDate = `${formattedDate}T${endTime}`;
+
+  // console.log(employee_data);
+  // console.log(finalStartDate, finalEndDate);
+
+  gapi.load("client:auth2", () => {
+    console.log("loaded client", gapi);
+
+    gapi.client.init({
+      apiKey: API_KEY_WT,
+      clientId: CLIENT_ID_WT,
+      discoveryDocs: DISCOVERY_DOC,
+      scope: SCOPES,
+      plugin_name: "streamy",
+    });
+    gapi.client.load("calendar", "v3", () => console.log("boom!!!"));
+    gapi.auth2
+      .getAuthInstance()
+      .signIn()
+      .then(() => {
+        var event = {
+          summary: "Google I/O 2015",
+          location: employee_data.Interview_Details.venuePin,
+          description: `Location Name: ${employee_data.Interview_Details.venue}`,
+
+          start: {
+            dateTime: finalStartDate,
+            timeZone: "Asia/Karachi",
+          },
+          end: {
+            dateTime: finalEndDate,
+            timeZone: "Asia/Karachi",
+          },
+          recurrence: ["RRULE:FREQ=DAILY;COUNT=1"],
+
+          attendees: [
+            { email: e.Email },
+            { email: redux_data.Email },
+            { email: "worktown.co@gmail.com" },
+          ],
+          creator: {
+            email: redux_data.Email,
+            displayName: redux_data.BusinessName,
+            self: true,
+          },
+          sendNotifications: true,
+          sendUpdates: "all",
+          reminders: {
+            useDefault: false,
+            overrides: [
+              { method: "email", minutes: 24 * 60 },
+              { method: "popup", minutes: 10 },
+            ],
+          },
+
+          source: {
+            title: "from Worktown",
+            url: "https://worktown.co/",
+          },
+          summary: `Worktown: Interview w/ ${redux_data.BusinessName}`,
+        };
+        var request = gapi.client.calendar.events.insert({
+          calendarId: "primary",
+          resource: event,
+          sendUpdates: "all",
+          sendNotifications: true,
+        });
+
+        request.execute(async function (event) {
+          let employee_data = {
+            BusinessName: redux_data.BusinessName,
+            Name: redux_data.Name,
+            Phone: redux_data.Phone,
+            Email: redux_data.Email,
+            Interview_Details: Appdata,
+            eventID: event.id,
+          };
+          let employer_data = {
+            ...e,
+            eventID: event.id,
+            Interview_Details: Appdata,
+          };
+
+          // console.log(event);
+          // console.log(employee_data, employer_data);
+          await update(
+            ref(
+              db,
+              `users/jobs_employer/${redux_data.uid}/appointments/${e.uid}`
+            ),
+            employer_data
+          )
+            .then(async () => {
+              await update(
+                ref(
+                  db,
+                  `users/jobs_employer/${e.uid}/employee_side_appointments/${redux_data.uid}`
+                ),
+                employee_data
+              );
+            })
+            .then(async () => {
+              let alltimeAppDB = 0;
+              const all_time_rec = ref(
+                db,
+                `users/jobs_employer/${redux_data.uid}`
+              );
+              onValue(all_time_rec, async (snapshot) => {
+                if (snapshot.exists()) {
+                  let alltimeDB = snapshot.val();
+                  alltimeAppDB = alltimeDB?.all_time_stats.all_time_appoitments
+                    ? alltimeDB.all_time_stats.all_time_appoitments
+                    : 0;
+                } else {
+                  // console.log("No Data");
+                }
+              });
+              alltimeAppDB++;
+              // console.log("if", alltimeJobDB);
+              update(
+                ref(db, `users/jobs_employer/${redux_data.uid}/all_time_stats`),
+                {
+                  all_time_appoitments: alltimeAppDB,
+                }
+              );
+              // UseWhatsapp(e.Phone, "hello");
+              window.open(event.htmlLink, "_blank");
+            });
+        });
+      });
+  });
 };
 
 export {

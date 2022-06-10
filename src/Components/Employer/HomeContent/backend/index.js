@@ -69,6 +69,7 @@ const CancelAppointment = (redux_data, candidate) => {
       scope: SCOPES,
       plugin_name: "streamy",
     });
+    // gapi.auth2.getAuthInstance().signOut();
     // gapi.client.load("calendar", "v3", () => console.log("boom!!!"));
     gapi.auth2
       .getAuthInstance()

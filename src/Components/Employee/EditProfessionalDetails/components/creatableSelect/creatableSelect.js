@@ -111,7 +111,7 @@ export default function CreatableMulti({
     inputValue.length > 0 && selectValue.length < 10;
   return (
     <CreatableSelect
-      className="salary_opt_edit_prof_det"
+      className="salary_opt_edit_prof_det salary_opt_edit_prof_det123"
       options={skills_options}
       isMulti
       onChange={(e) => handleInputChange(e)}

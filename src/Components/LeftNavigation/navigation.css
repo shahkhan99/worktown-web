@@ -75,6 +75,36 @@ li {
   background-color: #f3f0f0;
 } */
 
+@media (min-width: 1051px) and (max-width: 1420px) {
+  .nav-main-div {
+    width: 220px;
+  }
+  li {
+    width: 140px;
+    height: 35px;
+  }
+  .left_nav_businessName {
+    width: 170px;
+    height: 35px;
+  }
+  .nav_div_cross_logo {
+    width: 170px;
+    height: 50px;
+  }
+  .nav-div-ul {
+    height: 250px;
+  }
+  .nav-div-ul-log {
+    height: 100px;
+  }
+  .nav-div-switches {
+    height: 50px;
+  }
+  .css-mz0twm-MuiSwitch-root {
+    margin: 0 !important;
+  }
+}
+
 /* MOBILE SCREEN CSS */
 
 @media (min-width: 360px) and (max-width: 767px) {

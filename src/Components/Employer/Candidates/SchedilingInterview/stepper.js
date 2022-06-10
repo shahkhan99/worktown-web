@@ -35,7 +35,6 @@ export default function HorizontalLinearStepper({
     "Confirm venue",
     "Provide gmap location",
     "Confirm date & time slot",
-    "Confirm alternate date & time",
     "Schedule",
   ];
   const steps1 = [
@@ -63,6 +62,7 @@ export default function HorizontalLinearStepper({
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
   const handleExit = () => {
+    setActiveStep(0);
     setScheduleData({});
     setNormal(true);
   };
@@ -103,12 +103,7 @@ export default function HorizontalLinearStepper({
       setData={setData}
       data={data}
     />,
-    <ConfirmTime
-      handleNext={handleNext}
-      handleBack={handleBack}
-      setData={setData}
-      data={data}
-    />,
+
     <ReviewScheduling
       handleSchedule={handleSchedule}
       handleScheduleVirtual={handleScheduleVirtual}

@@ -350,6 +350,11 @@ h1 {
   left: 10px;
   font-size: 17px;
 }
+.din_show_password_home {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
 @media only screen and (max-width: 1420px) {
   /* .job t-btn {
     left: 2% !important;

@@ -4,7 +4,7 @@ import Logo from "../../assets/Logo/logo.png";
 import { AiOutlineHome, AiOutlinePlusCircle } from "react-icons/ai";
 import { FaUserNinja, FaRegEdit, FaUserCircle } from "react-icons/fa";
 import { GoSignOut } from "react-icons/go";
-import { HiViewGrid } from "react-icons/hi";
+import { HiViewGrid, HiDocumentText } from "react-icons/hi";
 import { MdArchive } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import { getAuth, signOut } from "firebase/auth";
@@ -33,12 +33,36 @@ function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
   const [li_items2, set_li_items2] = useState([
     "Home",
     "Professional Details",
-    "Your Resume / CV",
     "Profile",
+    "Your Resume / CV",
     // "Recommended Jobs",
     // "Scheduled Interviews",
     // "View Jobs",
   ]);
+  const icons1 = [
+    <HiViewGrid
+      color={selected_nav === 0 ? "#fff" : "#000"}
+      size={16}
+      style={{ marginRight: 5 }}
+    />,
+
+    <FaUserNinja
+      color={selected_nav === 1 ? "#fff" : "#000"}
+      size={16}
+      style={{ marginRight: 5 }}
+    />,
+
+    <FaUserCircle
+      color={selected_nav === 2 ? "#fff" : "#000"}
+      size={16}
+      style={{ marginRight: 5 }}
+    />,
+    <HiDocumentText
+      color={selected_nav === 3 ? "#fff" : "#000"}
+      size={17}
+      style={{ marginRight: 5 }}
+    />,
+  ];
   const icons = [
     <HiViewGrid
       color={selected_nav === 0 ? "#fff" : "#000"}
@@ -163,7 +187,7 @@ function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
                   );
                 })
               : li_items2.map((v, i) => {
-                  const Icon = icons[i];
+                  const Icon1 = icons1[i];
                   return (
                     <li
                       onClick={() => {
@@ -173,11 +197,11 @@ function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
                       key={i}
                       style={
                         i == selected_nav
-                          ? { backgroundColor: "#2C72E5", color: "#fff" }
+                          ? { backgroundColor: "#3E469D", color: "#fff" }
                           : {}
                       }
                     >
-                      {Icon}
+                      {Icon1}
                       {v}
                     </li>
                   );
@@ -185,7 +209,7 @@ function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
           </ul>
         </div>
         <div className="nav-div">
-          <ul className="nav-div-ul">
+          <ul className="nav-div-ul nav-div-ul-log">
             <li onClick={() => Logout()} className={"li"}>
               <GoSignOut color="#000" size={16} style={{ marginRight: 5 }} />
               Logout

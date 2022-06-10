@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { handleRegister } from "../../Components/DashboardLoginSignup/backend/index";
 import { HiOutlineMail } from "react-icons/hi";
 import { RiLockPasswordLine } from "react-icons/ri";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 export default class Form6 extends Component {
   constructor(props) {
@@ -9,11 +10,26 @@ export default class Form6 extends Component {
     this.state = {
       password: "",
       cPassword: "",
+      type: false,
     };
   }
   handleDone = (email) => {
     let { cPassword, password } = this.state;
+    console.log(password, cPassword, email);
     // handleRegister(email, password, cPassword);
+  };
+  ShowPassword = () => {
+    var x = document.getElementById("pass_show");
+    var x1 = document.getElementById("pass_show1");
+    if (x.type === "password" && x1.type === "password") {
+      x.type = "text";
+      x1.type = "text";
+      this.setState({ type: true });
+    } else {
+      x.type = "password";
+      x1.type = "password";
+      this.setState({ type: false });
+    }
   };
   render() {
     const ctx = this.props.ctx;
@@ -53,7 +69,7 @@ export default class Form6 extends Component {
                 disabled
                 id="email"
                 name="email"
-                value={ctx.props.email}
+                value={ctx.state.email}
                 type="email"
                 // placeholder="We need your full name"
                 style={{
@@ -65,7 +81,6 @@ export default class Form6 extends Component {
               />
             </div>
           </div>
-
           <div className="a-input-field">
             <label className="input-label">
               Password
@@ -78,20 +93,20 @@ export default class Form6 extends Component {
                 *
               </span>
             </label>
-            <div className="div-input-icon">
+            <div className="div-input-icon div-input-icon_reg">
               <RiLockPasswordLine
                 color="#3D459D"
-                size={17}
+                size={20}
                 className="svg-u"
                 style={{
                   position: "relative",
-                  top: 13,
+                  top: 2,
                   left: 10,
                 }}
               />
               <input
                 placeholder="Password"
-                id="name"
+                id="pass_show"
                 name="name"
                 type="password"
                 // placeholder="We need your full name"
@@ -100,11 +115,27 @@ export default class Form6 extends Component {
                   fontSize: 17,
                   color: "#868686",
                   height: "auto",
+                  margin: 0,
                 }}
                 // value={this.state.name}
                 className="a-r-input-box"
                 onChange={(e) => this.setState({ password: e.target.value })}
               />
+              {this.state.type ? (
+                <AiFillEye
+                  color="#3D459D"
+                  size={25}
+                  style={{ marginRight: 15, cursor: "pointer" }}
+                  onClick={() => this.ShowPassword()}
+                />
+              ) : (
+                <AiFillEyeInvisible
+                  color="#3D459D"
+                  size={25}
+                  style={{ marginRight: 15, cursor: "pointer" }}
+                  onClick={() => this.ShowPassword()}
+                />
+              )}
             </div>
           </div>
           <div className="a-input-field">
@@ -119,20 +150,20 @@ export default class Form6 extends Component {
                 *
               </span>
             </label>
-            <div className="div-input-icon">
+            <div className="div-input-icon div-input-icon_reg">
               <RiLockPasswordLine
                 color="#3D459D"
-                size={17}
+                size={20}
                 className="svg-u"
                 style={{
                   position: "relative",
-                  top: 13,
+                  top: 2,
                   left: 10,
                 }}
               />
               <input
                 placeholder="Confirm password"
-                id="name"
+                id="pass_show1"
                 name="name"
                 type="password"
                 // placeholder="We need your full name"
@@ -141,11 +172,27 @@ export default class Form6 extends Component {
                   fontSize: 17,
                   color: "#868686",
                   height: "auto",
+                  margin: 0,
                 }}
                 // value={this.state.name}
                 onChange={(e) => this.setState({ cPassword: e.target.value })}
                 className="a-r-input-box"
-              />
+              />{" "}
+              {this.state.type ? (
+                <AiFillEye
+                  color="#3D459D"
+                  size={25}
+                  style={{ marginRight: 15, cursor: "pointer" }}
+                  onClick={() => this.ShowPassword()}
+                />
+              ) : (
+                <AiFillEyeInvisible
+                  color="#3D459D"
+                  size={25}
+                  style={{ marginRight: 15, cursor: "pointer" }}
+                  onClick={() => this.ShowPassword()}
+                />
+              )}
             </div>
           </div>
 
@@ -153,7 +200,7 @@ export default class Form6 extends Component {
             <button
               type="button"
               class="done-btn-home-page "
-              onClick={() => this.handleDone(ctx.props.email)}
+              onClick={() => this.handleDone(ctx.state.email)}
             >
               Done
             </button>

@@ -5,10 +5,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { set_current_user_data } from "../../store/action/index";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Loading from "../../assets/Loader/worktown-loader.gif";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 export default function DashboardLogin() {
   const redux_data = useSelector((state) => state.dashboard_auth);
-  console.log(redux_data);
+  // console.log(redux_data);
   const dispatch = useDispatch();
   const auth = getAuth();
 
@@ -18,41 +19,56 @@ export default function DashboardLogin() {
   const [checkUser, setCheckUser] = useState("");
   // const [Employee, setEmployee] = useState("");
   const [checking, setChecking] = useState(true);
+  const [type, setType] = useState(false);
 
   useEffect(async () => {
     await getUsers(setCheckUser);
     // await getEmployees(setCheckUser);
-    await onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        const uEmail = user.email;
-        if (uEmail) {
-          await getUsers(setCheckUser);
-          const getObjs = (obj) => Object.values(checkUser);
-          let users = getObjs(checkUser);
-          let gotEmail = users.filter((e) => {
-            return e.Email === uEmail;
-          });
-          var result = gotEmail.find((obj) => {
-            return obj.Email === uEmail;
-          });
-          dispatch(set_current_user_data(result));
-          // window.location.replace("http://localhost:3000/portal/");
-          console.log("run");
+    if (checkUser === "") {
+      await onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          const uEmail = user.email;
+          if (uEmail) {
+            await getUsers(setCheckUser);
+            const getObjs = (obj) => Object.values(checkUser);
+            let users = getObjs(checkUser);
+            let gotEmail = users.filter((e) => {
+              return e.Email === uEmail;
+            });
+            var result = gotEmail.find((obj) => {
+              return obj.Email === uEmail;
+            });
+            dispatch(set_current_user_data(result));
+            // window.location.replace("http://localhost:3000/portal/");
+            console.log("run");
+          }
+
+          // ...
+        } else {
+          // User is signed out
+          setChecking(false);
+          // ...
         }
-        // ...
-      } else {
-        // User is signed out
-        setChecking(false);
-        // ...
-      }
-    });
+      });
+    }
   }, []);
 
-  console.log(checkUser);
+  // console.log(checkUser);
   const set_data = (user) => {
     // dispatch(set_current_user_data(user));
+  };
+  const ShowPassword = () => {
+    var x = document.getElementById("pass_show");
+
+    if (x.type === "password") {
+      x.type = "text";
+      setType(true);
+    } else {
+      x.type = "password";
+      setType(false);
+    }
   };
 
   if (checking) {
@@ -95,7 +111,7 @@ export default function DashboardLogin() {
                 *
               </span>
             </label>
-            <div className="div-input-icon">
+            <div className="div-input-icon div-input-icon_login">
               {/* <FaRegUser
             color="#3D459D"
             size={17}
@@ -117,6 +133,7 @@ export default function DashboardLogin() {
                   fontFamily: "Lato",
                   fontSize: 17,
                   color: "#868686",
+                  marginBottom: 5,
                 }}
                 // value={this.state.name}
                 className="a-r-input-box"
@@ -135,10 +152,10 @@ export default function DashboardLogin() {
                 *
               </span>
             </label>
-            <div className="div-input-icon">
+            <div className="div-input-icon div-input-icon_login">
               <input
                 placeholder="password"
-                id="name"
+                id="pass_show"
                 name="name"
                 onChange={(pass) => {
                   setPassword(pass.target.value);
@@ -149,6 +166,7 @@ export default function DashboardLogin() {
                   fontFamily: "Lato",
                   fontSize: 17,
                   color: "#868686",
+                  marginBottom: 5,
                 }}
                 // value={this.state.name}
                 className="a-r-input-box dash-login-main-div-input-pass "
@@ -164,9 +182,23 @@ export default function DashboardLogin() {
                   )
                 }
               />
+              {type ? (
+                <AiFillEye
+                  color="#3D459D"
+                  size={25}
+                  style={{ marginRight: 15, cursor: "pointer" }}
+                  onClick={() => ShowPassword()}
+                />
+              ) : (
+                <AiFillEyeInvisible
+                  color="#3D459D"
+                  size={25}
+                  style={{ marginRight: 15, cursor: "pointer" }}
+                  onClick={() => ShowPassword()}
+                />
+              )}
             </div>
           </div>
-
           <div className="dash-login-main-div-btn">
             <button
               onClick={() =>

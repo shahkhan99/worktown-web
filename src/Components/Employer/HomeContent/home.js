@@ -168,11 +168,7 @@ function Home() {
               <ul>
                 {appt.length ? (
                   appt.map((v, i) => {
-                    // console.log(
-                    //   moment(v.Interview_Details.date).format(
-                    //     "MMMM Do YYYY, h:mm:ss a"
-                    //   )
-                    // );
+                    console.log(v.Interview_Details);
                     return (
                       <li className={"apt-li-cls-1"}>
                         <p>{v.Name}</p>
@@ -180,8 +176,7 @@ function Home() {
                           {moment(v.Interview_Details.date).format(
                             "MMMM DD, YYYY"
                           )}{" "}
-                          at{" "}
-                          {moment(v.Interview_Details.date).format("hh:mm A")}
+                          at {v.Interview_Details.time}
                         </p>
                         <span className="apt-li-cls-span">
                           <Button

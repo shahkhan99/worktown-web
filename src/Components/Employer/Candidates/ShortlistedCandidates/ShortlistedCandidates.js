@@ -6,6 +6,7 @@ import PopupSelectFilter from "./components/popupSelectFilter";
 import PersonFullData from "../../PersonFullData/PersonFullData";
 import Tech from "../assets/tech.png";
 import DropDown from "./components/dropdownMUI/dropdown";
+
 import { Backdrop } from "@mui/material";
 import {
   setFilterType,
@@ -111,7 +112,7 @@ function ShortlistedCandidates() {
 
   let filterSplit = filterType && filterType.split("/");
 
-  // console.log("current =>", rejectionChange);
+  // console.log("current =>", filterType);
   return (
     <React.Fragment>
       <div
@@ -155,6 +156,7 @@ function ShortlistedCandidates() {
                           job_options={job_options}
                           filterSplit={filterSplit}
                           getFilterTitle={(e) => getFilterTitle(e)}
+                          filterTyped={filterType}
                         />
                       </div>
                     ) : (
@@ -194,6 +196,7 @@ function ShortlistedCandidates() {
                         var sklArr = v.Skills.split(",");
                         var nameArr = v.Name.split(" ");
                         var timeArr = v.InterestedIn.split(",");
+                        timeArr.sort();
                       }
 
                       return (
@@ -216,6 +219,9 @@ function ShortlistedCandidates() {
                               </div>
                             </div>
                             <div className="div-cand-card-inner-skl-short">
+                              <div className="div-cand-card-achieve-short">
+                                <p>{v.Achievement}</p>
+                              </div>
                               <div className="div-cand-card-inner1-short">
                                 <label>Skills</label>
                                 <div className="div-cand-card-inner-short">
@@ -245,9 +251,6 @@ function ShortlistedCandidates() {
                                   <label>English Level</label>
                                   <p>{v.EnglishLevel}</p>
                                 </div>
-                              </div>
-                              <div className="div-cand-card-achieve-short">
-                                <p>{v.Achievement}</p>
                               </div>
                             </div>
 
@@ -376,8 +379,8 @@ function ShortlistedCandidates() {
                       <div className="int-cross">
                         <ImCross
                           color="#000"
-                          size={15}
-                          style={{ position: "absolute", right: 0, top: 10 }}
+                          size={13}
+                          style={{ position: "absolute", right: 0, top: 9 }}
                           onClick={() =>
                             handleCross(
                               redux_data,
@@ -398,9 +401,21 @@ function ShortlistedCandidates() {
                         <h3>{v.JobType}</h3>
                         <div className="div-cand-card-inner-skl-exp-loc-main">
                           <div className="div-cand-card-inner1-fields">
+                            <p>
+                              <MdLocationOn
+                                color="#3e469d"
+                                size={16}
+                                style={{
+                                  marginRight: 3,
+                                  top: 2,
+                                  position: "relative",
+                                }}
+                              />
+                              {v.City}
+                            </p>
                             <label>
                               <FaStar
-                                color="#000"
+                                color="#3e469d"
                                 size={15}
                                 style={{
                                   marginRight: 5,
@@ -410,15 +425,6 @@ function ShortlistedCandidates() {
                               />
                               {v.Experience}
                             </label>
-
-                            <p style={{ marginTop: 5 }}>
-                              <ImLocation
-                                color="#000"
-                                size={15}
-                                style={{ marginRight: 5 }}
-                              />
-                              {v.City}
-                            </p>
                           </div>
                         </div>
                       </div>
@@ -458,10 +464,12 @@ function ShortlistedCandidates() {
         style={showPersonFullData ? { display: "flex" } : { display: "none" }}
       >
         {showPersonFullData ? (
-          <PersonFullData
-            setShowPersonFullData={setShowPersonFullData}
-            v={personFullData}
-          />
+          <React.Fragment>
+            <PersonFullData
+              setShowPersonFullData={setShowPersonFullData}
+              v={personFullData}
+            />
+          </React.Fragment>
         ) : (
           <></>
         )}

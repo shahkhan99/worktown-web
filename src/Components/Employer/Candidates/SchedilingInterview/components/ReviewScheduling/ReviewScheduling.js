@@ -57,23 +57,6 @@ function ReviewScheduling({
             <label>Time</label>
             <h6>{data.time}</h6>
           </div>
-          <div
-            className="epemp-main-div-edit-inner"
-            style={data.InterviewType === "Physical" ? {} : { display: "none" }}
-          >
-            <label>Alternate Date</label>
-            <h6>
-              {moment(data.Adate).format("dddd")},{" "}
-              {moment(data.Adate).format("MMMM DD, YYYY")}
-            </h6>
-          </div>
-          <div
-            className="epemp-main-div-edit-inner"
-            style={data.InterviewType === "Physical" ? {} : { display: "none" }}
-          >
-            <label>Alternate Time</label>
-            <h6>{data.Atime}</h6>
-          </div>
         </div>
       </div>
       <div className="bck-btn-emp-main">
