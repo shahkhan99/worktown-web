@@ -916,6 +916,15 @@ input[type="range"]:focus {
     top: 0;
     /* top: -20px; */
   }
+  .center_bottom_mix {
+    flex-direction: column;
+  }
+  .wait-btn-main-div {
+    width: 100%;
+  }
+  .goto_portal_btn {
+    width: auto;
+  }
   .div-input-jbdesc {
     height: 90px;
     padding: 0px;
@@ -998,10 +1007,15 @@ input[type="range"]:focus {
     width: 17px !important;
     height: 10px !important;
   }
+
   .svg-j {
     top: 17px !important;
     width: 17px !important;
     height: 12px !important;
+  }
+  .svg-u1 {
+    width: 17px !important;
+    height: 11px !important;
   }
   .svg-m {
     top: 15.5px !important;
@@ -1037,8 +1051,17 @@ input[type="range"]:focus {
     font-size: 24px !important;
     width: 100%;
   }
-  .salary-div h1 {
-    margin-bottom: 0px;
+  .salary-div1 h1 {
+    font-size: 24px !important;
+    width: 80%;
+  }
+  .salary-div h1,
+  .salary-div1 h1 {
+    margin-bottom: 0px !important;
+  }
+  .salary-div1 {
+    top: -30px;
+    position: relative;
   }
   .salary-div-time {
     margin-bottom: 5px;

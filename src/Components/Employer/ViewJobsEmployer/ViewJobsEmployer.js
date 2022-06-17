@@ -219,7 +219,7 @@ function ViewJobsEmployer() {
                             <div className="div-cand-card-header-loc-exp div-js-card-header-loc-exp">
                               <p>
                                 <ImLocation
-                                  color="#2C72E5"
+                                  color="#3e469d"
                                   size={13}
                                   style={{ marginRight: 5, marginLeft: -1.25 }}
                                 />
@@ -346,6 +346,7 @@ function ViewJobsEmployer() {
                                       ? { display: "flex" }
                                       : { display: "none" }
                                   }
+                                  className="div_jv_sal_inner_100"
                                 >
                                   <div
                                     className="div-input-icon-emp-dash-edit-job"
@@ -521,7 +522,7 @@ function ViewJobsEmployer() {
                                   {v.Education}
                                 </p>
                                 <div
-                                  className="select-div-job-view-edit"
+                                  className="select-div-job-view-edit select-div-job-view-edit-eng-edu"
                                   style={
                                     v.key === editingState
                                       ? { display: "flex", width: 210 }
@@ -578,7 +579,7 @@ function ViewJobsEmployer() {
                                   {v.EnglishLevel}
                                 </p>
                                 <div
-                                  className="select-div-job-view-edit"
+                                  className="select-div-job-view-edit select-div-job-view-edit-eng-edu"
                                   style={
                                     v.key === editingState
                                       ? { display: "flex", width: 210 }

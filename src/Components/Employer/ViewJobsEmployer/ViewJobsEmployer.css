@@ -276,3 +276,64 @@
     width: 100%;
   }
 }
+@media (min-width: 360px) and (max-width: 767px) {
+  .shortlisted-ind-header {
+    width: 96%;
+  }
+  .div-cand-card-main-sub {
+    padding: 0;
+  }
+  .div-cand-card-main,
+  .div-cand-card-main-sub-view-jobs,
+  .div-jv-basic-main-main-div,
+  .div-jv-basic-main-div1,
+  .div-jv-basic-main-div2 {
+    width: 100%;
+  }
+  .div-cand-card-view-jobs {
+    width: 90%;
+    margin: 10px;
+  }
+  .div-js-card-header-loc-exp-main {
+    height: 85px;
+    width: 100%;
+  }
+  .div_title_loc_main {
+    height: 70px;
+  }
+  .div-jv-basic-jd p,
+  .div-jv-basic-jt p,
+  .div-jv-basic-skl p,
+  .div-jv-basic-exp p,
+  .div-jv-basic-edu p,
+  .div-jv-basic-eng p,
+  .div-jv-basic-exps p {
+    font-size: 13px;
+  }
+  .div-cand-card-inner-short-jv p {
+    width: 95px !important;
+  }
+  .div-jv-card-btn {
+    align-items: center;
+    width: 215px;
+  }
+  .div-input-icon-emp-dash-edit-job1,
+  .div_jv_sal_inner_100 {
+    width: 100%;
+  }
+  .select-div-job-view-edit {
+    width: 97%;
+    border-radius: 8px;
+  }
+  .div-input-icon-emp-dash-edit-job {
+    border-radius: 8px;
+  }
+  .select-div-job-view-edit-eng-edu {
+    width: 90% !important ;
+    border-radius: 8px;
+  }
+  .div-jv-basic-exps span {
+    align-items: flex-end !important;
+    width: 55%;
+  }
+}

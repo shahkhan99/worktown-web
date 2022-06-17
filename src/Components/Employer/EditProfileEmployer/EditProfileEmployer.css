@@ -195,3 +195,69 @@
     font-size: 16px;
   }
 }
+
+@media (min-width: 360px) and (max-width: 767px) {
+  .frag-profile {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+  .epemp-main-div-edit-main-1st {
+    width: 90%;
+    height: 300px;
+  }
+  .epemp-main-div-edit-main-1st-name {
+    height: 100px;
+  }
+  .epemp-main-div-edit-main-1st-stat {
+    height: 70px;
+  }
+  .epemp-main-div-edit-main-1st-info {
+    height: 110px;
+  }
+  .epemp-main-div-edit-main-1st-info p,
+  .epemp-main-div-edit-inner label {
+    font-size: 13px;
+  }
+  .epemp-main-div-edit-inner h6 {
+    font-size: 15px;
+    height: 20px;
+  }
+  .epemp-main-div-edit-main-1st-info-inner span {
+    width: 35px;
+    height: 35px;
+  }
+  .epemp-main-div-edit-main-1st-info-inner {
+    align-items: center;
+  }
+  .epemp-main-div-edit-main {
+    width: 90%;
+    padding: 20px 10px;
+    height: auto;
+    margin: 15px 0px 30px 0px;
+  }
+  .epemp-main-div-edit-inner-btn {
+    height: 30px;
+  }
+  .epemp-main-div-edit-inner button {
+    width: 75px;
+    height: 35px;
+    font-size: 15px;
+    border-radius: 8px;
+  }
+  .epemp-main-div-edit-inner-divs {
+    height: 125px;
+    flex-direction: column;
+  }
+  .epemp-main-div-edit-inner,
+  .epemp-main-div {
+    width: 100%;
+  }
+  .div-input-icon-emp-dash-edit-prof {
+    height: 35px;
+  }
+  .div-input-icon-emp-dash-edit-prof input {
+    height: 35px;
+    font-size: 12px !important;
+  }
+}

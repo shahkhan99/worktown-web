@@ -116,6 +116,91 @@
 .nav-div-switches {
   height: 88px;
 }
+@media (min-width: 320px) and (max-width: 767px) {
+  .main-div {
+    width: 100% !important;
+    justify-content: space-around;
+  }
+  .div-main-payment {
+    width: 100% !important;
+    justify-content: space-around !important;
+  }
+  .div_h4_home h4 {
+    font-size: 22px !important;
+    height: 60px !important;
+  }
+  .div_h4_home {
+    text-align: center !important;
+  }
+  .div-main-payment-card1,
+  .div-main-payment-card2 {
+    height: 115px !important;
+    width: 45% !important;
+    flex-direction: column;
+  }
+  .div-main-payment-card1 button {
+    width: 75% !important ;
+    font-size: 13px !important;
+  }
+  .div-payment-card2-inner p,
+  .div-main-payment-card1 p {
+    font-size: 14px;
+    height: 30px;
+  }
+  .div-payment-card2-inner {
+    width: 100% !important;
+    flex-direction: column-reverse !important;
+    align-items: center !important;
+  }
+  .div-main-payment-card1-p {
+    justify-content: center;
+  }
+  .div-main-payment-card1-p h4 {
+    font-size: 22px !important;
+  }
+  .div-pay-hist-main {
+    width: 100% !important;
+    flex-direction: column-reverse !important;
+    align-items: center !important;
+    justify-content: space-around;
+    height: 500px;
+  }
+  .div-pay-hist-inner {
+    width: 92% !important;
+    height: 200px !important;
+    padding: 10px 5px;
+  }
+  .div-stats-ul-empployer-div {
+    width: 90% !important;
+    margin: 3px 0px !important;
+  }
+  .div-appointments-ul-empployer,
+  .div-stats-ul-empployer {
+    width: 95% !important;
+  }
+  .apt-li-cls-span {
+    display: flex;
+    width: 85px;
+  }
+  .css-1k23hlb-MuiButtonBase-root-MuiButton-root {
+    min-width: 40px !important;
+  }
+  .div-appointments-ul-empployer {
+    justify-content: center;
+    display: flex;
+    height: 100% !important;
+  }
+  .div-appointments-ul-empployer ul {
+    width: 97% !important;
+  }
+  .div-pay-hist-inner1 {
+    height: 50px;
+  }
+  .div-appointments-ul-empployer li p {
+    width: 90px;
+  }
+}
+
 @media (min-width: 1051px) and (max-width: 1420px) {
   .main-div {
     width: 98% !important;

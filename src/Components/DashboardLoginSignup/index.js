@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./dashboardloginsignup.css";
 import { getUsers, handleEmail, handleRegister } from "./backend";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export default function DashboardLoginSignup() {
   const [email, setEmail] = useState("");
@@ -9,12 +10,40 @@ export default function DashboardLoginSignup() {
   const [checkUser, setCheckUser] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [emailCheck, setEmailCheck] = useState(false);
+  const auth = getAuth();
 
   useEffect(async () => {
     if (!checkUser.length) {
       await getUsers(setCheckUser);
     }
-    console.log("checkUser");
+    await onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uEmail = user.email;
+        if (uEmail) {
+          await getUsers(setCheckUser);
+          const getObjs = (obj) => Object.values(checkUser);
+          let users = getObjs(checkUser);
+          let gotEmail = users.filter((e) => {
+            return e.Email === uEmail;
+          });
+          var result = gotEmail.find((obj) => {
+            return obj.Email === uEmail;
+          });
+          console.log(result);
+          console.log("run");
+
+          // window.location.replace("http://localhost:3000/portal/");
+        }
+        // ...
+      } else {
+        // User is signed out
+        // ...
+        console.log("result");
+      }
+    });
+    // console.log("checkUser");
   }, []);
 
   return (

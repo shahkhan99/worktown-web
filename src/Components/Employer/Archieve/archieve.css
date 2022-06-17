@@ -18,7 +18,7 @@
   height: 100%;
 }
 .div-arch-card-int {
-  margin: 20px;
+  margin: 20px !important;
   cursor: pointer;
 }
 .Archive-ind-header-heading-int {
@@ -27,4 +27,12 @@
 }
 .div_inner_main_Person_data_ach-arch {
   margin-bottom: 10px !important;
+}
+@media (min-width: 360px) and (max-width: 767px) {
+  .Archive-ind-header-heading-int {
+    left: 5%;
+    width: 90%;
+    top: 30px;
+    justify-content: flex-start;
+  }
 }

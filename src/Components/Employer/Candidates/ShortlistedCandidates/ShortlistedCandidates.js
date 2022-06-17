@@ -7,7 +7,7 @@ import PersonFullData from "../../PersonFullData/PersonFullData";
 import Tech from "../assets/tech.png";
 import DropDown from "./components/dropdownMUI/dropdown";
 
-import { Backdrop } from "@mui/material";
+import { Backdrop, Button } from "@mui/material";
 import {
   setFilterType,
   MatchingCandidates,
@@ -32,6 +32,7 @@ import slope from "../../../../assets/images/slope.png";
 import { send } from "emailjs-com";
 import HorizontalLinearStepper from "../SchedilingInterview/stepper";
 import UseWhatsapp from "whatsapp-react-component";
+import Swal from "sweetalert2";
 function ShortlistedCandidates() {
   const [normal, setNormal] = useState(true);
   const [scheduleData, setScheduleData] = useState({});
@@ -52,6 +53,7 @@ function ShortlistedCandidates() {
     send_by: "hello@worktown.co",
   });
   const [personFullData, setPersonFullData] = useState({});
+  const [mobileScreenTrue, setMobileScreenTrue] = useState(true);
   const [showPersonFullData, setShowPersonFullData] = useState(false);
   const [isReject, setIsReject] = useState(false);
   const dispatch = useDispatch();
@@ -75,6 +77,9 @@ function ShortlistedCandidates() {
     }
     // await MatchingCandidates(redux_data, filterType);
     // await checkUser()
+    window.innerWidth > 768
+      ? setMobileScreenTrue(true)
+      : setMobileScreenTrue(false);
   }, [currentUser, filterType, redux_data]);
 
   const getFilterTitle = (e) => {
@@ -89,10 +94,89 @@ function ShortlistedCandidates() {
     setPersonFullData(v);
     setShowPersonFullData(true);
   };
+  const handleMobileSchIntBtnClick = (v) => {
+    if (mobileScreenTrue) {
+      setMobileScreenTrue(false);
+    } else {
+      setMobileScreenTrue(true);
+    }
+  };
+  const handleCrossBtn = (
+    redux_data,
+    v,
+    filterType,
+    setShortlistedCandidates
+  ) => {
+    var nameArr = v.Name.split(" ");
+    Swal.fire({
+      position: "center",
+      icon: "question",
+      title: `Remove ${nameArr[0]} ?`,
+      showConfirmButton: true,
+      showDenyButton: true,
+      denyButtonText: `Don't Remove`,
+      confirmButtonText: `Remove`,
+    }).then((result) => {
+      // console.log(result);
+      if (result.isConfirmed) {
+        handleCross(redux_data, v, filterType, setShortlistedCandidates);
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
+    });
+  };
+  const handleAcceptBtn = (
+    v,
+    redux_data,
+    filterType,
+    setShortlistedCandidates
+  ) => {
+    var nameArr = v.Name.split(" ");
+    Swal.fire({
+      position: "center",
+      icon: "question",
+      title: `Shortlist ${nameArr[0]} ?`,
+      showConfirmButton: true,
+      showDenyButton: true,
+      denyButtonText: `Don't Accept`,
+      confirmButtonText: `Accept`,
+    }).then((result) => {
+      // console.log(result);
+      if (result.isConfirmed) {
+        handleAccept(v, redux_data, filterType, setShortlistedCandidates);
+        // console.log("cancel");
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
+    });
+  };
   const handleRejectBtn = (v) => {
     setEditingState(v.uid);
     setIsReject(true);
     // console.log("current =>", v);
+  };
+  const handleRejectFinal = (
+    v,
+    redux_data,
+    filterType,
+    setShortlistedCandidates,
+    setEditingState,
+    rejectionChange,
+    dispatch
+  ) => {
+    if (rejectionChange !== "") {
+      handleReject(
+        v,
+        redux_data,
+        filterType,
+        setShortlistedCandidates,
+        setEditingState,
+        rejectionChange,
+        dispatch
+      );
+    } else {
+      alert("reason is mandatory");
+    }
   };
 
   const handleScheduleInterview = (e) => {
@@ -112,7 +196,7 @@ function ShortlistedCandidates() {
 
   let filterSplit = filterType && filterType.split("/");
 
-  // console.log("current =>", filterType);
+  // console.log("current =>", mobileScreenTrue);
   return (
     <React.Fragment>
       <div
@@ -130,9 +214,14 @@ function ShortlistedCandidates() {
               : {}
           }
         >
-          <div className="shrt-cont-div">
+          <div
+            className="shrt-cont-div"
+            style={
+              !mobileScreenTrue ? { display: "flex" } : { display: "none" }
+            }
+          >
             <div style={{ width: "100%" }}>
-              <div className="shortlisted-ind-header">
+              <div className="shortlisted-ind-header shortlisted-ind-header-1">
                 <div className="shortlisted-ind-header-heading">
                   <div className="shortlisted-ind-header-heading-1">
                     <img
@@ -164,6 +253,15 @@ function ShortlistedCandidates() {
                     )}
                   </div>
                 </div>
+                <div className="shortlisted-ind-header-heading-btn-si">
+                  <Button
+                    variant="contained"
+                    size="small"
+                    onClick={() => handleMobileSchIntBtnClick()}
+                  >
+                    Schedule Interview
+                  </Button>
+                </div>
               </div>
               {/* <div>
                 <div className="shortlisted-ind-header">
@@ -187,7 +285,7 @@ function ShortlistedCandidates() {
               </div> */}
               <div className="div-cand-card-main">
                 <div
-                  className="div-cand-card-main-sub"
+                  className="div-cand-card-main-sub div-cand-card-main-sub-1"
                   style={{ height: "100%" }}
                 >
                   {ShortlistedCandidates.length ? (
@@ -257,8 +355,8 @@ function ShortlistedCandidates() {
                             <div
                               className={
                                 v.uid !== editingState
-                                  ? "div-cand-card-btn"
-                                  : "div-cand-card-btn div-cand-card-btn-div-input"
+                                  ? "div-cand-card-btn div-cand-card-btn-1"
+                                  : "div-cand-card-btn-1 div-cand-card-btn div-cand-card-btn-div-input"
                               }
                             >
                               <input
@@ -293,7 +391,7 @@ function ShortlistedCandidates() {
                                     : { display: "none" }
                                 }
                                 onClick={() =>
-                                  handleReject(
+                                  handleRejectFinal(
                                     v,
                                     redux_data,
                                     filterType,
@@ -328,7 +426,7 @@ function ShortlistedCandidates() {
                                     : { display: "none" }
                                 }
                                 onClick={() =>
-                                  handleAccept(
+                                  handleAcceptBtn(
                                     v,
                                     redux_data,
                                     filterType,
@@ -364,10 +462,28 @@ function ShortlistedCandidates() {
               </div>
             </div>
           </div>
-          <div className="int-main-div">
-            <div className="shortlisted-ind-header-heading-int">
-              <BiPhone color="#000" size={35} style={{ marginRight: 5 }} />
-              <h2>Schedule Interview</h2>
+          <div
+            className={
+              mobileScreenTrue
+                ? "int-main-div int-main-div-mobile"
+                : "int-main-div"
+            }
+            style={mobileScreenTrue ? { display: "flex" } : { display: "none" }}
+          >
+            <div className="shortlisted-ind-header-heading-int-main">
+              <div className="shortlisted-ind-header-heading-int">
+                <BiPhone color="#000" size={25} style={{ marginRight: 5 }} />
+                <h2>Schedule Interview</h2>
+              </div>
+              <div className="shortlisted-ind-header-heading-btn-si">
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={() => handleMobileSchIntBtnClick()}
+                >
+                  Close
+                </Button>
+              </div>
             </div>
             <div className="int-overflow">
               {interviewCandidates.length ? (
@@ -382,7 +498,7 @@ function ShortlistedCandidates() {
                           size={13}
                           style={{ position: "absolute", right: 0, top: 9 }}
                           onClick={() =>
-                            handleCross(
+                            handleCrossBtn(
                               redux_data,
                               v,
                               filterType,

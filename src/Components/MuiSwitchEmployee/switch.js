@@ -200,7 +200,7 @@ export default function MuiSwitches({ handleSwitchEmployee, checkSide }) {
   const Check = (e) => {
     handleSwitchEmployee(e);
   };
-  console.log(checkSide);
+  // console.log(checkSide);
   return (
     <FormGroup style={!checkSide ? { display: "flex" } : { display: "none" }}>
       {/* <FormControlLabel

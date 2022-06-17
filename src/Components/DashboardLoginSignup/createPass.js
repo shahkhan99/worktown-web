@@ -42,12 +42,12 @@ export default function DashboardLoginSignup() {
       } else {
         // User is signed out
         // ...
-        console.log(result);
+        console.log("result");
         setChecking(false);
       }
     });
   }, []);
-  console.log(checkUser);
+  console.log(hello);
 
   if (checking) {
     return (

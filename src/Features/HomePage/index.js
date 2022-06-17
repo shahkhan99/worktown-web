@@ -73,6 +73,7 @@ class HomePage extends React.Component {
     this.state = {
       uId: "",
       redux_data: null,
+      loggedInGender: "",
       submitionSuccess: true,
       loginSession: false,
       wantedCategorySelection: false,
@@ -968,12 +969,18 @@ class HomePage extends React.Component {
   submitHandler = (fullpageApi, selectedCategories, selectedSalTime) => {
     const { nameValid, cityValid, emailValid, phoneValid, companyValid } =
       this.state.errorMessage;
-    const { skills, achievement, from, to } = this.state;
+    const { skills, achievement, from, to, loggedInGender } = this.state;
     const formIsValid = nameValid && emailValid && phoneValid;
     const formIsValidEmployer =
       nameValid && emailValid && phoneValid && companyValid;
     // console.log(nameValid, emailValid, phoneValid, companyValid);
-    let gender = this.state.male ? "Male" : this.state.female ? "Female" : "";
+    let gender = "";
+    if (loggedInGender !== "") {
+      gender = loggedInGender;
+    } else {
+      gender = this.state.male ? "Male" : this.state.female ? "Female" : "";
+    }
+
     let interest = selectedCategories.toString() || "";
     let SalaryTime = selectedSalTime.toString() || "";
     let skillSet = skills.toString() || "";
@@ -1022,6 +1029,7 @@ class HomePage extends React.Component {
       interest === "" && this.setState({ intTErr: true });
       exp_sal === "" && this.setState({ expSTErr: true });
       this.state.value === "0" && this.setState({ valTErr: true });
+      console.log(gender);
       Swal.fire({
         position: "center",
         icon: "error",
@@ -1717,7 +1725,7 @@ class HomePage extends React.Component {
         responsiveWidth={2500}
         render={({ state, fullpageApi }) => {
           return (
-            <div id="fullpage">
+            <div id="fullpage" style={{ height: "100%" }}>
               <span id="circle" class="circle"></span>
               <div className="section section1">
                 <div className="header">
@@ -1725,53 +1733,68 @@ class HomePage extends React.Component {
                     <div className="logo">
                       <img src={Logo} className="header-logo" />
                     </div>
-                    <div className="wait-btn-main-div">
+                    <div className="wait-btn-main-div goto_portal_btn">
                       <div
-                        className="wait-button wait-btn"
-                        onClick={() =>
-                          this.handleModeChange("Employee", fullpageApi)
-                        }
-                        style={
-                          this.state.wantedCategorySelectionErr
-                            ? { border: "2px solid red" }
-                            : this.state.wantedCategorySelection &&
-                              this.state.employee
-                            ? { backgroundColor: "#ffe26f" }
-                            : {}
-                        }
+                        className="wait-button wait-btn "
+                        // onClick={() =>
+                        //   this.handleModeChange("Employer", fullpageApi)
+                        // }
                       >
-                        I want to work
-                      </div>
-                      <div
-                        className="wait-button wait-btn"
-                        onClick={() =>
-                          this.handleModeChange("Employer", fullpageApi)
-                        }
-                        style={
-                          this.state.wantedCategorySelectionErr
-                            ? { border: "2px solid red" }
-                            : this.state.wantedCategorySelection &&
-                              this.state.employer
-                            ? { backgroundColor: "#ffe26f" }
-                            : {}
-                        }
-                      >
-                        I want to hire
+                        Login
                       </div>
                       {/* <a href="/waitList" className="wait-btn">
                         Join the waitlist
                       </a> */}
                     </div>
                   </div>
-                  <div className="center">
-                    <h1>
-                      Building Pakistan’s{" "}
-                      <h1 className="italic">supercommunity</h1> of
-                      professionals
-                    </h1>
-                  </div>
-                  <div className="bottom">
-                    <img src={Vector1} className="header-vector" />
+                  <div className="center_bottom_mix">
+                    <div className="center">
+                      <h1>
+                        Building Pakistan’s{" "}
+                        <h1 className="italic">supercommunity</h1> of
+                        professionals
+                      </h1>
+                      <div className="wait-btn-main-div">
+                        <div
+                          className="wait-button wait-btn"
+                          onClick={() =>
+                            this.handleModeChange("Employee", fullpageApi)
+                          }
+                          style={
+                            this.state.wantedCategorySelectionErr
+                              ? { border: "2px solid red" }
+                              : this.state.wantedCategorySelection &&
+                                this.state.employee
+                              ? { backgroundColor: "#ffe26f" }
+                              : {}
+                          }
+                        >
+                          I want to work
+                        </div>
+                        <div
+                          className="wait-button wait-btn"
+                          onClick={() =>
+                            this.handleModeChange("Employer", fullpageApi)
+                          }
+                          style={
+                            this.state.wantedCategorySelectionErr
+                              ? { border: "2px solid red" }
+                              : this.state.wantedCategorySelection &&
+                                this.state.employer
+                              ? { backgroundColor: "#ffe26f" }
+                              : {}
+                          }
+                        >
+                          I want to hire
+                        </div>
+                        {/* <a href="/waitList" className="wait-btn">
+                        Join the waitlist
+                      </a> */}
+                      </div>
+                    </div>
+                    <div className="bottom">
+                      <img src={Vector1} className="header-vector" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1864,7 +1887,8 @@ class HomePage extends React.Component {
                             selectedSalary={selectedSalary}
                           />
                         ) : i === 5 ? (
-                          this.state.submitionSuccess ? (
+                          this.state.submitionSuccess &&
+                          this.state.loginSession ? (
                             <Form6 ctx={this} fullpageApi={fullpageApi} />
                           ) : (
                             <></>
@@ -1992,7 +2016,7 @@ class HomePage extends React.Component {
                             : { justifyContent: "flex-start" }
                         }
                       >
-                        {i >= 0 && i <= 5 ? (
+                        {i >= 0 && i <= 4 ? (
                           // <Lottie
                           //   options={item.lottieAnimation}
                           //   height={"100%"}
@@ -2003,15 +2027,61 @@ class HomePage extends React.Component {
                             src={item.vector}
                             style={{ width: "100%", height: "100%" }}
                           />
+                        ) : i === 5 ? (
+                          <div className="section">
+                            <div className="last-section">
+                              <div className="last-vector">
+                                <h1>
+                                  It takes a town to make great things happen
+                                </h1>
+                                <img
+                                  src={Vector9}
+                                  className="last-vector-image"
+                                />
+                                <div
+                                  onClick={() => fullpageApi.moveTo(1, 0)}
+                                  className="top-btn up "
+                                >
+                                  <img
+                                    src={ArrowIcon}
+                                    style={{ height: "55px", width: "60px" }}
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="last-line">
+                                <div className="logo">
+                                  <img src={Logo} className="simple-logo" />
+                                  <p className="last-text">
+                                    Copyright © 2022. All rights reserved.
+                                  </p>
+                                </div>
+
+                                <div className="wait-btn-main-div">
+                                  {/* <div
+                                  className="wait-button wait-btn"
+                                  onClick={() =>
+                                    this.handleModeChange("Employee", fullpageApi)
+                                  }
+                                >
+                                  I want a job
+                                </div>
+                                <div
+                                  className="wait-button wait-btn"
+                                  onClick={() =>
+                                    this.handleModeChange("Employer", fullpageApi)
+                                  }
+                                >
+                                  I want to hire
+                                </div> */}
+                                  {/* <a href="/waitList" className="wait-btn">
+                                  Join the waitlist
+                                </a> */}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         ) : (
-                          // <video autoplay preload muted loop>
-                          //   <source type="video/mp4"></source>
-                          // </video>
-                          // <Lottie
-                          //   options={roomOptions}
-                          //   height={"100%"}
-                          //   width={"100%"}
-                          // />
                           <></>
                         )}
                       </div>
@@ -2020,7 +2090,7 @@ class HomePage extends React.Component {
                 );
               })}
 
-              <div className="section">
+              {/* <div className="section">
                 <div className="last-section">
                   <div className="last-vector">
                     <h1>It takes a town to make great things happen</h1>
@@ -2061,13 +2131,13 @@ class HomePage extends React.Component {
                       >
                         I want to hire
                       </div> */}
-                      {/* <a href="/waitList" className="wait-btn">
+              {/* <a href="/waitList" className="wait-btn">
                         Join the waitlist
                       </a> */}
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {/* </div> */}
+              {/* </div> */}
+              {/* </div> */}
+              {/* </div>  */}
             </div>
           );
         }}

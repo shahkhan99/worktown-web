@@ -24,6 +24,7 @@ function Employer_DB() {
   const [isUser, setIsUser] = useState();
   const [checkUser, setCheckUser] = useState("");
   const [checkSide, setCheckSide] = useState(true);
+  const [checkScreen, setCheckScreen] = useState(true);
   const redux_data = useSelector((state) => state.dashboard_auth);
   const dispatch = useDispatch();
   console.log(redux_data);
@@ -48,6 +49,7 @@ function Employer_DB() {
   const getEmployeeOrEmployer = (e) => {
     setCheckSide(e);
   };
+
   useEffect(async () => {
     if (!isUser) {
       await getUsers(setCheckUser);
@@ -89,7 +91,7 @@ function Employer_DB() {
   const checkNav = (e) => {
     setSelected_nav(e);
   };
-  // console.log(checkUser, isUser);
+
   if (checking) {
     return (
       <div

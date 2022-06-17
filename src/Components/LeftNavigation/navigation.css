@@ -108,37 +108,53 @@ li {
 /* MOBILE SCREEN CSS */
 
 @media (min-width: 360px) and (max-width: 767px) {
+  .nav_div_cross_logo {
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+  }
   .nav-main-div {
     display: none;
     padding: 0;
-    width: 30%;
+    width: 55%;
     position: absolute;
+    z-index: 99;
+    position: fixed;
+    border-radius: 0 16px 16px 0;
+    box-shadow: 1px 1px 10px gray;
   }
   .nav-main-div-resp {
-    display: block;
+    display: flex;
+    position: absolute;
   }
+
   .nav-div-ul {
     width: 90%;
   }
+  .left_nav_businessName {
+    width: 130px;
+    padding: 0 10px;
+    height: 30px;
+  }
   .nav-div-ul li {
-    font-size: 12 px;
+    font-size: 12px;
     padding: 0px 7px;
-    height: 25px;
+    width: 130px;
+    height: 30px;
     font-family: "poppins";
   }
   .div-cand-card-btn button {
     font-size: 12px !important;
     font-family: "poppins";
-
     height: 25px !important;
-  }
-  .css-1q36rmd-MuiStack-root {
-    flex-direction: column !important;
   }
   .css-ahj2mt-MuiTypography-root,
   .css-ahj2mt-MuiTypography-root {
     font-size: 15px !important;
     color: #7d7d7d !important;
+  }
+  .css-1q36rmd-MuiStack-root {
+    flex-direction: row !important;
   }
   .css-pgrorv-MuiSwitch-root,
   .css-dmmspl-MuiFormGroup-root {
@@ -147,14 +163,19 @@ li {
   .main-div {
     padding: 0 !important;
   }
-  .div-main-payment,
-  .div-pay-hist-main {
-    /* flex-direction: column; */
-    width: 100% !important;
+  .nav-div-ul-1 {
+    height: 250px !important  ;
   }
-  .div-main-payment-card1,
-  .div-main-payment-card2,
-  .div-pay-hist-inner {
-    width: 80% !important;
+  .nav-div-ul {
+    height: 100px;
+  }
+  .nav-div {
+    width: 90%;
+  }
+  .css-1q36rmd-MuiStack-root > :not(style) + :not(style) {
+    margin: 0 !important;
+  }
+  .css-1q36rmd-MuiStack-root {
+    font-size: 12px !important;
   }
 }

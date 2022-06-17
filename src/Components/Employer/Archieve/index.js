@@ -10,6 +10,7 @@ import { BiPhone } from "react-icons/bi";
 import { FaStar, FaUserGraduate } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import PersonFullData from "./PersonFullData/PersonFullData";
+import Swal from "sweetalert2";
 
 function Archieve() {
   const [archiveCandidates, setArchiveCandidates] = useState("");
@@ -30,6 +31,26 @@ function Archieve() {
   };
   const getFilterTitle = (e) => {
     setFilter(e);
+  };
+
+  const handleCrossBtn = (redux_data, v) => {
+    var nameArr = v.Name.split(" ");
+    Swal.fire({
+      position: "center",
+      icon: "question",
+      title: `Remove ${nameArr[0]} ?`,
+      showConfirmButton: true,
+      showDenyButton: true,
+      denyButtonText: `Don't Remove`,
+      confirmButtonText: `Remove`,
+    }).then((result) => {
+      // console.log(result);
+      if (result.isConfirmed) {
+        handleCross(redux_data, v);
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
+    });
   };
   let filterSplit = filterType.split("/");
   // console.log("current =>", archiveCandidates);
@@ -88,7 +109,7 @@ function Archieve() {
                       </div>
                     </div>
                     <div className="div-cand-card-btn-int">
-                      <button onClick={() => handleCross(redux_data, v)}>
+                      <button onClick={() => handleCrossBtn(redux_data, v)}>
                         Remove
                       </button>
                     </div>

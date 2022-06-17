@@ -284,6 +284,14 @@ const handleAccept = async (
   setShortlistedCandidates
 ) => {
   // console.log()
+  const toSend = {
+    from_name: redux_data.Name,
+    to_name: e.Name,
+    employer_name: redux_data.BusinessName,
+    send_to: "arhamabeerahmed@hotmail.com",
+    send_by: "hello@worktown.co",
+    cc_to: "",
+  };
   await update(
     ref(
       db,
@@ -293,6 +301,13 @@ const handleAccept = async (
   )
     .then(() => {
       getJobTypeFilterCand(redux_data, setShortlistedCandidates, filter);
+      send("service_0kxx7l1", "template_5y7pfk5", toSend, "gdh_CSodanmGmK83y")
+        .then((response) => {
+          console.log("SUCCESS!", response.status, response.text);
+        })
+        .catch((err) => {
+          console.log("FAILED...", err);
+        });
     })
     .catch(() => {
       alert("Something went wrong!");

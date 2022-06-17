@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./navigation.css";
 import Logo from "../../assets/Logo/logo.png";
-import { AiOutlineHome, AiOutlinePlusCircle } from "react-icons/ai";
-import { FaUserNinja, FaRegEdit, FaUserCircle } from "react-icons/fa";
+import { AiOutlinePlusCircle } from "react-icons/ai";
+import { FaUserNinja, FaUserCircle } from "react-icons/fa";
 import { GoSignOut } from "react-icons/go";
-import { HiViewGrid, HiDocumentText } from "react-icons/hi";
+import { HiViewGrid, HiDocumentText, HiMenu } from "react-icons/hi";
 import { MdArchive } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import { getAuth, signOut } from "firebase/auth";
@@ -13,14 +13,14 @@ import MuiSwitchesEmployee from "../MuiSwitchEmployee/switch";
 import LOGO from "../../assets/Logo/logo.png";
 import Businessicon from "./assets/businessIcon.png";
 import { BsChevronDown, BsFillBagCheckFill } from "react-icons/bs";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { MatchingCandidates } from "../Employer/Candidates/backend";
 
 function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
   const auth = getAuth();
   const [selected_nav, setSelected_nav] = useState(0);
   const [checkSide, setCheckSide] = useState(true);
-  const [checkScreen, setCheckScreen] = useState(
-    !window.innerWidth > 766 ? false : true
-  );
+  const [checkScreen, setCheckScreen] = useState(true);
 
   const [li_items, set_li_items] = useState([
     "Home",
@@ -85,6 +85,7 @@ function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
       size={16}
       style={{ marginRight: 5 }}
     />,
+
     <MdArchive
       color={selected_nav === 4 ? "#fff" : "#000"}
       size={16}
@@ -97,7 +98,6 @@ function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
     />,
   ];
   checkNav(selected_nav);
-
   const handleCheck = (e) => {
     setCheckSide(e);
     // setSelected_nav(0);
@@ -120,15 +120,53 @@ function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
     (state) => state.dashboard_auth.set_current_user_data
   );
   getEmployeeOrEmployer(checkSide);
+  let matches = useMediaQuery("(min-width:767px)");
+
+  React.useEffect(() => {
+    if (!matches) {
+      setCheckScreen(false);
+    } else {
+      setCheckScreen(true);
+    }
+    if (!matches && !checkScreen) {
+      const concernedElement = document.querySelector(".nav-main-div");
+      document.addEventListener("mousedown", (event) => {
+        if (concernedElement?.contains(event.target)) {
+        } else {
+          setCheckScreen(false);
+        }
+      });
+    } else {
+    }
+  }, [matches]);
+
+  const handleMatchChange = () => {
+    checkScreen ? setCheckScreen(false) : setCheckScreen(true);
+  };
+
+  const handleLIchange = (i) => {
+    setSelected_nav(i);
+    if (!matches && checkScreen) {
+      setTimeout(() => {
+        setCheckScreen(false);
+      }, 300);
+    }
+  };
+
+  console.log(matches, checkScreen);
+
   return (
     <React.Fragment>
-      <div className="nav-main-div-resp">
-        <button
-          onClick={() => setCheckScreen(true)}
-          style={!checkScreen ? { display: "flex" } : { display: "none" }}
-        >
-          CHANGE
-        </button>
+      <div
+        className="nav-main-div-resp"
+        style={!matches ? { display: "flex" } : { display: "none" }}
+      >
+        <HiMenu
+          onClick={() => handleMatchChange()}
+          color="#3E469D"
+          size={35}
+          style={{ marginRight: 5 }}
+        />
       </div>
       <div
         className="nav-main-div"
@@ -136,27 +174,11 @@ function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
       >
         <div
           className="nav_div_cross_logo"
-          style={
-            checkScreen
-              ? !window.innerWidth > 766
-                ? { justifyContent: "space-between" }
-                : { justifyContent: "center" }
-              : { justifyContent: "center" }
-          }
+          style={{
+            justifyContent: "center",
+          }}
         >
           <img src={LOGO} className="logo-left-nav" />
-          <button
-            onClick={() => setCheckScreen(false)}
-            style={
-              checkScreen
-                ? !window.innerWidth > 766
-                  ? { display: "flex" }
-                  : { display: "none" }
-                : { display: "none" }
-            }
-          >
-            X
-          </button>
         </div>
         <div className="left_nav_businessName">
           <img src={Businessicon} style={{ width: 15, height: 13 }} />
@@ -164,14 +186,14 @@ function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
           <BsChevronDown color="#3E469D" size={16} />
         </div>
         <div className="nav-div">
-          <ul className="nav-div-ul">
+          <ul className="nav-div-ul nav-div-ul-1">
             {checkSide
               ? li_items.map((v, i) => {
                   const Icon = icons[i];
                   return (
                     <li
                       onClick={() => {
-                        setSelected_nav(i);
+                        handleLIchange(i);
                       }}
                       className={"li" + i}
                       key={i}

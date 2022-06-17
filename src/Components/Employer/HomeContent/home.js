@@ -61,7 +61,7 @@ function Home() {
       : hours < 17
       ? "Good Afternoon"
       : "Good Evening";
-  console.log(stats);
+  // console.log(stats);
   return (
     <React.Fragment>
       <div
@@ -72,7 +72,7 @@ function Home() {
             : {}
         }
       >
-        <div>
+        <div className="div_h4_home">
           <h4>
             {message}, {redux_data !== undefined && nameArr[0]}!
           </h4>
@@ -168,7 +168,7 @@ function Home() {
               <ul>
                 {appt.length ? (
                   appt.map((v, i) => {
-                    console.log(v.Interview_Details);
+                    // console.log(v.Interview_Details);
                     return (
                       <li className={"apt-li-cls-1"}>
                         <p>{v.Name}</p>
@@ -176,6 +176,7 @@ function Home() {
                           {moment(v.Interview_Details.date).format(
                             "MMMM DD, YYYY"
                           )}{" "}
+                          {window.innerWidth < 768 ? <br /> : <></>}
                           at {v.Interview_Details.time}
                         </p>
                         <span className="apt-li-cls-span">

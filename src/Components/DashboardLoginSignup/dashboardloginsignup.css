@@ -96,3 +96,19 @@
   display: flex;
   flex-direction: column;
 } */
+
+@media (min-width: 360px) and (max-width: 767px) {
+  .dash-login-main-div-input {
+    width: 90% !important;
+  }
+  .input-label1 {
+    font-size: 14px;
+    width: 40% !important;
+  }
+  .dash-login-main-div-btn {
+    width: 45% !important;
+  }
+  .dash-login-main-div h3 {
+    font-size: 28px !important;
+  }
+}

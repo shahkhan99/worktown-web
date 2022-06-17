@@ -32,6 +32,7 @@ const checkUserSession = (ctx) => {
               phone: result.Phone,
               email: result.Email,
               company: result.BusinessName ? result.BusinessName : result.Name,
+              loggedInGender: result.Gender,
               errorMessage: {
                 ...prev.errorMessage,
                 cityValid: true,
@@ -48,6 +49,9 @@ const checkUserSession = (ctx) => {
       }
     } else {
       console.log("not logged in");
+      ctx.setState({
+        loginSession: false,
+      });
     }
   });
 

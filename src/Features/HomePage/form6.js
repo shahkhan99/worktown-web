@@ -97,10 +97,10 @@ export default class Form6 extends Component {
               <RiLockPasswordLine
                 color="#3D459D"
                 size={20}
-                className="svg-u"
+                className="svg-u1"
                 style={{
                   position: "relative",
-                  top: 2,
+                  top: -2,
                   left: 10,
                 }}
               />
@@ -154,10 +154,10 @@ export default class Form6 extends Component {
               <RiLockPasswordLine
                 color="#3D459D"
                 size={20}
-                className="svg-u"
+                className="svg-u1"
                 style={{
                   position: "relative",
-                  top: 2,
+                  top: -2,
                   left: 10,
                 }}
               />
