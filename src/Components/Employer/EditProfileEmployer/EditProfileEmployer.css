@@ -171,7 +171,40 @@
   justify-content: space-between;
   height: 100px;
 }
-
+.div-input-icon-emp-dash-edit-prof-password {
+  width: 100%;
+}
+.div-input-icon-emp-dash-edit-prof-password-inner-main {
+  flex-direction: row;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.div-input-icon-emp-dash-edit-prof-password-inn {
+  width: 33%;
+}
+.New-Password-emp-edit-btn {
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.New-Password-emp-edit-btn button {
+  width: 75px;
+  height: 30px;
+  border-radius: 6px;
+  font-size: 13.5px;
+}
+.h6-emp-pass-upd-btn {
+  display: flex;
+}
+.h6-emp-pass-upd-btn button {
+  width: 75px;
+  height: 30px;
+  font-size: 14px;
+  border-radius: 8px;
+}
 @media (min-width: 1051px) and (max-width: 1420px) {
   .epemp-main-div {
     width: 100%;
@@ -181,13 +214,19 @@
   }
   .epemp-main-div-edit-main-1st {
     width: 350px;
-    height: 470px;
+    height: 550px;
     padding: 20px;
   }
   .epemp-main-div-edit-main {
     width: 640px;
     padding: 20px;
-    height: 470px;
+    height: 550px;
+  }
+  .New-Password-emp-edit-btn button {
+    width: 75px !important;
+    height: 30px !important;
+    border-radius: 6px;
+    font-size: 13.5px !important;
   }
   .epemp-main-div-edit-inner button {
     height: 35px;
@@ -252,6 +291,7 @@
   .epemp-main-div-edit-inner,
   .epemp-main-div {
     width: 100%;
+    height: 55px;
   }
   .div-input-icon-emp-dash-edit-prof {
     height: 35px;
@@ -259,5 +299,109 @@
   .div-input-icon-emp-dash-edit-prof input {
     height: 35px;
     font-size: 12px !important;
+  }
+  .div-input-icon-emp-dash-edit-prof-password-inner-main {
+    flex-direction: column;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 150px !important;
+  }
+  .div-input-icon-emp-dash-edit-prof-password-inn {
+    width: 100%;
+  }
+  .New-Password-emp-edit-btn {
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    align-self: center;
+  }
+  .New-Password-emp-edit-btn button {
+    width: 60px !important;
+    height: 20px !important;
+    border-radius: 6px;
+    font-size: 12px !important;
+  }
+  .div-input-icon-emp-dash-edit-prof-password {
+    width: 100%;
+    height: 150px !important;
+  }
+  .h6-emp-pass-upd-btn {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .h6-emp-pass-upd-btn button {
+    width: 60px;
+    height: 20px;
+    font-size: 12px;
+    border-radius: 8px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1050px) {
+  .shrt-head-div h4 {
+    text-align: center;
+  }
+  .epemp-main-div,
+  .frag-profile {
+    width: 100%;
+  }
+  .epemp-main-div-edit-main-1st {
+    width: 250px;
+    height: 740px;
+  }
+  .epemp-main-div-edit-main {
+    width: 400px;
+    height: 700px;
+  }
+
+  .div-input-icon-emp-dash-edit-prof-password-inner-main {
+    flex-direction: column;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 100% !important;
+  }
+  .div-input-icon-emp-dash-edit-prof-password-inn {
+    width: 100%;
+  }
+  .New-Password-emp-edit-btn {
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    align-self: center;
+  }
+  .New-Password-emp-edit-btn button {
+    width: 60px !important;
+    height: 20px !important;
+    border-radius: 6px;
+    font-size: 12px !important;
+  }
+  .div-input-icon-emp-dash-edit-prof-password {
+    width: 100%;
+    height: 200px !important;
+  }
+  .h6-emp-pass-upd-btn {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .h6-emp-pass-upd-btn button {
+    width: 60px;
+    height: 20px;
+    font-size: 12px;
+    border-radius: 8px;
+  }
+  .epemp-main-div-edit-main-1st-stat,
+  .epemp-main-div-edit-main-1st-info {
+    width: 235px;
   }
 }

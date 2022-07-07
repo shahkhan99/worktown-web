@@ -25,7 +25,7 @@ function ScheduledInterview() {
     setFilter(e);
   };
   let filterSplit = filterType.split("/");
-  console.log("current =>", archiveCandidates);
+  // console.log("current =>", archiveCandidates);
   return (
     <div className="arch-main-div">
       <div className="shortlisted-ind-header-heading-int">

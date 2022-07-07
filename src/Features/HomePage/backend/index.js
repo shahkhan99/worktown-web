@@ -42,13 +42,16 @@ const checkUserSession = (ctx) => {
                 phoneValid: true,
               },
             }));
+            ctx.state.loggedInGender === "Male"
+              ? ctx.setState({ male: true })
+              : ctx.setState({ Female: true });
           } else {
-            console.log("No data available");
+            // console.log("No data available");
           }
         });
       }
     } else {
-      console.log("not logged in");
+      // console.log("not logged in");
       ctx.setState({
         loginSession: false,
       });

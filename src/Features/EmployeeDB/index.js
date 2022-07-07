@@ -51,7 +51,7 @@ function Employee_DB() {
               return obj.Email === uEmail;
             });
             dispatch(set_current_user_data(result));
-            console.log(result);
+            // console.log(result);
             setIsUser(true);
             setChecking(false);
           }
@@ -60,9 +60,7 @@ function Employee_DB() {
           // User is signed out
           setIsUser(false);
           setChecking(false);
-          window.location.replace(
-            "http://localhost:3000/employer_dashboard/login"
-          );
+          window.location.replace("/portal/login");
           // ...
         }
       });
@@ -103,7 +101,7 @@ function Employee_DB() {
         </div>
       );
     } else {
-      window.location.replace("http://localhost:3000/employer_dashboard/login");
+      window.location.replace("/portal/login");
     }
   }
 }

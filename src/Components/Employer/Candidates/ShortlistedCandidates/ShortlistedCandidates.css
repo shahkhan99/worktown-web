@@ -441,6 +441,7 @@
   padding: 15px;
   width: 90%;
   display: flex;
+  flex-wrap: wrap;
 }
 .int-overflow-h3 {
   height: 100%;
@@ -616,10 +617,11 @@ label {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-top: 10px;
 }
 .div-cand-card-inner-short {
   width: 100%;
-  height: 65px;
+  height: 100px;
   overflow-y: scroll;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -755,7 +757,7 @@ label {
     /* top: 13px; */
   }
   .int-main-div {
-    width: 23%;
+    width: 90%;
   }
   .int-overflow,
   .div-cand-card-main {
@@ -767,7 +769,7 @@ label {
     width: 200px;
   }
   .shrt-cont-div {
-    width: 77%;
+    width: 90%;
   }
   .shrt-head-div {
     height: 60px;
@@ -793,6 +795,17 @@ label {
   .shrt-head-div h4 {
     font-size: 22px;
     text-align: center;
+  }
+  .jss7,
+  .jss4,
+  .jss1,
+  .jss2,
+  .jss3,
+  .jss5,
+  .jss6,
+  .jss8 {
+    left: 0% !important;
+    top: 35px !important;
   }
   .shrt-head-div {
     height: 60px;
@@ -829,6 +842,11 @@ label {
   .frag {
     width: 95%;
   }
+  .PersonFullData_main_main_div {
+    width: 95% !important;
+    top: 10% !important;
+    left: 2.5% !important;
+  }
   .div-cand-card-header-loc-exp-main-new,
   .div-cand-card-inner-skl-short {
     width: 100%;
@@ -858,5 +876,49 @@ label {
   .shortlisted-ind-header-heading-btn-si button {
     width: 70% !important;
     height: 40px !important;
+  }
+  .div-cand-card {
+    padding: 5px !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 1050px) {
+  .div-cand-card-main-sub {
+    width: 95%;
+  }
+  .shortlisted-ind-header {
+    width: 80%;
+  }
+  .shortlisted-ind-header-heading-int-main {
+    width: 80%;
+    align-self: start;
+  }
+  .shortlisted-ind-header-heading {
+    width: 80%;
+  }
+  .shortlisted-ind-header-heading-btn-si {
+    width: 12%;
+  }
+  .div-cand-card-btn button {
+    height: 40px;
+  }
+  .PersonFullData_main_main_div {
+    top: 20% !important;
+    left: 12% !important;
+  }
+  .jss7,
+  .jss4,
+  .jss1,
+  .jss2,
+  .jss3,
+  .jss5,
+  .jss6,
+  .jss8 {
+    left: 0% !important;
+    top: auto !important;
+  }
+  .dialog_select_dropdown,
+  .css-1uyh00o-MuiFormControl-root,
+  .mainDiv1_dialog_dropdown {
+    width: 100% !important;
   }
 }

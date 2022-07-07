@@ -215,7 +215,7 @@ export default function MyPDF({ data }) {
 //       <Page size="A4" style={styles.page}>
 //         <View style={styles.mainPage}>
 //           <View style={styles.section1}>
-//             <Text style={styles.sectionText}>ARHAM ABEER AHMED</Text>
+//
 //           </View>
 //           <View style={styles.section2}>
 //             <Text style={styles.section1Text}>Personal Details</Text>

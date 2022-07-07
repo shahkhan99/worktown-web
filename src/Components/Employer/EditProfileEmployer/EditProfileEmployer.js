@@ -1,10 +1,11 @@
 import React, { useState, useEffect, ReactFragment } from "react";
 import "./EditProfileEmployer.css";
 import { useSelector, useDispatch } from "react-redux";
-import { SaveUpdatedData } from "./backend";
+import { SaveUpdatedData, UpdatePassword } from "./backend";
 import { set_current_user_data } from "../../../store/action/index";
 import { MdLocationOn } from "react-icons/md";
 import { BsEnvelope, BsFillTelephoneFill } from "react-icons/bs";
+import { Button } from "@mui/material";
 
 function EditProfileEmployer() {
   const dispatch = useDispatch();
@@ -13,8 +14,11 @@ function EditProfileEmployer() {
     (state) => state.dashboard_auth.set_current_user_data
   );
   const [data, setData] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [newPasswordC, setNewPasswordC] = useState("");
   const [edit, setEdit] = useState("");
-  console.log(redux_data);
+  const [editP, setEditP] = useState("");
+  // console.log(redux_data);
   useEffect(() => {
     setData(redux_data);
   }, [redux_data]);
@@ -26,6 +30,24 @@ function EditProfileEmployer() {
   const handleCancel = () => {
     setData(redux_data);
     setEdit(false);
+  };
+  const handlePCancel = () => {
+    setNewPassword("");
+    setNewPasswordC("");
+    setEditP(false);
+  };
+  const handlePassword = (e, target) => {
+    target(e);
+  };
+  const handleSavePassword = () => {
+    if (newPassword === newPasswordC) {
+      UpdatePassword(newPassword);
+      setNewPassword("");
+      setNewPasswordC("");
+      setEditP(false);
+    } else {
+      alert("Passwords are not same.");
+    }
   };
   return (
     <div className="epemp-main-div">
@@ -49,15 +71,27 @@ function EditProfileEmployer() {
             </div>
             <div className="epemp-main-div-edit-main-1st-stat">
               <div className="epemp-main-div-edit-main-1st-stat-inner">
-                <p>{Object.keys(redux_data.jobs).length}</p>
+                <p>
+                  {redux_data.jobs !== undefined
+                    ? Object.keys(redux_data.jobs).length
+                    : 0}
+                </p>
                 <label>Jobs</label>
               </div>
               <div className="epemp-main-div-edit-main-1st-stat-inner">
-                <p>{Object.keys(redux_data.appointments).length}</p>{" "}
+                <p>
+                  {redux_data.appointments !== undefined
+                    ? Object.keys(redux_data.appointments).length
+                    : 0}
+                </p>{" "}
                 <label>Interviews</label>
               </div>
               <div className="epemp-main-div-edit-main-1st-stat-inner">
-                <p>{Object.keys(redux_data.archive).length}</p>{" "}
+                <p>
+                  {redux_data.archive !== undefined
+                    ? Object.keys(redux_data.archive).length
+                    : 0}
+                </p>{" "}
                 <label>Archive</label>
               </div>
             </div>
@@ -256,6 +290,85 @@ function EditProfileEmployer() {
                     className=""
                     value={data.City}
                   />
+                </div>
+              </div>
+              <div className="epemp-main-div-edit-inner div-input-icon-emp-dash-edit-prof-password">
+                <label>Password</label>
+                <div className="h6-emp-pass-upd-btn">
+                  <h6
+                    style={!editP ? { display: "flex" } : { display: "none" }}
+                  >
+                    ************
+                  </h6>
+                  <Button
+                    style={!editP ? { display: "flex" } : { display: "none" }}
+                    size="small"
+                    variant="text"
+                    onClick={() => setEditP(true)}
+                  >
+                    Change
+                  </Button>
+                </div>
+                <div
+                  className="div-input-icon-emp-dash-edit-prof-password-inner-main"
+                  style={editP ? { display: "flex" } : { display: "none" }}
+                >
+                  <div
+                    className="div-input-icon-emp-dash-edit-prof div-input-icon-emp-dash-edit-prof-password-inn"
+                    style={editP ? { display: "flex" } : { display: "none" }}
+                  >
+                    <input
+                      id="name"
+                      name="name"
+                      onChange={(name) => {
+                        handlePassword(name.target.value, setNewPassword);
+                      }}
+                      type="password"
+                      placeholder="New Password"
+                      style={{
+                        fontFamily: "poppins",
+                      }}
+                      className=""
+                      value={newPassword}
+                    />
+                  </div>
+                  <div
+                    className="div-input-icon-emp-dash-edit-prof div-input-icon-emp-dash-edit-prof-password-inn"
+                    style={editP ? { display: "flex" } : { display: "none" }}
+                  >
+                    <input
+                      id="name"
+                      name="name"
+                      onChange={(name) => {
+                        handlePassword(name.target.value, setNewPasswordC);
+                      }}
+                      type="password"
+                      placeholder="Confirm New Password"
+                      style={{
+                        fontFamily: "poppins",
+                      }}
+                      className=""
+                      value={newPasswordC}
+                    />
+                  </div>
+                  <div className="New-Password-emp-edit-btn">
+                    <Button
+                      style={editP ? { display: "flex" } : { display: "none" }}
+                      size="small"
+                      variant="text"
+                      onClick={() => handleSavePassword()}
+                    >
+                      Save
+                    </Button>
+                    <Button
+                      style={editP ? { display: "flex" } : { display: "none" }}
+                      size="small"
+                      variant="text"
+                      onClick={() => handlePCancel()}
+                    >
+                      Cancel
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>

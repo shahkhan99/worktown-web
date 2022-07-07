@@ -267,7 +267,12 @@
   position: relative;
   bottom: 20px;
 }
-
+.css-igs3ac {
+  border-width: 0px !important;
+}
+.css-15bjg8p {
+  width: 100% !important;
+}
 @media (min-width: 1051px) and (max-width: 1420px) {
   .shrt-cont-div-view-jb {
     width: 100%;
@@ -279,6 +284,9 @@
 @media (min-width: 360px) and (max-width: 767px) {
   .shortlisted-ind-header {
     width: 96%;
+  }
+  .jv-ind-header-heading {
+    width: 100%;
   }
   .div-cand-card-main-sub {
     padding: 0;
@@ -335,5 +343,17 @@
   .div-jv-basic-exps span {
     align-items: flex-end !important;
     width: 55%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1050px) {
+  .div-cand-card-main {
+    height: 800px;
+  }
+  .jv-ind-header-heading {
+    width: 90%;
+  }
+  .jv-ind-header {
+    width: 100%;
   }
 }

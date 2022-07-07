@@ -40,7 +40,7 @@ function ConfirmDate({ handleNext, handleBack, setData, data }) {
   };
   const today = new Date();
 
-  console.log(value);
+  // console.log(value);
   return (
     <div className="sch-stepper-form-div ">
       <div className="create-head-div">

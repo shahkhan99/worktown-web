@@ -74,7 +74,8 @@ class HomePage extends React.Component {
       uId: "",
       redux_data: null,
       loggedInGender: "",
-      submitionSuccess: true,
+      submitionSuccess: false,
+      wantedCategorySelectionErr: false,
       loginSession: false,
       wantedCategorySelection: false,
       skillTag: [],
@@ -308,6 +309,7 @@ class HomePage extends React.Component {
     };
   }
   handleModeChange(mode, fullpage) {
+    fullpage.moveTo(2, 0);
     this.setState({
       wantedCategorySelectionErr: false,
       wantedCategorySelection: true,
@@ -315,6 +317,7 @@ class HomePage extends React.Component {
     mode === "Employer"
       ? this.setState({ employee: false, employer: true })
       : this.setState({ employer: false, employee: true });
+    // console.log("e");
     fullpage.moveTo(2, 0);
   }
   onLeave(origin, destination, direction) {
@@ -360,19 +363,28 @@ class HomePage extends React.Component {
       fullpageApi.moveTo(3, 0);
     } else {
       this.setState({ wantedCategorySelectionErr: true });
-      fullpageApi.moveTo(1, 0);
+      // console.log(fullpageApi.getActiveSection());
+      // fullpageApi.moveTo(1, 0);
+      $("html, body").animate({ scrollTop: 0 }, "slow");
     }
   };
 
   handleNext1 = async (fullpageApi) => {
+    let gender =
+      this.state.loggedInGender !== ""
+        ? this.state.loggedInGender
+        : this.state.male
+        ? "Male"
+        : this.state.female
+        ? "Female"
+        : "";
+
     if (
       this.state.name === "" ||
-      (this.state.employee
-        ? !this.state.female && !this.state.male
-        : this.state.employer
-        ? this.state.company === ""
-        : "") ||
+      (this.state.employee && gender === "") ||
+      (this.state.employer && this.state.company === "") ||
       this.state.phone === "" ||
+      this.state.JobCategory === "" ||
       this.state.email === "" ||
       this.state.phoneTErr ||
       !this.state.errorMessage.phoneValid
@@ -380,15 +392,16 @@ class HomePage extends React.Component {
       this.state.name === "" && this.setState({ nameTErr: true });
       this.state.phone === "" && this.setState({ phoneTErr: true });
       this.state.email === "" && this.setState({ emailTErr: true });
+      !this.state.sw && fullpageApi.moveTo(2, 0);
+      !this.state.sw && this.setState({ noCategory: true });
       if (this.state.employer) {
         this.state.company === "" && this.setState({ companyTErr: true });
       } else if (this.state.employee) {
         !this.state.male &&
           !this.state.female &&
           this.setState({ radTErr: true });
+        console.log(this.state.male, this.state.female);
       }
-
-      // console.log(this.state)
     } else {
       let allEmployeesResult = {};
       let allEmployersResult = {};
@@ -409,7 +422,7 @@ class HomePage extends React.Component {
               (e) => e.Phone === this.state.phone
             );
             // this.setState({ allUsers: findSimilar });
-            console.log(findSimilar, findSimilarE);
+            // console.log(findSimilar, findSimilarE);
             if (findSimilar.length && !findSimilarE.length) {
               Swal.fire({
                 position: "center",
@@ -427,7 +440,7 @@ class HomePage extends React.Component {
                 showConfirmButton: true,
                 // timer: 1500,
               });
-            } else if (findSimilar.length && findSimilarE.length) {
+            } else if (!findSimilar.length && !findSimilarE.length) {
               Swal.fire({
                 position: "center",
                 icon: "error",
@@ -436,13 +449,42 @@ class HomePage extends React.Component {
                 showConfirmButton: true,
                 // timer: 1500,
               });
+            } else {
+              let gender =
+                this.state.loggedInGender !== ""
+                  ? this.state.loggedInGender
+                  : this.state.male
+                  ? "Male"
+                  : this.state.female
+                  ? "Female"
+                  : "";
+              this.appendSpreadsheet({
+                Name: this.state.name,
+                Phone: this.state.phone,
+                City: this.state.city,
+                Email: this.state.email,
+                JobCategory: "",
+                JobType: "",
+                Experience: "",
+                Skills: "",
+                Education: "",
+                InterestedIn: "",
+                CurrentSalary: "",
+                Gender: gender,
+                EnglishLevel: "",
+                Achievement: "",
+              });
+              fullpageApi.moveTo(4, 0);
             }
           } else {
-            let gender = this.state.male
-              ? "Male"
-              : this.state.female
-              ? "Female"
-              : "";
+            let gender =
+              this.state.loggedInGender !== ""
+                ? this.state.loggedInGender
+                : this.state.male
+                ? "Male"
+                : this.state.female
+                ? "Female"
+                : "";
             this.appendSpreadsheet({
               Name: this.state.name,
               Phone: this.state.phone,
@@ -495,7 +537,7 @@ class HomePage extends React.Component {
                 showConfirmButton: true,
                 // timer: 1500,
               });
-            } else if (findSimilar.length && findSimilarE.length) {
+            } else if (!findSimilar.length && !findSimilarE.length) {
               Swal.fire({
                 position: "center",
                 icon: "error",
@@ -504,30 +546,34 @@ class HomePage extends React.Component {
                 showConfirmButton: true,
                 // timer: 1500,
               });
+            } else {
+              let gender =
+                this.state.loggedInGender !== ""
+                  ? this.state.loggedInGender
+                  : this.state.male
+                  ? "Male"
+                  : this.state.female
+                  ? "Female"
+                  : "";
+              this.appendSpreadsheet({
+                Name: this.state.name,
+                Phone: this.state.phone,
+                City: this.state.city,
+                Email: this.state.email,
+                JobCategory: "",
+                JobType: "",
+                Experience: "",
+                Skills: "",
+                Education: "",
+                InterestedIn: "",
+                CurrentSalary: "",
+                Gender: gender,
+                EnglishLevel: "",
+                Achievement: "",
+              });
+              fullpageApi.moveTo(4, 0);
             }
           } else {
-            let gender = this.state.male
-              ? "Male"
-              : this.state.female
-              ? "Female"
-              : "";
-            this.appendSpreadsheet({
-              Name: this.state.name,
-              Phone: this.state.phone,
-              City: this.state.city,
-              Email: this.state.email,
-              JobCategory: "",
-              JobType: "",
-              Experience: "",
-              Skills: "",
-              Education: "",
-              InterestedIn: "",
-              CurrentSalary: "",
-              Gender: gender,
-              EnglishLevel: "",
-              Achievement: "",
-            });
-            fullpageApi.moveTo(4, 0);
           }
         });
       }
@@ -721,7 +767,7 @@ class HomePage extends React.Component {
           let findSimilarE = ObjVal.filter((e) => e.Email === this.state.email);
           let findSimilar = ObjVal.filter((e) => e.Phone === this.state.phone);
           // this.setState({ allUsers: findSimilar });
-          console.log(findSimilar, findSimilarE);
+          // console.log(findSimilar, findSimilarE);
           if (findSimilar.length && !findSimilarE.length) {
             Swal.fire({
               position: "center",
@@ -761,7 +807,7 @@ class HomePage extends React.Component {
             proceed = true;
           }
         } else {
-          console.log("No data available");
+          // console.log("No data available");
         }
       });
       if (proceed) {
@@ -839,6 +885,7 @@ class HomePage extends React.Component {
   }
   handleNoEmp(e) {
     e.moveTo(1, 0);
+    $("html, body").animate({ scrollTop: 0 }, "slow");
     // this.setState({ noEmp: true });
   }
   handleNoCategory(e) {
@@ -1029,7 +1076,7 @@ class HomePage extends React.Component {
       interest === "" && this.setState({ intTErr: true });
       exp_sal === "" && this.setState({ expSTErr: true });
       this.state.value === "0" && this.setState({ valTErr: true });
-      console.log(gender);
+      // console.log(gender);
       Swal.fire({
         position: "center",
         icon: "error",
@@ -1059,7 +1106,7 @@ class HomePage extends React.Component {
           showLoading();
         }
         if (this.state.employer) {
-          console.log(this.state);
+          // console.log(this.state);
 
           this.emp_appendSpreadsheet({
             BusinessName: this.state.company,
@@ -1178,7 +1225,11 @@ class HomePage extends React.Component {
             selectedCategories,
             selectedSalTime
           ).then(() => {
-            let uid = this.state.phone;
+            let uid =
+              this.state.uId !== ""
+                ? this.state.uId
+                : push(child(ref(db), `users/jobs_employer/`)).key;
+            // let uid = this.state.phone;
             update(ref(db, "users/jobs_employer/" + uid), {
               Name: this.state.name,
               Phone: this.state.phone,
@@ -1336,7 +1387,7 @@ class HomePage extends React.Component {
       company: "",
       name: "",
       phone: "",
-      email: "",
+      // email: "",
       city: "Karachi",
       value: "0",
       range_cond: 0,
@@ -1483,7 +1534,7 @@ class HomePage extends React.Component {
         });
       }
     } catch (e) {
-      console.error("Error: ", e);
+      // console.error("Error: ", e);
     }
   };
 
@@ -1505,7 +1556,7 @@ class HomePage extends React.Component {
         const result = await sheet.addRow(row);
       }
     } catch (e) {
-      console.error("Error: ", e);
+      // console.error("Error: ", e);
     }
   };
   appendNewSpreadsheet = async (row) => {
@@ -1520,7 +1571,7 @@ class HomePage extends React.Component {
       const sheet = doc.sheetsById[SHEET_ID];
       const result = await sheet.addRow(row);
     } catch (e) {
-      console.error("Error: ", e);
+      // console.error("Error: ", e);
     }
   };
   emp_appendSpreadsheet = async (row) => {
@@ -1535,7 +1586,7 @@ class HomePage extends React.Component {
       const sheet = emp_doc.sheetsById[SHEET_ID_EMP];
       const result = await sheet.addRow(row);
     } catch (e) {
-      console.error("Error: ", e);
+      // console.error("Error: ", e);
     }
   };
   readRows = async () => {
@@ -1654,7 +1705,9 @@ class HomePage extends React.Component {
     this.toggleOpen();
     this.setState({ select_value: value });
   };
-
+  handleLoginChangeBtn = () => {
+    window.location.replace("/portal");
+  };
   render() {
     $(document).ready(function () {
       var mouseX = 0,
@@ -1702,7 +1755,7 @@ class HomePage extends React.Component {
     defSkills.sort(function (a, b) {
       return a.localeCompare(b); //using String.prototype.localCompare()
     });
-    console.log("data => ", this.state);
+    // console.log("data => ");
 
     // Swal.fire({
     //   position: "center",
@@ -1736,11 +1789,9 @@ class HomePage extends React.Component {
                     <div className="wait-btn-main-div goto_portal_btn">
                       <div
                         className="wait-button wait-btn "
-                        // onClick={() =>
-                        //   this.handleModeChange("Employer", fullpageApi)
-                        // }
+                        onClick={() => this.handleLoginChangeBtn()}
                       >
-                        Login
+                        {this.state.loginSession ? "Portal" : "Login"}
                       </div>
                       {/* <a href="/waitList" className="wait-btn">
                         Join the waitlist
@@ -1888,7 +1939,7 @@ class HomePage extends React.Component {
                           />
                         ) : i === 5 ? (
                           this.state.submitionSuccess &&
-                          this.state.loginSession ? (
+                          !this.state.loginSession ? (
                             <Form6 ctx={this} fullpageApi={fullpageApi} />
                           ) : (
                             <></>
@@ -2039,11 +2090,22 @@ class HomePage extends React.Component {
                                   className="last-vector-image"
                                 />
                                 <div
-                                  onClick={() => fullpageApi.moveTo(1, 0)}
+                                  onClick={() =>
+                                    $("html, body").animate(
+                                      { scrollTop: 0 },
+                                      "slow"
+                                    )
+                                  }
                                   className="top-btn up "
                                 >
                                   <img
                                     src={ArrowIcon}
+                                    onClick={() =>
+                                      $("html, body").animate(
+                                        { scrollTop: 0 },
+                                        "slow"
+                                      )
+                                    }
                                     style={{ height: "55px", width: "60px" }}
                                   />
                                 </div>

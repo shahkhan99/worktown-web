@@ -14,7 +14,6 @@ import LOGO from "../../assets/Logo/logo.png";
 import Businessicon from "./assets/businessIcon.png";
 import { BsChevronDown, BsFillBagCheckFill } from "react-icons/bs";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { MatchingCandidates } from "../Employer/Candidates/backend";
 
 function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
   const auth = getAuth();
@@ -92,7 +91,7 @@ function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
       style={{ marginRight: 5 }}
     />,
     <AiOutlinePlusCircle
-      color={selected_nav === 5 ? "#fff" : "#000"}
+      color={selected_nav === 5 ? "#fff" : "gray"}
       size={16}
       style={{ marginRight: 5 }}
     />,
@@ -120,7 +119,7 @@ function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
     (state) => state.dashboard_auth.set_current_user_data
   );
   getEmployeeOrEmployer(checkSide);
-  let matches = useMediaQuery("(min-width:767px)");
+  let matches = useMediaQuery("(min-width:1050px)");
 
   React.useEffect(() => {
     if (!matches) {
@@ -128,17 +127,17 @@ function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
     } else {
       setCheckScreen(true);
     }
-    if (!matches && !checkScreen) {
-      const concernedElement = document.querySelector(".nav-main-div");
-      document.addEventListener("mousedown", (event) => {
-        if (concernedElement?.contains(event.target)) {
-        } else {
-          setCheckScreen(false);
-        }
-      });
-    } else {
-    }
   }, [matches]);
+  if (!matches && !checkScreen) {
+    const concernedElement = document.querySelector(".nav-main-div");
+    document.addEventListener("mousedown", (event) => {
+      if (concernedElement?.contains(event.target)) {
+      } else {
+        setCheckScreen(false);
+      }
+    });
+  } else {
+  }
 
   const handleMatchChange = () => {
     checkScreen ? setCheckScreen(false) : setCheckScreen(true);
@@ -153,7 +152,7 @@ function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
     }
   };
 
-  console.log(matches, checkScreen);
+  // console.log(matches, checkScreen);
 
   return (
     <React.Fragment>
@@ -192,14 +191,20 @@ function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
                   const Icon = icons[i];
                   return (
                     <li
-                      onClick={() => {
-                        handleLIchange(i);
-                      }}
+                      onClick={
+                        i == 5
+                          ? () => {}
+                          : () => {
+                              handleLIchange(i);
+                            }
+                      }
                       className={"li" + i}
                       key={i}
                       style={
                         i == selected_nav
                           ? { backgroundColor: "#3E469D", color: "#fff" }
+                          : i == 5
+                          ? { color: "gray" }
                           : {}
                       }
                     >
@@ -232,9 +237,17 @@ function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
         </div>
         <div className="nav-div">
           <ul className="nav-div-ul nav-div-ul-log">
-            <li onClick={() => Logout()} className={"li"}>
-              <GoSignOut color="#000" size={16} style={{ marginRight: 5 }} />
-              Logout
+            <li className={"li"}>
+              <span
+                onClick={() => Logout()}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <GoSignOut color="#000" size={16} style={{ marginRight: 5 }} />
+                Logout
+              </span>
             </li>
           </ul>
         </div>

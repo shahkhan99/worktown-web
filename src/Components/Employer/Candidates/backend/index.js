@@ -40,11 +40,11 @@ const checkUser = async (currentUser, filter) => {
         await MatchingCandidates(currentUser, filter);
         // console.log(jobTypeFilterCand);
       } else {
-        console.log("No data available");
+        // console.log("No data available");
       }
     })
     .catch((error) => {
-      console.error(error);
+      // console.error(error);
     });
 };
 const getCurrentUserData = async (setCurrentUser) => {
@@ -93,7 +93,7 @@ const MatchingCandidates = async (currentUser, filter) => {
       arrSchIntResult = Object.values(SchIntResult);
       // console.log(arrSchIntResult);
     } else {
-      console.log("No data available");
+      // console.log("No data available");
     }
   });
   const starCountRefArch = await ref(
@@ -222,7 +222,7 @@ const setFilterType = async (setFilter, currentUser, filterType) => {
   if (filterType === "") {
     allJobsArr = [];
     allJobs = (currentUser.jobs && Object.values(currentUser.jobs)) || "";
-    console.log(allJobs.length);
+    // console.log(allJobs.length);
     allJobs.length &&
       allJobs.forEach((e) => {
         allJobsArr.push(e.JobType + "/" + e.Experience);
@@ -240,13 +240,31 @@ const handleReject = async (
   dispatch
 ) => {
   setEditingState("");
+  let role = filter.split("/");
 
+  let new_data = {
+    Achievement: e.Achievement,
+    City: e.City,
+    Education: e.Education,
+    Email: e.Email,
+    EnglishLevel: e.EnglishLevel,
+    Experience: e.Experience,
+    Gender: e.Gender,
+    InterestedIn: e.InterestedIn,
+    JobCategory: e.JobCategory,
+    JobType: e.JobType,
+    Name: e.Name,
+    Phone: e.Phone,
+    Skills: e.Skills,
+    uid: e.uid,
+    role: role[0],
+  };
   let recjectionFeedback = { recjectionFeedback: rejectionChange };
-  let data = { ...e, ...recjectionFeedback };
+  let data = { ...new_data, ...recjectionFeedback };
   // console.log(data);
 
   await update(
-    ref(db, `users/jobs_employer/${redux_data.uid}/archive/${e.Phone}`),
+    ref(db, `users/jobs_employer/${redux_data.uid}/archive/${e.uid}`),
     data
   )
     .then(() => {
@@ -284,29 +302,46 @@ const handleAccept = async (
   setShortlistedCandidates
 ) => {
   // console.log()
+  let role = filter.split("/");
   const toSend = {
     from_name: redux_data.Name,
     to_name: e.Name,
     employer_name: redux_data.BusinessName,
-    send_to: "arhamabeerahmed@hotmail.com",
+    send_to: e.Email,
     send_by: "hello@worktown.co",
-    cc_to: "",
+    cc_to: "worktown.co@gmail.com",
+    role: role[0],
+  };
+
+  let new_data = {
+    Achievement: e.Achievement,
+    City: e.City,
+    Education: e.Education,
+    Email: e.Email,
+    EnglishLevel: e.EnglishLevel,
+    Experience: e.Experience,
+    Gender: e.Gender,
+    InterestedIn: e.InterestedIn,
+    JobCategory: e.JobCategory,
+    JobType: e.JobType,
+    Name: e.Name,
+    Phone: e.Phone,
+    Skills: e.Skills,
+    uid: e.uid,
+    role: role[0],
   };
   await update(
-    ref(
-      db,
-      `users/jobs_employer/${redux_data.uid}/scheduleInterview/${e.Phone}`
-    ),
-    e
+    ref(db, `users/jobs_employer/${redux_data.uid}/scheduleInterview/${e.uid}`),
+    new_data
   )
     .then(() => {
       getJobTypeFilterCand(redux_data, setShortlistedCandidates, filter);
       send("service_0kxx7l1", "template_5y7pfk5", toSend, "gdh_CSodanmGmK83y")
         .then((response) => {
-          console.log("SUCCESS!", response.status, response.text);
+          // console.log("SUCCESS!", response.status, response.text);
         })
         .catch((err) => {
-          console.log("FAILED...", err);
+          // console.log("FAILED...", err);
         });
     })
     .catch(() => {
@@ -356,16 +391,31 @@ const getInterviewCandidates = async (redux_data, setInterviewCandidates) => {
 };
 
 const handleCross = async (redux_data, v, filter, setShortlistedCandidates) => {
-  // console.log(redux_data, v.Phone);
+  const toSend = {
+    from_name: redux_data.Name,
+    to_name: v.Name,
+    employer_name: redux_data.BusinessName,
+    send_to: v.Email,
+    send_by: "hello@worktown.co",
+    cc_to: "worktown.co@gmail.com",
+    role: v.role,
+  };
+
+  // console.log(toSend);
+
   await set(
-    ref(
-      db,
-      `users/jobs_employer/${redux_data.uid}/scheduleInterview/${v.Phone}`
-    ),
+    ref(db, `users/jobs_employer/${redux_data.uid}/scheduleInterview/${v.uid}`),
     null
   )
     .then(() => {
       getJobTypeFilterCand(redux_data, setShortlistedCandidates, filter);
+      send("service_0kxx7l1", "template_5yb7jp9", toSend, "gdh_CSodanmGmK83y")
+        .then((response) => {
+          // console.log("SUCCESS!", response.status, response.text);
+        })
+        .catch((err) => {
+          // console.log("FAILED...", err);
+        });
     })
     .catch(() => {
       alert("Something went wrong!");
@@ -377,11 +427,16 @@ const DISCOVERY_DOC = [
   "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
 ];
 const SCOPES = "https://www.googleapis.com/auth/calendar";
-const handleScheduleInterviewVirtualBtn = async (redux_data, Appdata, e) => {
+const handleScheduleInterviewVirtualBtn = async (
+  redux_data,
+  Appdata,
+  e,
+  handleExit
+) => {
   // console.log(redux_data, Appdata, e);
 
   const convertTime12to24 = async (time12h) => {
-    console.log(time12h);
+    // console.log(time12h);
     const [time, modifier] = time12h.split(" ");
 
     let [hours, minutes] = time.split(":");
@@ -496,7 +551,7 @@ const handleScheduleInterviewVirtualBtn = async (redux_data, Appdata, e) => {
             eventID: event.id,
             Interview_Details: Appdata,
           };
-          console.log(employee_data, employer_data);
+          // console.log(employee_data, employer_data);
           await update(
             ref(
               db,
@@ -537,13 +592,26 @@ const handleScheduleInterviewVirtualBtn = async (redux_data, Appdata, e) => {
                   all_time_appoitments: alltimeAppDB,
                 }
               );
+
+              window.open(event.htmlLink, "_blank");
+            })
+            .then(() => {
+              handleExit();
+            })
+            .catch(() => {
+              alert("An error occured while scheduling. Try again");
             });
         });
       });
   });
 };
 
-const handleScheduleInterviewBtn = async (redux_data, e, Appdata) => {
+const handleScheduleInterviewBtn = async (
+  redux_data,
+  e,
+  Appdata,
+  handleExit
+) => {
   const toSend = {
     from_name: redux_data.Name,
     to_name: e.Name,
@@ -559,28 +627,6 @@ const handleScheduleInterviewBtn = async (redux_data, e, Appdata) => {
     Email: redux_data.Email,
     Interview_Details: Appdata,
   };
-
-  console.log(employee_data);
-  // console.log(employee_data);
-  // await update(
-  //   ref(db, `users/jobs_employer/${redux_data.uid}/appointments/${e.uid}`),
-  //   e
-  // ).then(async () => {
-  //   await update(
-  //     ref(
-  //       db,
-  //       `users/jobs_employer/${e.uid}/employee_side_appointments/${redux_data.uid}`
-  //     ),
-  //     employee_data
-  //   );
-  // });
-  // send("service_0kxx7l1", "template_5y7pfk5", toSend, "gdh_CSodanmGmK83y")
-  //   .then((response) => {
-  //     console.log("SUCCESS!", response.status, response.text);
-  //   })
-  //   .catch((err) => {
-  //     console.log("FAILED...", err);
-  //   });
 
   const convertTime12to24 = async (time12h) => {
     // console.log(time12h);
@@ -610,7 +656,7 @@ const handleScheduleInterviewBtn = async (redux_data, e, Appdata) => {
   // console.log(finalStartDate, finalEndDate);
 
   gapi.load("client:auth2", () => {
-    console.log("loaded client", gapi);
+    // console.log("loaded client", gapi);
 
     gapi.client.init({
       apiKey: API_KEY_WT,
@@ -619,7 +665,9 @@ const handleScheduleInterviewBtn = async (redux_data, e, Appdata) => {
       scope: SCOPES,
       plugin_name: "streamy",
     });
-    gapi.client.load("calendar", "v3", () => console.log("boom!!!"));
+    gapi.client.load("calendar", "v3", () => {
+      // console.log("boom!!!")
+    });
     gapi.auth2
       .getAuthInstance()
       .signIn()
@@ -731,6 +779,12 @@ const handleScheduleInterviewBtn = async (redux_data, e, Appdata) => {
               );
               // UseWhatsapp(e.Phone, "hello");
               window.open(event.htmlLink, "_blank");
+            })
+            .then(() => {
+              handleExit();
+            })
+            .catch(() => {
+              alert("An error occured while scheduling. Try again");
             });
         });
       });

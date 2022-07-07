@@ -66,6 +66,12 @@ export default function PersonFullData({ setShowPersonFullData, v }) {
                 <p>{v.EnglishLevel}</p>
               </div>
             </div>
+            <div className="div-cand-card-inner-skl-inn1-short">
+              <div className="div-cand-card-inner1-fields-short">
+                <label>Accepted For</label>
+                <p>{v.role?.toUpperCase()}</p>
+              </div>
+            </div>
           </div>
           <div>
             <Button

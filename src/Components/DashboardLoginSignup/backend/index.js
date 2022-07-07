@@ -37,7 +37,7 @@ const getUsers = async (setCheckUser) => {
       // console.log(userObj);
       setCheckUser(userObj);
     } else {
-      console.log("No data available");
+      // console.log("No data available");
     }
   });
 
@@ -114,7 +114,6 @@ const handleRegister = async (email, password, cPassword) => {
         const user = userCredential.user;
         await sendEmailVerification(user);
         // ...
-
         Swal.fire({
           title: "Check your email address to verify your account.",
           showConfirmButton: true,
@@ -122,10 +121,11 @@ const handleRegister = async (email, password, cPassword) => {
         }).then((result) => {
           if (result.isConfirmed) {
             // window.location.replace("http://localhost:3000/portal/login");
-            window.location.replace("/portal/login");
+            window.location.replace("/portal");
           }
         });
         // console.log(auth.currentUser);
+        await signOut(auth);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -187,7 +187,7 @@ const handleLogin = async (
     });
   } else {
     const auth = getAuth();
-    console.log("then =>", emailVerify);
+    // console.log("then =>", emailVerify);
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -201,17 +201,17 @@ const handleLogin = async (
             showConfirmButton: true,
             confirmButtonText: "Ok",
           });
-          // signOut(auth);
-          // sendEmailVerification(user).then(() => {
-          //   console.log("Sent");
-          // });
-          console.log("then =>", user);
+          signOut(auth);
+          sendEmailVerification(user).then(() => {
+            // console.log("Sent");
+          });
+          // console.log("then =>", user);
         } else {
           setEmailVerify(true);
           set_data(user.uid);
           window.location.replace("/portal");
           // window.location.replace("http://localhost:3000/portal");
-          console.log("then =>", user);
+          // console.log("then =>", user);
         }
         // ...
       })
@@ -227,7 +227,7 @@ const handleLogin = async (
           showConfirmButton: true,
           confirmButtonText: "Ok",
         });
-        console.log("Err =>", errorCode);
+        // console.log("Err =>", errorCode);
       });
   }
 };
@@ -261,18 +261,18 @@ const ResetPassword = (email) => {
 // EMPLOYEE BACKEND
 
 const getEmployees = async (setCheckUser) => {
-  console.log("running ...");
+  // console.log("running ...");
   await get(child(dbRef, `users/jobs_users`))
     .then((snapshot) => {
       if (snapshot.exists()) {
         // console.log("running ...", snapshot.val());
         setCheckUser(snapshot.val());
       } else {
-        console.log("No data available");
+        // console.log("No data available");
       }
     })
     .catch((error) => {
-      console.error(error);
+      // console.error(error);
     });
 };
 

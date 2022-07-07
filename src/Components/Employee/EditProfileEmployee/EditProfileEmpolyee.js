@@ -13,7 +13,7 @@ function EditProfileEmployee() {
   );
   const [data, setData] = useState("");
   const [edit, setEdit] = useState("");
-  console.log(data);
+  // console.log(data);
   useEffect(() => {
     setData(redux_data);
   }, [redux_data]);

@@ -70,14 +70,19 @@ export default function HorizontalLinearStepper({
     let appointmentTime = { Interview_Details: data };
     let newObj = { ...scheduledCandidate, ...appointmentTime };
     setScheduleData(data);
-    handleScheduleInterviewBtn(redux_data, newObj, AppData);
+    handleScheduleInterviewBtn(redux_data, newObj, AppData, handleExit);
     setNormal(true);
   };
   const handleScheduleVirtual = (AppData) => {
     // let appointmentTime = { Interview_Details: data };
     // let newObj = { ...scheduledCandidate, ...appointmentTime };
     setScheduleData(data);
-    handleScheduleInterviewVirtualBtn(redux_data, AppData, scheduledCandidate);
+    handleScheduleInterviewVirtualBtn(
+      redux_data,
+      AppData,
+      scheduledCandidate,
+      handleExit
+    );
 
     // setNormal(true);
   };
@@ -125,6 +130,7 @@ export default function HorizontalLinearStepper({
       handleScheduleVirtual={handleScheduleVirtual}
       handleBack={handleBack}
       data={data}
+      handleExit={handleExit}
     />,
   ];
 

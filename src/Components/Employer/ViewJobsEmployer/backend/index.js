@@ -5,7 +5,7 @@ import firebase from "../../../../config/firebase";
 const db = getDatabase();
 
 const getJobsToView = (redux_data, setAllJobs) => {
-  console.log("current =>", redux_data);
+  // console.log("current =>", redux_data);
   let jobObj = redux_data && Object.values(redux_data);
 
   setAllJobs(jobObj);

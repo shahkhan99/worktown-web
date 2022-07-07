@@ -15,8 +15,8 @@ export default class Form6 extends Component {
   }
   handleDone = (email) => {
     let { cPassword, password } = this.state;
-    console.log(password, cPassword, email);
-    // handleRegister(email, password, cPassword);
+    // console.log(password, cPassword, email);
+    handleRegister(email, password, cPassword);
   };
   ShowPassword = () => {
     var x = document.getElementById("pass_show");

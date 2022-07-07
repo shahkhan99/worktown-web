@@ -26,7 +26,7 @@ const GetAppointments = async (redux_data, setAppt) => {
       data.push(snapshot.val());
       // console.log("stat=> ", snapshot.val());
     } else {
-      console.log("No data available");
+      // console.log("No data available");
     }
   });
   //   console.log(data);
@@ -43,7 +43,7 @@ const GetStats = async (redux_data, setStats) => {
       data.push(snapshot.val());
       // console.log("stat=> ", snapshot.val());
     } else {
-      console.log("No data available");
+      // console.log("No data available");
     }
   });
   //   console.log(data);
@@ -56,13 +56,13 @@ const DISCOVERY_DOC = [
 ];
 const SCOPES = "https://www.googleapis.com/auth/calendar";
 
-const CancelAppointment = (redux_data, candidate) => {
-  console.log(redux_data, candidate);
+const CancelAppointment = (redux_data, candidate, setAppt) => {
+  // console.log(redux_data, candidate);
 
-  gapi.load("client:auth2", () => {
+  gapi.load("client:auth2", async () => {
     // console.log("loaded client", gapi);
 
-    gapi.client.init({
+    await gapi.client.init({
       apiKey: API_KEY_WT,
       clientId: CLIENT_ID_WT,
       discoveryDocs: DISCOVERY_DOC,
@@ -70,20 +70,20 @@ const CancelAppointment = (redux_data, candidate) => {
       plugin_name: "streamy",
     });
     // gapi.auth2.getAuthInstance().signOut();
-    // gapi.client.load("calendar", "v3", () => console.log("boom!!!"));
-    gapi.auth2
+    await gapi.client.load("calendar", "v3", () => {});
+    await gapi.auth2
       .getAuthInstance()
       .signIn()
       .then(async () => {
         var request = await gapi.client.calendar.events.list({
           calendarId: "primary",
         });
-        let allEvents = request.result.items.filter((e) => {
+        let allEvents = await request.result.items.filter((e) => {
           return candidate.eventID === e.id;
-          // console.log(candidate.eventID, e.id);
         });
-        let activeID = allEvents[0].id;
+        // console.log(request, candidate);
         if (allEvents.length) {
+          let activeID = allEvents[0].id;
           try {
             let response = await gapi.client.calendar.events.delete({
               calendarId: "primary",
@@ -91,17 +91,17 @@ const CancelAppointment = (redux_data, candidate) => {
             });
             // console.log();
             if (response.data === "") {
-              console.log("delete at delete event ", response);
+              // console.log("delete at delete event ", response);
             } else {
-              console.log("else at delete event ", response);
+              // console.log("else at delete event ", response);
             }
           } catch (error) {
-            console.log("Error at delete event ", error);
+            // console.log("Error at delete event ", error);
           }
         }
       })
       .then(() => {
-        console.log("1st");
+        // console.log("1st");
         set(
           ref(
             db,
@@ -109,7 +109,7 @@ const CancelAppointment = (redux_data, candidate) => {
           ),
           null
         ).then(() => {
-          console.log("2nd");
+          // console.log("2nd");
           set(
             ref(
               db,
@@ -117,6 +117,7 @@ const CancelAppointment = (redux_data, candidate) => {
             ),
             null
           );
+          GetAppointments(redux_data, setAppt);
         });
       });
   });

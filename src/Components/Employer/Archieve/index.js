@@ -131,7 +131,7 @@ function Archieve() {
         {showPersonFullData ? (
           <PersonFullData
             setShowPersonFullData={setShowPersonFullData}
-            viewCand={personFullData}
+            v={personFullData}
           />
         ) : (
           <></>

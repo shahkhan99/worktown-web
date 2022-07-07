@@ -10,7 +10,7 @@ import { GiAchievement } from "react-icons/gi";
 export default function PersonFullData({ setShowPersonFullData, viewCand }) {
   // var skills = viewCand.Skills.split(",");
   // var InterestedIn = viewCand.InterestedIn.split(",");
-  console.log(viewCand);
+  // console.log(viewCand);
 
   return (
     <div className="div_main_Person_data">

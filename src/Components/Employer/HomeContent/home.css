@@ -222,3 +222,52 @@
     left: 30%;
   }
 }
+@media (min-width: 768px) and (max-width: 1050px) {
+  .main-div {
+    width: 100% !important;
+  }
+  .div-main-payment,
+  .div-pay-hist-main {
+    align-self: center;
+    width: 90% !important;
+  }
+  .div_h4_home {
+    align-self: center;
+  }
+  .div-pay-hist-main {
+    width: 100% !important;
+    flex-direction: column-reverse !important;
+    align-items: center !important;
+    justify-content: space-around;
+    height: 650px;
+  }
+  .div-pay-hist-inner {
+    width: 92% !important;
+    height: 280px !important;
+    padding: 10px 5px;
+  }
+  .div-stats-ul-empployer-div {
+    width: 90% !important;
+    margin: 3px 0px !important;
+  }
+  .div-appointments-ul-empployer,
+  .div-stats-ul-empployer {
+    width: 95% !important;
+    margin-top: 10px;
+  }
+  .div-appointments-ul-empployer ul {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .div-appointments-ul-empployer li {
+    width: 100%;
+    justify-content: space-between !important;
+  }
+  .div-main-payment-card1 {
+    flex-direction: column;
+  }
+  .div-main-payment-card1 button {
+    width: 50% !important;
+  }
+}

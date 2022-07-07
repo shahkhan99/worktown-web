@@ -27,7 +27,7 @@ function ViewJobsEmployer() {
     setData(redux_data);
   }, [editingdata, redux_data]);
 
-  console.log("current =>", allJobs);
+  // console.log("current =>", allJobs);
   const getMuiTimings = (e) => {
     // console.log(data);
     setEditingData({
@@ -49,7 +49,7 @@ function ViewJobsEmployer() {
       Skills,
     } = editingdata;
     let exp_sal = "Rs " + strArr1 + "-" + "Rs " + strArr2;
-    console.log(strArr1, strArr2);
+    // console.log(strArr1, strArr2);
 
     setEditingState("");
     if (JobTime == "Fixed") {
@@ -148,11 +148,11 @@ function ViewJobsEmployer() {
       <div className="shortlisted-main">
         <div className="shrt-cont-div shrt-cont-div-view-jb">
           <div style={{ width: "100%" }}>
-            <div className="shortlisted-ind-header">
-              <div className="shortlisted-ind-header-heading">
+            <div className="shortlisted-ind-header jv-ind-header">
+              <div className="shortlisted-ind-header-heading jv-ind-header-heading">
                 <div className="shortlisted-ind-header-heading-1">
                   <GrTechnology
-                    color="#2C72E5"
+                    color="#3e469d"
                     size={20}
                     style={{ marginRight: 15 }}
                   />

@@ -8,7 +8,7 @@
 }
 .arch-overflow {
   overflow-y: auto;
-  height: 670px;
+  height: 78%;
   padding: 15px;
   width: 80%;
 }
@@ -34,5 +34,14 @@
     width: 90%;
     top: 30px;
     justify-content: flex-start;
+  }
+}
+@media (min-width: 768px) and (max-width: 1050px) {
+  .arch-overflow {
+    width: 85% !important;
+  }
+  .arch-overflow-div {
+    justify-content: center;
+    align-content: flex-start;
   }
 }

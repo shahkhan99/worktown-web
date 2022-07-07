@@ -27,7 +27,7 @@ function Employer_DB() {
   const [checkScreen, setCheckScreen] = useState(true);
   const redux_data = useSelector((state) => state.dashboard_auth);
   const dispatch = useDispatch();
-  console.log(redux_data);
+  // console.log(redux_data);
 
   const auth = getAuth();
 
@@ -37,7 +37,7 @@ function Employer_DB() {
     <ViewJobsEmployer />,
     <EditProfileEmployer />,
     <Archieve />,
-    <Stepper />,
+    // <Stepper />,
   ];
   const Components1 = [
     <Home1 />,
@@ -82,7 +82,7 @@ function Employer_DB() {
           // User is signed out
           setIsUser(false);
           setChecking(false);
-          window.location.replace("http://localhost:3000/portal/login");
+          window.location.replace("/portal/login");
           // ...
         }
       });
@@ -127,7 +127,7 @@ function Employer_DB() {
         </div>
       );
     } else {
-      window.location.replace("http://localhost:3000/portal/login");
+      window.location.replace("/portal/login");
     }
   }
 }

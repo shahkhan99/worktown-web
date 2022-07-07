@@ -70,7 +70,7 @@ function Home() {
               <ul>
                 {appt.length ? (
                   appt.map((v, i) => {
-                    console.log(v);
+                    // console.log(v);
                     return (
                       <li
                         className={

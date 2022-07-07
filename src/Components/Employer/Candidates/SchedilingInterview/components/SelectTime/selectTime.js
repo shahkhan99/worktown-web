@@ -42,7 +42,7 @@ function ConfirmTime({ handleNext, handleBack, setData, data }) {
     { Stime: "10:00 pm", id: 13 },
   ];
 
-  console.log(value);
+  // console.log(value);
   return (
     <div className="sch-stepper-form-div ">
       <div className="create-head-div">

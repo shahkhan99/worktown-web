@@ -1,0 +1,22 @@
+@media (min-width: 768px) and (max-width: 1050px) {
+  .makeStyles-dialog-4,
+  .makeStyles-dialog-1 {
+    left: 0% !important;
+    top: auto !important;
+  }
+}
+@media (min-width: 360px) and (max-width: 767px) {
+  .makeStyles-dialog-4,
+  .makeStyles-dialog-1,
+  .makeStyles-dialog-37 {
+    left: 0% !important;
+  }
+  .dialog_select_dropdown,
+  .css-1uyh00o-MuiFormControl-root,
+  .mainDiv1_dialog_dropdown {
+    width: 100% !important;
+  }
+  .h6_dialog_filter {
+    font-size: 14px !important;
+  }
+}

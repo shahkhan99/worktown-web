@@ -31,8 +31,8 @@ export default function DashboardLoginSignup() {
           var result = gotEmail.find((obj) => {
             return obj.Email === uEmail;
           });
-          console.log(result);
-          console.log("run");
+          // console.log(result);
+          // console.log("run");
 
           // window.location.replace("http://localhost:3000/portal/");
         }
@@ -40,7 +40,7 @@ export default function DashboardLoginSignup() {
       } else {
         // User is signed out
         // ...
-        console.log("result");
+        // console.log("result");
       }
     });
     // console.log("checkUser");

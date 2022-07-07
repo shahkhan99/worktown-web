@@ -24,7 +24,8 @@ function Home() {
   useEffect(async () => {
     await GetAppointments(redux_data, setAppt);
     await GetStats(redux_data, setStats);
-  }, [redux_data]);
+  }, [redux_data, appt.length]);
+  // console.log(appt);
 
   const handleViewBtn = (v) => {
     setViewCand(v);
@@ -44,7 +45,7 @@ function Home() {
     }).then((result) => {
       // console.log(result);
       if (result.isConfirmed) {
-        CancelAppointment(redux_data, v);
+        CancelAppointment(redux_data, v, setAppt);
         // console.log("cancel");
       } else if (result.isDenied) {
         Swal.fire("Changes are not saved", "", "info");
@@ -100,47 +101,66 @@ function Home() {
             <div className="div-pay-hist-inner1">
               <p style={{ fontWeight: 700 }}>Your Stats</p>
             </div>
-            {stats.length ? (
+            {stats.length > 0 ? (
               <div className="div-stats-ul-empployer">
                 <div className="div-stats-ul-empployer-div apt-li-cls-2">
                   <label>Active Appointments</label>
                   <p>
-                    {stats.length
-                      ? Object.keys(stats[0]?.appointments)?.length
+                    {stats.length > 0
+                      ? stats[0]?.appointments !== undefined
+                        ? Object.keys(stats[0]?.appointments).length
+                        : 0
                       : 0}
                   </p>
                 </div>
                 <div className="div-stats-ul-empployer-div apt-li-cls-2">
                   <label>Active Job Posts</label>
                   <p>
-                    {stats.length ? Object.keys(stats[0]?.jobs)?.length : 0}
+                    {stats.length
+                      ? stats[0]?.jobs !== undefined
+                        ? Object.keys(stats[0]?.jobs).length
+                        : 0
+                      : 0}
                   </p>
                 </div>
                 <div className="div-stats-ul-empployer-div apt-li-cls-2">
                   <label>Active Archive</label>
                   <p>
-                    {stats.length ? Object.keys(stats[0]?.archive)?.length : 0}
+                    {stats.length
+                      ? stats[0]?.archive !== undefined
+                        ? Object.keys(stats[0]?.archive).length
+                        : 0
+                      : 0}
                   </p>
                 </div>
                 <div className="div-stats-ul-empployer-div apt-li-cls-2">
                   <label>Total Appointments</label>
                   <p>
                     {stats.length
-                      ? stats[0]?.all_time_stats?.all_time_appoitments
+                      ? stats[0]?.all_time_stats?.all_time_appoitments !==
+                        undefined
+                        ? stats[0]?.all_time_stats?.all_time_appoitments
+                        : 0
                       : 0}
                   </p>
                 </div>
                 <div className="div-stats-ul-empployer-div apt-li-cls-2">
                   <label>Total Job Posts</label>
                   <p>
-                    {stats.length ? stats[0]?.all_time_stats?.all_time_jobs : 0}
+                    {stats.length
+                      ? stats[0]?.all_time_stats?.all_time_jobs !== undefined
+                        ? stats[0]?.all_time_stats?.all_time_jobs
+                        : 0
+                      : 0}
                   </p>
                 </div>
                 <div className="div-stats-ul-empployer-div apt-li-cls-2">
                   <label>Total Archive</label>
                   <p>
                     {stats.length
-                      ? stats[0]?.all_time_stats?.all_time_archive
+                      ? stats[0]?.all_time_stats?.all_time_archive !== undefined
+                        ? stats[0]?.all_time_stats?.all_time_archive
+                        : 0
                       : 0}
                   </p>
                 </div>

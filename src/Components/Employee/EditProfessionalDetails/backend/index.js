@@ -4,7 +4,7 @@ import firebase from "../../../../config/firebase";
 
 const db = getDatabase();
 const SaveUpdatedData = async (data, dispatch, set_current_user_data) => {
-  console.log(data);
+  // console.log(data);
   await update(ref(db, `users/jobs_employer/${data.uid}/`), data)
     .then(() => {
       dispatch(set_current_user_data(data));

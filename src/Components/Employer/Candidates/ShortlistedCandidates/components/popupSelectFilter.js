@@ -29,7 +29,7 @@ export default function PopupSelectFilter({
   const handleClose = (event, reason) => {
     if (reason !== "backdropClick") {
       setOpen(false);
-      console.log(filterType);
+      // console.log(filterType);
       getFilterTitle(filterType);
     }
   };

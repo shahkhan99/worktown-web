@@ -95,7 +95,7 @@ export default function CreatableMulti({
   getMultiMuiTimings,
 }) {
   const handleInputChange = (e) => {
-    console.log(e, e.length);
+    // console.log(e, e.length);
 
     if (e.length < 11) {
       let obj = e.map((v) => {

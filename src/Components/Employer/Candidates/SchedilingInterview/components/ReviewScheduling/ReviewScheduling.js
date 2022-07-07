@@ -8,6 +8,7 @@ function ReviewScheduling({
   handleScheduleVirtual,
   handleBack,
   data,
+  handleExit,
 }) {
   const handleInputChange = (target, e) => {};
   const handleCompNext = () => {

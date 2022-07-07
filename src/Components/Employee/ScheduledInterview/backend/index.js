@@ -8,13 +8,13 @@ const getArchiveCand = async (redux_data, setInterviewCandidates) => {
     db,
     `users/jobs_employer/${redux_data.uid}/archive`
   );
-  console.log(redux_data.uid);
+  // console.log(redux_data.uid);
 
   onValue(starCountRef, (snapshot) => {
     if (snapshot.exists()) {
       let result = snapshot.val();
       let arrResult = Object.values(result);
-      console.log(arrResult);
+      // console.log(arrResult);
       setInterviewCandidates(arrResult);
     } else {
       setInterviewCandidates([]);

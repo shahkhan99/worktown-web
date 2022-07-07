@@ -12,7 +12,7 @@ import {
 const db = getDatabase();
 
 const Get_all_users_jobs = async () => {
-  console.log("running");
+  // console.log("running");
   const jobs_getting = ref(db, `users/jobs_employer/`);
 
   onValue(jobs_getting, (snapshot) => {
@@ -21,9 +21,9 @@ const Get_all_users_jobs = async () => {
       let jobsArr = objVals.map((v) => {
         return v.jobs ? v.jobs : "";
       });
-      console.log(objVals);
+      // console.log(objVals);
     } else {
-      console.log("No data available");
+      // console.log("No data available");
     }
   });
 };

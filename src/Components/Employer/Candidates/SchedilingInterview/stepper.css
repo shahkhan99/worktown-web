@@ -166,6 +166,99 @@
 .create-cont-div-rv_scg {
   background-color: transparent !important;
 }
+.css-u4p24i {
+  height: 100px !important;
+}
+.css-ig2rb {
+  display: flex !important;
+}
+.css-igs3ac {
+  border-width: 0px !important;
+}
+.css-i44wyl {
+  width: 100% !important;
+}
+@media (min-width: 360px) and (max-width: 767px) {
+  .Shortlisted_stepper_scheduling_main_div {
+    width: 100%;
+  }
+  .stepper_exit_mui_btn_shortlisted {
+    width: 100%;
+    margin-top: 10px !important;
+  }
+  .css-16ubnlw-MuiStepLabel-labelContainer,
+  .css-j5w0w9-MuiStepConnector-root,
+  .css-farnub.Mui-active,
+  .css-farnub,
+  .css-95m0ql {
+    display: none !important;
+  }
+  .div-schediling-step-info {
+    width: 110%;
+  }
+  .create-head-div h4 {
+    font-size: 22px !important;
+  }
+  .div-schediling-step-info h6,
+  .div-schediling-step-info_date h6 {
+    font-size: 18px !important;
+  }
+  .div-schediling-step-info-phy-vir {
+    width: 80%;
+  }
+  .div-schediling-step-info-phy-vir-inner {
+    width: 45%;
+  }
+  .css-u4p24i {
+    margin-top: 10px !important;
+    height: 35px !important;
+  }
+  .css-i44wyl,
+  .css-1sorvhj {
+    width: 100% !important;
+  }
+  .css-m5vj9m-MuiStepper-root {
+    height: 35px !important;
+    justify-content: space-between !important;
+  }
+  .bck-btn-emp-main {
+    width: 65%;
+  }
+  .nxt-btn-sch,
+  .nxt-btn-btn {
+    width: 100%;
+  }
+  .sch-stepper-form-div {
+    height: 90%;
+  }
+  .div-schediling-step-info_date {
+    height: 400px;
+    width: 100%;
+  }
+  .div-inputs-schediling-step_date {
+    height: 98%;
+    width: 100%;
+  }
+  .div-input-icon-date-sch {
+    width: 95%;
+    margin: 10px;
+    border-radius: 6px;
+  }
+  .slots-time-picker {
+    width: 28%;
+    height: 35px;
+    margin: 6px;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+  .css-ig2rb {
+    height: 50px !important;
+  }
+  .css-4ff9q7.Mui-active,
+  .css-4ff9q7.Mui-completed {
+    color: #3e469d !important;
+  }
+}
 @media (min-width: 1051px) and (max-width: 1420px) {
   .css-m5vj9m-MuiStepper-root {
     height: 75px !important;
@@ -201,5 +294,17 @@
   }
   .create-cont-div-rv_scg {
     height: 77%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1050px) {
+  .div-schediling-step-info,
+  .stepper_exit_mui_btn_shortlisted,
+  .div-schediling-step-info_date,
+  .div-inputs-schediling-step_date,
+  .epemp-main-div-edit-inner,
+  .input-stepper-schedule,
+  .bck-btn-emp-main {
+    width: 100% !important;
   }
 }

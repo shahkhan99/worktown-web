@@ -77,7 +77,7 @@ function ViewJobsEmployee() {
     Get_all_users_jobs();
   }, []);
 
-  console.log("current =>", allJobs);
+  // console.log("current =>", allJobs);
 
   return (
     <div className="shortlisting-main-upper">

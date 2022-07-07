@@ -13,6 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
 import { makeStyles } from "@material-ui/core";
+import "./dialogSelect.css";
 
 const useStyles = makeStyles({
   dialog: {
@@ -78,7 +79,10 @@ export default function MaxWidthDialog({
   const handleChange = (target, event) => {
     target(event.target.value);
     getFilterTitle(event.target.value);
-    console.log(event.target.value);
+    // console.log(event.target.value);
+    setTimeout(() => {
+      handleClose();
+    }, 100);
   };
 
   const handlejobOpen = () => {
@@ -148,6 +152,12 @@ export default function MaxWidthDialog({
           <DialogTitle>Filter by job post</DialogTitle>
           <div className="mainDiv1_dialog_dropdown">
             <FormControl sx={{ m: 1, minWidth: 0 }}>
+              <h6
+                style={{ fontSize: 15, textAlign: "center" }}
+                className="h6_dialog_filter"
+              >
+                {filterType}
+              </h6>
               <Select
                 // IconComponent={() => null}
                 labelId="demo-controlled-open-select-label"

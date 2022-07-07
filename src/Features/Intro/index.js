@@ -154,17 +154,17 @@ class Introduction extends Component {
     var val = e.target.value;
     if (String(val).length === 4) {
       this.setState({ value_px: String(val).slice(0, 1) - 1 });
-      console.log(this.state.value_px);
+      // console.log(this.state.value_px);
     }
     if (String(val).length === 5) {
       this.setState({
         value_px: String(val).slice(0, 2) - String(val).slice(0, 1),
       });
-      console.log(this.state.value_px);
+      // console.log(this.state.value_px);
     }
     if (String(val).length === 6) {
       this.setState({ value_px: String(val).slice(0, 3) - 5 });
-      console.log(this.state.value_px);
+      // console.log(this.state.value_px);
     }
   };
   handleMale = () => {
@@ -227,14 +227,14 @@ class Introduction extends Component {
   };
 
   submitHandler = (JobCategory) => {
-    console.log("handler running ... ");
+    // console.log("handler running ... ");
     const { nameValid, cityValid, emailValid, phoneValid } =
       this.state.errorMessage;
     const { name, city, email, phone } = this.state;
     const formIsValid = nameValid && cityValid && emailValid && phoneValid;
 
     if (!formIsValid) {
-      console.log("Invalid ... ");
+      // console.log("Invalid ... ");
       return;
     }
     let gender = this.state.male ? "Male" : "Female";
@@ -259,7 +259,7 @@ class Introduction extends Component {
         // timer: 1500,
       });
     } else {
-      console.log("spreadsheet calling ... ");
+      // console.log("spreadsheet calling ... ");
       this.appendSpreadsheet({
         Name: this.state.name,
         Phone: this.state.phone,
@@ -291,7 +291,7 @@ class Introduction extends Component {
       });
       // loads document properties and worksheets
       await doc.loadInfo();
-      console.log("spreadsheet running ... ");
+      // console.log("spreadsheet running ... ");
 
       const sheet = doc.sheetsById[SHEET_ID];
       const result = await sheet.addRow(row);

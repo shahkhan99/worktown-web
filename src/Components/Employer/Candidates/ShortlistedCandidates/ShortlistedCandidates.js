@@ -48,12 +48,11 @@ function ShortlistedCandidates() {
     from_name: "testing sender",
     to_name: "testing receiver",
     employer_name: "Deel",
-    // reply_to: "arhamabeerahmed@gmail.com",
     send_to: "workhall.co@gmail.com",
     send_by: "hello@worktown.co",
   });
   const [personFullData, setPersonFullData] = useState({});
-  const [mobileScreenTrue, setMobileScreenTrue] = useState(true);
+  const [mobileScreenTrue, setMobileScreenTrue] = useState(false);
   const [showPersonFullData, setShowPersonFullData] = useState(false);
   const [isReject, setIsReject] = useState(false);
   const dispatch = useDispatch();
@@ -77,9 +76,9 @@ function ShortlistedCandidates() {
     }
     // await MatchingCandidates(redux_data, filterType);
     // await checkUser()
-    window.innerWidth > 768
-      ? setMobileScreenTrue(true)
-      : setMobileScreenTrue(false);
+    // window.innerWidth > 768
+    //   ? setMobileScreenTrue(true)
+    //   : setMobileScreenTrue(false);
   }, [currentUser, filterType, redux_data]);
 
   const getFilterTitle = (e) => {
@@ -87,7 +86,7 @@ function ShortlistedCandidates() {
   };
 
   const checkOpen = (e) => {
-    console.log(e);
+    // console.log(e);
   };
 
   const handleShowPersonData = (v) => {
@@ -144,7 +143,7 @@ function ShortlistedCandidates() {
       // console.log(result);
       if (result.isConfirmed) {
         handleAccept(v, redux_data, filterType, setShortlistedCandidates);
-        // console.log("cancel");
+        // console.log("cancel", filterType.split("/"));
       } else if (result.isDenied) {
         Swal.fire("Changes are not saved", "", "info");
       }
@@ -224,12 +223,17 @@ function ShortlistedCandidates() {
               <div className="shortlisted-ind-header shortlisted-ind-header-1">
                 <div className="shortlisted-ind-header-heading">
                   <div className="shortlisted-ind-header-heading-1">
-                    <img
+                    {/* <img
                       src={Tech}
                       width={20}
                       height={20}
                       style={{ marginRight: 15 }}
-                    />
+                    /> */}
+                     <GrTechnology
+                    color="#3e469d"
+                    size={20}
+                    style={{ marginRight: 15 }}
+                  />
                     <h4>Software & IT</h4>
                   </div>
                   <div className="shortlisted-ind-header-heading-2">
