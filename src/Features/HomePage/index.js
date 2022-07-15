@@ -423,33 +423,7 @@ class HomePage extends React.Component {
             );
             // this.setState({ allUsers: findSimilar });
             // console.log(findSimilar, findSimilarE);
-            if (findSimilar.length && !findSimilarE.length) {
-              Swal.fire({
-                position: "center",
-                icon: "error",
-                title: "Email or Phone is registered to different accounts",
-                showConfirmButton: true,
-                // timer: 1500,
-              });
-            } else if (!findSimilar.length && findSimilarE.length) {
-              Swal.fire({
-                position: "center",
-                icon: "error",
-                title:
-                  "It seems like you've not logged in. Make sure to logged in to post a new job",
-                showConfirmButton: true,
-                // timer: 1500,
-              });
-            } else if (!findSimilar.length && !findSimilarE.length) {
-              Swal.fire({
-                position: "center",
-                icon: "error",
-                title:
-                  "It seems like you've not logged in. Make sure to logged in to post a new job",
-                showConfirmButton: true,
-                // timer: 1500,
-              });
-            } else {
+            if (this.state.loginSession) {
               let gender =
                 this.state.loggedInGender !== ""
                   ? this.state.loggedInGender
@@ -475,6 +449,60 @@ class HomePage extends React.Component {
                 Achievement: "",
               });
               fullpageApi.moveTo(4, 0);
+            } else {
+              if (findSimilar.length && !findSimilarE.length) {
+                Swal.fire({
+                  position: "center",
+                  icon: "error",
+                  title: "Email or Phone is registered to different accounts",
+                  showConfirmButton: true,
+                  // timer: 1500,
+                });
+              } else if (!findSimilar.length && findSimilarE.length) {
+                Swal.fire({
+                  position: "center",
+                  icon: "error",
+                  title:
+                    "It seems like you've not logged in. Make sure to logged in to post a new job",
+                  showConfirmButton: true,
+                  // timer: 1500,
+                });
+              } else if (findSimilar.length && findSimilarE.length) {
+                Swal.fire({
+                  position: "center",
+                  icon: "error",
+                  title:
+                    "It seems like you've not logged in. Make sure to logged in to post a new job",
+                  showConfirmButton: true,
+                  // timer: 1500,
+                });
+              } else {
+                let gender =
+                  this.state.loggedInGender !== ""
+                    ? this.state.loggedInGender
+                    : this.state.male
+                    ? "Male"
+                    : this.state.female
+                    ? "Female"
+                    : "";
+                this.appendSpreadsheet({
+                  Name: this.state.name,
+                  Phone: this.state.phone,
+                  City: this.state.city,
+                  Email: this.state.email,
+                  JobCategory: "",
+                  JobType: "",
+                  Experience: "",
+                  Skills: "",
+                  Education: "",
+                  InterestedIn: "",
+                  CurrentSalary: "",
+                  Gender: gender,
+                  EnglishLevel: "",
+                  Achievement: "",
+                });
+                fullpageApi.moveTo(4, 0);
+              }
             }
           } else {
             let gender =
@@ -519,34 +547,8 @@ class HomePage extends React.Component {
               (e) => e.Phone === this.state.phone
             );
             // this.setState({ allUsers: findSimilar });
-            console.log(findSimilar, findSimilarE);
-            if (findSimilar.length && !findSimilarE.length) {
-              Swal.fire({
-                position: "center",
-                icon: "error",
-                title: "Email or Phone is registered to different accounts",
-                showConfirmButton: true,
-                // timer: 1500,
-              });
-            } else if (!findSimilar.length && findSimilarE.length) {
-              Swal.fire({
-                position: "center",
-                icon: "error",
-                title:
-                  "It seems like you've not logged in. Make sure to logged in to post a new job",
-                showConfirmButton: true,
-                // timer: 1500,
-              });
-            } else if (!findSimilar.length && !findSimilarE.length) {
-              Swal.fire({
-                position: "center",
-                icon: "error",
-                title:
-                  "It seems like you've not logged in. Make sure to logged in to post a new job",
-                showConfirmButton: true,
-                // timer: 1500,
-              });
-            } else {
+            console.log(this.state.loginSession);
+            if (this.state.loginSession) {
               let gender =
                 this.state.loggedInGender !== ""
                   ? this.state.loggedInGender
@@ -572,6 +574,60 @@ class HomePage extends React.Component {
                 Achievement: "",
               });
               fullpageApi.moveTo(4, 0);
+            } else {
+              if (findSimilar.length && !findSimilarE.length) {
+                Swal.fire({
+                  position: "center",
+                  icon: "error",
+                  title: "Email or Phone is registered to different accounts",
+                  showConfirmButton: true,
+                  // timer: 1500,
+                });
+              } else if (!findSimilar.length && findSimilarE.length) {
+                Swal.fire({
+                  position: "center",
+                  icon: "error",
+                  title:
+                    "It seems like you've not logged in. Make sure to logged in to post a new job",
+                  showConfirmButton: true,
+                  // timer: 1500,
+                });
+              } else if (findSimilar.length && findSimilarE.length) {
+                Swal.fire({
+                  position: "center",
+                  icon: "error",
+                  title:
+                    "It seems like you've not logged in. Make sure to logged in to post a new job",
+                  showConfirmButton: true,
+                  // timer: 1500,
+                });
+              } else {
+                let gender =
+                  this.state.loggedInGender !== ""
+                    ? this.state.loggedInGender
+                    : this.state.male
+                    ? "Male"
+                    : this.state.female
+                    ? "Female"
+                    : "";
+                this.appendSpreadsheet({
+                  Name: this.state.name,
+                  Phone: this.state.phone,
+                  City: this.state.city,
+                  Email: this.state.email,
+                  JobCategory: "",
+                  JobType: "",
+                  Experience: "",
+                  Skills: "",
+                  Education: "",
+                  InterestedIn: "",
+                  CurrentSalary: "",
+                  Gender: gender,
+                  EnglishLevel: "",
+                  Achievement: "",
+                });
+                fullpageApi.moveTo(4, 0);
+              }
             }
           } else {
           }

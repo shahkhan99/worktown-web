@@ -24,7 +24,7 @@ var allJobs = "";
 var allJobsArr = [];
 var jobTypeFilterCand = [];
 
-const checkUser = async (currentUser, filter) => {
+const checkUser = async (currentUser, filter, setShortlistedCandidates) => {
   await get(child(dbRef, `users/jobs_employer`))
     .then(async (snapshot) => {
       if (snapshot.exists()) {
@@ -37,7 +37,7 @@ const checkUser = async (currentUser, filter) => {
           cand.push(seperated);
         }
         // console.log(filter);
-        await MatchingCandidates(currentUser, filter);
+        await MatchingCandidates(currentUser, filter, setShortlistedCandidates);
         // console.log(jobTypeFilterCand);
       } else {
         // console.log("No data available");
@@ -68,7 +68,11 @@ const getCurrentUserData = async (setCurrentUser) => {
   //     console.error(error);
   //   });
 };
-const MatchingCandidates = async (currentUser, filter) => {
+const MatchingCandidates = async (
+  currentUser,
+  filter,
+  setShortlistedCandidates
+) => {
   // jobTypeFilterCand = cand.filter(
   //   (e) => e.JobType === currentUser.JobType
   // console.log(currentUser);
@@ -203,7 +207,8 @@ const MatchingCandidates = async (currentUser, filter) => {
       );
     }
   }
-  // console.log(arrSchIntResult);
+  setShortlistedCandidates(jobTypeFilterCand);
+  // console.log(jobTypeFilterCand);
 };
 
 const getJobTypeFilterCand = async (
@@ -211,8 +216,9 @@ const getJobTypeFilterCand = async (
   setShortlistedCandidates,
   filterType
 ) => {
-  await checkUser(currentUser, filterType);
-  await setShortlistedCandidates(jobTypeFilterCand);
+  await checkUser(currentUser, filterType, setShortlistedCandidates);
+  // setShortlistedCandidates(jobTypeFilterCand);
+  // console.log(jobTypeFilterCand);
 };
 const getJobTitleFilters = async (SetJob_options) => {
   // SetJob_options([]);
@@ -351,8 +357,8 @@ const handleAccept = async (
   // console.log(redux_data);
 };
 
-const getInterviewCandidates = async (redux_data, setInterviewCandidates) => {
-  const starCountRef = await ref(
+const getInterviewCandidates = (redux_data, setInterviewCandidates) => {
+  const starCountRef = ref(
     db,
     `users/jobs_employer/${redux_data.uid}/scheduleInterview`
   );

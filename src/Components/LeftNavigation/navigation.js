@@ -118,6 +118,10 @@ function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
   const redux_data = useSelector(
     (state) => state.dashboard_auth.set_current_user_data
   );
+  const redux_nav = useSelector(
+    (state) => state.navigation_reducer.set_nav_selection
+  );
+  // console.log(redux_nav);
   getEmployeeOrEmployer(checkSide);
   let matches = useMediaQuery("(min-width:1050px)");
 
@@ -127,7 +131,11 @@ function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
     } else {
       setCheckScreen(true);
     }
-  }, [matches]);
+    if (redux_nav === 1) {
+      setSelected_nav(1);
+      // console.log(selected_nav);
+    }
+  }, [redux_nav, matches]);
   if (!matches && !checkScreen) {
     const concernedElement = document.querySelector(".nav-main-div");
     document.addEventListener("mousedown", (event) => {
@@ -138,6 +146,7 @@ function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
     });
   } else {
   }
+  // console.log(selected_nav);
 
   const handleMatchChange = () => {
     checkScreen ? setCheckScreen(false) : setCheckScreen(true);

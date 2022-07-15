@@ -7,8 +7,11 @@ import { GrTechnology } from "react-icons/gr";
 import { useSelector, useDispatch } from "react-redux";
 import { getJobsToView, SaveUpdatedJob, deleteJob } from "./backend";
 import MultipleSelectCheckmarks from "./component/muiMultiSelect";
+import { Button } from "@mui/material";
+import Swal from "sweetalert2";
+import { set_nav_selection } from "../../../store/action/index";
 
-function ViewJobsEmployer() {
+function ViewJobsEmployer({ setSelected_nav, setFilter }) {
   const [data, setData] = useState("");
   const [editingState, setEditingState] = useState("");
   const [editingdata, setEditingData] = useState("");
@@ -116,8 +119,33 @@ function ViewJobsEmployer() {
       }, 500);
     }
   };
+  const handleDeleteBtn = (i) => {
+    Swal.fire({
+      position: "center",
+      icon: "question",
+      title: `Delete Job?`,
+      showConfirmButton: true,
+      showDenyButton: true,
+      denyButtonText: `Don't Delete`,
+      confirmButtonText: `Delete`,
+    }).then((result) => {
+      // console.log(result);
+      if (result.isConfirmed) {
+        handleDelete(i);
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
+    });
+  };
   const handleDelete = (i) => {
     deleteJob(editingdata, redux_data, setAllJobs, allJobs, i);
+  };
+  const handleViewCand = (v, i) => {
+    let jobFilter = v.JobType + `/` + v.Experience;
+    // console.log(jobFilter);
+    setSelected_nav(1);
+    setFilter(jobFilter);
+    dispatch(set_nav_selection(1));
   };
 
   // console.log(allJobs);
@@ -159,6 +187,15 @@ function ViewJobsEmployer() {
                   <h4>Software & IT</h4>
                 </div>
               </div>
+              <div className="shortlisted-ind-header-heading-btn-si">
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={() => window.open("/", "_blank")}
+                >
+                  Post a new job{" "}
+                </Button>
+              </div>
             </div>
             <div className="div-cand-card-main">
               <div className="div-cand-card-main-sub div-cand-card-main-sub-view-jobs">
@@ -188,6 +225,17 @@ function ViewJobsEmployer() {
                                   ? { display: "none" }
                                   : { display: "flex" }
                               }
+                              className="div-jv-card-btn_v_c_btn"
+                              onClick={() => handleViewCand(v, i)}
+                            >
+                              View Candidates
+                            </button>
+                            <button
+                              style={
+                                v.key === editingState
+                                  ? { display: "none" }
+                                  : { display: "flex" }
+                              }
                               onClick={() => handleEdit(v, i)}
                             >
                               Edit
@@ -208,7 +256,7 @@ function ViewJobsEmployer() {
                                   ? { display: "flex" }
                                   : { display: "none" }
                               }
-                              onClick={() => handleDelete(i)}
+                              onClick={() => handleDeleteBtn(i)}
                               className="div-jd-card-btn-int-rej"
                             >
                               Delete

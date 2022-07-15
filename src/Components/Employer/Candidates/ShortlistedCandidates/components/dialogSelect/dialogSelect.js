@@ -45,6 +45,7 @@ export default function MaxWidthDialog({
   filterTyped,
   checkopen,
   handleClosed,
+  setFilterVJ,
 }) {
   const classes = useStyles();
   const [selected, setSelected] = React.useState(0);
@@ -77,6 +78,7 @@ export default function MaxWidthDialog({
     setjobCatOpen(false);
   };
   const handleChange = (target, event) => {
+    setFilterVJ("");
     target(event.target.value);
     getFilterTitle(event.target.value);
     // console.log(event.target.value);
@@ -104,8 +106,8 @@ export default function MaxWidthDialog({
   const handleFullWidthChange = (event) => {
     setFullWidth(event.target.checked);
   };
-
-  // console.log(filterType);
+  let fil = `${filterSplit[0]}/${filterSplit[1]}`;
+  // console.log(fil);
 
   return (
     <React.Fragment>
@@ -156,7 +158,7 @@ export default function MaxWidthDialog({
                 style={{ fontSize: 15, textAlign: "center" }}
                 className="h6_dialog_filter"
               >
-                {filterType}
+                {fil}
               </h6>
               <Select
                 // IconComponent={() => null}

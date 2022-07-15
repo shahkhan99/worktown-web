@@ -6,7 +6,7 @@ import PopupSelectFilter from "./components/popupSelectFilter";
 import PersonFullData from "../../PersonFullData/PersonFullData";
 import Tech from "../assets/tech.png";
 import DropDown from "./components/dropdownMUI/dropdown";
-
+import { set_nav_selection } from "../../../../store/action/index";
 import { Backdrop, Button } from "@mui/material";
 import {
   setFilterType,
@@ -33,7 +33,7 @@ import { send } from "emailjs-com";
 import HorizontalLinearStepper from "../SchedilingInterview/stepper";
 import UseWhatsapp from "whatsapp-react-component";
 import Swal from "sweetalert2";
-function ShortlistedCandidates() {
+function ShortlistedCandidates({ filterVJ, setFilterVJ }) {
   const [normal, setNormal] = useState(true);
   const [scheduleData, setScheduleData] = useState({});
   const [scheduledCandidate, setScheduledCandidate] = useState();
@@ -59,32 +59,25 @@ function ShortlistedCandidates() {
   const redux_data = useSelector(
     (state) => state.dashboard_auth.set_current_user_data
   );
-
-  useEffect(async () => {
-    await getInterviewCandidates(redux_data, setInterviewCandidates);
+  dispatch(set_nav_selection(""));
+  useEffect(() => {
+    getInterviewCandidates(redux_data, setInterviewCandidates);
     if (redux_data === "") {
-      await setCurrentUser(redux_data);
+      setCurrentUser(redux_data);
     }
-    await getJobTypeFilterCand(
-      redux_data,
-      setShortlistedCandidates,
-      filterType
-    );
+    getJobTypeFilterCand(redux_data, setShortlistedCandidates, filterType);
     if (redux_data !== "") {
-      await setFilterType(setFilter, redux_data, filterType);
-      await getJobTitleFilters(SetJob_options, redux_data);
+      setFilterType(setFilter, redux_data, filterType);
+      getJobTitleFilters(SetJob_options, redux_data);
     }
-    // await MatchingCandidates(redux_data, filterType);
-    // await checkUser()
-    // window.innerWidth > 768
-    //   ? setMobileScreenTrue(true)
-    //   : setMobileScreenTrue(false);
-  }, [currentUser, filterType, redux_data]);
+    if (filterVJ !== "") {
+      setFilter(filterVJ);
+    }
+  }, [currentUser, filterType]);
 
   const getFilterTitle = (e) => {
     setFilter(e);
   };
-
   const checkOpen = (e) => {
     // console.log(e);
   };
@@ -195,7 +188,7 @@ function ShortlistedCandidates() {
 
   let filterSplit = filterType && filterType.split("/");
 
-  // console.log("current =>", mobileScreenTrue);
+  // console.log("current =>", filterVJ, filterType);
   return (
     <React.Fragment>
       <div
@@ -229,11 +222,11 @@ function ShortlistedCandidates() {
                       height={20}
                       style={{ marginRight: 15 }}
                     /> */}
-                     <GrTechnology
-                    color="#3e469d"
-                    size={20}
-                    style={{ marginRight: 15 }}
-                  />
+                    <GrTechnology
+                      color="#3e469d"
+                      size={20}
+                      style={{ marginRight: 15 }}
+                    />
                     <h4>Software & IT</h4>
                   </div>
                   <div className="shortlisted-ind-header-heading-2">
@@ -250,6 +243,7 @@ function ShortlistedCandidates() {
                           filterSplit={filterSplit}
                           getFilterTitle={(e) => getFilterTitle(e)}
                           filterTyped={filterType}
+                          setFilterVJ={setFilterVJ}
                         />
                       </div>
                     ) : (

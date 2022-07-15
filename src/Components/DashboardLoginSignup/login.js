@@ -3,7 +3,7 @@ import "./dashboardloginsignup.css";
 import { getUsers, handleLogin, ResetPassword, getEmployees } from "./backend";
 import { useSelector, useDispatch } from "react-redux";
 import { set_current_user_data } from "../../store/action/index";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import Loading from "../../assets/Loader/worktown-loader.gif";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
@@ -40,9 +40,13 @@ export default function DashboardLogin() {
             var result = gotEmail.find((obj) => {
               return obj.Email === uEmail;
             });
-            dispatch(set_current_user_data(result));
-            // window.location.replace("http://localhost:3000/portal/");
-            // console.log("run");
+            if (!user.emailVerified) {
+              signOut(auth);
+            } else {
+              dispatch(set_current_user_data(result));
+              window.location.replace("http://localhost:3000/portal/");
+              // console.log("run", user);
+            }
           }
 
           // ...

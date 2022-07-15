@@ -15,6 +15,7 @@ export default function ControlledOpenSelect({
   filterSplit,
   getFilterTitle,
   filterTyped,
+  setFilterVJ,
 }) {
   const [age, setAge] = React.useState("");
   const [checkopen, setCheckOpen] = React.useState(false);
@@ -48,6 +49,7 @@ export default function ControlledOpenSelect({
         filterTyped={filterTyped}
         checkopen={checkopen}
         handleClosed={handleClose}
+        setFilterVJ={setFilterVJ}
       />
       <BsFilterLeft
         color="#000"

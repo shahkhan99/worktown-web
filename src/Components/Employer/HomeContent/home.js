@@ -4,7 +4,12 @@ import Logo from "../../../assets/Logo/logo.png";
 import { GiAntiAircraftGun } from "react-icons/gi";
 import Swal from "sweetalert2";
 import { useSelector, useDispatch } from "react-redux";
-import { GetAppointments, GetStats, CancelAppointment } from "./backend";
+import {
+  GetAppointments,
+  GetStats,
+  CancelAppointment,
+  UpdateAppointments,
+} from "./backend";
 import { Button } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
@@ -24,8 +29,13 @@ function Home() {
   useEffect(async () => {
     await GetAppointments(redux_data, setAppt);
     await GetStats(redux_data, setStats);
+    UpdateAppointments(appt, redux_data, setAppt);
   }, [redux_data, appt.length]);
+  // let appt_obj = { ...appt };
+
   // console.log(appt);
+  // console.log(moment(new Date()).format("MMM Do YY"));
+  // console.log(moment(appt_obj[0]).add(1, "d").format("MMM Do YY"));
 
   const handleViewBtn = (v) => {
     setViewCand(v);

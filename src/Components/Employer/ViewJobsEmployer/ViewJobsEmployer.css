@@ -158,7 +158,7 @@
 .div-jv-card-btn {
   display: flex;
   /* padding: 10px 0px; */
-  width: 155px;
+  width: 185px;
   /* height: 150px; */
   justify-content: space-between;
   /* align-self: center; */
@@ -166,7 +166,7 @@
   align-items: flex-start;
 }
 .div-jv-card-btn button {
-  height: 32px;
+  height: 35px;
   cursor: pointer;
   background: #3e469d;
   width: 75px;
@@ -273,6 +273,9 @@
 .css-15bjg8p {
   width: 100% !important;
 }
+.div-jv-card-btn_v_c_btn {
+  width: 100px !important;
+}
 @media (min-width: 1051px) and (max-width: 1420px) {
   .shrt-cont-div-view-jb {
     width: 100%;
@@ -280,14 +283,15 @@
   .div-cand-card-main-sub-view-jobs {
     width: 100%;
   }
+  .jv-ind-header {
+    width: 90%;
+  }
 }
 @media (min-width: 360px) and (max-width: 767px) {
   .shortlisted-ind-header {
     width: 96%;
   }
-  .jv-ind-header-heading {
-    width: 100%;
-  }
+
   .div-cand-card-main-sub {
     padding: 0;
   }
@@ -350,10 +354,7 @@
   .div-cand-card-main {
     height: 800px;
   }
-  .jv-ind-header-heading {
-    width: 90%;
-  }
   .jv-ind-header {
-    width: 100%;
+    width: 80%;
   }
 }

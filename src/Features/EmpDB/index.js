@@ -20,6 +20,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getUsers } from "../../Components/DashboardLoginSignup/backend/index";
 function Employer_DB() {
   const [selected_nav, setSelected_nav] = useState(0);
+  const [filter, setFilter] = useState("");
   const [checking, setChecking] = useState(true);
   const [isUser, setIsUser] = useState();
   const [checkUser, setCheckUser] = useState("");
@@ -33,8 +34,11 @@ function Employer_DB() {
 
   const Components = [
     <Home />,
-    <ShortlistedCandidates />,
-    <ViewJobsEmployer />,
+    <ShortlistedCandidates filterVJ={filter} setFilterVJ={setFilter} />,
+    <ViewJobsEmployer
+      setSelected_nav={setSelected_nav}
+      setFilter={setFilter}
+    />,
     <EditProfileEmployer />,
     <Archieve />,
     // <Stepper />,
@@ -87,7 +91,7 @@ function Employer_DB() {
         }
       });
     }
-  }, [checkUser]);
+  }, [checkUser, filter]);
   const checkNav = (e) => {
     setSelected_nav(e);
   };

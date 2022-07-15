@@ -9,6 +9,7 @@ import {
   onValue,
   onChildAdded,
 } from "firebase/database";
+import moment from "moment";
 import { API_KEY_WT, CLIENT_ID_WT } from "../../Candidates/backend/calenderAPI";
 
 const db = getDatabase();
@@ -123,4 +124,33 @@ const CancelAppointment = (redux_data, candidate, setAppt) => {
   });
 };
 
-export { GetAppointments, GetStats, CancelAppointment };
+const UpdateAppointments = (appt, redux_data, setAppt) => {
+  let date = "";
+  const today = moment(new Date()).format("MMM Do YY");
+  appt.forEach((v) => {
+    date = v.Interview_Details.date;
+    if (moment(date).add(1, "d").format("MMM Do YY") <= today) {
+      set(
+        ref(db, `users/jobs_employer/${redux_data.uid}/appointments/${v.uid}`),
+        null
+      ).then(() => {
+        // console.log("2nd");
+        set(
+          ref(
+            db,
+            `users/jobs_employer/${v.uid}/employee_side_appointments/${redux_data.uid}`
+          ),
+          null
+        );
+        GetAppointments(redux_data, setAppt);
+      });
+    }
+
+    // if (moment(date).add(1, "d").format("MMM Do YY") >= today) {
+    //   console.log(moment)
+    // }
+  });
+  // console.log(appt_obj);
+};
+
+export { GetAppointments, GetStats, CancelAppointment, UpdateAppointments };
