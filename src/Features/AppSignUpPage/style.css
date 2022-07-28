@@ -219,7 +219,6 @@
 .swal2-title {
   font-family: Poppins !important;
   font-size: 24px !important;
-  
 }
 .swal2-popup {
   border-radius: 30px !important;
@@ -346,6 +345,7 @@
   }
   .a-reg-btn {
     height: 20px;
+    font-size: 12;
   }
   .a-error-message {
     top: 45px !important;
@@ -373,6 +373,35 @@
     width: 60% !important;
   }
 }
+
+@media only screen and (max-width: 1370px) {
+  .w-vector-div {
+    width: "60%";
+  }
+  .w-vector-img {
+    width: 80%;
+  }
+  .a-side-text p {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 20px;
+    word-spacing: 1px;
+    z-index: 10;
+  }
+  .top-btn {
+    position: absolute;
+    bottom: 40px;
+    height: 65px;
+    width: 65px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0.4;
+    transform-origin: 50% 50%;
+  }
+}
+
 ::placeholder {
   color: #868686 !important;
   font-family: Lato !important;

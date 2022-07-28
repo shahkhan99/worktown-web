@@ -3,7 +3,14 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 // import {createBrowserHistory, CreateBrowserHistory} from 'history';
 // import ProtectedRoute from "./protectedRoute";
 
-import { AppSignUp, HomePage } from "./index";
+import {
+  AppSignUp,
+  HomePage,
+  Employer_DB,
+  DashboardLoginSignup,
+  DashboardLogin,
+  Employee_DB,
+} from "./index";
 
 let Routes = () => {
   return (
@@ -24,7 +31,19 @@ let Routes = () => {
         <Route path="/cfo" component={CFOPage} /> */}
 
         <Route path="/" exact component={HomePage} />
-        <Route path="/waitList" exact component={AppSignUp} />
+        {/* <Route path="/waitList" exact component={AppSignUp} /> */}
+        {/* <Route path="/intro" exact component={Introduction} />
+        <Route path="/jobcategory" exact component={JobCategory} /> */}
+
+        {/* DashBoard ROUTES */}
+        <Route path="/portal" exact component={Employer_DB} />
+        {/* <Route path="/employee_dashboard" exact component={Employee_DB} /> */}
+        <Route
+          path="/portal/registration"
+          exact
+          component={DashboardLoginSignup}
+        />
+        <Route path="/portal/login" exact component={DashboardLogin} />
 
         {/* <ProtectedRoute path="/@dm!n" component={IndividualDashboard} /> */}
       </Switch>

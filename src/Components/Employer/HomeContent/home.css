@@ -1,0 +1,280 @@
+.main-div {
+  background-color: #f3f0f0;
+  width: 80%;
+  padding: 50px 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.div-main-payment {
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+  align-items: center;
+}
+.div-main-payment-card1 {
+  width: 48%;
+  height: 200px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: white;
+  border-radius: 10px;
+}
+.div-main-payment-card2 {
+  width: 48%;
+  height: 200px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: white;
+  border-radius: 10px;
+  flex-direction: column;
+}
+.div-main-payment-card1 button {
+  width: 30%;
+  background: #3e469d !important;
+  color: white;
+  height: 30px;
+  border: 0;
+  border-radius: 5px;
+}
+.div-payment-card2-inner {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+}
+.div-main-payment-card1-p {
+  display: flex;
+  width: 80%;
+}
+.div-pay-hist-main {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.div-pay-hist-inner {
+  width: 48%;
+  height: 400px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: white;
+  border-radius: 10px;
+  flex-direction: column;
+}
+.div-pay-hist-inner1 {
+  display: flex;
+  align-items: flex-start;
+  width: 90%;
+}
+.div-appointments-ul-empployer {
+  height: 350px;
+  overflow-y: auto;
+  width: 90%;
+}
+.div-appointments-ul-empployer ul {
+  width: 100%;
+}
+.div-appointments-ul-empployer li {
+  padding: 0 10px;
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  /* background-color: antiquewhite; */
+  height: 50px;
+  margin-bottom: 5px;
+}
+.div-appointments-ul-empployer p {
+  font-size: 13px;
+}
+.apt-li-cls-1 {
+  background-color: #3e469d;
+  color: #fff;
+}
+.apt-li-cls-2 {
+  background-color: #3e469d21;
+  color: #3e469d;
+}
+.div-appointments-ul-empployer Button {
+  font-size: 13px !important;
+}
+.PersonFullData_main_main_div {
+  background: white;
+  width: 570px;
+  height: 500px;
+  border-radius: 16px;
+  position: absolute;
+  top: 25%;
+  left: 35%;
+  border-radius: 16px;
+  z-index: 99;
+  box-shadow: 0px 0px 10px gray;
+}
+.nav-div-switches {
+  height: 88px;
+}
+.apexcharts-legend.apx-legend-position-right {
+  justify-content: center !important;
+}
+@media (min-width: 320px) and (max-width: 767px) {
+  .chart-wrap {
+    margin-top: 20px;
+  }
+  .main-div {
+    width: 100% !important;
+    justify-content: space-around;
+  }
+  .div-main-payment {
+    width: 100% !important;
+    justify-content: space-around !important;
+  }
+  .div_h4_home h4 {
+    font-size: 22px !important;
+    height: 60px !important;
+  }
+  .div_h4_home {
+    text-align: center !important;
+  }
+  .div-main-payment-card1,
+  .div-main-payment-card2 {
+    height: 115px !important;
+    width: 45% !important;
+    flex-direction: column;
+  }
+  .div-main-payment-card1 button {
+    width: 75% !important ;
+    font-size: 13px !important;
+  }
+  .div-payment-card2-inner p,
+  .div-main-payment-card1 p {
+    font-size: 14px;
+    height: 30px;
+  }
+  .div-payment-card2-inner {
+    width: 100% !important;
+    flex-direction: column-reverse !important;
+    align-items: center !important;
+  }
+  .div-main-payment-card1-p {
+    justify-content: center;
+  }
+  .div-main-payment-card1-p h4 {
+    font-size: 22px !important;
+  }
+  .div-pay-hist-main {
+    width: 100% !important;
+    flex-direction: column-reverse !important;
+    align-items: center !important;
+    justify-content: space-around;
+    height: 500px;
+  }
+  .div-pay-hist-inner {
+    width: 92% !important;
+    height: 200px !important;
+    padding: 10px 5px;
+    justify-content: space-between !important;
+  }
+  .div-stats-ul-empployer-div {
+    width: 90% !important;
+    margin: 3px 0px !important;
+  }
+  .div-appointments-ul-empployer,
+  .div-stats-ul-empployer {
+    width: 95% !important;
+  }
+  .apt-li-cls-span {
+    display: flex;
+    /* width: 85px; */
+  }
+  .css-1k23hlb-MuiButtonBase-root-MuiButton-root {
+    min-width: 40px !important;
+  }
+  .div-appointments-ul-empployer {
+    justify-content: center;
+    display: flex;
+    height: 100% !important;
+  }
+  .div-appointments-ul-empployer ul {
+    width: 97% !important;
+  }
+  .div-pay-hist-inner1 {
+    height: 50px;
+  }
+  .div-appointments-ul-empployer li p {
+    width: 90px;
+  }
+}
+
+@media (min-width: 1051px) and (max-width: 1420px) {
+  .main-div {
+    width: 98% !important;
+    padding: 0px 15px !important;
+  }
+  .div-pay-hist-main,
+  .div-main-payment {
+    width: 99% !important;
+  }
+  .div-main-payment-card1,
+  .div-main-payment-card2 {
+    height: 140px !important;
+  }
+  .div-pay-hist-inner {
+    height: 400px !important;
+  }
+  .PersonFullData_main_main_div {
+    top: 15%;
+    left: 30%;
+  }
+}
+@media (min-width: 768px) and (max-width: 1050px) {
+  .main-div {
+    width: 100% !important;
+  }
+  .div-main-payment,
+  .div-pay-hist-main {
+    align-self: center;
+    width: 90% !important;
+  }
+  .div_h4_home {
+    align-self: center;
+  }
+  .div-pay-hist-main {
+    width: 100% !important;
+    flex-direction: column-reverse !important;
+    align-items: center !important;
+    justify-content: space-around;
+    height: 650px;
+  }
+  .div-pay-hist-inner {
+    width: 92% !important;
+    height: 280px !important;
+    padding: 10px 5px;
+  }
+  .div-stats-ul-empployer-div {
+    width: 90% !important;
+    margin: 3px 0px !important;
+  }
+  .div-appointments-ul-empployer,
+  .div-stats-ul-empployer {
+    width: 95% !important;
+    margin-top: 10px;
+  }
+  .div-appointments-ul-empployer ul {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .div-appointments-ul-empployer li {
+    width: 100%;
+    justify-content: space-between !important;
+  }
+  .div-main-payment-card1 {
+    flex-direction: column;
+  }
+  .div-main-payment-card1 button {
+    width: 50% !important;
+  }
+}

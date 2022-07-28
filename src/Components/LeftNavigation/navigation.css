@@ -1,0 +1,306 @@
+body > #root > div {
+  height: 100vh;
+}
+.nav-main-div {
+  width: 13%;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+}
+.nav-div {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.nav-div-ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 300px;
+}
+.nav-div-ul2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 200px;
+}
+ul {
+  list-style: none;
+}
+li {
+  width: 170px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0px 15px;
+  font-size: 13px;
+  font-family: myFontSM;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.logout-nav {
+  justify-content: flex-start !important;
+}
+.nav-main-div-resp {
+  display: none;
+}
+.logo-left-nav {
+  width: 63px;
+  height: 63px;
+}
+.left_nav_businessName {
+  width: 200px;
+  height: 34px;
+  border: 1px solid #d2d2d2;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.left_nav_businessName h6 {
+  color: #101518;
+  font-size: 12px;
+  font-family: "poppins";
+}
+
+.nav_div_cross_logo {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+}
+/* .li0 {
+  background-color: #f3f0f0;
+} */
+.css-mz0twm-MuiSwitch-root .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track,
+.css-1ey0k3z .MuiSwitch-switchBase.Mui-checked.Mui-disabled + .MuiSwitch-track {
+  background-color: #2c72e5a1 !important;
+}
+
+@media (min-width: 1051px) and (max-width: 1420px) {
+  .nav-main-div {
+    width: 220px;
+  }
+  li {
+    width: 140px;
+    height: 35px;
+  }
+  .left_nav_businessName {
+    width: 170px;
+    height: 35px;
+  }
+  .nav_div_cross_logo {
+    width: 170px;
+    height: 50px;
+  }
+  .nav-div-ul {
+    height: 250px;
+  }
+  .nav-div-ul-log {
+    height: 100px;
+  }
+  .nav-div-switches {
+    height: 50px;
+  }
+  .css-mz0twm-MuiSwitch-root {
+    margin: 0 !important;
+  }
+  .css-vb6e92 > :not(style) + :not(style) {
+    margin: 0px 0px 0px 0px !important;
+  }
+}
+
+/* MOBILE SCREEN CSS */
+
+@media (min-width: 360px) and (max-width: 767px) {
+  .nav_div_cross_logo {
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  @keyframes leftAnim {
+    from {
+      width: 0px;
+    }
+    to {
+      width: 55%;
+    }
+  }
+  .nav-main-div::before {
+    background: rgba(0, 0, 0, 0.65);
+  }
+  .nav-main-div {
+    padding: 0;
+    width: 55%;
+    animation-name: leftAnim;
+    animation-duration: 0.2s;
+    position: absolute;
+    z-index: 99;
+    position: fixed;
+    border-radius: 0 16px 16px 0;
+    box-shadow: 1px 1px 10px gray;
+  }
+  .nav-main-div-none {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    position: fixed;
+    border-radius: 0 16px 16px 0;
+    box-shadow: 1px 1px 10px gray;
+    /* animation-name: leftAnim1; */
+    animation-duration: 0.2s;
+    /* display: none; */
+  }
+  .nav-main-div-resp {
+    display: flex;
+    position: fixed;
+    z-index: 99;
+  }
+
+  .nav-div-ul {
+    width: 90%;
+  }
+  .left_nav_businessName {
+    width: 70%;
+    padding: 0 10px;
+    height: 30px;
+  }
+  .nav-div-ul li {
+    font-size: 12px;
+    padding: 0px 7px;
+    width: 85%;
+    height: 30px;
+    font-family: "poppins";
+  }
+  .div-cand-card-btn button {
+    font-size: 12px !important;
+    font-family: "poppins";
+    height: 25px !important;
+  }
+  .css-ahj2mt-MuiTypography-root,
+  .css-ahj2mt-MuiTypography-root {
+    font-size: 15px !important;
+    color: #7d7d7d !important;
+  }
+  .css-1q36rmd-MuiStack-root {
+    flex-direction: row !important;
+  }
+  .css-pgrorv-MuiSwitch-root,
+  .css-dmmspl-MuiFormGroup-root {
+    margin: 4px !important;
+  }
+  .main-div {
+    padding: 0 !important;
+  }
+  .nav-div-ul-1 {
+    height: 250px !important  ;
+  }
+  .nav-div-ul {
+    height: 100px;
+  }
+  .nav-div {
+    width: 90%;
+  }
+  .css-1q36rmd-MuiStack-root > :not(style) + :not(style) {
+    margin: 0 !important;
+  }
+  .css-1q36rmd-MuiStack-root {
+    font-size: 12px !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 1050px) {
+  .nav_div_cross_logo {
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  @keyframes leftAnim {
+    from {
+      width: 0px;
+    }
+    to {
+      width: 40%;
+    }
+  }
+  .left_nav_businessName h6 {
+    font-size: 14px;
+  }
+  .nav-main-div {
+    padding: 0;
+    width: 40%;
+    animation-name: leftAnim;
+    animation-duration: 0.2s;
+    position: absolute;
+    z-index: 99;
+    position: fixed;
+    border-radius: 0 16px 16px 0;
+    box-shadow: 1px 1px 10px gray;
+  }
+  .nav-main-div-none {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    position: fixed;
+    border-radius: 0 16px 16px 0;
+    box-shadow: 1px 1px 10px gray;
+    /* animation-name: leftAnim1; */
+    animation-duration: 0.2s;
+    /* display: none; */
+  }
+  .nav-main-div-resp {
+    display: flex;
+    position: fixed;
+    z-index: 99;
+  }
+
+  .nav-div-ul {
+    width: 90%;
+  }
+  .left_nav_businessName {
+    width: 70%;
+    padding: 0 10px;
+    height: 30px;
+  }
+  .nav-div-ul li {
+    font-size: 14px;
+    padding: 5px 7px;
+    width: 85%;
+    height: 40px;
+    font-family: "poppins";
+  }
+
+  .css-ahj2mt-MuiTypography-root,
+  .css-ahj2mt-MuiTypography-root {
+    font-size: 15px !important;
+    color: #7d7d7d !important;
+  }
+  .css-1q36rmd-MuiStack-root {
+    flex-direction: row !important;
+  }
+  .css-pgrorv-MuiSwitch-root,
+  .css-dmmspl-MuiFormGroup-root {
+    margin: 4px !important;
+  }
+  .main-div {
+    padding: 0 !important;
+  }
+  .nav-div-ul-1 {
+    height: 250px !important  ;
+  }
+  .nav-div-ul {
+    height: 100px;
+  }
+  .nav-div {
+    width: 90%;
+  }
+
+  .css-1q36rmd-MuiStack-root {
+    font-size: 17px !important;
+  }
+}

@@ -1,0 +1,411 @@
+.epemp-main-div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 97%;
+}
+.epemp-main-div-edit-inner-main {
+  width: 100%;
+}
+.epemp-main-div-edit-inner {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100%;
+  width: 45%;
+  flex-direction: column;
+}
+.epemp-main-div-edit-main {
+  width: 645px;
+  height: 550px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px 40px;
+}
+.epemp-main-div-edit-inner label {
+  color: #898080;
+  height: 23px;
+  font-size: 15px;
+}
+.epemp-main-div-edit-inner h6 {
+  font-size: 18px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+.epemp-main-div-edit-inner button {
+  color: #3e469d;
+  border: 0px;
+  background-color: #3e469d15;
+  font-size: 18px;
+  display: flex;
+  height: 40px;
+  width: 120px;
+  border-radius: 13px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  justify-content: center;
+  align-items: center;
+  margin-left: 15px;
+}
+.epemp-main-div-edit-inner-btn {
+  justify-content: flex-end;
+  height: 86px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  flex-direction: row;
+}
+
+.div-input-icon-emp-dash-edit-prof {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  background: #f3f4f8 !important;
+  border-radius: 10px;
+}
+.div-input-icon-emp-dash-edit-prof input {
+  background: transparent;
+  color: #172331;
+  width: 100%;
+  height: 50px;
+  border: 0;
+  font-size: 14px !important;
+  padding: 0px !important;
+  padding-left: 10px !important;
+}
+.div-input-icon-emp-dash-edit-prof input::placeholder {
+  font-size: 14px !important;
+}
+.frag-profile {
+  width: 80%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.epemp-main-div-edit-main-1st {
+  width: 350px;
+  height: 590px;
+  background: #fff;
+  border-radius: 17px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* padding: 20px 20px; */
+}
+.epemp-main-div-edit-main-1st-name h4 {
+  font-size: 20px;
+}
+.epemp-main-div-edit-main-1st-name h6 {
+  font-size: 15px;
+  color: #7d7d7d;
+  font-weight: 500;
+  height: 20px;
+}
+.epemp-main-div-edit-main-1st-name p {
+  font-size: 12px;
+  display: flex;
+}
+.epemp-main-div-edit-main-1st-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 55%;
+}
+.epemp-main-div-edit-main-1st-info-inner span {
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2c72e51a;
+  border-radius: 10px;
+}
+.epemp-main-div-edit-main-1st-info-inner {
+  display: flex;
+}
+.epemp-main-div-edit-main-1st-info p {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 10px;
+  font: 15px "poppins";
+}
+.epemp-main-div-edit-main-1st-info {
+  display: flex;
+  align-items: flex-start;
+  width: 300px;
+  height: 150px;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.epemp-main-div-edit-main-1st-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+  height: 100px;
+  border-top: 1px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
+}
+.epemp-main-div-edit-main-1st-stat-inner p {
+  font: 20px "poppins";
+}
+.epemp-main-div-edit-main-1st-stat-inner label {
+  font: 13px "poppins";
+  color: #7d7d7d;
+}
+.epemp-main-div-edit-main-1st-stat-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 33%;
+}
+.epemp-main-div-edit-inner-divs {
+  display: flex;
+  justify-content: space-between;
+  height: 100px;
+}
+.div-input-icon-emp-dash-edit-prof-password {
+  width: 100%;
+}
+.div-input-icon-emp-dash-edit-prof-password-inner-main {
+  flex-direction: row;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.div-input-icon-emp-dash-edit-prof-password-inn {
+  width: 33%;
+}
+.New-Password-emp-edit-btn {
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.New-Password-emp-edit-btn button {
+  width: 75px;
+  height: 30px;
+  border-radius: 6px;
+  font-size: 13.5px;
+}
+.h6-emp-pass-upd-btn {
+  display: flex;
+}
+.h6-emp-pass-upd-btn button {
+  width: 75px;
+  height: 30px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+@media (min-width: 1051px) and (max-width: 1420px) {
+  .epemp-main-div-edit-inner-btn {
+    height: 35px;
+  }
+  .epemp-main-div {
+    width: 100%;
+  }
+  .frag-profile {
+    width: 100%;
+  }
+  .epemp-main-div-edit-main-1st {
+    width: 350px;
+    height: 500px;
+    padding: 20px;
+  }
+  .epemp-main-div-edit-main {
+    width: 640px;
+    padding: 20px;
+    height: 500px;
+  }
+  .New-Password-emp-edit-btn button {
+    width: 75px !important;
+    height: 30px !important;
+    border-radius: 6px;
+    font-size: 13.5px !important;
+  }
+  .epemp-main-div-edit-inner button {
+    height: 35px;
+    width: 90px;
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 360px) and (max-width: 767px) {
+  .frag-profile {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(245, 245, 245);
+  }
+  .epemp-main-div-edit-main-1st {
+    width: 90%;
+    height: 300px;
+  }
+  .epemp-main-div-edit-main-1st-name {
+    height: 100px;
+  }
+  .epemp-main-div-edit-main-1st-stat {
+    height: 70px;
+  }
+  .epemp-main-div-edit-main-1st-info {
+    height: 110px;
+  }
+  .epemp-main-div-edit-main-1st-info p,
+  .epemp-main-div-edit-inner label {
+    font-size: 13px;
+  }
+  .epemp-main-div-edit-inner h6 {
+    font-size: 15px;
+    height: 20px;
+  }
+  .epemp-main-div-edit-main-1st-info-inner span {
+    width: 35px;
+    height: 35px;
+  }
+  .epemp-main-div-edit-main-1st-info-inner {
+    align-items: center;
+  }
+  .epemp-main-div-edit-main {
+    width: 90%;
+    padding: 20px 10px;
+    height: auto;
+    margin: 15px 0px 30px 0px;
+  }
+  .epemp-main-div-edit-inner-btn {
+    height: 30px;
+  }
+  .epemp-main-div-edit-inner button {
+    width: 75px;
+    height: 35px;
+    font-size: 15px;
+    border-radius: 8px;
+  }
+  .epemp-main-div-edit-inner-divs {
+    height: 125px;
+    flex-direction: column;
+  }
+  .epemp-main-div-edit-inner,
+  .epemp-main-div {
+    width: 100%;
+    height: 55px;
+  }
+  .div-input-icon-emp-dash-edit-prof {
+    height: 35px;
+  }
+  .div-input-icon-emp-dash-edit-prof input {
+    height: 35px;
+    font-size: 12px !important;
+  }
+  .div-input-icon-emp-dash-edit-prof-password-inner-main {
+    flex-direction: column;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 150px !important;
+  }
+  .div-input-icon-emp-dash-edit-prof-password-inn {
+    width: 100%;
+  }
+  .New-Password-emp-edit-btn {
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    align-self: center;
+  }
+  .New-Password-emp-edit-btn button {
+    width: 60px !important;
+    height: 20px !important;
+    border-radius: 6px;
+    font-size: 12px !important;
+  }
+  .div-input-icon-emp-dash-edit-prof-password {
+    width: 100%;
+    height: 150px !important;
+  }
+  .h6-emp-pass-upd-btn {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .h6-emp-pass-upd-btn button {
+    width: 60px;
+    height: 20px;
+    font-size: 12px;
+    border-radius: 8px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1050px) {
+  .shrt-head-div h4 {
+    text-align: center;
+  }
+  .epemp-main-div,
+  .frag-profile {
+    width: 100%;
+  }
+  .epemp-main-div-edit-main-1st {
+    width: 250px;
+    height: 740px;
+  }
+  .epemp-main-div-edit-main {
+    width: 400px;
+    height: 700px;
+  }
+
+  .div-input-icon-emp-dash-edit-prof-password-inner-main {
+    flex-direction: column;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 100% !important;
+  }
+  .div-input-icon-emp-dash-edit-prof-password-inn {
+    width: 100%;
+  }
+  .New-Password-emp-edit-btn {
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    align-self: center;
+  }
+  .New-Password-emp-edit-btn button {
+    width: 60px !important;
+    height: 20px !important;
+    border-radius: 6px;
+    font-size: 12px !important;
+  }
+  .div-input-icon-emp-dash-edit-prof-password {
+    width: 100%;
+    height: 200px !important;
+  }
+  .h6-emp-pass-upd-btn {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .h6-emp-pass-upd-btn button {
+    width: 60px;
+    height: 20px;
+    font-size: 12px;
+    border-radius: 8px;
+  }
+  .epemp-main-div-edit-main-1st-stat,
+  .epemp-main-div-edit-main-1st-info {
+    width: 235px;
+  }
+}

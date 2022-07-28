@@ -1,0 +1,49 @@
+.div-input-emp-txtarea {
+  display: flex;
+  flex-direction: column;
+  height: 170px;
+  background-color: #fff !important;
+  justify-content: space-around;
+}
+.div-input-emp-time {
+  display: flex;
+  height: 45px;
+  background-color: #fff !important;
+  justify-content: space-between;
+  align-items: center;
+}
+.div-input-emp-timings {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.div-input-emp-txtarea textarea {
+  width: 92.3%;
+  height: 90px !important;
+  padding: 10px 30px;
+  resize: none;
+}
+.div-emp-info-det {
+  display: flex;
+  width: 80%;
+  justify-content: center;
+  /* align-items: center; */
+  background-color: #fff;
+  flex-direction: column;
+  height: auto;
+  padding: 50px 0px;
+}
+.div-emp-info-det h6 {
+  font-size: 16px;
+  width: 80%;
+  align-self: center;
+}
+.div-inputs-emp-txt {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  align-self: center;
+  height: 500px;
+}

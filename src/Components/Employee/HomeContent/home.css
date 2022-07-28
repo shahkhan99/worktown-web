@@ -1,0 +1,161 @@
+.main-div {
+  background-color: #f3f0f0;
+  width: 80%;
+  padding: 50px 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.div-main-payment {
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+  align-items: center;
+}
+.div-main-payment-card1 {
+  width: 48%;
+  height: 200px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: white;
+  border-radius: 10px;
+}
+.div-main-payment-card2 {
+  width: 48%;
+  height: 200px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: white;
+  border-radius: 10px;
+  flex-direction: column;
+}
+.div-main-payment-card1 button {
+  width: 30%;
+  background: #516bed;
+  color: white;
+  height: 30px;
+  border: 0;
+  border-radius: 5px;
+}
+.div-payment-card2-inner {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+}
+.div-main-payment-card1-p {
+  display: flex;
+  width: 80%;
+}
+.div-pay-hist-main {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+.div-pay-hist-inner {
+  width: 48%;
+  height: 400px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: white;
+  border-radius: 10px;
+  flex-direction: column;
+}
+.div-pay-hist-inner1 {
+  display: flex;
+  align-items: flex-start;
+  width: 90%;
+}
+.div-appointments-ul-empployer {
+  height: 350px;
+  overflow-y: auto;
+  width: 90%;
+}
+.div-stats-ul-empployer {
+  height: 350px;
+  overflow-y: auto;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.div-stats-ul-empployer-div {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  padding: 15px;
+  margin: 3px;
+  border-radius: 10px;
+}
+.div-stats-ul-empployer-div label {
+  letter-spacing: 1.25px;
+}
+.div-stats-ul-empployer-div p {
+  font-size: 16px;
+  font-weight: bold;
+}
+.div-appointments-ul-empployer ul {
+  width: 100%;
+}
+.div-appointments-ul-empployer li {
+  padding: 0 10px;
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  /* background-color: antiquewhite; */
+  height: 50px;
+  margin-bottom: 5px;
+}
+.div-appointments-ul-empployer p {
+  font-size: 13px;
+}
+.apt-li-cls-1 {
+  background-color: #3e469d;
+}
+.apt-li-cls-2 {
+  background-color: #3e469d21;
+}
+.div-appointments-ul-empployer Button {
+  font-size: 13px !important;
+}
+.div_inner_main_Person_data_Employee_home {
+  height: 80px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.div_inner_main_Person_data_Employee_home1 {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.div_inner_Person_data1 {
+  width: 50% !important;
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .div_inner_Person_data {
+    width: 50% !important;
+  }
+  .PersonFullData_main_main_div_home_employee {
+    height: 350px !important;
+    top: 30% !important;
+  }
+  .div-home-appt-inner-exit1 {
+    position: absolute;
+    bottom: 10px;
+  }
+  .div_inner_Person_data2 a {
+    width: 250px !important;
+    font-size: 12px !important;
+  }
+  .div_inner_Person_data2 {
+    margin-top: 30px;
+  }
+}

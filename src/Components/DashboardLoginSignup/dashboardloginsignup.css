@@ -1,0 +1,114 @@
+.dash-login-main-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #f3f0f0;
+  flex-direction: column;
+}
+.dash-login-main-div-input {
+  width: 35%;
+}
+.dash-login-main-div-input-pass {
+  height: auto;
+}
+.div-input-icon_login {
+  background-color: #fff !important;
+  align-items: center;
+}
+.div-input-icon_reg {
+  align-items: center;
+}
+.dash-login-main-div-inner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.dash-login-main-div-btn {
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dash-login-main-div-btn button {
+  width: 100%;
+  height: 40px;
+  border: 0;
+  border-radius: 16px;
+  background: #3d459d;
+  cursor: pointer;
+  color: white;
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+.dash-login-main-div-btn button:hover {
+  background: #3d459dbd;
+}
+.swal2-title {
+  font-family: lato !important;
+  font-size: 19px !important;
+  font-weight: 700;
+  color: #000;
+}
+.swal2-container.swal2-center > .swal2-popup {
+  padding: 50px 0px !important;
+}
+.swal2-popup {
+  border-radius: 16px !important;
+}
+.swal2-container.swal2-backdrop-show,
+.swal2-container.swal2-noanimation {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(3px);
+}
+.input-label1 {
+  width: 100%;
+  padding-left: 5px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #172331;
+  margin-bottom: 7px;
+}
+/* .div-input-icon {
+  display: flex;
+  width: 100%;
+  background: #f3f4f8 !important;
+  border-radius: 16px;
+  height: 45px;
+}
+.a-r-input-box {
+  background: transparent !important;
+
+  color: #172331 !important;
+  width: 100%;
+
+  padding-bottom: 6px;
+  border: 0;
+  font-size: 18px;
+  padding-left: 25px;
+}
+.a-input-field {
+  position: relative;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+} */
+
+@media (min-width: 360px) and (max-width: 767px) {
+  .dash-login-main-div-input {
+    width: 90% !important;
+  }
+  .input-label1 {
+    font-size: 14px;
+    width: 40% !important;
+  }
+  .dash-login-main-div-btn {
+    width: 45% !important;
+  }
+  .dash-login-main-div h3 {
+    font-size: 28px !important;
+  }
+}

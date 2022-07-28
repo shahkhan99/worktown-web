@@ -1,0 +1,360 @@
+.div-cand-card-main-sub-view-jobs {
+  width: 94%;
+}
+.div-cand-card-view-jobs {
+  width: 520px;
+  height: 410px;
+  right: 0 !important;
+  background-color: #fff;
+  margin: 25px 5px;
+  justify-content: space-around;
+}
+.div-js-card-header-loc-exp p {
+  color: #707070;
+  height: 20px !important;
+  font-size: 13px;
+  font-family: "poppins";
+}
+.div_title_loc_main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.div-js-card-header-loc-exp-main {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  width: 90%;
+  align-self: center;
+  align-items: flex-start;
+  height: 60px;
+}
+.div-cand-card-view-jobs h3,
+.div-cand-card-view-jobs h4 {
+  color: #101518;
+}
+.div-jd-view-jobs-employer {
+  height: auto;
+}
+.div-jd-view-jobs-employer p {
+  font-size: 13px;
+  /* font-family: "poppins"; */
+  height: auto;
+}
+.div-exp-sal-view-jobs-employer {
+  height: 50px;
+  justify-content: center;
+}
+.div-exp-sal-view-jobs-employer p {
+  font-size: 14px;
+  font-weight: 700;
+  /* font-family: "poppins"; */
+}
+.div-jv-basic-main-main-div {
+  height: 80%;
+  /* justify-content: space-around; */
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+.div-jv-basic-exp-edu-eng-main {
+  width: 100%;
+  height: 65px;
+}
+.div-jv-basic-main-div1 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  flex-direction: column;
+  width: 90%;
+  height: 100%;
+  margin: 0 10px;
+}
+.div-jv-basic-main-div2 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 90%;
+  height: 100%;
+  margin: 0 10px;
+}
+.div-jv-basic-skl {
+  height: 80px !important;
+}
+.div-jv-basic-jd,
+.div-jv-basic-jt,
+.div-jv-basic-exps,
+.div-jv-basic-skl,
+.div-jv-basic-edu,
+.div-jv-basic-exp,
+.div-jv-basic-eng {
+  display: flex;
+  height: auto;
+  align-items: flex-start;
+  width: 100%;
+  /* height: 70px; */
+  flex-direction: column;
+  justify-content: center;
+}
+.div-jv-basic-jd label,
+.div-jv-basic-jt label,
+.div-jv-basic-exps label,
+.div-jv-basic-skl label,
+.div-jv-basic-exp label,
+.div-jv-basic-edu label,
+.div-jv-basic-eng label {
+  font-size: 13px;
+  width: 100%;
+  align-items: flex-start;
+  padding-top: 2px;
+  height: 20px;
+  /* font-family: "poppins"; */
+  color: #707070;
+}
+.div-jv-basic-jt-sal-main {
+  width: 100%;
+  height: 80px;
+}
+.span_sal_exp {
+  font-size: 15px !important;
+  /* font-family: "poppins"; */
+  color: #707070;
+}
+.div-cand-card-inner-short-jv {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  flex-wrap: wrap;
+}
+.div-cand-card-inner-short-jv p {
+  width: 100px !important;
+  height: 35px !important;
+  background: #3e469d1a;
+  display: flex;
+  border-radius: 10px;
+  margin: 5px;
+  align-items: center;
+  justify-content: center;
+  color: #3e469d;
+}
+.div-jv-basic-jd p {
+  font-weight: 500 !important;
+  /* font-family: "poppins"; */
+}
+.div-jv-basic-jd p,
+.div-jv-basic-jt p,
+.div-jv-basic-skl p,
+.div-jv-basic-exp p,
+.div-jv-basic-edu p,
+.div-jv-basic-eng p,
+.div-jv-basic-exps p {
+  width: 100%;
+  font-size: 14px;
+  height: auto;
+  font-weight: bold;
+  /* font-family: "poppins"; */
+}
+.div-jv-card-btn {
+  display: flex;
+  /* padding: 10px 0px; */
+  width: 185px;
+  /* height: 150px; */
+  justify-content: space-between;
+  /* align-self: center; */
+  flex-direction: row-reverse;
+  align-items: flex-start;
+}
+.div-jv-card-btn button {
+  height: 35px;
+  cursor: pointer;
+  background: #3e469d;
+  width: 75px;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
+  font-size: 14px;
+  display: flex;
+  letter-spacing: 0.4px;
+  align-items: center;
+  justify-content: center;
+  /* font-family: "poppins"; */
+}
+.div-jd-card-btn-int-rej {
+  color: #3e469d !important;
+  background: #3e469d21 !important;
+}
+
+.div-input-icon-emp-dash-edit-job input {
+  background: transparent;
+  color: #172331;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  font-size: 18px;
+  font-size: 12px !important;
+  /* font-family: "poppins"; */
+  padding: 0px !important;
+  padding-left: 10px !important;
+  margin: 0 !important;
+}
+.div-input-icon-emp-dash-edit-job1 textarea {
+  background: transparent;
+  color: #172331;
+  width: 100%;
+  height: 70%;
+  border: 0;
+  font-size: 12px !important;
+  padding-left: 10px !important;
+  resize: none;
+  /* font-family: "poppins"; */
+}
+.div-input-icon-emp-dash-edit-job1 {
+  width: 476px;
+  height: 80px;
+  display: flex;
+  background: #f3f4f8 !important;
+  border-radius: 10px;
+}
+.div-input-icon-emp-dash-edit-job {
+  width: 145px;
+  height: 45px;
+  display: flex;
+  background: #f3f4f8 !important;
+  border-radius: 16px;
+}
+.select-div-job-view-edit {
+  text-align: center;
+  width: 230px;
+  height: 40px;
+  padding: 5px;
+  border-width: 0px;
+  border-radius: 16px;
+  color: #868686 !important;
+  font-size: 18px;
+  box-shadow: 0px 0px 0px #868686;
+  background-color: #f3f4f8 !important;
+  margin-bottom: 25px;
+  display: flex;
+  /* font-family: "poppins"; */
+}
+.select-div-job-view-edit-span {
+  margin-bottom: 0px;
+  width: 145px;
+  height: 45px;
+}
+.select-div-job-view-edit select {
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.div-jv-basic-exps span {
+  font-size: 13px !important;
+  height: auto !important;
+  align-items: flex-end;
+  font-family: "poppins";
+}
+.label-on-edit-jv-emp {
+  align-self: center !important;
+  align-items: center !important;
+}
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+  border-color: transparent !important;
+}
+.pos-bot-jv-emp {
+  position: relative;
+  bottom: 20px;
+}
+.css-igs3ac {
+  border-width: 0px !important;
+}
+.css-15bjg8p {
+  width: 100% !important;
+}
+.div-jv-card-btn_v_c_btn {
+  width: 100px !important;
+}
+@media (min-width: 1051px) and (max-width: 1420px) {
+  .shrt-cont-div-view-jb {
+    width: 100%;
+  }
+  .div-cand-card-main-sub-view-jobs {
+    width: 100%;
+  }
+  .jv-ind-header {
+    width: 90%;
+  }
+}
+@media (min-width: 360px) and (max-width: 767px) {
+  .shortlisted-ind-header {
+    width: 96%;
+  }
+
+  .div-cand-card-main-sub {
+    padding: 0;
+  }
+  .div-cand-card-main,
+  .div-cand-card-main-sub-view-jobs,
+  .div-jv-basic-main-main-div,
+  .div-jv-basic-main-div1,
+  .div-jv-basic-main-div2 {
+    width: 100%;
+  }
+  .div-cand-card-view-jobs {
+    width: 90%;
+    margin: 10px;
+  }
+  .div-js-card-header-loc-exp-main {
+    height: 85px;
+    width: 100%;
+  }
+  .div_title_loc_main {
+    height: 70px;
+  }
+  .div-jv-basic-jd p,
+  .div-jv-basic-jt p,
+  .div-jv-basic-skl p,
+  .div-jv-basic-exp p,
+  .div-jv-basic-edu p,
+  .div-jv-basic-eng p,
+  .div-jv-basic-exps p {
+    font-size: 13px;
+  }
+  .div-cand-card-inner-short-jv p {
+    width: 95px !important;
+  }
+  .div-jv-card-btn {
+    align-items: center;
+    width: 215px;
+  }
+  .div-input-icon-emp-dash-edit-job1,
+  .div_jv_sal_inner_100 {
+    width: 100%;
+  }
+  .select-div-job-view-edit {
+    width: 97%;
+    border-radius: 8px;
+  }
+  .div-input-icon-emp-dash-edit-job {
+    border-radius: 8px;
+  }
+  .select-div-job-view-edit-eng-edu {
+    width: 90% !important ;
+    border-radius: 8px;
+  }
+  .div-jv-basic-exps span {
+    align-items: flex-end !important;
+    width: 55%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1050px) {
+  .div-cand-card-main {
+    height: 800px;
+  }
+  .jv-ind-header {
+    width: 80%;
+  }
+}
