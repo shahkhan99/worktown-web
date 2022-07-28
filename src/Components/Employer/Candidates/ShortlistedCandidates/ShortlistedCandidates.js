@@ -188,7 +188,7 @@ function ShortlistedCandidates({ filterVJ, setFilterVJ }) {
 
   let filterSplit = filterType && filterType.split("/");
 
-  // console.log("current =>", filterVJ, filterType);
+  // console.log("current =>", ShortlistedCandidates.length);
   return (
     <React.Fragment>
       <div

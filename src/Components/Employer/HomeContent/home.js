@@ -10,6 +10,7 @@ import {
   CancelAppointment,
   UpdateAppointments,
 } from "./backend";
+import ApexChart from "./component/pieChart";
 import { Button } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
@@ -111,7 +112,8 @@ function Home() {
             <div className="div-pay-hist-inner1">
               <p style={{ fontWeight: 700 }}>Your Stats</p>
             </div>
-            {stats.length > 0 ? (
+            <ApexChart appt={appt} redux_data={redux_data} />
+            {/* {stats.length > 0 ? (
               <div className="div-stats-ul-empployer">
                 <div className="div-stats-ul-empployer-div apt-li-cls-2">
                   <label>Active Appointments</label>
@@ -188,17 +190,17 @@ function Home() {
               >
                 No Stats...
               </h6>
-            )}
+            )} */}
           </div>
           <div className="div-pay-hist-inner">
             <div className="div-pay-hist-inner1">
-              <p style={{ fontWeight: 700 }}>Appointments</p>
+              <p style={{ fontWeight: 700 }}>Interviews</p>
             </div>
             <div className="div-appointments-ul-empployer">
               <ul>
                 {appt.length ? (
                   appt.map((v, i) => {
-                    // console.log(v.Interview_Details);
+                    // console.log(v);
                     return (
                       <li className={"apt-li-cls-1"}>
                         <p>{v.Name}</p>

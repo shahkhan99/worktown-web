@@ -1,6 +1,6 @@
 .div_inner_main_Person_data {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   height: 50px;
 }
@@ -9,6 +9,37 @@
   justify-content: space-evenly;
   width: 33%;
   align-items: center;
+}
+.div_inner_Person_data2 label {
+  color: #707070;
+  font-size: 12px !important;
+  font-family: "myFontSM";
+}
+
+.div_inner_Person_data2 a {
+  word-wrap: break-word;
+  width: 400px;
+  font-size: 13px;
+  font-family: "myFontSM";
+  color: rgb(14, 12, 105);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.div_inner_Person_data2 {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  align-items: center;
+}
+.div_inner_Person_data label {
+  color: #707070;
+  font-size: 13px !important;
+  font-family: "myFontSM";
+}
+.div_inner_Person_data h6 {
+  font-size: 14px;
+  font-family: "myFontSM";
+  color: #000;
 }
 .div_main_Person_data {
   height: 100%;
@@ -72,7 +103,7 @@
   justify-content: center;
   width: 100%;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 .div_inner_Person_data label {
   font-size: 12px !important;

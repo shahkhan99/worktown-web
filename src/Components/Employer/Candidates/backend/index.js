@@ -433,13 +433,14 @@ const DISCOVERY_DOC = [
   "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
 ];
 const SCOPES = "https://www.googleapis.com/auth/calendar";
+
 const handleScheduleInterviewVirtualBtn = async (
   redux_data,
   Appdata,
   e,
   handleExit
 ) => {
-  // console.log(redux_data, Appdata, e);
+  // console.log(e, Appdata);
 
   const convertTime12to24 = async (time12h) => {
     // console.log(time12h);
@@ -551,13 +552,14 @@ const handleScheduleInterviewVirtualBtn = async (
             Email: redux_data.Email,
             Interview_Details: Appdata,
             eventID: event.id,
+            role: e.role,
           };
           let employer_data = {
             ...e,
             eventID: event.id,
             Interview_Details: Appdata,
           };
-          // console.log(employee_data, employer_data);
+          // console.log(e.role, employer_data);
           await update(
             ref(
               db,
@@ -734,6 +736,7 @@ const handleScheduleInterviewBtn = async (
             Email: redux_data.Email,
             Interview_Details: Appdata,
             eventID: event.id,
+            role: e.role,
           };
           let employer_data = {
             ...e,

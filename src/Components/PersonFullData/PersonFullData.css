@@ -87,3 +87,17 @@
 .div-home-appt-inner-skls {
   justify-content: center;
 }
+.div_inner_main_Person_data_111 {
+  width: 95%;
+  justify-content: space-between !important;
+}
+.div_inner_Person_data_111 label {
+  color: #707070;
+  font-size: 13px !important;
+  font-family: "myFontSM";
+}
+.div_inner_Person_data_111 h6 {
+  color: #000;
+  font-size: 13px !important;
+  font-family: "myFontSM";
+}

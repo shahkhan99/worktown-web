@@ -20,7 +20,7 @@ function Home() {
     await GetAppointments(redux_data, setAppt);
   }, [redux_data]);
 
-  // console.log(appt);
+  console.log(appt);
   const handleViewBtn = (v) => {
     setViewCand(v);
     setShowPersonFullData(true);
@@ -37,7 +37,7 @@ function Home() {
   return (
     <React.Fragment>
       <div className="main-div">
-        <div>
+        <div className="div_h4_home">
           <h4>
             {" "}
             {message}, {redux_data !== undefined && nameArr[0]}!
@@ -82,13 +82,13 @@ function Home() {
                           {moment(v.Interview_Details.date).format(
                             "MMMM DD, YYYY"
                           )}{" "}
-                          at{" "}
-                          {moment(v.Interview_Details.date).format("hh:mm A")}
+                          at {v.Interview_Details.time}
                         </p>
                         <Button
                           size="small"
                           variant="outlined"
                           onClick={() => handleViewBtn(v)}
+                          style={{ color: "#fff", borderColor: "#fff" }}
                         >
                           View
                         </Button>
@@ -115,8 +115,12 @@ function Home() {
         </div>
       </div>
       <div
-        className="PersonFullData_main_main_div"
-        style={showPersonFullData ? { display: "flex" } : { display: "none" }}
+        className="PersonFullData_main_main_div PersonFullData_main_main_div_home_employee"
+        style={
+          showPersonFullData
+            ? { display: "flex", height: 300 }
+            : { display: "none" }
+        }
       >
         {showPersonFullData ? (
           <PersonFullData

@@ -340,9 +340,16 @@
   height: 60px;
   width: 15%;
 }
+.shortlisted-ind-header-heading-btn-si button:hover {
+  background-color: #ffcb05;
+}
 .shortlisted-ind-header-heading-btn-si button {
   height: 50px !important;
   width: 200px !important;
+  background-color: #f09222;
+  /* font-weight: bold; */
+  font-family: myFontR;
+  font-size: 15px;
 }
 .shortlisted-ind-header-heading-1 {
   display: flex;
@@ -605,6 +612,14 @@ label {
   height: 320px;
   justify-content: space-between;
 }
+.div-cand-card-inner-skl-short1 {
+  width: 95%;
+  height: auto;
+  flex-direction: column;
+  /* margin-top: -12px; */
+  height: 50px;
+  justify-content: space-between;
+}
 .div-cand-card-inner1-short label {
   color: #707070;
   font-family: "myFontSM";
@@ -689,7 +704,7 @@ label {
 }
 .div-cand-card-achieve-short {
   width: 100%;
-  height: 95px;
+  height: 70px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -735,6 +750,9 @@ label {
 }
 
 @media (min-width: 1051px) and (max-width: 1420px) {
+  .shortlisted-main {
+    height: 545px;
+  }
   .shortlisted-ind-header-heading {
     left: 1%;
   }

@@ -98,13 +98,14 @@ export default class Form4 extends Component {
         <div className="div-cb">
           {timings.map((v, i) => (
             <button
-              className={selected.includes(i) ? "tickContainer" : "timeBtn"}
+              className={selected.includes(i) ? "tickContainer " : "timeBtn"}
               style={
                 ctx.state.intTErr
                   ? { border: "0.3px solid red" }
                   : { borderWidth: 0 }
               }
-              onClick={() => ctx.onSelect(i)}
+              key={i}
+              onClick={(e) => ctx.onSelect(i, e)}
             >
               {v}
             </button>

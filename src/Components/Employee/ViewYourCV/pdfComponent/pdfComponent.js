@@ -10,6 +10,8 @@ const styles = StyleSheet.create({
   mainPage: {
     flexDirection: "column",
     backgroundColor: "#fff",
+    display: "flex",
+    alignItems: "center",
   },
   section1: {
     flexGrow: 1,
@@ -39,7 +41,7 @@ const styles = StyleSheet.create({
   section4: {
     flexGrow: 1,
     display: "flex",
-    flexDirection: "column",
+    // flexDirection: "column",
     // alignItems: "center",
     justifyContent: "space-between",
     padding: "15px 0px",
@@ -50,6 +52,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     padding: 15,
+    width: "50%",
   },
   section1Inner: {
     flexGrow: 1,
@@ -79,13 +82,17 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "700",
     letterSpacing: 1.5,
+    // backgroundColor: "red",
+    width: 500,
+    textAlign: "end",
+    wordWrap: "break-word",
   },
 });
 
 // Create Document Component
 export default function MyPDF({ data }) {
   return (
-    <Document style={{ width: "70%" }}>
+    <Document style={{ width: "100%" }}>
       <Page size="A4" style={styles.page}>
         <View style={styles.mainPage}>
           <View style={styles.section1}>
@@ -94,16 +101,16 @@ export default function MyPDF({ data }) {
           <View style={styles.section2}>
             <Text style={styles.section1Text}>Personal Details</Text>
           </View>
-          <View style={styles.section}>
-            <View style={styles.section3}>
+          <View style={styles.section} className="abc_View_CV_M">
+            <View className="abc_View_CV" style={styles.section3}>
               <Text style={styles.section1InnerDeepTxtLBL}>Email</Text>
               <Text style={styles.section1InnerDeepTxt}>{data?.Email}</Text>
             </View>
-            <View style={styles.section3}>
+            <View className="abc_View_CV" style={styles.section3}>
               <Text style={styles.section1InnerDeepTxtLBL}>Phone</Text>
               <Text style={styles.section1InnerDeepTxt}>{data?.Phone}</Text>
             </View>
-            <View style={styles.section3}>
+            <View className="abc_View_CV" style={styles.section3}>
               <Text style={styles.section1InnerDeepTxtLBL}>City</Text>
               <Text style={styles.section1InnerDeepTxt}>{data?.City}</Text>
             </View>
@@ -111,8 +118,8 @@ export default function MyPDF({ data }) {
           <View style={styles.section2}>
             <Text style={styles.section1Text}>Professional Details</Text>
           </View>
-          <View style={styles.section}>
-            <View style={styles.section3}>
+          <View style={styles.section} className="abc_View_CV_M">
+            <View className="abc_View_CV" style={styles.section3}>
               <Text style={styles.section1InnerDeepTxtLBL}>
                 Work Experience
               </Text>
@@ -120,11 +127,11 @@ export default function MyPDF({ data }) {
                 {data?.Experience}
               </Text>
             </View>
-            <View style={styles.section3}>
+            <View className="abc_View_CV" style={styles.section3}>
               <Text style={styles.section1InnerDeepTxtLBL}>Education</Text>
               <Text style={styles.section1InnerDeepTxt}>{data?.Education}</Text>
             </View>
-            <View style={styles.section3}>
+            <View className="abc_View_CV" style={styles.section3}>
               <Text style={styles.section1InnerDeepTxtLBL}>English Level</Text>
               <Text style={styles.section1InnerDeepTxt}>
                 {data?.EnglishLevel}
@@ -134,12 +141,12 @@ export default function MyPDF({ data }) {
           <View style={styles.section2}>
             <Text style={styles.section1Text}>Technical Details</Text>
           </View>
-          <View style={styles.section}>
-            <View style={styles.section4}>
+          <View style={styles.section} className="abc_View_CV_M">
+            <View className="abc_View_CV" style={styles.section4}>
               <Text style={styles.section1InnerDeepTxtLBL}>Skills</Text>
               <Text style={styles.section1InnerDeepTxt}>{data?.Skills}</Text>
             </View>
-            <View style={styles.section4}>
+            <View className="abc_View_CV" style={styles.section4}>
               <Text style={styles.section1InnerDeepTxtLBL}>
                 Biggest Achievement
               </Text>

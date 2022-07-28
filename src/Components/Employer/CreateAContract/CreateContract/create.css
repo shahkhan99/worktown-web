@@ -36,3 +36,9 @@
   border-radius: 10px;
   cursor: pointer;
 }
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .create-cont-div {
+    height: 80%;
+  }
+}

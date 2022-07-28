@@ -1692,12 +1692,18 @@ class HomePage extends React.Component {
     this.state.selected.push(item);
     this.setState({ selectingActive: true, active: item });
   };
-  onSelect = (item) => {
+  onSelect = (item, ele) => {
+    console.log(item, ele);
     const { selected } = this.state;
     let index = selected.indexOf(item);
     let newList = [...selected];
     if (item === 0 && selected.includes(1)) {
+      ele.target.classList.add("quadrat");
     } else if (item === 1 && selected.includes(0)) {
+    } else if (item === 1 && selected.includes(2)) {
+    } else if (item === 0 && selected.includes(2)) {
+    } else if (item === 2 && selected.includes(0)) {
+    } else if (item === 2 && selected.includes(1)) {
     } else if (index > -1) {
       newList.splice(index, 1);
     } else {
@@ -1847,7 +1853,7 @@ class HomePage extends React.Component {
                         className="wait-button wait-btn "
                         onClick={() => this.handleLoginChangeBtn()}
                       >
-                        {this.state.loginSession ? "Portal" : "Login"}
+                        Portal
                       </div>
                       {/* <a href="/waitList" className="wait-btn">
                         Join the waitlist
@@ -1998,7 +2004,11 @@ class HomePage extends React.Component {
                           !this.state.loginSession ? (
                             <Form6 ctx={this} fullpageApi={fullpageApi} />
                           ) : (
-                            <></>
+                            <>
+                              <div className="fillout_error_div_h4">
+                                <h4>Fill out the job form to access portal</h4>
+                              </div>
+                            </>
                           )
                         ) : (
                           <div

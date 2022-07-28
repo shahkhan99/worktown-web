@@ -180,14 +180,16 @@ function Left_navigation({ checkNav, getEmployeeOrEmployer }) {
         className="nav-main-div"
         style={checkScreen ? { display: "flex" } : { display: "none" }}
       >
-        <div
+        <a
           className="nav_div_cross_logo"
           style={{
             justifyContent: "center",
           }}
+          href="/"
+          target="_blank"
         >
           <img src={LOGO} className="logo-left-nav" />
-        </div>
+        </a>
         <div className="left_nav_businessName">
           <img src={Businessicon} style={{ width: 15, height: 13 }} />
           <h6>{redux_data !== undefined && redux_data.BusinessName}</h6>

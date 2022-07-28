@@ -1,5 +1,5 @@
 import React, { useState, useEffect, ReactFragment } from "react";
-// import "./EditProfileEmployer.css";
+import "./EditProfileEmployer.css";
 import { useSelector, useDispatch } from "react-redux";
 import { SaveUpdatedData } from "./backend";
 import { set_current_user_data } from "../../../store/action/index";
@@ -87,7 +87,7 @@ function EditProfileEmployee() {
               </div>
             </div>
           </div>
-          <div className="epemp-main-div-edit-main">
+          <div className="epemp-main-div-edit-main epemp-main-div-edit-main1">
             <h6 style={{ fontSize: 20 }}>Personal Details</h6>
             <div className="epemp-main-div-edit-inner-main">
               <div className="epemp-main-div-edit-inner epemp-main-div-edit-inner-btn">

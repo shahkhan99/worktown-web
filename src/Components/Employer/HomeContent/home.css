@@ -104,7 +104,7 @@
 .PersonFullData_main_main_div {
   background: white;
   width: 570px;
-  height: 470px;
+  height: 500px;
   border-radius: 16px;
   position: absolute;
   top: 25%;
@@ -116,7 +116,13 @@
 .nav-div-switches {
   height: 88px;
 }
+.apexcharts-legend.apx-legend-position-right {
+  justify-content: center !important;
+}
 @media (min-width: 320px) and (max-width: 767px) {
+  .chart-wrap {
+    margin-top: 20px;
+  }
   .main-div {
     width: 100% !important;
     justify-content: space-around;
@@ -169,6 +175,7 @@
     width: 92% !important;
     height: 200px !important;
     padding: 10px 5px;
+    justify-content: space-between !important;
   }
   .div-stats-ul-empployer-div {
     width: 90% !important;
@@ -180,7 +187,7 @@
   }
   .apt-li-cls-span {
     display: flex;
-    width: 85px;
+    /* width: 85px; */
   }
   .css-1k23hlb-MuiButtonBase-root-MuiButton-root {
     min-width: 40px !important;

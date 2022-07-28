@@ -1,0 +1,11 @@
+@media (min-width: 320px) and (max-width: 767px) {
+  .epemp-main-div-edit-main1 {
+    margin: 15px 0px 0px 0px;
+  }
+  .epemp-main-div-edit-main-1st-employee-profession {
+    width: 90% !important;
+    height: 170px !important;
+    padding: 10px !important;
+    margin: 0px 0px 20px 0px !important;
+  }
+}

@@ -33,7 +33,11 @@ function ViewCV() {
             <MyPDF />
           </PDFViewer> */}
           <MyPDF data={data} />
-          <PDFDownloadLink document={<MyPDF />} fileName="somename.pdf">
+          <PDFDownloadLink
+            className="downloadnow_CV"
+            document={<MyPDF data={data} />}
+            fileName={`Resume-${data?.Name}.pdf`}
+          >
             {({ blob, url, loading, error }) =>
               loading ? "Loading document..." : "Download now!"
             }

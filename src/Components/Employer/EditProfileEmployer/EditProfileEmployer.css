@@ -206,6 +206,9 @@
   border-radius: 8px;
 }
 @media (min-width: 1051px) and (max-width: 1420px) {
+  .epemp-main-div-edit-inner-btn {
+    height: 35px;
+  }
   .epemp-main-div {
     width: 100%;
   }
@@ -214,13 +217,13 @@
   }
   .epemp-main-div-edit-main-1st {
     width: 350px;
-    height: 550px;
+    height: 500px;
     padding: 20px;
   }
   .epemp-main-div-edit-main {
     width: 640px;
     padding: 20px;
-    height: 550px;
+    height: 500px;
   }
   .New-Password-emp-edit-btn button {
     width: 75px !important;
@@ -240,6 +243,7 @@
     width: 100%;
     flex-direction: column;
     align-items: center;
+    background-color: rgb(245, 245, 245);
   }
   .epemp-main-div-edit-main-1st {
     width: 90%;

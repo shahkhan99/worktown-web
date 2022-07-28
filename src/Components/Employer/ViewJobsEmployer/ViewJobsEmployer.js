@@ -228,7 +228,7 @@ function ViewJobsEmployer({ setSelected_nav, setFilter }) {
                               className="div-jv-card-btn_v_c_btn"
                               onClick={() => handleViewCand(v, i)}
                             >
-                              View Candidates
+                              Candidates
                             </button>
                             <button
                               style={

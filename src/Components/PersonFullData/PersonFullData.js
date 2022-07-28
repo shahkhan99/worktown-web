@@ -2,10 +2,11 @@ import React from "react";
 import "./PersonFullData.css";
 import { MdLocationOn } from "react-icons/md";
 import { Button, Backdrop } from "@mui/material";
+import moment from "moment";
 
 export default function PersonFullData({ setShowPersonFullData, v }) {
   var nameArr = v.Name.split(" ");
-  // console.log(v);
+  console.log(v);
   var skills = v.Skills.split(",");
   var InterestedIn = v.InterestedIn.split(",");
 
@@ -65,6 +66,44 @@ export default function PersonFullData({ setShowPersonFullData, v }) {
             </div>
             <div className="div-cand-card-achieve-short" style={{ top: 7 }}>
               <p>{v.Achievement}</p>
+            </div>
+          </div>
+          <div className="div-cand-card-inner-skl-short1">
+            <div className="div-cand-card-inner-skl-inn1-short">
+              <div className="div-cand-card-inner1-fields-short">
+                <label>Appointment for</label>
+                <p>{v.role?.toUpperCase()}</p>
+              </div>
+              <div className="div-cand-card-inner1-fields-short">
+                <label>Appointment type</label>
+                <p>{v.Interview_Details.InterviewType}</p>
+              </div>
+            </div>
+          </div>
+          <div className="div_inner_main_Person_data div_inner_main_Person_data_111">
+            <div className=" div_inner_Person_data_111">
+              <label>
+                {v.Interview_Details.InterviewType === "Virtual"
+                  ? "At:"
+                  : "Venue:"}
+              </label>
+              <h6>
+                &nbsp;
+                {v.Interview_Details.InterviewType !== "Virtual"
+                  ? v.Interview_Details.venue
+                  : "Google Meet"}
+              </h6>
+            </div>
+            <div className=" div_inner_Person_data_111">
+              <label>Date:</label>
+              <h6>
+                &nbsp;
+                {moment(v.Interview_Details.date).format("MMMM DD, YYYY")}
+              </h6>
+            </div>
+            <div className="div_inner_Person_data_111  ">
+              <label>Time: </label>
+              <h6> &nbsp; {v.Interview_Details.time}</h6>
             </div>
           </div>
           <div>
