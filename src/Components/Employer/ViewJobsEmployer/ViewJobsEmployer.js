@@ -225,17 +225,6 @@ function ViewJobsEmployer({ setSelected_nav, setFilter }) {
                                   ? { display: "none" }
                                   : { display: "flex" }
                               }
-                              className="div-jv-card-btn_v_c_btn"
-                              onClick={() => handleViewCand(v, i)}
-                            >
-                              Candidates
-                            </button>
-                            <button
-                              style={
-                                v.key === editingState
-                                  ? { display: "none" }
-                                  : { display: "flex" }
-                              }
                               onClick={() => handleEdit(v, i)}
                             >
                               Edit

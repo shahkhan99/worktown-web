@@ -13,7 +13,6 @@ function EditProfileEmployee() {
   );
   const [data, setData] = useState("");
   const [edit, setEdit] = useState("");
-  // console.log(data);
   useEffect(() => {
     setData(redux_data);
   }, [redux_data]);
@@ -26,6 +25,7 @@ function EditProfileEmployee() {
     setData(redux_data);
     setEdit(false);
   };
+  console.log(redux_data);
   return (
     <div className="epemp-main-div">
       <div className="shrt-head-div">
@@ -52,16 +52,12 @@ function EditProfileEmployee() {
             </div>
             <div className="epemp-main-div-edit-main-1st-stat">
               <div className="epemp-main-div-edit-main-1st-stat-inner">
-                <p>{Object.keys(redux_data.jobs).length}</p>
-                <label>Jobs</label>
-              </div>
-              <div className="epemp-main-div-edit-main-1st-stat-inner">
-                <p>{Object.keys(redux_data.appointments).length}</p>{" "}
+                <p>
+                  {redux_data.employee_side_appointments === undefined
+                    ? 0
+                    : Object.keys(redux_data.employee_side_appointments).length}
+                </p>{" "}
                 <label>Interviews</label>
-              </div>
-              <div className="epemp-main-div-edit-main-1st-stat-inner">
-                <p>{Object.keys(redux_data.archive).length}</p>{" "}
-                <label>Archive</label>
               </div>
             </div>
             <div className="epemp-main-div-edit-main-1st-info">

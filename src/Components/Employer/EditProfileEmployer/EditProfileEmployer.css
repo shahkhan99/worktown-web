@@ -145,7 +145,7 @@
 }
 .epemp-main-div-edit-main-1st-stat {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 300px;
   height: 100px;

@@ -30,10 +30,9 @@ h1 {
   /* font-weight: bold; */
 }
 .form1 {
-  height: 78%;
+  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
   flex-direction: column;
   position: relative;
   /* bottom: 8%; */
@@ -368,20 +367,29 @@ h1 {
   align-items: center;
 }
 .quadrat {
-  -webkit-animation: NAME-YOUR-ANIMATION 1s infinite; /* Safari 4+ */
-  -moz-animation: NAME-YOUR-ANIMATION 0.41s normal; /* Fx 5+ */
-  -o-animation: NAME-YOUR-ANIMATION 0.4s1s normal; /* Opera 12+ */
-  animation: NAME-YOUR-ANIMATION 0.41s normal; /* IE 10+, Fx 29+ */
+  -webkit-animation: NAME-YOUR-ANIMATION 1s normal; /* Safari 4+ */
+  -moz-animation: NAME-YOUR-ANIMATION 1s normal; /* Fx 5+ */
+  -o-animation: NAME-YOUR-ANIMATION 1s normal; /* Opera 12+ */
+  animation: NAME-YOUR-ANIMATION 1s normal; /* IE 10+, Fx 29+ */
+}
+.form1_Card_main_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 80%;
 }
 
 @keyframes NAME-YOUR-ANIMATION {
   0%,
-  49% {
-    background-color: rgb(117, 209, 63);
+  29% {
+    color: #fff;
+    background-color: #9d2b30;
   }
-  50%,
+  30%,
   100% {
-    background-color: #e50000;
+    color: #fff;
+    background-color: #eb2227;
   }
 }
 @media only screen and (max-width: 1420px) {

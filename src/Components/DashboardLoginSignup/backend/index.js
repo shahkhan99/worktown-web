@@ -201,7 +201,7 @@ const handleLogin = async (
             showConfirmButton: true,
             confirmButtonText: "Ok",
           });
-          signOut(auth);
+          // signOut(auth);
           sendEmailVerification(user).then(() => {
             // console.log("Sent");
           });

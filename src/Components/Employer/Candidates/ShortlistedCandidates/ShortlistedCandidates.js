@@ -39,18 +39,13 @@ function ShortlistedCandidates({ filterVJ, setFilterVJ }) {
   const [scheduledCandidate, setScheduledCandidate] = useState();
   const [editingState, setEditingState] = useState("");
   const [job_options, SetJob_options] = useState([]);
+  const [job_categories, SetJob_categories] = useState([]);
   const [ShortlistedCandidates, setShortlistedCandidates] = useState("");
   const [interviewCandidates, setInterviewCandidates] = useState("");
   const [filterType, setFilter] = useState("");
+  const [categoryType, setCategory] = useState("");
   const [currentUser, setCurrentUser] = useState("");
   const [rejectionChange, setRejectionChange] = useState("");
-  const [toSend, setToSend] = useState({
-    from_name: "testing sender",
-    to_name: "testing receiver",
-    employer_name: "Deel",
-    send_to: "workhall.co@gmail.com",
-    send_by: "hello@worktown.co",
-  });
   const [personFullData, setPersonFullData] = useState({});
   const [mobileScreenTrue, setMobileScreenTrue] = useState(false);
   const [showPersonFullData, setShowPersonFullData] = useState(false);
@@ -67,19 +62,27 @@ function ShortlistedCandidates({ filterVJ, setFilterVJ }) {
     }
     getJobTypeFilterCand(redux_data, setShortlistedCandidates, filterType);
     if (redux_data !== "") {
-      setFilterType(setFilter, redux_data, filterType);
-      getJobTitleFilters(SetJob_options, redux_data);
+      setFilterType(
+        setFilter,
+        redux_data,
+        filterType,
+        SetJob_categories,
+        setCategory,
+        categoryType
+      );
+      getJobTitleFilters(SetJob_options);
     }
-    if (filterVJ !== "") {
-      setFilter(filterVJ);
-    }
-  }, [currentUser, filterType]);
+    // if (filterVJ !== "") {
+    //   setFilter(filterVJ);
+    // }
+  }, [currentUser, filterType, categoryType]);
+  // console.log("current =>", filterType);
 
   const getFilterTitle = (e) => {
     setFilter(e);
   };
-  const checkOpen = (e) => {
-    // console.log(e);
+  const getFilterCategory = (e) => {
+    setCategory(e);
   };
 
   const handleShowPersonData = (v) => {
@@ -188,7 +191,6 @@ function ShortlistedCandidates({ filterVJ, setFilterVJ }) {
 
   let filterSplit = filterType && filterType.split("/");
 
-  // console.log("current =>", ShortlistedCandidates.length);
   return (
     <React.Fragment>
       <div
@@ -244,6 +246,8 @@ function ShortlistedCandidates({ filterVJ, setFilterVJ }) {
                           getFilterTitle={(e) => getFilterTitle(e)}
                           filterTyped={filterType}
                           setFilterVJ={setFilterVJ}
+                          job_categories={job_categories}
+                          getFilterCategory={(e) => getFilterCategory(e)}
                         />
                       </div>
                     ) : (

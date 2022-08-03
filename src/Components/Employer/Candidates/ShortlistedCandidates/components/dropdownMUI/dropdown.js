@@ -16,6 +16,8 @@ export default function ControlledOpenSelect({
   getFilterTitle,
   filterTyped,
   setFilterVJ,
+  job_categories,
+  getFilterCategory,
 }) {
   const [age, setAge] = React.useState("");
   const [checkopen, setCheckOpen] = React.useState(false);
@@ -38,7 +40,7 @@ export default function ControlledOpenSelect({
   const handleOpen = () => {
     setCheckOpen(true);
   };
-  // console.log(selected);
+  // console.log(filterSplit, getFilterTitle, filterTyped);
 
   return (
     <div style={{ width: "100%" }}>
@@ -50,6 +52,8 @@ export default function ControlledOpenSelect({
         checkopen={checkopen}
         handleClosed={handleClose}
         setFilterVJ={setFilterVJ}
+        job_categories={job_categories}
+        getFilterCategory={getFilterCategory}
       />
       <BsFilterLeft
         color="#000"
