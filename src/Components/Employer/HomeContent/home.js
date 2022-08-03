@@ -216,8 +216,8 @@ function Home() {
                             size="small"
                             style={
                               i % 2 === 0
-                                ? { borderColor: "#fff", color: "#fff" }
-                                : { borderColor: "#fff", color: "#fff" }
+                                ? { borderColor: "#3e469d", color: "#3e469d" }
+                                : { borderColor: "#3e469d", color: "#3e469d" }
                             }
                             variant="outlined"
                             onClick={() => handleViewBtn(v)}
@@ -237,8 +237,8 @@ function Home() {
                             aria-label="delete"
                             sx={
                               i % 2 !== 0
-                                ? { color: "#fff" }
-                                : { color: "#fff" }
+                                ? { color: "#3e469d" }
+                                : { color: "#3e469d" }
                             }
                             size="small"
                             onClick={() => handleCancelAppointment(v)}

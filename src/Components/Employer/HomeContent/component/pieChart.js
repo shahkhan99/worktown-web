@@ -4,12 +4,24 @@ import ReactApexChart from "react-apexcharts";
 class ApexChart extends React.Component {
   constructor(props) {
     super(props);
-
+    var setG = [
+      this.props.redux_data.scheduleInterview === undefined
+        ? 0
+        : Object.keys(this.props.redux_data.scheduleInterview)?.length,
+      this.props.redux_data.appointments === undefined
+        ? 0
+        : Object.keys(this.props.redux_data.appointments)?.length,
+    ];
     this.state = {
       set: [
-        Object.keys(this.props.redux_data.scheduleInterview).length,
-        this.props.appt.length,
+        this.props.redux_data.scheduleInterview === undefined
+          ? 0
+          : Object.keys(this.props.redux_data.scheduleInterview)?.length,
+        this.props.redux_data.appointments === undefined
+          ? 0
+          : Object.keys(this.props.redux_data.appointments)?.length,
       ],
+
       options: {
         chart: {
           width: 380,
@@ -17,12 +29,9 @@ class ApexChart extends React.Component {
         },
         dataLabels: {
           enabled: true,
+
           formatter: function (value, { seriesIndex, dataPointIndex, w }) {
-            console.log(w.config);
-            return w.config.series[seriesIndex];
-            // return (
-            //   w.config.labels[seriesIndex] + ":  " + value.toFixed(0) + " %"
-            // );
+            return setG[seriesIndex];
           },
         },
         responsive: [
@@ -52,7 +61,7 @@ class ApexChart extends React.Component {
           },
         ],
         // fill: {},
-        colors: ["#F09222", "#3E469D"],
+        colors: ["#ffcb05", "#3E469D"],
         legend: {
           position: "right",
           offsetY: 0,
@@ -62,18 +71,9 @@ class ApexChart extends React.Component {
       },
     };
   }
-  componentWillReceiveProps(nextProps) {
-    // console.log("componentWillReceiveProps", nextProps);
-    this.setState({
-      set: [
-        Object.keys(this.props.redux_data.scheduleInterview).length,
-        this.props.appt.length,
-      ],
-    });
-  }
+
   render() {
-    // console.log(this.state.set);
-    // console.log(this.props.appt.length);
+    // console.log(this.props.redux_data);
     return (
       <div>
         <div class="chart-wrap">

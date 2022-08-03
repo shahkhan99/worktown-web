@@ -78,7 +78,7 @@
   background-color: #f0bc3a;
 }
 .div-cand-card-main-sub {
-  width: 97%;
+  width: 82%;
   /* background: #fff; */
   display: flex;
   height: auto;
@@ -341,15 +341,16 @@
   width: 15%;
 }
 .shortlisted-ind-header-heading-btn-si button:hover {
-  background-color: #ffcb05;
+  background-color: rgb(255, 226, 111);
 }
 .shortlisted-ind-header-heading-btn-si button {
   height: 50px !important;
   width: 200px !important;
-  background-color: #f09222;
+  background-color: #ffcb05;
   /* font-weight: bold; */
-  font-family: myFontR;
+  font-family: "Poppins";
   font-size: 15px;
+  border-radius: 12px;
 }
 .shortlisted-ind-header-heading-1 {
   display: flex;
@@ -750,18 +751,25 @@ label {
 }
 
 @media (min-width: 1051px) and (max-width: 1420px) {
+  .shortlisted-ind-header-heading-btn-si button {
+    width: 150px !important;
+  }
+  .shortlisted-ind-header-heading-btn-si {
+    width: 17%;
+  }
   .shortlisted-main {
     height: 545px;
   }
   .shortlisted-ind-header-heading {
     left: 1%;
+    width: 79.75%;
   }
   .shortlisted-ind-header-heading-2 {
     width: 7%;
   }
   .div-cand-card-main-sub {
     padding: 0;
-    width: 100%;
+    width: 83%;
   }
   .css-pgrorv-MuiSwitch-root {
     margin: 8px 0px !important;
@@ -787,7 +795,7 @@ label {
     width: 200px;
   }
   .shrt-cont-div {
-    width: 90%;
+    width: 100%;
   }
   .shrt-head-div {
     height: 60px;

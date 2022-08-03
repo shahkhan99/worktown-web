@@ -197,7 +197,7 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 
 export default function MuiSwitches({ handleCheck, setSelected_nav }) {
   const Check = (e) => {
-    // handleCheck(e);
+    handleCheck(e);
   };
   // setSelected_nav(1);
   return (
@@ -216,9 +216,7 @@ export default function MuiSwitches({ handleCheck, setSelected_nav }) {
         </Typography>
         <FormControlLabel
           onClick={() => setSelected_nav(0)}
-          control={
-            <IOSSwitch sx={{ m: 1 }} disabled defaultChecked Check={Check} />
-          }
+          control={<IOSSwitch sx={{ m: 1 }} defaultChecked Check={Check} />}
           label=""
         />
         <Typography style={{ color: "#7D7D7D", fontSize: 15 }}>

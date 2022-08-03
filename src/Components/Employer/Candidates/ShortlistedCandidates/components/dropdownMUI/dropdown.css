@@ -10,6 +10,10 @@
   justify-content: "center";
   align-items: "center";
 }
+.dialog_select_dropdown {
+  background: #3e469d1a;
+  border-radius: 16px !important;
+}
 @media (min-width: 1051px) and (max-width: 1420px) {
   .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
     height: 210px !important;

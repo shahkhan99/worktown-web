@@ -242,7 +242,10 @@ function EditProfessionalDetails() {
                 >
                   <label>Achievement</label>
                   <h6 style={!edit ? { display: "flex" } : { display: "none" }}>
-                    {redux_data.Achievement.substring(0, 50)}...
+                    {redux_data.Achievement
+                      ? redux_data.Achievement.substring(0, 50)
+                      : ""}
+                    ...
                   </h6>
                   <div
                     className="div-input-icon-emp-dash-edit-prof  epemp-main-div-edit-prof-det select-div-prof-det-edit"
@@ -270,7 +273,10 @@ function EditProfessionalDetails() {
                 >
                   <label>Skills</label>
                   <h6 style={!edit ? { display: "flex" } : { display: "none" }}>
-                    {redux_data.Skills.substring(0, 50)}...
+                    {redux_data.Skills
+                      ? redux_data.Skills.substring(0, 50)
+                      : ""}
+                    ...
                   </h6>
                   <div
                     className="div-input-icon-emp-dash-edit-prof epemp-main-div-edit-prof-det select-div-prof-det-edit"

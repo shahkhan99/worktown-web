@@ -1,0 +1,52 @@
+const job_options = [
+  { value: "Applications Engineer", label: "Applications Engineer" },
+  { value: "Back-end Engineer", label: "Back-end Engineer" },
+  { value: "Cloud Systems Engineer", label: "Cloud Systems Engineer" },
+  { value: "Computer  scientist", label: "Computer  scientist" },
+  {
+    value: "Computer Systems Analyst",
+    label: "Computer Systems Analyst",
+  },
+  { value: "CRM project manager ", label: "CRM project manager " },
+  { value: "Data Analyst", label: "Data Analyst" },
+  { value: "Data scientist", label: "Data scientist" },
+  { value: "DevOps Engineer", label: "DevOps Engineer" },
+  { value: "Database Administrator", label: "Database Administrator" },
+  { value: "Data Quality Manager", label: "Data Quality Manager" },
+  { value: "Front-end Engineer", label: "Front-end Engineer" },
+  { value: "Full-stack Engineer", label: "Full-stack Engineer" },
+  { value: "Game Developer", label: "Game Developer" },
+  { value: "Hardware", label: "Hardware" },
+  { value: "Help Desk Technician", label: "Help Desk Technician" },
+  { value: "IT Coordinator", label: "IT Coordinator" },
+  { value: "IT Consultant", label: "IT Consultant" },
+  { value: "IT Security", label: "IT Security" },
+  {
+    value: "Management Information Systems Director",
+    label: "Management Information Systems Director",
+  },
+  { value: "Mobile App Developer", label: "Mobile App Developer" },
+  { value: "Network Engineer", label: "Network Engineer" },
+  {
+    value: "Quality Assurance Engineer",
+    label: "Quality Assurance Engineer",
+  },
+  { value: "Security Engineer", label: "Security Engineer" },
+  { value: "Software Analyst", label: "Software Analyst" },
+  { value: "Software Engineer", label: "Software Engineer" },
+  {
+    value: "Software integration Engineer",
+    label: "Software integration Engineer",
+  },
+  { value: "Technical Support", label: "Technical Support" },
+  {
+    value: "User Interface/User Experience Designer (UI/UX Designer)",
+    label: "User Interface/User Experience Designer (UI/UX Designer)",
+  },
+  { value: "Video Game Developer", label: "Video Game Developer" },
+  { value: "Web Administrator", label: "Web Administrator" },
+  { value: "Web Developer", label: "Web Developer" },
+  { value: "3D Graphics Developer", label: "3D Graphics Developer" },
+];
+
+export default job_options;

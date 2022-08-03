@@ -126,10 +126,10 @@ const CancelAppointment = (redux_data, candidate, setAppt) => {
 
 const UpdateAppointments = (appt, redux_data, setAppt) => {
   let date = "";
-  const today = moment(new Date()).format("MMM Do YY");
+  const today = moment(new Date());
   appt.forEach((v) => {
     date = v.Interview_Details.date;
-    if (moment(date).add(1, "d").format("MMM Do YY") <= today) {
+    if (moment(date).add(1, "d") <= today) {
       set(
         ref(db, `users/jobs_employer/${redux_data.uid}/appointments/${v.uid}`),
         null
@@ -144,10 +144,10 @@ const UpdateAppointments = (appt, redux_data, setAppt) => {
         );
         GetAppointments(redux_data, setAppt);
       });
+      // console.log(moment(date).add(1, "d"), today);
     }
 
     // if (moment(date).add(1, "d").format("MMM Do YY") >= today) {
-    //   console.log(moment)
     // }
   });
   // console.log(appt_obj);

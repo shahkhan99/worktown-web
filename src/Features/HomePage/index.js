@@ -13,12 +13,12 @@ import {
 } from "@firebase/database";
 import firebase from "../../config/firebase";
 import ReactFullpage from "@fullpage/react-fullpage";
-import Form1 from "./form1";
-import Form2 from "./form2";
-import Form3 from "./form3";
-import Form4 from "./form4";
-import Form5 from "./form5";
-import Form6 from "./form6";
+import Form1 from "./forms/form1";
+import Form2 from "./forms/form2";
+import Form3 from "./forms/form3";
+import Form4 from "./forms/form4";
+import Form5 from "./forms/form5";
+import Form6 from "./forms/form6";
 import Swal from "sweetalert2";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import "./homeStyles.css";
@@ -28,42 +28,23 @@ import Logo from "../../assets/Logo/logo.png";
 import Vector1 from "../../assets/Vectors/vector1.png";
 import Vector9 from "../../assets/Vectors/vector9.png";
 import ArrowIcon from "../../assets/icons/up-arrow.png";
-import programmer from "../../assets/icons/sd.png";
-import operator from "../../assets/icons/cc.png";
-import right from "../../assets/images/right.png";
 import TextTransition, { presets } from "react-text-transition";
-import Lottie from "react-lottie";
-import RoomGif from "../../assets/Vectors/room.gif";
-import office from "../../assets/Vectors/office.gif";
-import cafegif from "../../assets/Vectors/cafe.gif";
-import dhaba from "../../assets/Vectors/dhaba.gif";
-import roadgif from "../../assets/Vectors/road.gif";
-// import Cafegif from "../../assets/Vectors/cafe1.mp4";
-// import Cafe from "../../assets/Vectors/Cafe.mp4";
-import "react-tagsinput/react-tagsinput.css"; // If using WebPack and style-loader.
+import "react-tagsinput/react-tagsinput.css";
 import $ from "jquery";
 import { checkUserSession } from "./backend/index";
 import { connect } from "react-redux";
-
+import { animatedStrings, content } from "./usefullArrays/zeroVersionText";
+import { Saltimings, timings } from "./usefullArrays/salaryTiming";
 import {
-  dhabaOptions,
-  cafeOptions,
-  roadOptions,
-  roomOptions,
-  officeOptions,
-} from "./animationOptions";
-import { async } from "@firebase/util";
-const db = getDatabase();
-const SPREADSHEET_ID = "1tJUmkVph10mUleXZmVAlwIta2DwBeCJClYaGagUpxzA";
-const EMPLOYER_SPREADSHEET_ID = "1tJUmkVph10mUleXZmVAlwIta2DwBeCJClYaGagUpxzA";
-// const EMPLOYER_SPREADSHEET_ID = "1and-JbqoUr_L1vAX720OLx4P851w_rpIBCxuTqlspEw";
-const SHEET_ID = "0";
-const SHEET_ID_EMP = "645772619";
-const CLIENT_EMAIL =
-  "work-hall@academy-registra-1605173971230.iam.gserviceaccount.com";
-const PRIVATE_KEY =
-  "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDEHOlVYVGJOeB+\ntTj0W505Wntj4CxLpFxEWgBPhjZLL5y+qmcSbvzotqTm+U7Gsdbwb6VdtfO9lVVI\n1YdBkL8DfWOJfkGoOiyrKJH4Td7xgJ441cLF2dQ7VtxRSAlJjqwJ4+oeOakpxET0\nHhEu0KkrozOX73QOD65ycyQAnxGOMOgh6XQpayfYzh5svBiAfDmLa5+sLMSscgiw\nfGAiAOehRtF7zTpXbOp474NWIZKfkM081gS+/D0znj50XSkKFHmtC9o7bK5YXlfI\ntjy3vt41BQsyHiSoZ8HEp/nVUbHVTUA+yUAmqnNRrHFETZYSrMD67aal2Ivk4LHM\nKzN5TmUJAgMBAAECggEACOPiTFF3qQUeO8LlhKb04Gaikn3qfCOvXsDcDpQquMCn\n4M59ktdvBcdRKpBRhXkxNsqU4EPmkKj+Sf7gsrSdWCA9HNHup4c67ae5QEdFbJoU\nR3F3SCajs+ya2wttMlqySqt8j5IKbLSInK69QCug3kkicQg08Qs9xlNDu0x6twDv\ntSL1eAYRGtGHSHulELh5ZRsNzlsWwCiKTuU8/5XeT9K9vJXNu7J02KA5W46VDWOF\nUTK9GdbukE7g5xiCvi2jHpCWC9ZxqdCzd46/DJ5pwY4slJra1IFfhozmzQl6Lcso\noRF94XV93zJgK3QVwSzfjk2ugxXGnDG3B+wrb4a/NQKBgQDvTJnebjWYWm3ejb24\nImblIkpr0YzB8pvWSTWZDUaRWqUIt04dhC6tRa+b6MEeaI/jFiBBkO1MhG22HXDm\n/gnQJ8kU+ppk14kubSzFkLtoVe9069LfcLn1kp/pP7KoHSTO0OToZWT2vbuqb4Ra\njVP5noJ1VOxZ7pv26Dd7H32+NQKBgQDRzLrc7f7TPUOYyftdEZzFD+nh9zLypC7s\nv655+aWADvK0srMAdhQTyf7l+VztDflK4qr3LuN0cb3ufNDbHAPFkpW79fLouHzf\nLDnxrnlUFOcWWPSC4/LQ63VcbOWc8adXHv5+APYKEKQl+A6wJjoiD1PZgj5noiAe\nH5XD8CC2BQKBgQDLLwFfCbjcGbw8QaGbHSq813bVQWIAs9x6AENQJyOJ+6sxUWM0\nUK3JVegbu29uQF4b9QeCZGn4lGELRsg8eesfIQjtlTNO+Gt0TiK7xX46wuzFHA86\nxV5AEzVQOVOaxtQf/uK+KImnr8YOmw2ITYPF6T7gHTFp0t3+sYGaO0zrGQKBgFHy\n1T6829+pO4EvzDaTTZgP2jyAcW8jwIyLZtyQLhwyOo1oi9DvTnJYYW91Et4pqimd\nFkjNEN2IHDdOm8oqTDLdSg2MSWCrx2LpBI0pqIy2SXmKL5/85/jBMCt1Ac9m+QVn\nvuJ6/5/41hVaqmoV1Hk/YXJBlJyoUEFT9wz8+9n9AoGBAKlkyHx+WACxWOMr97fN\na+Ls03kugkvJb+PUVu0rMsNKB/i3dTPpz1mqqU7LntMShsd0h+ZoGnBwf6sk2agG\nxs02uEnWkRlmvlWBFOFtahH6bJqG3Kh9pzwN16Rzr/qIgd9bfXlETx6D3SGO3SMR\n84+jm0xK/gLtdy+jE9ViDy8O\n-----END PRIVATE KEY-----\n";
+  SPREADSHEET_ID,
+  EMPLOYER_SPREADSHEET_ID,
+  SHEET_ID,
+  SHEET_ID_EMP,
+  CLIENT_EMAIL,
+  PRIVATE_KEY,
+} from "./confKeys/conf_keys";
 
+const db = getDatabase();
 const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
 const emp_doc = new GoogleSpreadsheet(EMPLOYER_SPREADSHEET_ID);
 
@@ -84,6 +65,8 @@ class HomePage extends React.Component {
       employer: false,
       index: 0,
       sw: false,
+      gd: false,
+      dm: false,
       csr: false,
       noCategory: null,
       male: false,
@@ -98,7 +81,7 @@ class HomePage extends React.Component {
       jobDesc: "",
       company: "",
       name: "",
-      city: "Karachi",
+      city: "",
       email: "",
       phone: "",
       sheetLoaded: false,
@@ -153,14 +136,34 @@ class HomePage extends React.Component {
         "Django",
         "Objective C",
       ],
-      Saltimings: ["Hourly", "Monthly", "Fixed"],
-      timings: [
-        "Full Time",
-        "Part Time",
-        "Freelance",
-        "Work From Home",
-        "Remote",
-        "Night Shift",
+      defSkillsDM: [
+        "Content marketer",
+        "Email marketer",
+        "Domain researcher",
+        "Influencer marketer",
+        "Mobile advertiser",
+        "SEO",
+        "Web traffic",
+        "Ecommerce marketer",
+        "Social media marketer",
+        "Web analyst",
+        "Google ads specialist",
+      ],
+      defSkillsGD: [
+        "Graphic designer",
+        "Fashion designer",
+        "3D modelling designer",
+        "Product designer",
+        "Illustrator",
+        "Architects",
+        "Draughtsman",
+        "Interior designer",
+        "Game designer",
+        "Packaging designer",
+        "Photoshop editor",
+        "Web designer",
+        "Social media designer",
+        "UI/UX designer",
       ],
       skills: [],
       achievement: "",
@@ -177,131 +180,7 @@ class HomePage extends React.Component {
       active: null,
       activeSal: null,
       selectingActive: true,
-      animatedStrings: [
-        " client ",
-        " job ",
-        " cofounder ",
-        " employee ",
-        " employer ",
-        " investor ",
-        " colleague ",
-      ],
-      job_options: [
-        { value: "Applications Engineer", label: "Applications Engineer" },
-        { value: "Back-end Engineer", label: "Back-end Engineer" },
-        { value: "Cloud Systems Engineer", label: "Cloud Systems Engineer" },
-        { value: "Computer  scientist", label: "Computer  scientist" },
-        {
-          value: "Computer Systems Analyst",
-          label: "Computer Systems Analyst",
-        },
-        { value: "CRM project manager ", label: "CRM project manager " },
-        { value: "Data Analyst", label: "Data Analyst" },
-        { value: "Data scientist", label: "Data scientist" },
-        { value: "DevOps Engineer", label: "DevOps Engineer" },
-        { value: "Database Administrator", label: "Database Administrator" },
-        { value: "Data Quality Manager", label: "Data Quality Manager" },
-        { value: "Front-end Engineer", label: "Front-end Engineer" },
-        { value: "Full-stack Engineer", label: "Full-stack Engineer" },
-        { value: "Game Developer", label: "Game Developer" },
-        { value: "Hardware", label: "Hardware" },
-        { value: "Help Desk Technician", label: "Help Desk Technician" },
-        { value: "IT Coordinator", label: "IT Coordinator" },
-        { value: "IT Consultant", label: "IT Consultant" },
-        { value: "IT Security", label: "IT Security" },
-        {
-          value: "Management Information Systems Director",
-          label: "Management Information Systems Director",
-        },
-        { value: "Mobile App Developer", label: "Mobile App Developer" },
-        { value: "Network Engineer", label: "Network Engineer" },
-        {
-          value: "Quality Assurance Engineer",
-          label: "Quality Assurance Engineer",
-        },
-        { value: "Security Engineer", label: "Security Engineer" },
-        { value: "Software Analyst", label: "Software Analyst" },
-        { value: "Software Engineer", label: "Software Engineer" },
-        {
-          value: "Software integration Engineer",
-          label: "Software integration Engineer",
-        },
-        { value: "Technical Support", label: "Technical Support" },
-        {
-          value: "User Interface/User Experience Designer (UI/UX Designer)",
-          label: "User Interface/User Experience Designer (UI/UX Designer)",
-        },
-        { value: "Video Game Developer", label: "Video Game Developer" },
-        { value: "Web Administrator", label: "Web Administrator" },
-        { value: "Web Developer", label: "Web Developer" },
-        { value: "3D Graphics Developer", label: "3D Graphics Developer" },
-      ],
-      content: [
-        {
-          id: 1,
-          tittle: "Land your first",
-          body: "We can’t promise that you will immediately, but if you stick around, you’ll see and meet remarkable people who aren’t any different from you.",
-          vector: office,
-          // colorCode: "#3D459D",
-          colorCode: "#fff",
-          lottieAnimation: officeOptions,
-        },
-        {
-          id: 2,
-          tittle: "Community-first ",
-          unstyled: " from the ground up",
-          body: "We’re creating a super community of storytellers, founders, dreamers, forward-thinkers, misfits, rebels, entrepreneurs, graduates, employees, investors, polyworkers, problem solvers, yay-sayers, coders, designers, freelancers, stargazers and storm-chasers.",
-          vector: cafegif,
-          // colorCode: "#F0BD3A",
-          colorCode: "#fff",
-          lottieAnimation: cafeOptions,
-        },
-        {
-          id: 3,
-          tittle: "A not-so-professional network",
-          body: "Professional networks are decades old and feel out-of-place. Worktown wants to make it exciting and relevant. And we think everyone’s smart enough to know what works for them.",
-          vector: roadgif,
-          colorCode: "#fff",
-          lottieAnimation: roadOptions,
-        },
-        {
-          id: 4,
-          tittle: "Where you’re not defined by your job title",
-          body: "That is a super-narrow expression of who you are. With Worktown, let the world know how much more you bring to the table than the arbitrary job titles and descriptions that don't fit your work.",
-          vector: dhaba,
-          // colorCode: "#F15925",
-          colorCode: "#fff",
-          lottieAnimation: dhabaOptions,
-        },
-        {
-          id: 5,
-          // tittle: "Why limit the way people see you?",
-          // body: "Resumes are two-dimensional – they don’t talk much about who you are and how you’ve had to work your socks off to get to where you are. Worktown helps you show them what makes you ‘you’.",
-          vector: RoomGif,
-          colorCode: "#fff",
-          lottieAnimation: roomOptions,
-        },
-        {
-          id: 6,
-          // tittle: "Why limit the way people see you?",
-          // body: "Resumes are two-dimensional – they don’t talk much about who you are and how you’ve had to work your socks off to get to where you are. Worktown helps you show them what makes you ‘you’.",
-          vector: RoomGif,
-          colorCode: "#fff",
-          lottieAnimation: roomOptions,
-        },
-      ],
-      card: [
-        {
-          id: 0,
-          img: programmer,
-          name: "Software & IT Jobs",
-        },
-        {
-          id: 1,
-          img: operator,
-          name: "Telecaller & Call Center Jobs",
-        },
-      ],
+
       isStopped: false,
       isPaused: false,
       isOpen: false,
@@ -353,19 +232,23 @@ class HomePage extends React.Component {
   };
   handleCard = (fullpageApi, val) => {
     if (this.state.wantedCategorySelection) {
+      this.setState({ JobCategory: val.name });
       if (val.name === "Software & IT Jobs") {
         this.handleSW();
         this.setState({ noCategory: false });
-      } else {
-        this.handleCSR();
+      } else if (val.name === "Digital Marketing Jobs") {
+        this.handleDM();
+        this.setState({ noCategory: false });
+      } else if (val.name === "Graphics & Design Jobs") {
+        this.handleGD();
+        this.setState({ noCategory: false });
       }
-      this.setState({ JobCategory: val.name });
       fullpageApi.moveTo(3, 0);
     } else {
       this.setState({ wantedCategorySelectionErr: true });
       // console.log(fullpageApi.getActiveSection());
       // fullpageApi.moveTo(1, 0);
-      $("html, body").animate({ scrollTop: 0 }, "slow");
+      $("html, body").animate({ scrollTop: 0 }, "normal");
     }
   };
 
@@ -872,64 +755,9 @@ class HomePage extends React.Component {
         proceed = false;
       }
     }
-
-    // try {
-    //   await doc.useServiceAccountAuth({
-    //     client_email: CLIENT_EMAIL,
-    //     private_key: PRIVATE_KEY,
-    //   });
-    //   // loads document properties and worksheets
-    //   await doc.loadInfo();
-
-    //   const sheet = doc.sheetsById[SHEET_ID];
-    //   const rows = await sheet.getRows();
-
-    //   // this.setState({ count: rows }, () => {
-    //   //   document.querySelector(".value").innerText = this.state.count;
-    //   // });
-    // } catch (e) {
-    //   console.error("Error: ", e);
-    // }
   };
-  check() {
-    let toS = this.state.to.split(" ");
-    let strTo = toS[1].replace(/,/g, "");
-    let fromS = this.state.from.split(" ");
-    let strFrom = fromS[1].replace(/,/g, "");
-    let change = strFrom - strTo;
 
-    let diffA = strFrom * 2;
-    // let diffB = diffA / 50;
-    // console.log("change 0 === ", diffA);
-    if (change <= 0) {
-      // console.log("change 1 === ", diffA);
-    } else if (change > diffA) {
-      // console.log("change 2 === ", diffA);
-    }
-  }
   handleSalaryChange(target, value) {
-    // if (target === "to") {
-    //   if (value != "") {
-    //     let toS = value.split(" ");
-    //     let strTo = toS[1].replace(/,/g, "");
-    //     let fromS = this.state.from.split(" ");
-    //     let strFrom = fromS[1].replace(/,/g, "");
-    //     let change = strFrom - strTo;
-
-    //     let diffA = strFrom * 100;
-    //     let diffB = diffA / 50;
-    //     if (change <= 0) {
-    //       this.setState({ expSalTErr: true });
-    //     } else if (change > diffB) {
-    //       this.setState({ expSalTErr: true });
-    //       console.log("change err === ", diffB);
-    //     } else {
-    //       this.setState({
-    //         [target]: value,
-    //       });
-    //     }
-    //   }
-    // } else {
     this.setState({
       [target]: value,
     });
@@ -941,7 +769,7 @@ class HomePage extends React.Component {
   }
   handleNoEmp(e) {
     e.moveTo(1, 0);
-    $("html, body").animate({ scrollTop: 0 }, "slow");
+    $("html, body").animate({ scrollTop: 0 }, "normal");
     // this.setState({ noEmp: true });
   }
   handleNoCategory(e) {
@@ -1218,9 +1046,13 @@ class HomePage extends React.Component {
                 onValue(all_time_rec, async (snapshot) => {
                   if (snapshot.exists()) {
                     let alltimeDB = snapshot.val();
-                    alltimeJobDB = alltimeDB?.all_time_stats
-                      ? alltimeDB.all_time_stats.all_time_jobs
-                      : 0;
+                    alltimeJobDB =
+                      alltimeDB?.all_time_stats !== undefined
+                        ? alltimeDB.all_time_stats.all_time_jobs !== undefined
+                          ? alltimeDB.all_time_stats.all_time_jobs
+                          : 0
+                        : 0;
+                    // console.log(alltimeDB);
                   } else {
                     // console.log("No Data");
                   }
@@ -1245,22 +1077,6 @@ class HomePage extends React.Component {
             this.clearForm(selectedCategories);
           });
         } else {
-          // this.appendSpreadsheet({
-          //   Name: this.state.name,
-          //   Phone: this.state.phone,
-          //   City: this.state.city,
-          //   Email: this.state.email,
-          //   JobCategory: this.state.JobCategory,
-          //   JobType: this.state.selectedJobOption,
-          //   Experience: this.state.experience,
-          //   Skills: skillSet,
-          //   Education: this.state.education,
-          //   InterestedIn: interest,
-          //   CurrentSalary: this.state.value,
-          //   Gender: gender,
-          //   EnglishLevel: this.state.eng_lvl,
-          //   Achievement: achievementStr,
-          // }).then(() => {
           this.updateSpreadsheet(
             {
               Name: this.state.name,
@@ -1362,6 +1178,7 @@ class HomePage extends React.Component {
   };
   _handleChange = (checkValidation, validationCheck, stateKey, value) => {
     const { error, isValid } = checkValidation(value);
+    // console.log(value);
     if (stateKey === "phone") {
       // let formatted = value.replace(/(\d{4,4})/, "$1-");
       // let formatted = `${value.slice(0, 4)} ${value.slice(4, 10)}`;
@@ -1552,24 +1369,6 @@ class HomePage extends React.Component {
               Achievement: achievementStr,
             });
           }
-
-          // result.forEach((v) => {
-          //   v.Name = this.state.name;
-          //   v.Phone = this.state.phone;
-          //   v.City = this.state.city;
-          //   v.Email = this.state.email;
-          //   v.JobCategory = this.state.JobCategory;
-          //   v.JobType = this.state.selectedJobOption;
-          //   v.Experience = this.state.experience;
-          //   v.Skills = skillSet;
-          //   v.Education = this.state.education;
-          //   v.InterestedIn = interest;
-          //   v.CurrentSalary = this.state.value;
-          //   v.Gender = gender;
-          //   v.EnglishLevel = this.state.eng_lvl;
-          //   v.Achievement = achievementStr;
-          //   v.save();
-          // });
         }
       } else {
         this.appendSpreadsheet({
@@ -1693,23 +1492,46 @@ class HomePage extends React.Component {
     this.setState({ selectingActive: true, active: item });
   };
   onSelect = (item, ele) => {
-    console.log(item, ele);
     const { selected } = this.state;
     let index = selected.indexOf(item);
     let newList = [...selected];
     if (item === 0 && selected.includes(1)) {
-      ele.target.classList.add("quadrat");
+      ele.target.classList.remove("quadrat");
+      setTimeout(() => {
+        ele.target.classList.add("quadrat");
+      }, 0);
     } else if (item === 1 && selected.includes(0)) {
+      ele.target.classList.remove("quadrat");
+      setTimeout(() => {
+        ele.target.classList.add("quadrat");
+      }, 0);
     } else if (item === 1 && selected.includes(2)) {
+      ele.target.classList.remove("quadrat");
+      setTimeout(() => {
+        ele.target.classList.add("quadrat");
+      }, 0);
     } else if (item === 0 && selected.includes(2)) {
+      ele.target.classList.remove("quadrat");
+      setTimeout(() => {
+        ele.target.classList.add("quadrat");
+      }, 0);
     } else if (item === 2 && selected.includes(0)) {
+      ele.target.classList.remove("quadrat");
+      setTimeout(() => {
+        ele.target.classList.add("quadrat");
+      }, 0);
     } else if (item === 2 && selected.includes(1)) {
+      ele.target.classList.remove("quadrat");
+      setTimeout(() => {
+        ele.target.classList.add("quadrat");
+      }, 0);
     } else if (index > -1) {
       newList.splice(index, 1);
     } else {
       newList.push(item);
       this.setState({ intTErr: false });
     }
+    // console.log(ele);
     this.setState({
       selected: newList,
       active: item,
@@ -1757,7 +1579,45 @@ class HomePage extends React.Component {
     if (this.state.csr) {
       this.setState({ csr: false });
     }
-    this.state.sw ? this.setState({ sw: false }) : this.setState({ sw: true });
+    if (this.state.dm) {
+      this.setState({ dm: false });
+    }
+    if (this.state.gd) {
+      this.setState({ gd: false });
+    }
+    this.state.sw
+      ? this.setState({ sw: false, JobCategory: "" })
+      : this.setState({ sw: true });
+    this.setState({ jobErr: false });
+  };
+  handleDM = () => {
+    if (this.state.csr) {
+      this.setState({ csr: false });
+    }
+    if (this.state.sw) {
+      this.setState({ sw: false });
+    }
+    if (this.state.gd) {
+      this.setState({ gd: false });
+    }
+    this.state.dm
+      ? this.setState({ dm: false, JobCategory: "" })
+      : this.setState({ dm: true });
+    this.setState({ jobErr: false });
+  };
+  handleGD = () => {
+    if (this.state.csr) {
+      this.setState({ csr: false });
+    }
+    if (this.state.sw) {
+      this.setState({ sw: false });
+    }
+    if (this.state.dm) {
+      this.setState({ dm: false });
+    }
+    this.state.gd
+      ? this.setState({ JobCategory: "", gd: false })
+      : this.setState({ gd: true });
     this.setState({ jobErr: false });
   };
   toggleOpen = () => {
@@ -1768,7 +1628,7 @@ class HomePage extends React.Component {
     this.setState({ select_value: value });
   };
   handleLoginChangeBtn = () => {
-    window.location.replace("/portal");
+    window.open("/portal", "_blank");
   };
   render() {
     $(document).ready(function () {
@@ -1798,8 +1658,6 @@ class HomePage extends React.Component {
       error,
       selected,
       selectedSal,
-      timings,
-      Saltimings,
       job_options,
       defSkills,
     } = this.state;
@@ -1817,18 +1675,8 @@ class HomePage extends React.Component {
     defSkills.sort(function (a, b) {
       return a.localeCompare(b); //using String.prototype.localCompare()
     });
-    // console.log("data => ");
 
-    // Swal.fire({
-    //   position: "center",
-    //   // icon: "success",
-    //   title: "Thanks for applying! ",
-    //   showConfirmButton: false,
-    //   iconColor: "#D24C27",
-    //   footer: "Someone from our team will get back to you soon",
-    //   timerProgressBar: true,
-    //   // timer: 2500,
-    // });
+    console.log("data => ", this.state);
 
     return (
       <ReactFullpage
@@ -1912,7 +1760,7 @@ class HomePage extends React.Component {
                 </div>
               </div>
 
-              {this.state.content.map((item, i) => {
+              {content.map((item, i) => {
                 return (
                   <div className="section">
                     <div
@@ -2026,9 +1874,9 @@ class HomePage extends React.Component {
                                   {item.tittle}{" "}
                                   <TextTransition
                                     text={
-                                      this.state.animatedStrings[
+                                      animatedStrings[
                                         this.state.index %
-                                          this.state.animatedStrings.length
+                                          animatedStrings.length
                                       ]
                                     }
                                     springConfig={presets.molasses}
@@ -2067,9 +1915,9 @@ class HomePage extends React.Component {
                                   {item.tittle}{" "}
                                   <TextTransition
                                     text={
-                                      this.state.animatedStrings[
+                                      animatedStrings[
                                         this.state.index %
-                                          this.state.animatedStrings.length
+                                          animatedStrings.length
                                       ]
                                     }
                                     springConfig={presets.molasses}
@@ -2159,7 +2007,7 @@ class HomePage extends React.Component {
                                   onClick={() =>
                                     $("html, body").animate(
                                       { scrollTop: 0 },
-                                      "slow"
+                                      "normal"
                                     )
                                   }
                                   className="top-btn up "
@@ -2169,7 +2017,7 @@ class HomePage extends React.Component {
                                     onClick={() =>
                                       $("html, body").animate(
                                         { scrollTop: 0 },
-                                        "slow"
+                                        "normal"
                                       )
                                     }
                                     style={{ height: "55px", width: "60px" }}
@@ -2185,27 +2033,7 @@ class HomePage extends React.Component {
                                   </p>
                                 </div>
 
-                                <div className="wait-btn-main-div">
-                                  {/* <div
-                                  className="wait-button wait-btn"
-                                  onClick={() =>
-                                    this.handleModeChange("Employee", fullpageApi)
-                                  }
-                                >
-                                  I want a job
-                                </div>
-                                <div
-                                  className="wait-button wait-btn"
-                                  onClick={() =>
-                                    this.handleModeChange("Employer", fullpageApi)
-                                  }
-                                >
-                                  I want to hire
-                                </div> */}
-                                  {/* <a href="/waitList" className="wait-btn">
-                                  Join the waitlist
-                                </a> */}
-                                </div>
+                                <div className="wait-btn-main-div"></div>
                               </div>
                             </div>
                           </div>
@@ -2217,55 +2045,6 @@ class HomePage extends React.Component {
                   </div>
                 );
               })}
-
-              {/* <div className="section">
-                <div className="last-section">
-                  <div className="last-vector">
-                    <h1>It takes a town to make great things happen</h1>
-                    <img src={Vector9} className="last-vector-image" />
-                    <div
-                      onClick={() => fullpageApi.moveTo(1, 0)}
-                      className="top-btn up "
-                    >
-                      <img
-                        src={ArrowIcon}
-                        style={{ height: "55px", width: "60px" }}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="last-line">
-                    <div className="logo">
-                      <img src={Logo} className="simple-logo" />
-                      <p className="last-text">
-                        Copyright © 2022. All rights reserved.
-                      </p>
-                    </div>
-
-                    <div className="wait-btn-main-div">
-                      {/* <div
-                        className="wait-button wait-btn"
-                        onClick={() =>
-                          this.handleModeChange("Employee", fullpageApi)
-                        }
-                      >
-                        I want a job
-                      </div>
-                      <div
-                        className="wait-button wait-btn"
-                        onClick={() =>
-                          this.handleModeChange("Employer", fullpageApi)
-                        }
-                      >
-                        I want to hire
-                      </div> */}
-              {/* <a href="/waitList" className="wait-btn">
-                        Join the waitlist
-                      </a> */}
-              {/* </div> */}
-              {/* </div> */}
-              {/* </div> */}
-              {/* </div>  */}
             </div>
           );
         }}
@@ -2276,7 +2055,6 @@ class HomePage extends React.Component {
 const mapStateToProps = (state) => ({
   redux_data: state.dashboard_auth,
 });
-
 // ReactDOM.render(<HomePage />, document.getElementById("react-root"));
 export default connect(mapStateToProps)(HomePage);
 

@@ -37,7 +37,7 @@
 }
 .card {
   text-decoration: none;
-  height: 29%;
+  height: 230px;
   border: 0px solid #868686;
   width: 350px;
   position: relative;
@@ -55,6 +55,7 @@
   opacity: 1;
   color: #868686;
   z-index: 99;
+  justify-content: center;
   /* background-color: rgb(255 151 114 / 60%); */
 }
 .card-in {
@@ -153,7 +154,7 @@
     margin-top: 10px !important;
   }
   .form1 {
-    height: 85%;
+    height: 100%;
     display: flex;
     /* justify-content: center; */
     flex-direction: column;
@@ -167,22 +168,23 @@
     font-size: 24px !important;
   }
   .card {
-    width: 47% !important;
-    height: 28% !important;
-    margin: 15px 15px 0 15px;
-    padding: 5px 15px 20px 15px;
+    width: 38.5% !important;
+    height: 40% !important;
+    margin: 0px 5px 0 3px;
+    padding: 0px 10px 0px 15px;
+    border-radius: 16px;
+    justify-content: space-around;
     /* margin-bottom: 10px;   */
     /* padding: 10px; */
   }
   .card img {
     width: 50px !important;
-    height: 45px !important;
+    height: 40px !important;
     margin-bottom: -10px !important;
   }
   .card h4 {
-    font-size: 16px !important;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    font-size: 13px !important;
+    margin: 0 !important;
   }
   .text-div0 {
     display: none;
@@ -199,7 +201,7 @@
 }
 @media (min-width: 1051px) and (max-width: 1420px) {
   .card {
-    height: 30% !important;
+    height: 26% !important;
     justify-content: center;
     width: 275px;
   }

@@ -46,9 +46,12 @@ export default function MaxWidthDialog({
   checkopen,
   handleClosed,
   setFilterVJ,
+  job_categories,
+  getFilterCategory,
 }) {
   const classes = useStyles();
   const [selected, setSelected] = React.useState(0);
+  const [selectedJC, setSelectedJC] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const [jobOpen, setJobOpen] = React.useState(false);
   const [jobCatOpen, setjobCatOpen] = React.useState(false);
@@ -56,6 +59,7 @@ export default function MaxWidthDialog({
   const [maxWidth, setMaxWidth] = React.useState("md");
   const [filterType, setFilterType] = React.useState("");
   const [jobCat, setJobCat] = React.useState("");
+  // console.log(jobCat);
 
   React.useEffect(() => {
     setOpen(checkopen);
@@ -81,10 +85,13 @@ export default function MaxWidthDialog({
     setFilterVJ("");
     target(event.target.value);
     getFilterTitle(event.target.value);
-    // console.log(event.target.value);
-    setTimeout(() => {
-      handleClose();
-    }, 100);
+    // setTimeout(() => {
+    //   handleClose();
+    // }, 100);
+  };
+  const handleChangeJC = (target, event) => {
+    target(event.target.value);
+    getFilterCategory(event.target.value);
   };
 
   const handlejobOpen = () => {
@@ -107,7 +114,7 @@ export default function MaxWidthDialog({
     setFullWidth(event.target.checked);
   };
   let fil = `${filterSplit[0]}/${filterSplit[1]}`;
-  // console.log(fil);
+  // console.log(jobs_filter);
 
   return (
     <React.Fragment>
@@ -132,22 +139,31 @@ export default function MaxWidthDialog({
                 open={jobCatOpen}
                 onClose={handleJobCatClose}
                 onOpen={handlejobCatOpen}
-                value={"Software & IT"}
-                onChange={(e) => handleChange(setJobCat, e)}
+                onChange={(e) => handleChangeJC(setJobCat, e)}
                 style={{ width: 630, borderRadius: 0 }}
                 className="dialog_select_dropdown"
                 disableEscapeKeyDown
                 placeholder="View job categories"
-                disabled
+                // disabled
               >
-                <MenuItem
-                  value="Software & IT"
-                  style={{
-                    width: "100%",
-                  }}
-                >
-                  Software & IT
-                </MenuItem>
+                {job_categories.map((v, i) => (
+                  <MenuItem
+                    value={v}
+                    key={i}
+                    onClick={() => setSelectedJC(i)}
+                    style={
+                      selectedJC === i
+                        ? {
+                            backgroundColor: "#3e469d",
+                            color: "#fff",
+                            width: "100%",
+                          }
+                        : { width: "100%" }
+                    }
+                  >
+                    {v}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </div>

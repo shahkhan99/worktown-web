@@ -21,7 +21,9 @@ const dbRef = ref(getDatabase());
 var allCandidates = "";
 var cand = [];
 var allJobs = "";
+var allCats = "";
 var allJobsArr = [];
+var allJobsCat = [];
 var jobTypeFilterCand = [];
 
 const checkUser = async (currentUser, filter, setShortlistedCandidates) => {
@@ -222,18 +224,49 @@ const getJobTypeFilterCand = async (
 };
 const getJobTitleFilters = async (SetJob_options) => {
   // SetJob_options([]);
+  // console.log(allJobsArr);
   await SetJob_options(allJobsArr);
 };
-const setFilterType = async (setFilter, currentUser, filterType) => {
-  if (filterType === "") {
-    allJobsArr = [];
-    allJobs = (currentUser.jobs && Object.values(currentUser.jobs)) || "";
-    // console.log(allJobs.length);
+const setFilterType = async (
+  setFilter,
+  currentUser,
+  filterType,
+  SetJob_categories,
+  setCategory,
+  categoryType
+) => {
+  allJobs = (currentUser.jobs && Object.values(currentUser.jobs)) || "";
+  // console.log(filterType);
+  if (categoryType === "") {
+    allJobsCat = [];
     allJobs.length &&
       allJobs.forEach((e) => {
+        allJobsCat.push(e.JobCategory);
+      });
+    allJobsCat = [...new Set(allJobsCat)];
+    setCategory(allJobsCat[0]);
+    SetJob_categories(allJobsCat);
+  } else {
+    setCategory(categoryType);
+    // console.log(categoryType);
+  }
+  if (filterType === "") {
+    allJobsArr = [];
+    allJobs.length &&
+      allJobs.forEach((e) => {
+        // console.log(e.JobCategory, categoryType);
         allJobsArr.push(e.JobType + "/" + e.Experience);
       });
     setFilter(allJobsArr[0]);
+  } else {
+    allJobsArr = [];
+    allJobs.length &&
+      allJobs.forEach((e) => {
+        if (e.JobCategory === categoryType) {
+          // console.log(e.JobType);
+          allJobsArr.push(e.JobType + "/" + e.Experience);
+        }
+      });
   }
 };
 const handleReject = async (
