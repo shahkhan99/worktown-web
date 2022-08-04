@@ -6,7 +6,8 @@ import { set_current_user_data } from "../../../store/action/index";
 import MultipleSelectCheckmarks from "./components/muiSelect/muiSelect";
 import Select from "react-select";
 import CreatableMulti from "./components/creatableSelect/creatableSelect";
-import { job_options } from "./jobOption";
+import { job_options, job_optionsGD, job_optionsDM } from "./jobOption";
+import card from "./cards";
 import { salary_options } from "./salaryOption";
 import { MdLocationOn } from "react-icons/md";
 import { BsEnvelope, BsFillTelephoneFill } from "react-icons/bs";
@@ -57,6 +58,7 @@ function EditProfessionalDetails() {
     setData(redux_data);
     setMoreEdit(false);
   };
+  // console.log(data.JobCategory);
   return (
     <div className="epemp-main-div">
       <div className="shrt-head-div">
@@ -97,6 +99,26 @@ function EditProfessionalDetails() {
               </div>
               <div className="epemp-main-div-edit-inner-divs">
                 <div className="epemp-main-div-edit-inner">
+                  <label>Job Category</label>
+                  <h6 style={!edit ? { display: "flex" } : { display: "none" }}>
+                    {redux_data.JobCategory}
+                  </h6>
+                  <div
+                    className="select-div-prof-det-edit"
+                    style={edit ? { display: "flex" } : { display: "none" }}
+                  >
+                    <Select
+                      options={card}
+                      onChange={(name) => {
+                        setData({ ...data, JobCategory: name.value });
+                      }}
+                      id="select"
+                      className="salary_opt_edit_prof_det"
+                      placeholder={redux_data.JobCategory}
+                    />
+                  </div>
+                </div>
+                <div className="epemp-main-div-edit-inner">
                   <label>Job Title</label>
                   <h6 style={!edit ? { display: "flex" } : { display: "none" }}>
                     {redux_data.JobType}
@@ -106,7 +128,13 @@ function EditProfessionalDetails() {
                     style={edit ? { display: "flex" } : { display: "none" }}
                   >
                     <Select
-                      options={job_options}
+                      options={
+                        data.JobCategory === "Digital Marketing Jobs"
+                          ? job_optionsDM
+                          : data.JobCategory === "Graphics & Design Jobs"
+                          ? job_optionsGD
+                          : job_options
+                      }
                       onChange={(name) => {
                         setData({ ...data, JobType: name.value });
                       }}
@@ -116,7 +144,8 @@ function EditProfessionalDetails() {
                     />
                   </div>
                 </div>
-
+              </div>
+              <div className="epemp-main-div-edit-inner-divs">
                 <div className="epemp-main-div-edit-inner">
                   <label>Work Experience</label>
                   <h6 style={!edit ? { display: "flex" } : { display: "none" }}>
@@ -144,8 +173,6 @@ function EditProfessionalDetails() {
                     </select>
                   </div>
                 </div>
-              </div>
-              <div className="epemp-main-div-edit-inner-divs">
                 <div className="epemp-main-div-edit-inner">
                   <label>Education</label>
                   <h6 style={!edit ? { display: "flex" } : { display: "none" }}>
@@ -173,6 +200,8 @@ function EditProfessionalDetails() {
                     </select>
                   </div>
                 </div>
+              </div>
+              <div className="epemp-main-div-edit-inner-divs">
                 <div className="epemp-main-div-edit-inner">
                   <label>English Level</label>
                   <h6 style={!edit ? { display: "flex" } : { display: "none" }}>
@@ -197,8 +226,6 @@ function EditProfessionalDetails() {
                     </select>
                   </div>
                 </div>
-              </div>
-              <div className="epemp-main-div-edit-inner-divs">
                 <div className="epemp-main-div-edit-inner">
                   <label>Job Timings</label>
                   <h6 style={!edit ? { display: "flex" } : { display: "none" }}>
@@ -214,6 +241,8 @@ function EditProfessionalDetails() {
                     />
                   </div>
                 </div>
+              </div>
+              <div className="epemp-main-div-edit-inner-divs">
                 <div className="epemp-main-div-edit-inner">
                   <label>Current Salary</label>
                   <h6 style={!edit ? { display: "flex" } : { display: "none" }}>
@@ -234,8 +263,6 @@ function EditProfessionalDetails() {
                     />
                   </div>
                 </div>
-              </div>
-              <div className="epemp-main-div-edit-inner-divs">
                 <div
                   className="epemp-main-div-edit-inner "
                   // style={{ height: "auto" }}
@@ -267,6 +294,8 @@ function EditProfessionalDetails() {
                     />
                   </div>
                 </div>
+              </div>
+              <div className="epemp-main-div-edit-inner-divs">
                 <div
                   className="epemp-main-div-edit-inner"
                   style={{ height: "auto" }}

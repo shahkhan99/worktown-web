@@ -25,7 +25,7 @@ function EditProfileEmployee() {
     setData(redux_data);
     setEdit(false);
   };
-  console.log(redux_data);
+  // console.log(redux_data);
   return (
     <div className="epemp-main-div">
       <div className="shrt-head-div">

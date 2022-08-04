@@ -1,5 +1,5 @@
 .div-cand-card-main-sub-view-jobs {
-  width: 94%;
+  width: 82%;
 }
 .div-cand-card-view-jobs {
   width: 520px;
@@ -282,9 +282,6 @@
   }
   .div-cand-card-main-sub-view-jobs {
     width: 100%;
-  }
-  .jv-ind-header {
-    width: 90%;
   }
 }
 @media (min-width: 360px) and (max-width: 767px) {

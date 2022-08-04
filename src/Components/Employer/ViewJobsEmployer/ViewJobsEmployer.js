@@ -177,15 +177,39 @@ function ViewJobsEmployer({ setSelected_nav, setFilter }) {
         <div className="shrt-cont-div shrt-cont-div-view-jb">
           <div style={{ width: "100%" }}>
             <div className="shortlisted-ind-header jv-ind-header">
-              <div className="shortlisted-ind-header-heading jv-ind-header-heading">
+              <div className="shortlisted-ind-header-heading">
                 <div className="shortlisted-ind-header-heading-1">
+                  {/* <img
+                      src={Tech}
+                      width={20}
+                      height={20}
+                      style={{ marginRight: 15 }}
+                    /> */}
                   <GrTechnology
                     color="#3e469d"
                     size={20}
                     style={{ marginRight: 15 }}
                   />
-                  <h4>Software & IT</h4>
+                  <h4>ABCD</h4>
                 </div>
+                {/* <div className="shortlisted-ind-header-heading-2">
+                  {allJobs.length ? (
+                    <div style={{ width: "100%" }}>
+                      <DropDown
+                        job_options={allJobs}
+                        filterSplit={filterSplit}
+                        getFilterTitle={(e) => getFilterTitle(e)}
+                        filterTyped={filterType}
+                        setFilterVJ={setFilterVJ}
+                        job_categories={job_categories}
+                        getFilterCategory={(e) => getFilterCategory(e)}
+                        categoryType={categoryType}
+                      />
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div> */}
               </div>
               <div className="shortlisted-ind-header-heading-btn-si">
                 <Button

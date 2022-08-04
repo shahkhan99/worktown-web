@@ -14,7 +14,7 @@ const card = [
     name: "Digital Marketing Jobs",
   },
   {
-    id: 1,
+    id: 2,
     img: designer,
     name: "Graphics & Design Jobs",
   },

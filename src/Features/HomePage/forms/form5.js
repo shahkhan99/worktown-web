@@ -114,7 +114,7 @@ export default class Form1 extends Component {
           style={ctx.state.employer ? { display: "none" } : {}}
         >
           <label className="input-label lbl2">
-            Your biggest Achievement
+            Your Biggest Achievement
             <span
               style={{
                 color: "red",
