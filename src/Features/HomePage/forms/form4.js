@@ -15,8 +15,8 @@ export default class Form4 extends Component {
     const fullpageApi = this.props.fullpageApi;
     const selectedSalary = this.props.selectedSalary;
     const selectedCategories = this.props.selectedCategories;
-    // console.log(ctx);
-    let { selected, defSkills, defSkillsDM, defSkillsGD } = ctx.state;
+    let { selected, defSkills } = ctx.state;
+    // console.log();
     return (
       <div className="last-int">
         {ctx.state.employee ? (

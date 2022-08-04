@@ -229,7 +229,9 @@ function ShortlistedCandidates({ filterVJ, setFilterVJ }) {
                       size={20}
                       style={{ marginRight: 15 }}
                     />
-                    <h4>Software & IT</h4>
+                    <h4>
+                      {categoryType.substring(0, categoryType.lastIndexOf(" "))}
+                    </h4>
                   </div>
                   <div className="shortlisted-ind-header-heading-2">
                     {job_options.length ? (
@@ -248,6 +250,7 @@ function ShortlistedCandidates({ filterVJ, setFilterVJ }) {
                           setFilterVJ={setFilterVJ}
                           job_categories={job_categories}
                           getFilterCategory={(e) => getFilterCategory(e)}
+                          categoryType={categoryType}
                         />
                       </div>
                     ) : (
@@ -474,7 +477,11 @@ function ShortlistedCandidates({ filterVJ, setFilterVJ }) {
           >
             <div className="shortlisted-ind-header-heading-int-main">
               <div className="shortlisted-ind-header-heading-int">
-                <BiPhone color="#000" size={25} style={{ marginRight: 5 }} />
+                <BiPhone
+                  color="#000"
+                  size={25}
+                  style={{ marginRight: 15, marginLeft: 10 }}
+                />
                 <h2>Schedule Interview</h2>
               </div>
               <div className="shortlisted-ind-header-heading-btn-si">

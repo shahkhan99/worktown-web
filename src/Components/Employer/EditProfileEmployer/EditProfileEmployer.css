@@ -51,7 +51,7 @@
 }
 .epemp-main-div-edit-inner-btn {
   justify-content: flex-end;
-  height: 86px;
+  height: 60px;
   display: flex;
   align-items: center;
   width: 100%;
@@ -169,7 +169,7 @@
 .epemp-main-div-edit-inner-divs {
   display: flex;
   justify-content: space-between;
-  height: 100px;
+  height: 95px;
 }
 .div-input-icon-emp-dash-edit-prof-password {
   width: 100%;

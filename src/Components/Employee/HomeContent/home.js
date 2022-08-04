@@ -20,7 +20,7 @@ function Home() {
     await GetAppointments(redux_data, setAppt);
   }, [redux_data]);
 
-  console.log(appt);
+  // console.log(appt);
   const handleViewBtn = (v) => {
     setViewCand(v);
     setShowPersonFullData(true);

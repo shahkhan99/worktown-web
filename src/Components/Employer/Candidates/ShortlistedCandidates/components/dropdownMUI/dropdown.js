@@ -18,6 +18,7 @@ export default function ControlledOpenSelect({
   setFilterVJ,
   job_categories,
   getFilterCategory,
+  categoryType,
 }) {
   const [age, setAge] = React.useState("");
   const [checkopen, setCheckOpen] = React.useState(false);
@@ -54,6 +55,7 @@ export default function ControlledOpenSelect({
         setFilterVJ={setFilterVJ}
         job_categories={job_categories}
         getFilterCategory={getFilterCategory}
+        categoryType={categoryType}
       />
       <BsFilterLeft
         color="#000"

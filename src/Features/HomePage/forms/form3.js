@@ -13,13 +13,17 @@ import {
   companyCheck,
 } from "../validation";
 import pakCity from ".././usefullArrays/pakCities";
-import job_options from ".././usefullArrays/jobOptions";
+import {
+  job_options,
+  job_optionsDM,
+  job_optionsGD,
+} from ".././usefullArrays/jobOptions";
 export default class Form3 extends Component {
   render() {
     const ctx = this.props.ctx;
     const fullpageApi = this.props.fullpageApi;
     const data = this.props.data;
-    // console.log(pakCity);
+    // console.log(job_optionsDM, job_optionsGD);
     let { city } = ctx.state;
     let {
       name: nameError,
@@ -78,7 +82,13 @@ export default class Form3 extends Component {
                 }}
               />
               <Select
-                options={job_options}
+                options={
+                  ctx.state.JobCategory === "Digital Marketing Jobs"
+                    ? job_optionsDM
+                    : ctx.state.JobCategory === "Graphics & Design Jobs"
+                    ? job_optionsGD
+                    : job_options
+                }
                 isDisabled={ctx.state.JobCategory !== "" ? false : true}
                 onChange={(e) => ctx.selectChange(e.value)}
                 id="select"

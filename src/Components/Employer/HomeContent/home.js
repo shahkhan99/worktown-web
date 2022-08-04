@@ -206,7 +206,7 @@ function Home() {
                         <p>{v.Name}</p>
                         <p>
                           {moment(v.Interview_Details.date).format(
-                            "MMMM DD, YYYY"
+                            "Do MMM, YY"
                           )}{" "}
                           {window.innerWidth < 768 ? <br /> : <></>}
                           at {v.Interview_Details.time}
@@ -224,15 +224,7 @@ function Home() {
                           >
                             View
                           </Button>
-                          {/* <Button
-                          size="small"
-                          variant={i % 2 !== 0 ? "outlined" : "contained"}
-                          color="error"
-                          
-                          // onClick={() => handleViewBtn(v)}
-                        >
-                          Cancel
-                        </Button> */}
+
                           <IconButton
                             aria-label="delete"
                             sx={

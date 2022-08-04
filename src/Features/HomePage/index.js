@@ -136,35 +136,7 @@ class HomePage extends React.Component {
         "Django",
         "Objective C",
       ],
-      defSkillsDM: [
-        "Content marketer",
-        "Email marketer",
-        "Domain researcher",
-        "Influencer marketer",
-        "Mobile advertiser",
-        "SEO",
-        "Web traffic",
-        "Ecommerce marketer",
-        "Social media marketer",
-        "Web analyst",
-        "Google ads specialist",
-      ],
-      defSkillsGD: [
-        "Graphic designer",
-        "Fashion designer",
-        "3D modelling designer",
-        "Product designer",
-        "Illustrator",
-        "Architects",
-        "Draughtsman",
-        "Interior designer",
-        "Game designer",
-        "Packaging designer",
-        "Photoshop editor",
-        "Web designer",
-        "Social media designer",
-        "UI/UX designer",
-      ],
+
       skills: [],
       achievement: "",
       achievementLen: 0,
@@ -1676,7 +1648,7 @@ class HomePage extends React.Component {
       return a.localeCompare(b); //using String.prototype.localCompare()
     });
 
-    console.log("data => ", this.state);
+    // console.log("data => ", this.state);
 
     return (
       <ReactFullpage

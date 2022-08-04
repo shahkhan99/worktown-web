@@ -48,6 +48,7 @@ export default function MaxWidthDialog({
   setFilterVJ,
   job_categories,
   getFilterCategory,
+  categoryType,
 }) {
   const classes = useStyles();
   const [selected, setSelected] = React.useState(0);
@@ -59,10 +60,15 @@ export default function MaxWidthDialog({
   const [maxWidth, setMaxWidth] = React.useState("md");
   const [filterType, setFilterType] = React.useState("");
   const [jobCat, setJobCat] = React.useState("");
-  // console.log(jobCat);
+  const [prevCat, setPrevCat] = React.useState("");
+  // console.log(categoryType);
 
   React.useEffect(() => {
     setOpen(checkopen);
+    if (prevCat === "") {
+      setPrevCat(categoryType);
+    }
+    // setJobCat()
   });
   let jobs_filter = [];
   job_options.forEach((e) => {
@@ -74,6 +80,16 @@ export default function MaxWidthDialog({
 
   const handleClose = () => {
     handleClosed();
+  };
+  const handleDone = () => {
+    if (filterType === "" || categoryType === "") {
+      setJobCat(prevCat);
+      getFilterCategory(prevCat);
+      setPrevCat("");
+      handleClosed();
+    } else {
+      handleClosed();
+    }
   };
   const handleJobClose = () => {
     setJobOpen(false);
@@ -90,6 +106,7 @@ export default function MaxWidthDialog({
     // }, 100);
   };
   const handleChangeJC = (target, event) => {
+    setFilterType("");
     target(event.target.value);
     getFilterCategory(event.target.value);
   };
@@ -145,6 +162,7 @@ export default function MaxWidthDialog({
                 disableEscapeKeyDown
                 placeholder="View job categories"
                 // disabled
+                value={categoryType}
               >
                 {job_categories.map((v, i) => (
                   <MenuItem
@@ -170,12 +188,12 @@ export default function MaxWidthDialog({
           <DialogTitle>Filter by job post</DialogTitle>
           <div className="mainDiv1_dialog_dropdown">
             <FormControl sx={{ m: 1, minWidth: 0 }}>
-              <h6
+              {/* <h6
                 style={{ fontSize: 15, textAlign: "center" }}
                 className="h6_dialog_filter"
               >
                 {fil}
-              </h6>
+              </h6> */}
               <Select
                 // IconComponent={() => null}
                 labelId="demo-controlled-open-select-label"
@@ -186,6 +204,7 @@ export default function MaxWidthDialog({
                 onChange={(e) => handleChange(setFilterType, e)}
                 style={{ width: 630, borderRadius: 0 }}
                 className="dialog_select_dropdown"
+                value={filterTyped}
               >
                 {jobs_filter.map((v, i) => (
                   <MenuItem
@@ -212,6 +231,7 @@ export default function MaxWidthDialog({
         <div>
           <DialogActions>
             <Button onClick={handleClose}>Close</Button>
+            <Button onClick={handleDone}>Done</Button>
           </DialogActions>
         </div>
       </Dialog>

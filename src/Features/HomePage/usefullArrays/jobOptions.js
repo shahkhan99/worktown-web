@@ -48,5 +48,33 @@ const job_options = [
   { value: "Web Developer", label: "Web Developer" },
   { value: "3D Graphics Developer", label: "3D Graphics Developer" },
 ];
-
-export default job_options;
+const job_optionsDM = [
+  { value: "Content marketer", label: "Content marketer" },
+  { value: "Email marketer", label: "Email marketer" },
+  { value: "Domain researcher", label: "Domain researcher" },
+  { value: "Influencer marketer", label: "Influencer marketer" },
+  { value: "Mobile advertiser", label: "Mobile advertiser" },
+  { value: "SEO", label: "SEO" },
+  { value: "Web traffic", label: "Web traffic" },
+  { value: "Ecommerce marketer", label: "Ecommerce marketer" },
+  { value: "Social media marketer", label: "Social media marketer" },
+  { value: "Web analyst", label: "Web analyst" },
+  { value: "Google ads specialist", label: "Google ads specialist" },
+];
+const job_optionsGD = [
+  { value: "Graphic designer", label: "Graphic designer" },
+  { value: "Fashion designer", label: "Fashion designer" },
+  { value: "3D modelling designer", label: "3D modelling designer" },
+  { value: "Product designer", label: "Product designer" },
+  { value: "Illustrator", label: "Illustrator" },
+  { value: "Architects", label: "Architects" },
+  { value: "Draughtsman", label: "Draughtsman" },
+  { value: "Interior designer", label: "Interior designer" },
+  { value: "Game designer", label: "Game designer" },
+  { value: "Packaging designer", label: "Packaging designer" },
+  { value: "Photoshop editor", label: "Photoshop editor" },
+  { value: "Web designer", label: "Web designer" },
+  { value: "Social media designer", label: "Social media designer" },
+  { value: "UI/UX designer", label: "UI/UX designer" },
+];
+export { job_options, job_optionsDM, job_optionsGD };
