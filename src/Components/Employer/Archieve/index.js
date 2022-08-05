@@ -71,11 +71,11 @@ function Archieve() {
         <div className="arch-overflow">
           <div className="arch-overflow-div">
             {archiveCandidates.length ? (
-              archiveCandidates.map((v) => {
+              archiveCandidates.map((v, i) => {
                 var nameArr = v.Name.split(" ");
                 var sklArr = v.Skills.split(",");
                 return (
-                  <div className="div-cand-card-int div-arch-card-int">
+                  <div className="div-cand-card-int div-arch-card-int" key={i}>
                     <div className="int-cross"></div>
                     <div onClick={() => handleShowPersonData(v)}>
                       <div className="int-card-header-name-exp">

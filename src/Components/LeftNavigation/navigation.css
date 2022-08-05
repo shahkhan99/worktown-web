@@ -81,7 +81,7 @@ li {
 
 @media (min-width: 1051px) and (max-width: 1420px) {
   .nav-main-div {
-    width: 220px;
+    width: 18%;
   }
   li {
     width: 140px;

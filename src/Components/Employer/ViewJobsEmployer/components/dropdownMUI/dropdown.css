@@ -1,0 +1,37 @@
+.css-6hp17o-MuiList-root-MuiMenu-list {
+  padding: 0 !important;
+}
+.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
+  height: 235px !important;
+  background-color: rgb(247, 247, 247) !important;
+}
+.mainDiv1_dialog_dropdown {
+  display: "flex";
+  justify-content: "center";
+  align-items: "center";
+}
+.dialog_select_dropdown {
+  background: #3e469d1a;
+  border-radius: 16px !important;
+}
+@media (min-width: 1051px) and (max-width: 1420px) {
+  .css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
+    height: 210px !important;
+  }
+  .dialog_dropdown {
+    height: 450px;
+    width: 50%;
+    left: 9% !important;
+  }
+  .dialog_select_dropdown {
+    width: 425px !important ;
+  }
+
+  .dialog_menuItem_dropdown {
+    width: 100% !important ;
+  }
+
+  .mainDiv1_dialog_dropdown {
+    width: 100% !important ;
+  }
+}
