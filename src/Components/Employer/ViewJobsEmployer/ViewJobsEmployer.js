@@ -10,15 +10,17 @@ import MultipleSelectCheckmarks from "./component/muiMultiSelect";
 import { Button } from "@mui/material";
 import Swal from "sweetalert2";
 import { set_nav_selection } from "../../../store/action/index";
+import DropDown from "./components/dropdownMUI/dropdown";
 
 function ViewJobsEmployer({ setSelected_nav, setFilter }) {
   const [data, setData] = useState("");
   const [editingState, setEditingState] = useState("");
   const [editingdata, setEditingData] = useState("");
   const [edit, setEdit] = useState(false);
-  const [allJobs, setAllJobs] = useState("");
+  const [allJobs, setAllJobs] = useState(undefined);
   const [strArr1, setstrArr1] = useState("");
   const [strArr2, setstrArr2] = useState("");
+  const [filterType, setFilterTitle] = useState("");
 
   const redux_data = useSelector(
     (state) => state.dashboard_auth.set_current_user_data
@@ -29,14 +31,25 @@ function ViewJobsEmployer({ setSelected_nav, setFilter }) {
     getJobsToView(redux_data.jobs, setAllJobs);
     setData(redux_data);
   }, [editingdata, redux_data]);
-
   // console.log("current =>", allJobs);
+
+  var newAllJobs =
+    allJobs !== undefined
+      ? allJobs.filter((e) => {
+          return e.JobCategory === filterType;
+        })
+      : 0;
+
   const getMuiTimings = (e) => {
     // console.log(data);
     setEditingData({
       ...editingdata,
       InterestedIn: e.toString(),
     });
+  };
+
+  const getFilterTitle = (e) => {
+    setFilterTitle(e);
   };
   const handleSave = async (i) => {
     let {
@@ -155,13 +168,13 @@ function ViewJobsEmployer({ setSelected_nav, setFilter }) {
     setEditingState(e.key);
     setEditingData(data.jobs[e.key]);
     // setEdit(true);
-    await setTimeout(async () => {
+    setTimeout(async () => {
       // console.log(editingdata);
       let str = await data.jobs[e.key].ExpectedSalary.split("-");
       let Arr1 = str[0].split(" ");
       let Arr2 = str[1].split(" ");
-      await setstrArr1(parseInt(Arr1[1]));
-      await setstrArr2(parseInt(Arr2[1]));
+      setstrArr1(parseInt(Arr1[1]));
+      setstrArr2(parseInt(Arr2[1]));
       // parseInt(strArr1[1]);
       // let res = editingdata.ExpectedSalary.replace(/[^\d.]/g, "");
     }, 500);
@@ -179,37 +192,25 @@ function ViewJobsEmployer({ setSelected_nav, setFilter }) {
             <div className="shortlisted-ind-header jv-ind-header">
               <div className="shortlisted-ind-header-heading">
                 <div className="shortlisted-ind-header-heading-1">
-                  {/* <img
-                      src={Tech}
-                      width={20}
-                      height={20}
-                      style={{ marginRight: 15 }}
-                    /> */}
                   <GrTechnology
                     color="#3e469d"
                     size={20}
                     style={{ marginRight: 15 }}
                   />
-                  <h4>ABCD</h4>
+                  <h4>{filterType}</h4>
                 </div>
-                {/* <div className="shortlisted-ind-header-heading-2">
-                  {allJobs.length ? (
+                <div className="shortlisted-ind-header-heading-2">
+                  {allJobs !== undefined ? (
                     <div style={{ width: "100%" }}>
                       <DropDown
                         job_options={allJobs}
-                        filterSplit={filterSplit}
                         getFilterTitle={(e) => getFilterTitle(e)}
-                        filterTyped={filterType}
-                        setFilterVJ={setFilterVJ}
-                        job_categories={job_categories}
-                        getFilterCategory={(e) => getFilterCategory(e)}
-                        categoryType={categoryType}
                       />
                     </div>
                   ) : (
                     ""
                   )}
-                </div> */}
+                </div>
               </div>
               <div className="shortlisted-ind-header-heading-btn-si">
                 <Button
@@ -229,8 +230,8 @@ function ViewJobsEmployer({ setSelected_nav, setFilter }) {
                       You haven't posted any job
                     </h3>
                   </div>
-                ) : allJobs.length ? (
-                  allJobs.map((v, i) => {
+                ) : newAllJobs !== 0 ? (
+                  newAllJobs.map((v, i) => {
                     var expSalFixed = v.ExpectedSalary.split("-");
                     // console.log(expSalFixed[0]);
                     // var timeArr = v.InterestedIn.split(",");
@@ -239,6 +240,7 @@ function ViewJobsEmployer({ setSelected_nav, setFilter }) {
                       <div
                         className="div-cand-card div-cand-card-view-jobs"
                         style={v.key === editingState ? { height: 610 } : {}}
+                        key={i}
                       >
                         {/* {console.log(nameArr[1] && nameArr[1][0])} */}
                         <div className="div-cand-card-header-loc-exp-main div-js-card-header-loc-exp-main">
@@ -525,8 +527,8 @@ function ViewJobsEmployer({ setSelected_nav, setFilter }) {
                             <div className="div-jv-basic-skl">
                               <label>Skills</label>
                               <div className="div-cand-card-inner-short-jv">
-                                {sklArr.map((skl) => (
-                                  <p>{skl}</p>
+                                {sklArr.map((skl, si) => (
+                                  <p key={si}>{skl}</p>
                                 ))}
                               </div>
                             </div>

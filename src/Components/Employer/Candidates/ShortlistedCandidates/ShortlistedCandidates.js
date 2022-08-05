@@ -230,7 +230,11 @@ function ShortlistedCandidates({ filterVJ, setFilterVJ }) {
                       style={{ marginRight: 15 }}
                     />
                     <h4>
-                      {categoryType.substring(0, categoryType.lastIndexOf(" "))}
+                      {categoryType !== undefined &&
+                        categoryType.substring(
+                          0,
+                          categoryType.lastIndexOf(" ")
+                        )}
                     </h4>
                   </div>
                   <div className="shortlisted-ind-header-heading-2">
@@ -303,7 +307,7 @@ function ShortlistedCandidates({ filterVJ, setFilterVJ }) {
                       }
 
                       return (
-                        <div className="frag">
+                        <div className="frag" key={i}>
                           <div className="div-cand-card">
                             <div className="div-cand-card-header-loc-exp-main-new">
                               <div className="div-cand-card-header-loc-exp-main">
@@ -328,14 +332,14 @@ function ShortlistedCandidates({ filterVJ, setFilterVJ }) {
                               <div className="div-cand-card-inner1-short">
                                 <label>Skills</label>
                                 <div className="div-cand-card-inner-short">
-                                  {sklArr.map((skl) => (
-                                    <p>{skl}</p>
+                                  {sklArr.map((skl, si) => (
+                                    <p key={si}>{skl}</p>
                                   ))}
                                 </div>
                               </div>
                               <div className="div-cand-card-inner-timing-short">
-                                {timeArr.map((time) => (
-                                  <p>
+                                {timeArr.map((time, ti) => (
+                                  <p key={ti}>
                                     {" "}
                                     <span> &#9679;</span> {time} &nbsp;
                                   </p>
@@ -496,11 +500,11 @@ function ShortlistedCandidates({ filterVJ, setFilterVJ }) {
             </div>
             <div className="int-overflow">
               {interviewCandidates.length ? (
-                interviewCandidates.map((v) => {
+                interviewCandidates.map((v, i) => {
                   var nameArr = v.Name.split(" ");
                   // console.log("rin => ", interviewCandidates);
                   return (
-                    <div className="div-cand-card-int">
+                    <div className="div-cand-card-int" key={i}>
                       <div className="int-cross">
                         <ImCross
                           color="#000"

@@ -15,8 +15,9 @@ export default class Form4 extends Component {
     const fullpageApi = this.props.fullpageApi;
     const selectedSalary = this.props.selectedSalary;
     const selectedCategories = this.props.selectedCategories;
-    let { selected, defSkills } = ctx.state;
-    // console.log();
+    let { selected, defSkills, defSkillsDM, defSkillsGD, JobCategory } =
+      ctx.state;
+    // console.log(ctx.state.JobCategory);
     return (
       <div className="last-int">
         {ctx.state.employee ? (
@@ -67,20 +68,50 @@ export default class Form4 extends Component {
             />
 
             <div className="defSkill-main">
-              {defSkills.map((v) => (
-                <div
-                  className={
-                    ctx.state.skills.includes(v)
-                      ? "defSkill-map-selected"
-                      : "defSkill-map"
-                  }
-                  onClick={() => {
-                    ctx.handleSkillDefault(v);
-                  }}
-                >
-                  {v}
-                </div>
-              ))}
+              {JobCategory === "Graphics & Design Jobs"
+                ? defSkillsGD.map((v) => (
+                    <div
+                      className={
+                        ctx.state.skills.includes(v)
+                          ? "defSkill-map-selected"
+                          : "defSkill-map"
+                      }
+                      onClick={() => {
+                        ctx.handleSkillDefault(v);
+                      }}
+                    >
+                      {v}
+                    </div>
+                  ))
+                : JobCategory === "Digital Marketing Jobs"
+                ? defSkillsDM.map((v) => (
+                    <div
+                      className={
+                        ctx.state.skills.includes(v)
+                          ? "defSkill-map-selected"
+                          : "defSkill-map"
+                      }
+                      onClick={() => {
+                        ctx.handleSkillDefault(v);
+                      }}
+                    >
+                      {v}
+                    </div>
+                  ))
+                : defSkills.map((v) => (
+                    <div
+                      className={
+                        ctx.state.skills.includes(v)
+                          ? "defSkill-map-selected"
+                          : "defSkill-map"
+                      }
+                      onClick={() => {
+                        ctx.handleSkillDefault(v);
+                      }}
+                    >
+                      {v}
+                    </div>
+                  ))}
             </div>
           </div>
         </div>

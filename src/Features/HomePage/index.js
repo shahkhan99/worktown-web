@@ -136,7 +136,44 @@ class HomePage extends React.Component {
         "Django",
         "Objective C",
       ],
-
+      defSkillsGD: [
+        "Video Marketing",
+        "SEO",
+        "SEM",
+        "Content Marketing",
+        "Data Analytics",
+        "Content Creation",
+        "CRM",
+        "Social Media Marketing",
+        "Designing",
+        "Email Marketing",
+        "Storytelling",
+        "Strategic Planning",
+        "WordPress",
+        "MS Office",
+        "Newsletters",
+        "Google Ads",
+        "PPC",
+        "CRO",
+        "HTML/CSS",
+      ],
+      defSkillsDM: [
+        "Adobe InDesign",
+        "Maya",
+        "Adobe Photoshop",
+        "Adobe Illustrator",
+        "Digital (UI, UX)",
+        "Typography",
+        "Sketching",
+        "Ideation",
+        "Designing for Print",
+        "Portfolio Management",
+        "Design Principles",
+        "RGB & CMYK",
+        "Coding",
+        "Photography",
+        "Branding",
+      ],
       skills: [],
       achievement: "",
       achievementLen: 0,
@@ -1114,20 +1151,42 @@ class HomePage extends React.Component {
       .join(" ");
   };
   handleSkillAdd = (item) => {
-    let { defSkills } = this.state;
+    let { defSkills, defSkillsDM, defSkillsGD, JobCategory } = this.state;
     if (this.state.skills.length === 10) {
       alert("You can add max 10 skills");
     } else {
       let strItem = item.toString();
       let strItemUp = strItem.charAt(0).toUpperCase() + strItem.slice(1);
-      if (defSkills.includes(strItemUp)) {
-        this.state.skills.push(strItemUp);
-        this.setState({ defSkills: this.state.defSkills });
+      if (JobCategory === "Digital Marketing Jobs") {
+        if (defSkillsDM.includes(strItemUp)) {
+          this.state.skills.push(strItemUp);
+          this.setState({ defSkillsDM: this.state.defSkillsDM });
+        } else {
+          this.state.skills.push(strItemUp);
+          this.state.defSkillsDM.push(strItemUp);
+          this.setState({ defSkillsDM: this.state.defSkillsDM });
+          this.state.skills.length && this.setState({ skillTErr: false });
+        }
+      } else if (JobCategory === "Graphics & Design Jobs") {
+        if (defSkillsGD.includes(strItemUp)) {
+          this.state.skills.push(strItemUp);
+          this.setState({ defSkills: this.state.defSkillsGD });
+        } else {
+          this.state.skills.push(strItemUp);
+          this.state.defSkillsGD.push(strItemUp);
+          this.setState({ defSkillsGD: this.state.defSkillsGD });
+          this.state.skills.length && this.setState({ skillTErr: false });
+        }
       } else {
-        this.state.skills.push(strItemUp);
-        this.state.defSkills.push(strItemUp);
-        this.setState({ defSkills: this.state.defSkills });
-        this.state.skills.length && this.setState({ skillTErr: false });
+        if (defSkills.includes(strItemUp)) {
+          this.state.skills.push(strItemUp);
+          this.setState({ defSkills: this.state.defSkills });
+        } else {
+          this.state.skills.push(strItemUp);
+          this.state.defSkills.push(strItemUp);
+          this.setState({ defSkills: this.state.defSkills });
+          this.state.skills.length && this.setState({ skillTErr: false });
+        }
       }
     }
   };
@@ -1140,7 +1199,11 @@ class HomePage extends React.Component {
       : this.state.skills.push(e);
 
     this.state.skills.length && this.setState({ skillTErr: false });
-    this.setState({ defSkills: this.state.defSkills });
+    this.state.JobCategory === "Digital Marketing Jobs"
+      ? this.setState({ defSkillsDM: this.state.defSkills })
+      : this.state.JobCategory === "Graphics & Design Jobs"
+      ? this.setState({ defSkillsGD: this.state.defSkills })
+      : this.setState({ defSkills: this.state.defSkills });
   };
   handleAchievementAdd = (item) => {
     let { achievement } = this.state;
@@ -1632,6 +1695,8 @@ class HomePage extends React.Component {
       selectedSal,
       job_options,
       defSkills,
+      defSkillsDM,
+      defSkillsGD,
     } = this.state;
 
     let selectedSalary = [];
@@ -1647,8 +1712,14 @@ class HomePage extends React.Component {
     defSkills.sort(function (a, b) {
       return a.localeCompare(b); //using String.prototype.localCompare()
     });
+    defSkillsGD.sort(function (a, b) {
+      return a.localeCompare(b); //using String.prototype.localCompare()
+    });
+    defSkillsDM.sort(function (a, b) {
+      return a.localeCompare(b); //using String.prototype.localCompare()
+    });
 
-    // console.log("data => ", this.state);
+    console.log("data => ", this.state.skills);
 
     return (
       <ReactFullpage
