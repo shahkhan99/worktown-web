@@ -369,25 +369,41 @@ const handleAccept = async (
     uid: e.uid,
     role: role[0],
   };
+  var alltimeShorlisted = 0;
+  const all_time_rec = ref(db, `users/jobs_employer/${e.uid}`);
+  onValue(all_time_rec, async (snapshot) => {
+    if (snapshot.exists()) {
+      let alltimeDB = snapshot.val();
+      alltimeShorlisted =
+        alltimeDB?.employee_side_shorlisted !== undefined
+          ? alltimeDB.employee_side_shorlisted.employee_side_shorlisted
+          : 0;
+    } else {
+      // console.log("No Data");
+    }
+  });
+  alltimeShorlisted++;
+  // console.log(alltimeShorlisted);
+
   await update(
     ref(db, `users/jobs_employer/${redux_data.uid}/scheduleInterview/${e.uid}`),
     new_data
   )
+    .then(async () => {
+      await update(
+        ref(db, `users/jobs_employer/${e.uid}/employee_side_shorlisted`),
+        { employee_side_shorlisted: alltimeShorlisted }
+      );
+    })
     .then(() => {
       getJobTypeFilterCand(redux_data, setShortlistedCandidates, filter);
       send("service_0kxx7l1", "template_5y7pfk5", toSend, "gdh_CSodanmGmK83y")
-        .then((response) => {
-          // console.log("SUCCESS!", response.status, response.text);
-        })
-        .catch((err) => {
-          // console.log("FAILED...", err);
-        });
+        .then((response) => {})
+        .catch((err) => {});
     })
     .catch(() => {
       alert("Something went wrong!");
     });
-  // console.log(e, redux_data);
-  // console.log(redux_data);
 };
 
 const getInterviewCandidates = (redux_data, setInterviewCandidates) => {
@@ -440,12 +456,32 @@ const handleCross = async (redux_data, v, filter, setShortlistedCandidates) => {
     role: v.role,
   };
 
-  // console.log(toSend);
+  var alltimeShorlisted = 0;
+  const all_time_rec = ref(db, `users/jobs_employer/${v.uid}`);
+  onValue(all_time_rec, async (snapshot) => {
+    if (snapshot.exists()) {
+      let alltimeDB = snapshot.val();
+      alltimeShorlisted =
+        alltimeDB?.employee_side_shorlisted !== undefined
+          ? alltimeDB.employee_side_shorlisted.employee_side_shorlisted
+          : 0;
+    } else {
+      // console.log("No Data");
+    }
+  });
+  alltimeShorlisted--;
+  // console.log(alltimeShorlisted);
 
   await set(
     ref(db, `users/jobs_employer/${redux_data.uid}/scheduleInterview/${v.uid}`),
     null
   )
+    .then(async () => {
+      await update(
+        ref(db, `users/jobs_employer/${v.uid}/employee_side_shorlisted`),
+        { employee_side_shorlisted: alltimeShorlisted }
+      );
+    })
     .then(() => {
       getJobTypeFilterCand(redux_data, setShortlistedCandidates, filter);
       send("service_0kxx7l1", "template_5yb7jp9", toSend, "gdh_CSodanmGmK83y")

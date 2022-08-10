@@ -912,6 +912,15 @@ input[type="range"]:focus {
   }
 }
 @media (min-width: 320px) and (max-width: 767px) {
+  .fillout_error_div_h4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  .fillout_error_div_h4 h4 {
+    text-align: center;
+  }
   .p-achievement-length {
     top: 0;
     /* top: -20px; */

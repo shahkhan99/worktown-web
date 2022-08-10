@@ -25,7 +25,7 @@ function EditProfileEmployee() {
     setData(redux_data);
     setEdit(false);
   };
-  // console.log(redux_data);
+  // console.log(redux_data.employee_side_all_time_shorlisted);
   return (
     <div className="epemp-main-div">
       <div className="shrt-head-div">
@@ -58,6 +58,15 @@ function EditProfileEmployee() {
                     : Object.keys(redux_data.employee_side_appointments).length}
                 </p>{" "}
                 <label>Interviews</label>
+              </div>
+              <div className="epemp-main-div-edit-main-1st-stat-inner">
+                <p>
+                  {redux_data.employee_side_shorlisted === undefined
+                    ? 0
+                    : redux_data.employee_side_shorlisted
+                        .employee_side_shorlisted}
+                </p>{" "}
+                <label>Shortlisted in</label>
               </div>
             </div>
             <div className="epemp-main-div-edit-main-1st-info">
