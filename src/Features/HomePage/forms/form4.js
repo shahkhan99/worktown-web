@@ -2,6 +2,13 @@ import React, { Component } from "react";
 import { BsBookmarkStar } from "react-icons/bs";
 import TagsInput from "react-tagsinput";
 import { timings } from ".././usefullArrays/salaryTiming";
+import {
+  back2,
+  handleSkillAdd,
+  handleSkillDefault,
+  onSelect,
+  handleNext4,
+} from "../functions/homeFunctions";
 
 export default class Form4 extends Component {
   constructor() {
@@ -59,7 +66,7 @@ export default class Form4 extends Component {
               className=" skill-set"
               value={ctx.state.skillTag}
               onChange={(e) => {
-                ctx.handleSkillAdd(e);
+                handleSkillAdd(e, ctx);
               }}
               maxTags={5}
               inputProps={{
@@ -77,7 +84,7 @@ export default class Form4 extends Component {
                           : "defSkill-map"
                       }
                       onClick={() => {
-                        ctx.handleSkillDefault(v);
+                        handleSkillDefault(v, ctx);
                       }}
                     >
                       {v}
@@ -92,7 +99,7 @@ export default class Form4 extends Component {
                           : "defSkill-map"
                       }
                       onClick={() => {
-                        ctx.handleSkillDefault(v);
+                        handleSkillDefault(v, ctx);
                       }}
                     >
                       {v}
@@ -106,7 +113,7 @@ export default class Form4 extends Component {
                           : "defSkill-map"
                       }
                       onClick={() => {
-                        ctx.handleSkillDefault(v);
+                        handleSkillDefault(v, ctx);
                       }}
                     >
                       {v}
@@ -137,7 +144,7 @@ export default class Form4 extends Component {
                   : { borderWidth: 0 }
               }
               key={i}
-              onClick={(e) => ctx.onSelect(i, e)}
+              onClick={(e) => onSelect(i, e, ctx)}
             >
               {v}
             </button>
@@ -148,16 +155,14 @@ export default class Form4 extends Component {
           <button
             type="button"
             class="a-reg-btn"
-            onClick={() => ctx.back2(fullpageApi)}
+            onClick={() => back2(fullpageApi)}
           >
             Back
           </button>
           <button
             type="button"
             class={"a-reg-btn"}
-            onClick={() =>
-              ctx.handleNext4(fullpageApi, selectedCategories, selectedSalary)
-            }
+            onClick={() => handleNext4(fullpageApi, selectedCategories, ctx)}
           >
             Next
           </button>

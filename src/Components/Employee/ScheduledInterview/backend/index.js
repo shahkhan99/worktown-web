@@ -24,7 +24,7 @@ const getArchiveCand = async (redux_data, setInterviewCandidates) => {
 const handleCross = async (redux_data, v) => {
   // console.log(redux_data, v.Phone);
   await set(
-    ref(db, `users/jobs_employer/${redux_data.uid}/archive/${v.Phone}`),
+    ref(db, `users/jobs_employer/${redux_data.uid}/archive/${v.uid}`),
     null
   );
 };

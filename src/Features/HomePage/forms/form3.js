@@ -18,6 +18,15 @@ import {
   job_optionsDM,
   job_optionsGD,
 } from ".././usefullArrays/jobOptions";
+import {
+  handleSelect,
+  handleNoCategory,
+  selectChange,
+  back,
+  _handleChange,
+  handleNext2,
+} from "../functions/homeFunctions";
+
 export default class Form3 extends Component {
   render() {
     const ctx = this.props.ctx;
@@ -60,7 +69,7 @@ export default class Form3 extends Component {
               ctx.state.JobCategory !== ""
                 ? () => {}
                 : () => {
-                    ctx.handleNoCategory(fullpageApi);
+                    handleNoCategory(fullpageApi, ctx);
                   }
             }
           >
@@ -90,7 +99,7 @@ export default class Form3 extends Component {
                     : job_options
                 }
                 isDisabled={ctx.state.JobCategory !== "" ? false : true}
-                onChange={(e) => ctx.selectChange(e.value)}
+                onChange={(e) => selectChange(e.value, ctx)}
                 id="select"
                 placeholder={
                   ctx.state.sw
@@ -100,11 +109,6 @@ export default class Form3 extends Component {
               />
             </div>
           </a>
-          {/* {this.state.jobErr && (
-              <p className="a-error-message a-error-message-j">
-                Select job category first.
-              </p>
-            )} */}
         </div>
 
         <div className="a-input-field-nxt">
@@ -143,7 +147,7 @@ export default class Form3 extends Component {
               options={pakCity}
               // isDisabled={ctx.state.sw ? false : true}
               onChange={(city) => {
-                ctx._handleChange(cityCheck, "cityValid", "city", city.value);
+                _handleChange(cityCheck, "cityValid", "city", city.value, ctx);
               }}
               id="selectCity"
               placeholder={
@@ -209,7 +213,7 @@ export default class Form3 extends Component {
               }}
             />
             <select
-              onChange={(e) => ctx.handleSelect("experience", e)}
+              onChange={(e) => handleSelect("experience", e, ctx)}
               value={ctx.state.experience}
               // className={this.sta}
               placeholder="Work Exp"
@@ -244,7 +248,7 @@ export default class Form3 extends Component {
               }}
             />
             <select
-              onChange={(e) => ctx.handleSelect("education", e)}
+              onChange={(e) => handleSelect("education", e, ctx)}
               value={ctx.state.education}
               required
             >
@@ -277,7 +281,7 @@ export default class Form3 extends Component {
               }}
             />
             <select
-              onChange={(e) => ctx.handleSelect("eng_lvl", e)}
+              onChange={(e) => handleSelect("eng_lvl", e, ctx)}
               value={ctx.state.eng_lvl}
               required
             >
@@ -295,14 +299,14 @@ export default class Form3 extends Component {
           <button
             type="button"
             class="a-reg-btn"
-            onClick={() => ctx.back(fullpageApi)}
+            onClick={() => back(fullpageApi)}
           >
             Back
           </button>
           <button
             type="button"
             class={"a-reg-btn"}
-            onClick={() => ctx.handleNext2(fullpageApi)}
+            onClick={() => handleNext2(fullpageApi, ctx)}
           >
             Next
           </button>

@@ -27,6 +27,7 @@ var allJobsCat = [];
 var jobTypeFilterCand = [];
 
 const checkUser = async (currentUser, filter, setShortlistedCandidates) => {
+  /* here it just set an array of all candidates */
   await get(child(dbRef, `users/jobs_employer`))
     .then(async (snapshot) => {
       if (snapshot.exists()) {
@@ -75,6 +76,8 @@ const MatchingCandidates = async (
   filter,
   setShortlistedCandidates
 ) => {
+  /* here it matches and filters all candidates according to the selected filter */
+
   // jobTypeFilterCand = cand.filter(
   //   (e) => e.JobType === currentUser.JobType
   // console.log(currentUser);
@@ -164,6 +167,8 @@ const MatchingCandidates = async (
 
   // console.log(checking);
 
+  /* removing duplicates */
+
   matchedSkilled = await checking.reduce((acc, current) => {
     const x = acc.find((item) => item.Email === current.Email);
     if (!x) {
@@ -172,6 +177,8 @@ const MatchingCandidates = async (
       return acc;
     }
   }, []);
+
+  /* removing archived and shortlisted candidates */
 
   if (arrArchResult.length || arrSchIntResult.length) {
     finalMatch = arrArchResult.concat(arrSchIntResult);
@@ -182,7 +189,7 @@ const MatchingCandidates = async (
     jobTypeFilterCand.push(
       ...matchedSkilled2.filter((e) => e.Experience.includes(userExp))
     );
-
+    /* combining both freshers and 0-1 years candidates */
     if (userExp === "Fresher") {
       jobTypeFilterCand.push(
         ...matchedSkilled2.filter((e) => e.Experience.includes("0-1 years"))
@@ -209,6 +216,8 @@ const MatchingCandidates = async (
       );
     }
   }
+
+  /* setting or calling the setShortlisted state or function  */
   setShortlistedCandidates(jobTypeFilterCand);
   // console.log(jobTypeFilterCand);
 };
@@ -218,6 +227,7 @@ const getJobTypeFilterCand = async (
   setShortlistedCandidates,
   filterType
 ) => {
+  /* calling checkUser to get all candidates */
   await checkUser(currentUser, filterType, setShortlistedCandidates);
   // setShortlistedCandidates(jobTypeFilterCand);
   // console.log(jobTypeFilterCand);
@@ -332,8 +342,6 @@ const handleReject = async (
   // console.log(e, redux_data);
 };
 
-// INTERVIEW SIDE BACKEND
-
 const handleAccept = async (
   e,
   redux_data,
@@ -370,6 +378,9 @@ const handleAccept = async (
     role: role[0],
   };
   var alltimeShorlisted = 0;
+
+  /* updating all time shortlisting record of candidate */
+
   const all_time_rec = ref(db, `users/jobs_employer/${e.uid}`);
   onValue(all_time_rec, async (snapshot) => {
     if (snapshot.exists()) {
@@ -427,6 +438,9 @@ const getInterviewCandidates = (redux_data, setInterviewCandidates) => {
           let appResult = snapshot.val();
           let appArrResult = Object.values(appResult);
           // console.log(appArrResult);
+
+          /* removing appointment array candidates from shorlisted candidates data */
+
           if (appArrResult.length) {
             let finalInterviewCandidate = arrResult.filter((e) => {
               return !appArrResult.some((v) => v.Email === e.Email);
@@ -536,6 +550,8 @@ const handleScheduleInterviewVirtualBtn = async (
   let finalEndDate = `${formattedDate}T${endTime}`;
 
   // console.log(finalStartDate, finalEndDate);
+
+  /* scheduling a google meet link and a calender event */
 
   gapi.load("client:auth2", () => {
     // console.log("loaded client", gapi);
@@ -731,6 +747,8 @@ const handleScheduleInterviewBtn = async (
 
   // console.log(employee_data);
   // console.log(finalStartDate, finalEndDate);
+
+  /* scheduling a calender event */
 
   gapi.load("client:auth2", () => {
     // console.log("loaded client", gapi);

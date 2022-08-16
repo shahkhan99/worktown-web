@@ -5,7 +5,7 @@ import { set_current_user_data } from "../../store/action/index";
 import Left_navigation from "../../Components/LeftNavigation/navigation";
 import Stepper from "../../Components/Employer/CreateAContract/Emp_Create_Contract_Stepper/stepper";
 import ShortlistedCandidates from "../../Components/Employer/Candidates/ShortlistedCandidates/ShortlistedCandidates";
-import ViewJobsEmployee from "../../Components/Employee/Jobs/index";
+
 import Archieve from "../../Components/Employer/Archieve/index";
 import EditProfileEmployer from "../../Components/Employer/EditProfileEmployer/EditProfileEmployer";
 import ViewJobsEmployer from "../../Components/Employer/ViewJobsEmployer/ViewJobsEmployer";
@@ -28,7 +28,6 @@ function Employee_DB() {
   const Components = [
     <Home />,
     <Stepper />,
-    <ViewJobsEmployee />,
     <Archieve />,
     <EditProfileEmployer />,
     <ViewJobsEmployer />,

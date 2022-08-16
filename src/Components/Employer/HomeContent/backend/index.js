@@ -60,6 +60,8 @@ const SCOPES = "https://www.googleapis.com/auth/calendar";
 const CancelAppointment = (redux_data, candidate, setAppt) => {
   // console.log(redux_data, candidate);
 
+  /* removing event from calendar using event id */
+
   gapi.load("client:auth2", async () => {
     // console.log("loaded client", gapi);
 
@@ -126,6 +128,9 @@ const CancelAppointment = (redux_data, candidate, setAppt) => {
 
 const UpdateAppointments = (appt, redux_data, setAppt) => {
   let date = "";
+
+  /* Removing past appointments when component has loaded */
+
   const today = moment(new Date());
   appt.forEach((v) => {
     date = v.Interview_Details.date;

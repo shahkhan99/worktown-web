@@ -4,6 +4,8 @@ import { getDatabase } from "firebase/database";
 import firebase from "../../../config/firebase";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import card from ".././usefullArrays/cards";
+import { handleCard } from "../functions/homeFunctions";
+
 const db = ref(getDatabase());
 
 export default class Form1 extends Component {
@@ -15,30 +17,12 @@ export default class Form1 extends Component {
     return (
       <div className="form1">
         <h1>Select Job Category</h1>
-        {/* <a
-          // className="change-a"
-          onClick={
-            this.state.employee
-              ? () => {}
-              : this.state.employer
-              ? () => {}
-              : () => {
-                  this.handleNoEmp(fullpageApi);
-                }
-          }
-        > */}
+
         <div className="form1_Card_main_div">
           {card.map((v, i) => (
             <div
-              // isDisabled={
-              //   this.state.employer
-              //     ? false
-              //     : this.state.employee
-              //     ? false
-              //     : true
-              // }
               className="card"
-              onClick={() => ctx.handleCard(fullpageApi, v)}
+              onClick={() => handleCard(fullpageApi, v, ctx)}
               style={
                 v.name === "Software & IT Jobs" && ctx.state.sw
                   ? {
@@ -76,7 +60,6 @@ export default class Form1 extends Component {
               </h4>
             </div>
           ))}
-          {/* </a> */}
         </div>
       </div>
     );

@@ -258,29 +258,4 @@ const ResetPassword = (email) => {
   }
 };
 
-// EMPLOYEE BACKEND
-
-const getEmployees = async (setCheckUser) => {
-  // console.log("running ...");
-  await get(child(dbRef, `users/jobs_users`))
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        // console.log("running ...", snapshot.val());
-        setCheckUser(snapshot.val());
-      } else {
-        // console.log("No data available");
-      }
-    })
-    .catch((error) => {
-      // console.error(error);
-    });
-};
-
-export {
-  getUsers,
-  handleEmail,
-  handleRegister,
-  handleLogin,
-  ResetPassword,
-  getEmployees,
-};
+export { getUsers, handleEmail, handleRegister, handleLogin, ResetPassword };

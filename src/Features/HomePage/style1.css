@@ -808,6 +808,11 @@ input[type="range"]:focus {
 }
 
 @media (min-width: 1051px) and (max-width: 1420px) {
+  .fillout_error_div_h4 {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
   .salary-div {
     width: 90%;
     position: relative;

@@ -13,6 +13,18 @@ import {
   JobDescCheck,
 } from "../validation";
 import { Saltimings } from "../usefullArrays/salaryTiming";
+import {
+  handleSalaryChange,
+  _handleChange,
+  onSelectSalary,
+} from "../functions/homeFunctions";
+import {
+  back1,
+  handleAchievementAdd,
+  handleChange,
+} from "../functions/homeFunctions";
+import { handleNext3 } from "../backend/sheet_db_backend";
+
 export default class Form1 extends Component {
   constructor() {
     super();
@@ -85,11 +97,12 @@ export default class Form1 extends Component {
               onChange={
                 // (e) => console.log(e.target.value.length)
                 (name) => {
-                  ctx._handleChange(
+                  _handleChange(
                     JobDescCheck,
                     "jobDescValid",
                     "jobDesc",
-                    name.target.value
+                    name.target.value,
+                    ctx
                   );
                 }
               }
@@ -150,7 +163,7 @@ export default class Form1 extends Component {
               onChange={
                 // (e) => console.log(e.target.value.length)
                 (e) => {
-                  ctx.handleAchievementAdd(e.target.value);
+                  handleAchievementAdd(e.target.value, ctx);
                   this.setState({ show: false });
                 }
               }
@@ -200,7 +213,7 @@ export default class Form1 extends Component {
                     ? { border: "0.3px solid red" }
                     : { borderWidth: 0 }
                 }
-                onClick={() => ctx.onSelectSalary(i, selectedSalary)}
+                onClick={() => onSelectSalary(i, ctx)}
               >
                 {v}
               </button>
@@ -239,7 +252,7 @@ export default class Form1 extends Component {
                     : { backgroundColor: "#f0bd3a" }
                 }
                 step={step_val}
-                onChange={(e) => ctx.handleChange(e)}
+                onChange={(e) => handleChange(e, ctx)}
               />
             </div>
             <h3
@@ -301,7 +314,7 @@ export default class Form1 extends Component {
               value={ctx.state.from}
               placeholder="Rs"
               displayType={"input"}
-              onChange={(e) => ctx.handleSalaryChange("from", e.target.value)}
+              onChange={(e) => handleSalaryChange("from", e.target.value, ctx)}
               thousandSeparator={true}
               prefix={"Rs "}
               style={
@@ -318,7 +331,7 @@ export default class Form1 extends Component {
               value={ctx.state.to}
               placeholder="Rs"
               displayType={"input"}
-              onChange={(e) => ctx.handleSalaryChange("to", e.target.value)}
+              onChange={(e) => handleSalaryChange("to", e.target.value, ctx)}
               thousandSeparator={true}
               prefix={"Rs "}
               style={
@@ -339,7 +352,7 @@ export default class Form1 extends Component {
           <button
             type="button"
             class="a-reg-btn"
-            onClick={() => ctx.back1(fullpageApi)}
+            onClick={() => back1(fullpageApi)}
           >
             Back
           </button>
@@ -347,7 +360,7 @@ export default class Form1 extends Component {
             type="button"
             class={"a-reg-btn"}
             onClick={() =>
-              ctx.handleNext3(fullpageApi, selectedCategories, selectedSalary)
+              handleNext3(fullpageApi, selectedCategories, selectedSalary, ctx)
             }
           >
             Submit

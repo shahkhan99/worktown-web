@@ -6,6 +6,8 @@ import { set_current_user_data } from "../../../store/action/index";
 import { MdLocationOn } from "react-icons/md";
 import { BsEnvelope, BsFillTelephoneFill } from "react-icons/bs";
 import { Button } from "@mui/material";
+import Select from "react-select";
+import pakCities from "../../../Features/HomePage/usefullArrays/pakCities";
 
 function EditProfileEmployer() {
   const dispatch = useDispatch();
@@ -277,18 +279,14 @@ function EditProfileEmployer() {
                   className="div-input-icon-emp-dash-edit-prof"
                   style={edit ? { display: "flex" } : { display: "none" }}
                 >
-                  <input
-                    id="name"
-                    name="name"
+                  <Select
+                    options={pakCities}
                     onChange={(name) => {
-                      setData({ ...data, City: name.target.value });
+                      setData({ ...data, City: name.value });
                     }}
-                    type="text"
-                    style={{
-                      fontFamily: "poppins",
-                    }}
-                    className=""
-                    value={data.City}
+                    id="select"
+                    className="salary_opt_edit_prof_det"
+                    placeholder={data.City}
                   />
                 </div>
               </div>

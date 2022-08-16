@@ -15,7 +15,7 @@ const db = getDatabase();
 
 const SaveUpdatedData = async (data, dispatch, set_current_user_data) => {
   //   console.log(data.Phone);
-  await update(ref(db, `users/jobs_employer/${data.Phone}/`), data)
+  await update(ref(db, `users/jobs_employer/${data.uid}/`), data)
     .then(() => {
       dispatch(set_current_user_data(data));
     })
@@ -30,6 +30,8 @@ const SaveUpdatedData = async (data, dispatch, set_current_user_data) => {
 const UpdatePassword = async (newPassword) => {
   let userProvidedPassword = prompt("Enter your current password");
   // console.log(userProvidedPassword);
+
+  // Reauthenticating User to change password
 
   const credential = EmailAuthProvider.credential(
     auth.currentUser.email,

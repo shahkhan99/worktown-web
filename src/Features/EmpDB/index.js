@@ -12,7 +12,6 @@ import EditProfessionalDetails from "../../Components/Employee/EditProfessionalD
 import ViewCV from "../../Components/Employee/ViewYourCV/viewCV";
 import ViewJobsEmployer from "../../Components/Employer/ViewJobsEmployer/ViewJobsEmployer";
 import ScheduledInterview from "../../Components/Employee/ScheduledInterview/ScheduledInterview";
-import ViewJobsEmployee from "../../Components/Employee/Jobs/index";
 import Home from "../../Components/Employer/HomeContent/home";
 import Home1 from "../../Components/Employee/HomeContent/home";
 import Loading from "../../assets/Loader/worktown-loader.gif";

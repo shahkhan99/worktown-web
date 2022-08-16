@@ -11,9 +11,13 @@ import female from "../../../assets/icons/woman.png";
 import { MdOutlineBusinessCenter } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
-
 import { FiSmartphone } from "react-icons/fi";
-
+import {
+  handleFemale,
+  handleMale,
+  _handleChange,
+} from "../functions/homeFunctions";
+import { handleNext1 } from "../backend/sheet_db_backend";
 export default class Form3 extends Component {
   render() {
     const ctx = this.props.ctx;
@@ -38,9 +42,7 @@ export default class Form3 extends Component {
         >
           <div
             className={ctx.state.male ? "radio-male" : "radio-in"}
-            onClick={
-              ctx.state.redux_data === null ? () => ctx.handleMale() : ""
-            }
+            onClick={ctx.state.redux_data === null ? () => handleMale(ctx) : ""}
             style={
               ctx.state.radTErr
                 ? { border: "1px solid red" }
@@ -61,7 +63,7 @@ export default class Form3 extends Component {
             disabled={ctx.state.redux_data !== null && true}
             className={ctx.state.female ? "radio-female" : "radio-in"}
             onClick={
-              ctx.state.redux_data === null ? () => ctx.handleFemale() : ""
+              ctx.state.redux_data === null ? () => handleFemale(ctx) : ""
             }
             style={
               ctx.state.radTErr
@@ -125,11 +127,12 @@ export default class Form3 extends Component {
                 id="company"
                 name="company"
                 onChange={(name) => {
-                  ctx._handleChange(
+                  _handleChange(
                     companyCheck,
                     "companyValid",
                     "company",
-                    name.target.value
+                    name.target.value,
+                    ctx
                   );
                 }}
                 type="text"
@@ -188,11 +191,12 @@ export default class Form3 extends Component {
                 id="name"
                 name="name"
                 onChange={(name) => {
-                  ctx._handleChange(
+                  _handleChange(
                     nameCheck,
                     "nameValid",
                     "name",
-                    name.target.value
+                    name.target.value,
+                    ctx
                   );
                 }}
                 type="text"
@@ -251,11 +255,12 @@ export default class Form3 extends Component {
                   name="phone"
                   placeholder="03001234567"
                   onChange={(phone) => {
-                    ctx._handleChange(
+                    _handleChange(
                       phoneCheck,
                       "phoneValid",
                       "phone",
-                      phone.target.value
+                      phone.target.value,
+                      ctx
                     );
                   }}
                   disabled={ctx.state.redux_data !== null && true}
@@ -317,11 +322,12 @@ export default class Form3 extends Component {
                     : null
                 }
                 onChange={(email) => {
-                  ctx._handleChange(
+                  _handleChange(
                     emailCheck,
                     "emailValid",
                     "email",
-                    email.target.value
+                    email.target.value,
+                    ctx
                   );
                 }}
                 type="email"
@@ -347,7 +353,7 @@ export default class Form3 extends Component {
             <button
               type="button"
               class="a-reg-btn"
-              onClick={() => ctx.handleNext1(fullpageApi)}
+              onClick={() => handleNext1(fullpageApi, ctx)}
             >
               Next
             </button>
